@@ -2,11 +2,13 @@ package tui
 
 import (
 	"fmt"
+	"os"
+
+	tea "github.com/charmbracelet/bubbletea"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
-	tea "github.com/charmbracelet/bubbletea"
 )
 
 type model struct {
@@ -15,7 +17,7 @@ type model struct {
 	evaluator config.TriggerEvaluator
 	executor  executor.UseCaseExecutor
 
-	cursor   int // which usecase is selected
+	cursor   int
 	quitting bool
 }
 
@@ -33,12 +35,10 @@ func NewModel(
 	}
 }
 
-// Init is called when the program starts; return any initial command.
 func (m model) Init() tea.Cmd {
 	return nil
 }
 
-// Update handles incoming messages (keyboard, etc.)
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
@@ -59,10 +59,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			// Run the selected use case
 			if len(m.usecases) > 0 {
 				uc := m.usecases[m.cursor]
-				triggered, err := m.evaluator.EvaluateTrigger(uc.Trigger, m.state.ToMap())
+
+				triggered, err := m.evaluator.EvaluateTrigger(uc.Trigger, m.state)
 				if err != nil {
-					fmt.Println("Trigger Eval Error:", err)
-				} else if triggered {
+					fmt.Println("Trigger evaluation error:", err)
+					// We can just return to let Bubble Tea redraw.
+					return m, nil
+				}
+
+				if triggered {
 					m.executor.ExecuteUseCase(uc)
 				} else {
 					fmt.Printf("Trigger not satisfied for usecase: %s\n", uc.Name)
@@ -73,7 +78,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-// View draws the UI
 func (m model) View() string {
 	if m.quitting {
 		return "Bye!\n"
@@ -93,10 +97,16 @@ func (m model) View() string {
 }
 
 // RunTUI is a helper to run the Bubble Tea program
-func RunTUI(initialModel model) error {
-	p := tea.NewProgram(initialModel)
-	if err := p.Start(); err != nil {
-		return err
+func RunTUI(m model) error {
+	// Open the controlling terminal directly
+	tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
+	if err != nil {
+		return fmt.Errorf("unable to open /dev/tty: %w", err)
 	}
-	return nil
+	defer tty.Close()
+
+	// Create Program using /dev/tty for output (and input, if desired)
+	p := tea.NewProgram(m, tea.WithInput(tty), tea.WithOutput(tty))
+	_, err = p.Run()
+	return err
 }

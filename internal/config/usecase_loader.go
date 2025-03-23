@@ -8,24 +8,42 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/viper"
-	"gopkg.in/yaml.v3"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
+// UseCaseLoader knows how to scan a directory and load all YAML usecases.
 type UseCaseLoader interface {
 	LoadAll(ctx context.Context) ([]*domain.UseCase, error)
 }
 
+// NewUseCaseLoader returns a loader that reads all .yaml/.yml files under dir.
 func NewUseCaseLoader(dir string) UseCaseLoader {
-	return &useCaseLoader{dir: dir}
+	return &usecaseLoader{dir: dir}
 }
 
-type useCaseLoader struct {
+// LoadUseCase reads a single YAML usecase from disk into a domain.UseCase.
+func LoadUseCase(ctx context.Context, configFile string) (*domain.UseCase, error) {
+	v := viper.New()
+	v.SetConfigFile(configFile)
+
+	if err := v.ReadInConfig(); err != nil {
+		return nil, fmt.Errorf("failed to read usecase file %s: %w", configFile, err)
+	}
+
+	var uc domain.UseCase
+	if err := v.Unmarshal(&uc); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal usecase %s: %w", configFile, err)
+	}
+
+	return &uc, nil
+}
+
+type usecaseLoader struct {
 	dir string
 }
 
-func (l *useCaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) {
+func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) {
 	var usecases []*domain.UseCase
 
 	err := filepath.Walk(l.dir, func(path string, info os.FileInfo, err error) error {
@@ -35,35 +53,23 @@ func (l *useCaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) 
 		if info.IsDir() {
 			return nil
 		}
-		ext := filepath.Ext(info.Name())
+
+		ext := filepath.Ext(path)
 		if ext != ".yaml" && ext != ".yml" {
 			return nil
 		}
-		uc, err := l.loadOne(path)
+
+		uc, err := LoadUseCase(ctx, path)
 		if err != nil {
-			log.Printf("Error loading usecase from %s: %v", path, err)
+			log.Printf("error loading usecase %s: %v", path, err)
 			return nil
 		}
-		log.Printf("Loaded usecase: %s", uc.Name)
 		usecases = append(usecases, uc)
 		return nil
 	})
 	if err != nil {
-		return nil, fmt.Errorf("failed to walk usecases dir: %w", err)
+		return nil, fmt.Errorf("failed walking usecases dir: %w", err)
 	}
 
 	return usecases, nil
-}
-
-func (l *useCaseLoader) loadOne(configFile string) (*domain.UseCase, error) {
-	v := viper.New()
-	v.SetConfigFile(configFile)
-	if err := v.ReadInConfig(); err != nil {
-		return nil, fmt.Errorf("failed to read config: %w", err)
-	}
-	var uc domain.UseCase
-	if err := v.Unmarshal(&uc); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal usecase: %w", err)
-	}
-	return &uc, nil
 }
