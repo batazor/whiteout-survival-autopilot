@@ -2,7 +2,7 @@ name: Click to allience help
 
 node: main_city
 
-trigger: "state.isAllianceHelpNeeded == true"
+trigger: "alliance.state.isNeedSupport == true"
 
 ttl: 0
 

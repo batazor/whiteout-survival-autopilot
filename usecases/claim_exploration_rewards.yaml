@@ -2,7 +2,7 @@ name: Claim Exploration Rewards
 
 node: exploration
 
-trigger: "state.claimButtonIsGreen == true"
+trigger: "exploration.state.isClaimButtonGreen == true"
 
 ttl: 30m
 

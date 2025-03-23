@@ -3,16 +3,17 @@ package main
 import (
 	"log"
 
-	"github.com/batazor/whiteout-survival-autopilot/internal/app"
+	teaapp "github.com/batazor/whiteout-survival-autopilot/internal/tea"
 )
 
 // Minimal entry point: we just create the App and run it.
 func main() {
-	application, err := app.NewApp()
+	app, err := teaapp.NewApp()
 	if err != nil {
-		log.Fatalf("failed to create application: %v", err)
+		log.Fatalf("init failed: %v", err)
 	}
-	if err := application.Run(); err != nil {
-		log.Fatalf("application error: %v", err)
+
+	if err := app.Run(); err != nil {
+		log.Fatalf("runtime failed: %v", err)
 	}
 }

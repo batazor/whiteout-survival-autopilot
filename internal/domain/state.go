@@ -13,18 +13,29 @@ type Account struct {
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
-	ID        int           `yaml:"id"`        // Уникальный идентификатор персонажа (fid).
-	Nickname  string        `yaml:"nickname"`  // Псевдоним персонажа.
-	Avatar    string        `yaml:"avatar"`    // URL аватара персонажа.
-	Power     int           `yaml:"power"`     // Мощь персонажа.
-	VIPLevel  int           `yaml:"vipLevel"`  // VIP-уровень.
-	Resources Resources     `yaml:"resources"` // Ресурсы персонажа.
-	Gems      int           `yaml:"gems"`      // Количество гемов (премиум-валюта).
-	Heroes    HeroesState   `yaml:"heroes"`    // Состояние героев.
-	Messages  MessagesState `yaml:"messages"`  // Состояние сообщений.
-	Alliance  Alliance      `yaml:"alliance"`  // Данные об альянсе.
-	Buildings Buildings     `yaml:"buildings"` // Здания персонажа.
-	Researchs Researchs     `yaml:"researchs"` // Уровни исследований.
+	ID          int           `yaml:"id"`          // Уникальный идентификатор персонажа (fid).
+	Nickname    string        `yaml:"nickname"`    // Псевдоним персонажа.
+	Avatar      string        `yaml:"avatar"`      // URL аватара персонажа.
+	Power       int           `yaml:"power"`       // Мощь персонажа.
+	VIPLevel    int           `yaml:"vipLevel"`    // VIP-уровень.
+	Resources   Resources     `yaml:"resources"`   // Ресурсы персонажа.
+	Gems        int           `yaml:"gems"`        // Количество гемов (премиум-валюта).
+	Exploration Exploration   `yaml:"exploration"` // Исследование мира.
+	Heroes      HeroesState   `yaml:"heroes"`      // Состояние героев.
+	Messages    MessagesState `yaml:"messages"`    // Состояние сообщений.
+	Alliance    Alliance      `yaml:"alliance"`    // Данные об альянсе.
+	Buildings   Buildings     `yaml:"buildings"`   // Здания персонажа.
+	Researchs   Researchs     `yaml:"researchs"`   // Уровни исследований.
+}
+
+// Exploration описывает уровень исследования мира.
+type Exploration struct {
+	State ExplorationState `yaml:"state"`
+}
+
+// ExplorationState описывает состояние исследования мира.
+type ExplorationState struct {
+	IsClaimButtonGreen bool `yaml:"isClaimButtonGreen"` // Признак доступности кнопки "Забрать".
 }
 
 // Resources описывает ресурсы, которыми владеет персонаж.
@@ -72,9 +83,9 @@ type MembersInfo struct {
 
 // AllianceState описывает состояние альянса.
 type AllianceState struct {
-	IsAlliance bool `yaml:"isAlliance"` // Признак участия в альянсе.
-	IsWar      int  `yaml:"isWar"`      // Количество текущих войн.
-	IsChests   int  `yaml:"isChests"`   // Количество доступных сундуков.
+	IsNeedSupport bool `yaml:"isNeedSupport"` // Признак участия в альянсе.
+	IsWar         int  `yaml:"isWar"`         // Количество текущих войн.
+	IsChests      int  `yaml:"isChests"`      // Количество доступных сундуков.
 }
 
 // Buildings представляет собой набор зданий персонажа.

@@ -11,6 +11,9 @@ accounts:
           iron: 50000
           meat: 8000
         gems: 100
+        exploration:
+          state:
+            isClaimButtonGreen: true
         heroes:
           state:
             isHeroes: false  # признак, что герой не открыт или не активен
@@ -25,7 +28,7 @@ accounts:
             count: 15
             max: 30
           state:
-            isAlliance: true
+            isNeedSupport: true
             isWar: 1        # или более детальная структура для отслеживания войн
             isChests: 3     # количество доступных сундуков
         buildings:
@@ -68,7 +71,7 @@ accounts:
             count: 15
             max: 30
           state:
-            isAlliance: true
+            isNeedSupport: true
             isWar: 1
             isChests: 0
         buildings:

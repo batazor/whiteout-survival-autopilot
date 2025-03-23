@@ -2,8 +2,6 @@ name: Exploration Battle
 
 node: exploration
 
-trigger: "state.isExplorationAvailable == true"
-
 ttl: 30m
 
 steps:
