@@ -143,3 +143,7 @@ func (g *GameFSM) Transition(event Event) error {
 func (g *GameFSM) Current() string {
 	return g.fsm.Current()
 }
+
+func (g *GameFSM) ForceTo(target string) {
+	g.fsm.SetState(target)
+}

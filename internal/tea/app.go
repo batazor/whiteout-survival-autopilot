@@ -62,3 +62,12 @@ func (a *App) Run() error {
 	_, err := p.Run()
 	return err
 }
+
+// AllCharacters returns all characters across all accounts
+func (a *App) AllCharacters() []domain.Gamer {
+	var characters []domain.Gamer
+	for _, acc := range a.state.Accounts {
+		characters = append(characters, acc.Characters...)
+	}
+	return characters
+}

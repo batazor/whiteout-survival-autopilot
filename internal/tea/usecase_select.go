@@ -18,16 +18,17 @@ type UsecaseListModel struct {
 	err       error
 	quitting  bool
 	fromMenu  tea.Model
+	charIndex int
 }
 
-func NewUsecaseListModel(app *App, fromMenu tea.Model) tea.Model {
+func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) tea.Model {
 	ucs, err := app.loader.LoadAll(app.ctx)
 	results := make([]string, len(ucs))
 
 	if err == nil {
 		for i, uc := range ucs {
 			if uc.Trigger == "" {
-				results[i] = "✅" // No trigger = always valid
+				results[i] = "✅"
 				continue
 			}
 			ok, err := app.evaluator.EvaluateTrigger(uc.Trigger, app.state)
@@ -52,7 +53,8 @@ func NewUsecaseListModel(app *App, fromMenu tea.Model) tea.Model {
 		usecases:  ucs,
 		triggerOK: results,
 		err:       err,
-		fromMenu:  fromMenu,
+		fromMenu:  from,
+		charIndex: characterIndex, // NEW
 	}
 }
 
@@ -78,6 +80,14 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case "enter":
 			m.selected = m.usecases[m.cursor]
+
+			// Always use the first character (index 0) for now
+			if err := m.app.runUsecase(m.cursor, m.charIndex); err != nil {
+				m.app.logger.Error("failed to run usecase",
+					slog.String("name", m.selected.Name),
+					slog.Any("error", err))
+			}
+
 			return m.fromMenu, nil // in the future: go to character select
 		}
 	}

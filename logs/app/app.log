@@ -15,3 +15,6 @@
 {"time":"2025-03-24T00:53:47.957173+08:00","level":"INFO","msg":"App initialized","accounts":2}
 {"time":"2025-03-24T00:53:49.165426+08:00","level":"ERROR","msg":"trigger eval error","usecase":"Exploration Battle","trigger":"state.isExplorationAvailable == true","error":"compile error: ERROR: <input>:1:1: undeclared reference to 'state' (in container '')\n | state.isExplorationAvailable == true\n | ^"}
 {"time":"2025-03-24T00:54:32.679422+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:29:54.493919+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:31:06.124849+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:31:47.014393+08:00","level":"INFO","msg":"App initialized","accounts":2}

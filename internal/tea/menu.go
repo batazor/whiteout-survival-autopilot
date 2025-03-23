@@ -51,7 +51,7 @@ func (m MenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			switch m.cursor {
 			case 0:
-				return NewUsecaseListModel(m.app, m), nil
+				return NewCharacterSelectModel(m.app, m), nil
 			case 3:
 				m.quitting = true
 				return m, tea.Quit
