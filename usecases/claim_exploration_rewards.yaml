@@ -1,0 +1,14 @@
+name: Claim Exploration Rewards
+
+node: exploration
+
+trigger: "state.claimButtonIsGreen == true"
+
+ttl: 30m
+
+steps:
+  - click: claim_button       # Click the claim button on the exploration screen.
+  - click: rewards_button     # Click the rewards button to collect the rewards.
+  - click: exploration_back   # Navigate back using the exploration layout back action.
+
+final_node: main_menu

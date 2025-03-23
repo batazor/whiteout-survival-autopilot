@@ -1,0 +1,12 @@
+name: Claim Exploration Rewards
+
+node: exploration
+
+trigger: "state.claimButtonIsGreen == true"
+
+steps:
+  - click: claim_button       # Нажатие кнопки получения наград на экране исследований.
+  - click: rewards_button     # Нажатие кнопки для сбора наград.
+  - click: exploration_back   # Возврат в главное меню через действие exploration_back.
+
+final_node: main_menu
