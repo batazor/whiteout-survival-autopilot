@@ -15,6 +15,11 @@ func main() {
 	ctx := context.Background()
 	usecasesDir := "usecases"
 
+	// TODO: read db/state.yaml
+	// made request for every characters
+	// get value
+	// set value to db/state.yaml
+
 	var usecases []*config.UseCase
 
 	// Ищем все YAML-файлы в каталоге usecases.
