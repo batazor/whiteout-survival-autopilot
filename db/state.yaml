@@ -83,7 +83,7 @@ accounts:
             level: 2
           # ...
   - email: "user2@gmail.com"
-    gamers:
+    characters:
       - id: 423382817
         # ... аналогичная структура
 

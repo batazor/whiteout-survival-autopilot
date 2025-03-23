@@ -7,13 +7,14 @@ type Accounts struct {
 
 // Account описывает аккаунт с электронной почтой и списком игровых персонажей (gamers).
 type Account struct {
-	Email  string  `yaml:"email"`  // Электронная почта аккаунта.
-	Gamers []Gamer `yaml:"gamers"` // Игровые персонажи, связанные с аккаунтом.
+	Email      string  `yaml:"email"`      // Электронная почта аккаунта.
+	Characters []Gamer `yaml:"characters"` // Игровые персонажи, связанные с аккаунтом.
 }
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
-	ID        int           `yaml:"id"`        // Уникальный идентификатор персонажа.
+	ID        int           `yaml:"id"`        // Уникальный идентификатор персонажа (fid).
+	Nickname  string        `yaml:"nickname"`  // Псевдоним персонажа.
 	Avatar    string        `yaml:"avatar"`    // URL аватара персонажа.
 	Power     int           `yaml:"power"`     // Мощь персонажа.
 	VIPLevel  int           `yaml:"vipLevel"`  // VIP-уровень.
