@@ -7,8 +7,7 @@ import (
 )
 
 var menuChoices = []string{
-	"List Usecases",
-	"List Characters",
+	"Start Bot",
 	"View State",
 	"Quit",
 }
@@ -50,9 +49,11 @@ func (m MenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case "enter":
 			switch m.cursor {
-			case 0:
-				return NewCharacterSelectModel(m.app, m), nil
-			case 3:
+			case 0: // Start Bot: character -> usecase
+				return NewCharacterSelectModel(m.app), nil
+			case 1: // View state
+				m.outputLog = fmt.Sprintf("Accounts: %d", len(m.app.state.Accounts))
+			case 2: // Quit
 				m.quitting = true
 				return m, tea.Quit
 			}
@@ -70,9 +71,9 @@ func (m MenuModel) View() string {
 	s += "Choose an option:\n\n"
 
 	for i, choice := range menuChoices {
-		cursor := " " // no cursor
+		cursor := " "
 		if m.cursor == i {
-			cursor = ">" // selected
+			cursor = ">"
 		}
 		s += fmt.Sprintf("%s %s\n", cursor, choice)
 	}

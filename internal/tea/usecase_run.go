@@ -27,7 +27,7 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 
 	// Step 1: Print current FSM state
 	current := a.gameFSM.Current()
-	fmt.Printf("\U0001F4CD Current Screen: %s\n", current)
+	fmt.Printf("\U0001F4CD Current Screen: %s \n", current)
 
 	// Step 2: Init usecase logger
 	ucLogger, err := logger.InitializeLogger(usecase.Name)

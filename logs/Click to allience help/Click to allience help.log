@@ -1,0 +1,16 @@
+{"time":"2025-03-24T01:37:28.553286+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:37:28.855106+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:37:33.736723+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:37:34.038938+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:37:45.40695+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:37:45.709439+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:38:41.719855+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:38:42.022103+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:45:38.53456+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:45:38.839391+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:48:31.15798+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:48:31.460125+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:48:43.502991+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:48:43.805372+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:49:08.103646+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"main_city"}
+{"time":"2025-03-24T01:49:08.406878+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}

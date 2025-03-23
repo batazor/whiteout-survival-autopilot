@@ -9,14 +9,12 @@ import (
 type CharacterSelectModel struct {
 	app       *App
 	cursor    int
-	fromMenu  tea.Model
 	charCount int
 }
 
-func NewCharacterSelectModel(app *App, fromMenu tea.Model) tea.Model {
+func NewCharacterSelectModel(app *App) tea.Model {
 	return &CharacterSelectModel{
 		app:       app,
-		fromMenu:  fromMenu,
 		cursor:    0,
 		charCount: len(app.AllCharacters()),
 	}
@@ -31,7 +29,7 @@ func (m *CharacterSelectModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "q", "ctrl+c":
-			return m.fromMenu, nil
+			return nil, tea.Quit
 		case "up":
 			if m.cursor > 0 {
 				m.cursor--
@@ -60,6 +58,6 @@ func (m *CharacterSelectModel) View() string {
 			cursor, i+1, char.Nickname, char.Power, char.VIPLevel)
 	}
 
-	s += "\n↑ ↓ to move • Enter to select • q to back"
+	s += "\n↑ ↓ to move • Enter to select • q to quit"
 	return s
 }

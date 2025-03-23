@@ -1,0 +1,4 @@
+{"time":"2025-03-24T01:38:52.897397+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T01:38:53.801557+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}
+{"time":"2025-03-24T01:45:41.409762+08:00","level":"INFO","msg":"Usecase Start","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T01:45:42.312657+08:00","level":"INFO","msg":"Usecase Finished","final_node":""}

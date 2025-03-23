@@ -1,96 +1,119 @@
 accounts:
-  - email: "user1@gmail.com"
-    characters:
-      - id: 401227964
-        avatar: "url_to_avatar_1"
-        nickname: "Player1"
-        power: 123
-        vipLevel: 6
-        resources:
-          wood: 100000
-          food: 250000
-          iron: 50000
-          meat: 8000
-        gems: 100
-        exploration:
-          state:
-            isClaimButtonGreen: true
-        heroes:
-          state:
-            isHeroes: false  # признак, что герой не открыт или не активен
-        messages:
-          state:
-            isNewMessage: true
-            isNewReports: true
-        alliance:
-          name: "Relax"
-          power: 500
-          members:
-            count: 15
-            max: 30
-          state:
-            isNeedSupport: true
-            isWar: 1        # или более детальная структура для отслеживания войн
-            isChests: 3     # количество доступных сундуков
-        buildings:
-          storehouse:
-            level: 23
-            power: 123000
-          barracks:
-            level: 10
-            power: 40000
-          # ... другие здания
-        researchs:
-          battle:
-            level: 5
-            # ...
-          economy:
-            level: 3
-            # ...
-          # ... другие ветки исследований
-      - id: 423382817
-        nickname: "Player2"
-        avatar: "url_to_avatar_2"
-        power: 987
-        vipLevel: 4
-        resources:
-          wood: 5000
-          food: 7000
-          iron: 2000
-          meat: 1000
-        gems: 0
-        heroes:
-          state:
-            isHeroes: true
-        messages:
-          state:
-            isNewMessage: false
-            isNewReports: false
-        alliance:
-          name: "Relax"
-          power: 500
-          members:
-            count: 15
-            max: 30
-          state:
-            isNeedSupport: true
-            isWar: 1
-            isChests: 0
-        buildings:
-          storehouse:
-            level: 12
-            power: 50000
-          # ...
-        researchs:
-          battle:
-            level: 1
-          economy:
-            level: 2
-          # ...
-  - email: "user2@gmail.com"
-    characters:
-      - id: 423382817
-        nickname: "Player3"
-        # ... аналогичная структура
-
-
+    - email: user1@gmail.com
+      characters:
+        - id: 401227964
+          nickname: Player1
+          avatar: url_to_avatar_1
+          power: 123
+          vipLevel: 6
+          resources:
+            wood: 100000
+            food: 250000
+            iron: 50000
+            meat: 8000
+          gems: 100
+          exploration:
+            state:
+                isClaimButtonGreen: true
+          heroes:
+            state:
+                isHeroes: false
+          messages:
+            state:
+                isNewMessage: true
+                isNewReports: true
+          alliance:
+            name: Relax
+            power: 500
+            members:
+                count: 15
+                max: 30
+            state:
+                isNeedSupport: true
+                isWar: 1
+                isChests: 3
+          buildings:
+            items: {}
+          researchs:
+            battle:
+                level: 5
+            economy:
+                level: 3
+        - id: 423382817
+          nickname: Player2
+          avatar: url_to_avatar_2
+          power: 987
+          vipLevel: 4
+          resources:
+            wood: 5000
+            food: 7000
+            iron: 2000
+            meat: 1000
+          gems: 0
+          exploration:
+            state:
+                isClaimButtonGreen: false
+          heroes:
+            state:
+                isHeroes: true
+          messages:
+            state:
+                isNewMessage: false
+                isNewReports: false
+          alliance:
+            name: Relax
+            power: 500
+            members:
+                count: 15
+                max: 30
+            state:
+                isNeedSupport: true
+                isWar: 1
+                isChests: 0
+          buildings:
+            items: {}
+          researchs:
+            battle:
+                level: 1
+            economy:
+                level: 2
+    - email: user2@gmail.com
+      characters:
+        - id: 423382817
+          nickname: Player3
+          avatar: ""
+          power: 0
+          vipLevel: 0
+          resources:
+            wood: 0
+            food: 0
+            iron: 0
+            meat: 0
+          gems: 0
+          exploration:
+            state:
+                isClaimButtonGreen: false
+          heroes:
+            state:
+                isHeroes: false
+          messages:
+            state:
+                isNewMessage: false
+                isNewReports: false
+          alliance:
+            name: ""
+            power: 0
+            members:
+                count: 0
+                max: 0
+            state:
+                isNeedSupport: false
+                isWar: 0
+                isChests: 0
+          buildings:
+            items: {}
+          researchs:
+            battle:
+                level: 0
+            economy:
+                level: 0
