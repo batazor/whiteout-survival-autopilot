@@ -1,0 +1,84 @@
+cookhouse:
+  levels:
+    lvl1:
+      prerequisites: "Furnace Lv.1"
+      build_cost:
+        wood: 20
+      construction_time: "2s"
+      building_power: 100
+
+    lvl2:
+      prerequisites: "Furnace Lv.2"
+      build_cost:
+        wood: 35
+      construction_time: "9s"
+      building_power: 114
+
+    lvl3:
+      prerequisites: "Furnace Lv.3"
+      build_cost:
+        wood: 90
+      construction_time: "30s"
+      building_power: 195
+
+    lvl4:
+      prerequisites: "Furnace Lv.4"
+      build_cost:
+        wood: 360
+        iron: 70
+      construction_time: "1m30s"
+      building_power: 303
+
+    lvl5:
+      prerequisites: "Furnace Lv.5"
+      build_cost:
+        wood: 1500
+        iron: 360
+        meat: 70
+      construction_time: "3m"
+      building_power: 465
+
+    lvl6:
+      prerequisites: "Furnace Lv.6"
+      build_cost:
+        wood: 3800
+        iron: 725
+        meat: 190
+      construction_time: "6m"
+      building_power: 708
+
+    lvl7:
+      prerequisites: "Furnace Lv.7"
+      build_cost:
+        wood: 13000
+        iron: 2700
+        meat: 690
+      construction_time: "9m"
+      building_power: 1059
+
+    lvl8:
+      prerequisites: "Furnace Lv.8"
+      build_cost:
+        wood: 25000
+        iron: 5200
+        meat: 1300
+      construction_time: "18m"
+      building_power: 1460
+
+    lvl9:
+      prerequisites: "Furnace Lv.9"
+      build_cost:
+        wood: 52000
+        iron: 10300
+        meat: 2600
+      construction_time: "27m"
+      building_power: 1761
+
+    lvl10:
+      prerequisites: "Furnace Lv.10"
+      build_cost:
+        wood: 92000
+        iron: 18000
+        meat: 5200
+      construction_time: "36m"
+      building_power: 2271
