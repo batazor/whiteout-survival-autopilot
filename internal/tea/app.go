@@ -41,7 +41,7 @@ func NewApp() (*App, error) {
 		loader:    config.NewUseCaseLoader("usecases"),
 		evaluator: config.NewTriggerEvaluator(),
 		executor:  executor.NewUseCaseExecutor(),
-		gameFSM:   fsm.NewGameFSM(),
+		gameFSM:   fsm.NewGameFSM(appLogger),
 		logger:    appLogger,
 	}
 

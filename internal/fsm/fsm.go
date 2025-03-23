@@ -3,6 +3,7 @@ package fsm
 import (
 	"context"
 	"fmt"
+	"log/slog"
 
 	lpfsm "github.com/looplab/fsm"
 )
@@ -65,12 +66,13 @@ const (
 // GameFSM struct wraps the looplab/fsm FSM to manage game screen transitions.
 // --------------------------------------------------------------------
 type GameFSM struct {
-	fsm *lpfsm.FSM
+	fsm    *lpfsm.FSM
+	logger *slog.Logger
 }
 
 // NewGameFSM initializes and returns a new GameFSM with predefined transitions.
 // The initial state is set to main_city.
-func NewGameFSM() *GameFSM {
+func NewGameFSM(logger *slog.Logger) *GameFSM {
 	// Define valid transitions using looplab/fsm.Events.
 	transitions := lpfsm.Events{
 		// Transitions from main_city to various screens.
@@ -115,7 +117,13 @@ func NewGameFSM() *GameFSM {
 	// Define callbacks for state transitions using the new Callback signature.
 	callbacks := lpfsm.Callbacks{
 		"enter_state": func(ctx context.Context, e *lpfsm.Event) {
-			fmt.Printf("Entered state: %s (from: %s)\n", e.Dst, e.Src)
+			if logger != nil {
+				logger.Info("FSM entered new state",
+					slog.String("from", e.Src),
+					slog.String("to", e.Dst),
+					slog.String("event", e.Event),
+				)
+			}
 		},
 	}
 
@@ -126,14 +134,20 @@ func NewGameFSM() *GameFSM {
 		callbacks,
 	)
 
-	return &GameFSM{fsm: f}
+	return &GameFSM{fsm: f, logger: logger}
 }
 
 // Transition triggers a state transition for the given event.
 func (g *GameFSM) Transition(event Event) error {
-	// Use context.Background() for the event context.
 	err := g.fsm.Event(context.Background(), string(event))
 	if err != nil {
+		if g.logger != nil {
+			g.logger.Error("FSM transition failed",
+				slog.String("event", string(event)),
+				slog.String("from", g.Current()),
+				slog.Any("error", err),
+			)
+		}
 		return fmt.Errorf("failed to transition on event %s from state %s: %w", event, g.fsm.Current(), err)
 	}
 	return nil
@@ -145,5 +159,13 @@ func (g *GameFSM) Current() string {
 }
 
 func (g *GameFSM) ForceTo(target string) {
+	prev := g.Current()
 	g.fsm.SetState(target)
+
+	if g.logger != nil {
+		g.logger.Warn("FSM forcefully moved to new state",
+			slog.String("from", prev),
+			slog.String("to", target),
+		)
+	}
 }

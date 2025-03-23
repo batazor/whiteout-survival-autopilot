@@ -1,1 +1,19 @@
 {"time":"2025-03-24T01:48:57.21292+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:52:50.99901+08:00","level":"INFO","msg":"App initialized","accounts":2}
+
+
+{"time":"2025-03-24T01:54:03.788187+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:57:08.317045+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T01:57:18.327735+08:00","level":"INFO","msg":"FSM transition","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T01:57:18.327777+08:00","level":"WARN","msg":"FSM forcefully moved to new state","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T01:59:47.481255+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T02:00:05.956508+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T02:01:28.788577+08:00","level":"INFO","msg":"App initialized","accounts":2}
+{"time":"2025-03-24T02:01:57.383872+08:00","level":"INFO","msg":"App initialized","accounts":2}
+
+
+
+{"time":"2025-03-24T02:02:19.50712+08:00","level":"INFO","msg":"FSM transition","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T02:02:19.507157+08:00","level":"WARN","msg":"FSM forcefully moved to new state","from":"main_city","to":"exploration"}
+{"time":"2025-03-24T02:02:20.409018+08:00","level":"WARN","msg":"FSM forcefully moved to new state","from":"exploration","to":"main_menu"}
+{"time":"2025-03-24T02:02:20.40916+08:00","level":"INFO","msg":"FSM transition to final node","from":"main_city","to":"main_menu"}

@@ -6,11 +6,11 @@ import (
 
 // UseCase представляет сценарий, описанный в YAML-файле.
 type UseCase struct {
-	Name      string `yaml:"name"`       // Название сценария
-	Node      string `yaml:"node"`       // Начальное состояние (экран)
-	Trigger   string `yaml:"trigger"`    // Условие запуска сценария (CEL-выражение)
-	Steps     []Step `yaml:"steps"`      // Последовательность шагов сценария
-	FinalNode string `yaml:"final_node"` // Конечное состояние после выполнения сценария
+	Name      string `yaml:"name"`                                  // Название сценария
+	Node      string `yaml:"node"`                                  // Начальное состояние (экран)
+	Trigger   string `yaml:"trigger"`                               // Условие запуска сценария (CEL-выражение)
+	Steps     []Step `yaml:"steps"`                                 // Последовательность шагов сценария
+	FinalNode string `yaml:"final_node"  mapstructure:"final_node"` // Конечное состояние после выполнения сценария
 }
 
 // Step представляет отдельный шаг сценария.
