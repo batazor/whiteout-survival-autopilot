@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/batazor/whiteout-survival-autopilot/src/config"
+	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 )
 
 func TestLoadAllUseCases(t *testing.T) {

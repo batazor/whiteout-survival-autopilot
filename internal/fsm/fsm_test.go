@@ -3,7 +3,7 @@ package fsm_test
 import (
 	"testing"
 
-	"github.com/batazor/whiteout-survival-autopilot/src/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
 func TestFSMTransitions(t *testing.T) {

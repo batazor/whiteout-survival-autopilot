@@ -1,7 +1,7 @@
 package domain
 
-// Accounts содержит список аккаунтов, с которыми работает бот.
-type Accounts struct {
+// State содержит список аккаунтов, с которыми работает бот.
+type State struct {
 	Accounts []Account `yaml:"accounts"`
 }
 
