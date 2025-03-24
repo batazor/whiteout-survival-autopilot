@@ -60,7 +60,11 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 		case "exist":
 			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, rule.Name, region, float32(threshold))
 			if err != nil {
-				a.logger.Error("icon match failed", slog.String("region", rule.Name), slog.Any("error", err))
+				a.logger.Error("icon match failed",
+					slog.String("region", rule.Name),
+					slog.Any("error", err),
+					slog.String("image_path", imagePath),
+				)
 				continue
 			}
 			a.logger.Info("icon match result",

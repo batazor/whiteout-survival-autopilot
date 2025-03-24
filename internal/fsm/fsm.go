@@ -19,10 +19,11 @@ type StateUpdateCallback interface {
 // State Definitions: Each constant represents a game screen (state)
 // --------------------------------------------------------------------
 const (
+	InitialState          = "initial"
 	StateMainCity         = "main_city"
 	StateActivityTriumph  = "activity_triumph"
 	StateAllianceManage   = "alliance_manage"
-	StateAllianceSettings = "alliance_settings" // 🆕 добавлено
+	StateAllianceSettings = "alliance_settings"
 	StateAllianceHistory  = "alliance_history"
 	StateAllianceList     = "alliance_list"
 	StateAllianceVote     = "alliance_vote"
@@ -121,7 +122,7 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		},
 	}
 
-	g.fsm = lpfsm.NewFSM(StateMainCity, transitions, callbacks)
+	g.fsm = lpfsm.NewFSM(InitialState, transitions, callbacks)
 	return g
 }
 

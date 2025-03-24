@@ -6,7 +6,8 @@ import (
 	"path/filepath"
 )
 
-// InitializeLogger sets up a JSON logger for the given usecase name.
+// InitializeLogger sets up a JSON logger for the given use case name,
+// including source code location information.
 func InitializeLogger(usecaseName string) (*slog.Logger, error) {
 	// Ensure the logs directory exists
 	logDir := filepath.Join("logs", usecaseName)
@@ -21,9 +22,10 @@ func InitializeLogger(usecaseName string) (*slog.Logger, error) {
 		return nil, err
 	}
 
-	// Create a JSON handler for structured logging
+	// Create a JSON handler with the AddSource option enabled
 	handler := slog.NewJSONHandler(logFile, &slog.HandlerOptions{
 		Level: slog.LevelInfo,
+		// AddSource: true, // Include source code location information
 	})
 
 	return slog.New(handler), nil

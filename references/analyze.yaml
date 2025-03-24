@@ -1,4 +1,4 @@
-to_main_city:
+main_city:
   - name: power
     action: text
     type: integer
@@ -9,11 +9,7 @@ to_main_city:
     type: integer
     threshold: 0.9
 
-  - name: to_message
-    action: exist
-    threshold: 0.9
-
-  - name: to_alliance
+  - name: allience_help
     action: exist
     threshold: 0.9
 

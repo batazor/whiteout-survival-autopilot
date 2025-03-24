@@ -65,10 +65,12 @@ func (a *ADBController) GetActiveDevice() string {
 // Screenshot captures a screenshot from the active device and writes it to the given file path.
 func (a *ADBController) Screenshot(path string) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "exec-out", "screencap", "-p")
+
 	out, err := cmd.Output()
 	if err != nil {
 		return fmt.Errorf("failed to capture screenshot: %w", err)
 	}
+
 	return os.WriteFile(path, out, 0644)
 }
 

@@ -9,7 +9,6 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
-	"github.com/batazor/whiteout-survival-autopilot/internal/century"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
@@ -19,18 +18,17 @@ import (
 )
 
 type App struct {
-	ctx          context.Context
-	repo         repository.StateRepository
-	loader       config.UseCaseLoader
-	evaluator    config.TriggerEvaluator
-	executor     executor.UseCaseExecutor
-	gameFSM      *fsm.GameFSM
-	state        *domain.State
-	areas        *config.AreaLookup
-	analyzeRules config.ScreenAnalyzeRules
-	analyzer     *analyzer.Analyzer
-	controller   adb.DeviceController
-	logger       *slog.Logger
+	ctx        context.Context
+	repo       repository.StateRepository
+	loader     config.UseCaseLoader
+	evaluator  config.TriggerEvaluator
+	executor   executor.UseCaseExecutor
+	gameFSM    *fsm.GameFSM
+	state      *domain.State
+	areas      *config.AreaLookup
+	analyzer   *analyzer.Analyzer
+	controller adb.DeviceController
+	logger     *slog.Logger
 }
 
 func NewApp() (*App, error) {
@@ -57,29 +55,21 @@ func NewApp() (*App, error) {
 	}
 
 	// Init ADB
-	controller := adb.NewADBController()
-	devices, err := controller.ListDevices()
+	controller, err := InitADBController(appLogger)
 	if err != nil {
-		return nil, fmt.Errorf("ADB error: %w", err)
-	}
-	if len(devices) == 1 {
-		controller.SetActiveDevice(devices[0])
-		appLogger.Info("Single device selected", slog.String("device", devices[0]))
-	} else {
-		return nil, fmt.Errorf("multiple devices found — please implement selection UI")
+		return nil, err
 	}
 
 	app := &App{
-		ctx:          ctx,
-		repo:         repository.NewFileStateRepository("db/state.yaml"),
-		loader:       config.NewUseCaseLoader("usecases"),
-		evaluator:    config.NewTriggerEvaluator(),
-		executor:     executor.NewUseCaseExecutor(),
-		gameFSM:      fsm.NewGameFSM(appLogger),
-		areas:        areas,
-		analyzeRules: rules,
-		controller:   controller,
-		logger:       appLogger,
+		ctx:        ctx,
+		repo:       repository.NewFileStateRepository("db/state.yaml"),
+		loader:     config.NewUseCaseLoader("usecases"),
+		evaluator:  config.NewTriggerEvaluator(),
+		executor:   executor.NewUseCaseExecutor(),
+		gameFSM:    fsm.NewGameFSM(appLogger),
+		areas:      areas,
+		controller: controller,
+		logger:     appLogger,
 	}
 
 	// Load saved state
@@ -100,48 +90,7 @@ func NewApp() (*App, error) {
 	app.analyzer = analyzer.NewAnalyzer(areas, rules, appLogger)
 
 	// Fetch additional player data from Century API
-	for i := range app.state.Accounts {
-		for j := range app.state.Accounts[i].Characters {
-			char := &app.state.Accounts[i].Characters[j]
-
-			playerInfo, err := century.FetchPlayerInfo(char.ID)
-			if err != nil {
-				appLogger.Warn("failed to fetch player info",
-					slog.Int64("fid", int64(char.ID)),
-					slog.String("nickname", char.Nickname),
-					slog.Any("error", err),
-				)
-				continue
-			}
-
-			char.Nickname = playerInfo.Data.Nickname
-			char.State = playerInfo.Data.KID
-			char.Buildings.Furnace.Level = playerInfo.Data.StoveLevel
-			char.Avatar = playerInfo.Data.AvatarImage
-
-			appLogger.Info("updated character info",
-				slog.Int64("fid", int64(char.ID)),
-				slog.String("nickname", char.Nickname),
-				slog.Int("state", char.State),
-				slog.Int("furnace_level", char.Buildings.Furnace.Level),
-			)
-		}
-	}
-
-	// Run analysis on startup screenshot
-	imagePath := "screenshots/startup.png"
-	if err := controller.Screenshot(imagePath); err != nil {
-		appLogger.Warn("failed to capture initial screenshot", slog.Any("error", err))
-	} else {
-		currentScreen := app.gameFSM.Current()
-		newState, err := app.analyzer.AnalyzeAndUpdateState(imagePath, app.state, currentScreen)
-		if err != nil {
-			appLogger.Warn("initial screenshot analysis failed", slog.Any("error", err))
-		} else {
-			appLogger.Info("initial state updated from screenshot", slog.String("screen", currentScreen))
-			app.state = newState
-		}
-	}
+	app.UpdateCharacterInfoFromCentury()
 
 	// Save updated state
 	if err := app.repo.SaveState(ctx, app.state); err != nil {
@@ -149,6 +98,10 @@ func NewApp() (*App, error) {
 	}
 
 	appLogger.Info("App initialized", slog.Int("accounts", len(state.Accounts)))
+
+	// We begin in the main city
+	app.gameFSM.ForceTo(fsm.StateMainCity)
+
 	return app, nil
 }
 
