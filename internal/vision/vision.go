@@ -5,79 +5,79 @@ import (
 	"image"
 	"image/color"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"runtime"
 
 	"github.com/otiai10/gosseract/v2"
 	"gocv.io/x/gocv"
 )
 
 // ExtractTextFromRegion performs OCR on a specific screen region and highlights text boxes.
-func ExtractTextFromRegion(imagePath string, zone image.Rectangle) (string, error) {
-	// Read image
+func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName string) (string, error) {
+	// Load full screenshot
 	img := gocv.IMRead(imagePath, gocv.IMReadColor)
 	if img.Empty() {
 		return "", fmt.Errorf("failed to read image: %s", imagePath)
 	}
 	defer img.Close()
 
-	// Crop the region
+	// Crop to region
 	cropped := img.Region(zone)
 	defer cropped.Close()
 
-	// Save for OCR
-	tmpCropPath := filepath.Join(os.TempDir(), "ocr_crop.png")
-	if !gocv.IMWrite(tmpCropPath, cropped) {
+	// Preprocess: grayscale -> threshold
+	gray := gocv.NewMat()
+	defer gray.Close()
+	gocv.CvtColor(cropped, &gray, gocv.ColorBGRToGray)
+
+	bin := gocv.NewMat()
+	defer bin.Close()
+	gocv.Threshold(gray, &bin, 0, 255, gocv.ThresholdBinary|gocv.ThresholdOtsu)
+
+	// Optional: Resize up if too small
+	if bin.Cols() < 100 {
+		scale := 2.0
+		resized := gocv.NewMat()
+		defer resized.Close()
+		gocv.Resize(bin, &resized, image.Point{}, scale, scale, gocv.InterpolationLinear)
+		bin = resized.Clone()
+	}
+
+	// Save preprocessed for debug
+	preOut := filepath.Join("out", fmt.Sprintf("ocr_preprocessed_%s.png", outputName))
+	_ = gocv.IMWrite(preOut, bin)
+
+	// Save temp file for Tesseract
+	tmpPath := filepath.Join(os.TempDir(), fmt.Sprintf("ocr_crop_%s.png", outputName))
+	if !gocv.IMWrite(tmpPath, bin) {
 		return "", fmt.Errorf("failed to write cropped image")
 	}
 
-	// OCR with tesseract
+	// OCR
 	client := gosseract.NewClient()
 	defer client.Close()
 
-	client.SetImage(tmpCropPath)
+	client.SetImage(tmpPath)
+	client.SetWhitelist("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	client.SetPageSegMode(gosseract.PSM_SINGLE_BLOCK)
+
 	text, err := client.Text()
 	if err != nil {
 		return "", fmt.Errorf("tesseract error: %w", err)
 	}
 
-	// Get bounding boxes
+	// Annotate bounding boxes on original image
 	boxes, err := client.GetBoundingBoxes(gosseract.RIL_WORD)
-	if err != nil {
-		return text, fmt.Errorf("failed to get bounding boxes: %w", err)
-	}
-
-	// Draw boxes on original image
-	for _, box := range boxes {
-		pt1 := image.Pt(zone.Min.X+box.Box.Min.X, zone.Min.Y+box.Box.Min.Y)
-		pt2 := image.Pt(zone.Min.X+box.Box.Max.X, zone.Min.Y+box.Box.Max.Y)
-		gocv.Rectangle(&img, image.Rect(pt1.X, pt1.Y, pt2.X, pt2.Y), color.RGBA{255, 0, 0, 255}, 2)
+	if err == nil {
+		for _, box := range boxes {
+			pt1 := image.Pt(zone.Min.X+box.Box.Min.X, zone.Min.Y+box.Box.Min.Y)
+			pt2 := image.Pt(zone.Min.X+box.Box.Max.X, zone.Min.Y+box.Box.Max.Y)
+			gocv.Rectangle(&img, image.Rect(pt1.X, pt1.Y, pt2.X, pt2.Y), color.RGBA{255, 0, 0, 255}, 2)
+		}
 	}
 
 	// Save annotated image
-	outPath := filepath.Join("out", "ocr_annotated.png")
-	if !gocv.IMWrite(outPath, img) {
-		return text, fmt.Errorf("failed to save annotated image")
-	}
-
-	// Open image
-	if err := openImage(outPath); err != nil {
-		return text, fmt.Errorf("failed to open image: %w", err)
-	}
+	annotatedOut := filepath.Join("out", fmt.Sprintf("ocr_annotated_%s.png", outputName))
+	_ = gocv.IMWrite(annotatedOut, img)
 
 	return text, nil
-}
-
-func openImage(path string) error {
-	switch runtime.GOOS {
-	case "darwin":
-		return exec.Command("open", path).Start()
-	case "linux":
-		return exec.Command("xdg-open", path).Start()
-	case "windows":
-		return exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
-	default:
-		return fmt.Errorf("unsupported platform: %s", runtime.GOOS)
-	}
 }

@@ -82,7 +82,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 
 		case "text":
 			rect := bbox.ToRectangle()
-			text, err := vision.ExtractTextFromRegion(imagePath, rect)
+			text, err := vision.ExtractTextFromRegion(imagePath, rect, rule.Name)
 			if err != nil {
 				a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 				continue
