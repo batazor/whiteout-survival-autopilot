@@ -34,13 +34,13 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 
 	screenshot := gocv.IMRead(screenshotPath, gocv.IMReadColor)
 	if screenshot.Empty() {
-		return false, 0, ErrImageNotLoaded("screenshot")
+		return false, 0, ErrImageNotLoaded(screenshotPath)
 	}
 	defer screenshot.Close()
 
 	icon := gocv.IMRead(iconPath, gocv.IMReadColor)
 	if icon.Empty() {
-		return false, 0, fmt.Errorf("failed to load icon from path: %s", iconPath)
+		return false, 0, ErrImageNotLoaded(iconPath)
 	}
 	defer icon.Close()
 
@@ -54,6 +54,8 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 
 	result := gocv.NewMat()
 	defer result.Close()
+
+	// Use empty Mat instead of creating a new one that's never closed
 	gocv.MatchTemplate(cropped, icon, &result, gocv.TmCcoeffNormed, gocv.NewMat())
 
 	_, maxVal, _, maxLoc := gocv.MinMaxLoc(result)
@@ -67,17 +69,27 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 		gocv.Rectangle(&screenshot, image.Rect(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y), highlightColor, 2)
 	}
 
+	// Save debug images
 	debugPath, resultMapPath := generateOutputPaths(screenshotPath)
-	_ = os.MkdirAll(filepath.Dir(debugPath), 0755)
-	_ = gocv.IMWrite(debugPath, screenshot)
+	if err := os.MkdirAll(filepath.Dir(debugPath), 0755); err != nil {
+		logger.Warn("Failed to create debug directory", slog.String("error", err.Error()))
+	}
+
+	if ok := gocv.IMWrite(debugPath, screenshot); !ok {
+		logger.Warn("Failed to save debug image", slog.String("path", debugPath))
+	}
 
 	grayscale := gocv.NewMat()
 	defer grayscale.Close()
 	gocv.Normalize(result, &grayscale, 0, 255, gocv.NormMinMax)
+
 	grayscale8U := gocv.NewMat()
 	defer grayscale8U.Close()
 	grayscale.ConvertTo(&grayscale8U, gocv.MatTypeCV8U)
-	_ = gocv.IMWrite(resultMapPath, grayscale8U)
+
+	if ok := gocv.IMWrite(resultMapPath, grayscale8U); !ok {
+		logger.Warn("Failed to save result map", slog.String("path", resultMapPath))
+	}
 
 	return match, maxVal, nil
 }
