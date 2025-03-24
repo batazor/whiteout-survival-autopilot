@@ -1,5 +1,0 @@
-{"time":"2025-03-24T03:06:17.18463+08:00","level":"INFO","msg":"App initialized","accounts":2}
-{"time":"2025-03-24T03:06:56.6945+08:00","level":"INFO","msg":"FSM transition","from":"main_city","to":"exploration"}
-{"time":"2025-03-24T03:06:56.694531+08:00","level":"WARN","msg":"FSM forcefully moved to new state","from":"main_city","to":"exploration"}
-{"time":"2025-03-24T03:06:57.597322+08:00","level":"WARN","msg":"FSM forcefully moved to new state","from":"exploration","to":"main_menu"}
-{"time":"2025-03-24T03:06:57.597403+08:00","level":"INFO","msg":"FSM transition to final node","from":"main_city","to":"main_menu"}

@@ -84,6 +84,15 @@ func (m MenuModel) View() string {
 	}
 
 	s := "🎮 Whiteout Survival Autopilot\n\n"
+
+	// Show connected device
+	deviceID := m.app.controller.GetActiveDevice()
+	if deviceID != "" {
+		s += fmt.Sprintf("📱 Connected device: %s\n\n", deviceID)
+	} else {
+		s += "⚠️ No connected device\n\n"
+	}
+
 	s += "Choose an option:\n\n"
 
 	for i, choice := range menuChoices {

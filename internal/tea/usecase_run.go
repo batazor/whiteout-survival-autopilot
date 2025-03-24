@@ -54,20 +54,40 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 	fmt.Printf("🎬 Running usecase: %s for character %s (ID: %d)\n", usecase.Name, char.Nickname, char.ID)
 
 	for i, step := range usecase.Steps {
-		fmt.Printf("Step %d/%d → Action: %+v\n", i+1, len(usecase.Steps), step)
+		stepInfo := fmt.Sprintf("Step %d/%d → Action: %+v", i+1, len(usecase.Steps), step)
+		fmt.Println(stepInfo)
+		if ucLogger != nil {
+			ucLogger.Info("Executing step", slog.Int("step_number", i+1), slog.Any("step", step))
+		}
 
 		switch {
 		case step.Click != "":
 			fmt.Printf("🖱️ Click: %s\n", step.Click)
-			// TODO: Implement ADB click logic
-			time.Sleep(300 * time.Millisecond)
+			if ucLogger != nil {
+				ucLogger.Info("Click action", slog.String("target", step.Click))
+			}
+
+			if err := a.controller.ClickRegion(step.Click, a.areas); err != nil {
+				fmt.Printf("❌ Failed to click: %v\n", err)
+				if ucLogger != nil {
+					ucLogger.Error("Click failed", slog.String("region", step.Click), slog.Any("error", err))
+				}
+			}
+
+			time.Sleep(500 * time.Millisecond)
 
 		case step.Wait > 0:
 			fmt.Printf("⏳ Wait: %s\n", step.Wait)
+			if ucLogger != nil {
+				ucLogger.Info("Wait action", slog.String("duration", step.Wait.String()))
+			}
 			time.Sleep(step.Wait)
 
 		default:
 			fmt.Println("⚠️ Unknown step type or empty step")
+			if ucLogger != nil {
+				ucLogger.Warn("Unknown step type", slog.Any("step", step))
+			}
 		}
 	}
 

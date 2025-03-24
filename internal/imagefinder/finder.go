@@ -3,6 +3,7 @@ package imagefinder
 import (
 	"fmt"
 	"image"
+	"image/color"
 	"path/filepath"
 	"strings"
 
@@ -61,8 +62,8 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 	if match {
 		topLeft := image.Pt(region.X+maxLoc.X, region.Y+maxLoc.Y)
 		bottomRight := image.Pt(topLeft.X+icon.Cols(), topLeft.Y+icon.Rows())
-		green := gocv.NewScalar(0, 255, 0, 0)
-		gocv.Rectangle(&screenshot, image.Rect(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y), green, 2)
+		highlightColor := color.RGBA{G: 255, A: 255}
+		gocv.Rectangle(&screenshot, image.Rect(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y), highlightColor, 2)
 	}
 
 	// Save marked screenshot

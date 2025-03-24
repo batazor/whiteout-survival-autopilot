@@ -164,6 +164,15 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 68.7962962962963,
+        "y": 88.375,
+        "width": 11.296296296296276,
+        "height": 5.083333333333329,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
@@ -184,12 +193,13 @@
       "next_mission",
       "to_messages",
       "to_chief_order",
-      "main_menu"
+      "main_menu",
+      "allience_help"
     ],
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-24T13:56:10.747942Z",
-    "lead_time": 2021.3220000000001
+    "updated_at": "2025-03-24T14:58:03.845874Z",
+    "lead_time": 5646.839
   }
 ]

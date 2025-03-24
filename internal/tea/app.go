@@ -7,6 +7,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
@@ -27,6 +28,7 @@ type App struct {
 	areas        *config.AreaLookup
 	analyzeRules config.ScreenAnalyzeRules
 	analyzer     *analyzer.Analyzer
+	controller   adb.DeviceController
 	logger       *slog.Logger
 }
 
@@ -53,6 +55,19 @@ func NewApp() (*App, error) {
 		return nil, fmt.Errorf("failed to load analyze.yaml: %w", err)
 	}
 
+	// Init ADB
+	controller := adb.NewADBController()
+	devices, err := controller.ListDevices()
+	if err != nil {
+		return nil, fmt.Errorf("ADB error: %w", err)
+	}
+	if len(devices) == 1 {
+		controller.SetActiveDevice(devices[0])
+		appLogger.Info("Single device selected", slog.String("device", devices[0]))
+	} else {
+		return nil, fmt.Errorf("multiple devices found — please implement selection UI")
+	}
+
 	app := &App{
 		ctx:          ctx,
 		repo:         repository.NewFileStateRepository("db/state.yaml"),
@@ -62,6 +77,7 @@ func NewApp() (*App, error) {
 		gameFSM:      fsm.NewGameFSM(appLogger),
 		areas:        areas,
 		analyzeRules: rules,
+		controller:   controller,
 		logger:       appLogger,
 	}
 
@@ -73,7 +89,7 @@ func NewApp() (*App, error) {
 	}
 	app.state = state
 
-	// Set FSM callbacks
+	// FSM callbacks
 	app.gameFSM.SetCallback(app)
 	app.gameFSM.SetStateGetter(func() *domain.State {
 		return app.state
@@ -84,14 +100,17 @@ func NewApp() (*App, error) {
 
 	// Run analysis on startup screenshot
 	imagePath := "screenshots/startup.png"
-	currentScreen := app.gameFSM.Current()
-
-	newState, err := app.analyzer.AnalyzeAndUpdateState(imagePath, app.state, currentScreen)
-	if err != nil {
-		appLogger.Warn("initial screenshot analysis failed", slog.Any("error", err))
+	if err := controller.Screenshot(imagePath); err != nil {
+		appLogger.Warn("failed to capture initial screenshot", slog.Any("error", err))
 	} else {
-		appLogger.Info("initial state updated from screenshot", slog.String("screen", currentScreen))
-		app.state = newState
+		currentScreen := app.gameFSM.Current()
+		newState, err := app.analyzer.AnalyzeAndUpdateState(imagePath, app.state, currentScreen)
+		if err != nil {
+			appLogger.Warn("initial screenshot analysis failed", slog.Any("error", err))
+		} else {
+			appLogger.Info("initial state updated from screenshot", slog.String("screen", currentScreen))
+			app.state = newState
+		}
 	}
 
 	// Save updated state
@@ -104,10 +123,26 @@ func NewApp() (*App, error) {
 }
 
 func (a *App) Run() error {
-	model := NewMenuModel(a)
-	p := tea.NewProgram(model)
-	_, err := p.Run()
-	return err
+	devices, err := a.controller.ListDevices()
+	if err != nil {
+		a.logger.Error("failed to list adb devices", slog.Any("error", err))
+		return err
+	}
+
+	switch len(devices) {
+	case 0:
+		return fmt.Errorf("no ADB devices connected")
+
+	case 1:
+		a.controller.SetActiveDevice(devices[0])
+		a.logger.Info("ADB device selected automatically", slog.String("device", devices[0]))
+		return tea.NewProgram(NewMenuModel(a)).Start()
+
+	default:
+		// Multiple devices, prompt user to select
+		a.logger.Info("multiple ADB devices found", slog.Int("count", len(devices)))
+		return tea.NewProgram(NewDeviceSelectModel(a, devices)).Start()
+	}
 }
 
 // AllCharacters returns all characters across all accounts
@@ -123,8 +158,13 @@ func (a *App) AllCharacters() []domain.Gamer {
 func (a *App) UpdateStateFromScreenshot(screen string) {
 	imagePath := "screenshots/current.png"
 
-	// TODO: Capture screenshot with real device integration (e.g. ADB)
+	// Capture screenshot
+	if err := a.controller.Screenshot(imagePath); err != nil {
+		a.logger.Error("failed to capture screenshot", slog.Any("error", err))
+		return
+	}
 
+	// Analyze and update
 	newState, err := a.analyzer.AnalyzeAndUpdateState(imagePath, a.state, screen)
 	if err != nil {
 		a.logger.Error("analysis failed", slog.Any("error", err))
