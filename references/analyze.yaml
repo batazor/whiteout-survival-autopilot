@@ -11,7 +11,7 @@ main_city:
 
   - name: allience_help
     action: exist
-    threshold: 0.9
+    threshold: 0.4
 
 exploration:
   - name: claim_button

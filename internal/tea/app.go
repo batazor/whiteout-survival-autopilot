@@ -151,9 +151,6 @@ func (a *App) UpdateStateFromScreenshot(screen string) {
 	}
 	a.state = newState
 
-	// Save updated state
-	a.logger.Error("DEBUG333", a.state)
-
 	if err := a.repo.SaveState(a.ctx, a.state); err != nil {
 		a.logger.Error("failed to save state after analysis", slog.Any("error", err))
 	}

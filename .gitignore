@@ -15,6 +15,7 @@
 *.out
 out/
 logs/
+./screenshots
 
 # Dependency directories (remove the comment below to include it)
 vendor/
