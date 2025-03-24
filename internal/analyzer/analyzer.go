@@ -10,7 +10,6 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/imagefinder"
-	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
@@ -50,8 +49,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 			continue
 		}
 
-		x, y, w, h := bbox.ToPixels()
-		region := imagefinder.Region{X: x, Y: y, Width: w, Height: h}
+		region := bbox.ToRectangle()
 		threshold := rule.Threshold
 		if threshold == 0 {
 			threshold = 0.9
@@ -60,7 +58,13 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 		switch rule.Action {
 		case "exist":
 			iconPath := filepath.Join("references", "icons", rule.Name+".png")
-			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, iconPath, region, float32(threshold), a.logger)
+			found, confidence, err := imagefinder.MatchIconInRegion(
+				imagePath,
+				iconPath,
+				region,
+				float32(threshold),
+				a.logger,
+			)
 			if err != nil {
 				a.logger.Error("icon match failed",
 					slog.String("region", rule.Name),
@@ -85,8 +89,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 			}
 
 		case "text":
-			rect := bbox.ToRectangle()
-			text, err := vision.ExtractTextFromRegion(imagePath, rect, rule.Name)
+			text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
 			if err != nil {
 				a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 				continue
@@ -109,9 +112,6 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 	}
 
 	newState.Accounts[0].Characters[0] = *charPtr
-
-	// Log diff using lipgloss
-	utils.PrintStyledDiff(oldState, &newState)
 
 	return &newState, nil
 }

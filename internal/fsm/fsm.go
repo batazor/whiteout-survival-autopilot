@@ -8,7 +8,6 @@ import (
 	lpfsm "github.com/looplab/fsm"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 )
 
 type StateUpdateCallback interface {
@@ -169,12 +168,6 @@ func (g *GameFSM) ForceTo(target string) {
 	}
 
 	if g.callback != nil {
-		before := g.getState()
 		g.callback.UpdateStateFromScreenshot(target)
-		after := g.getState()
-
-		if g.logger != nil {
-			utils.PrintStyledDiff(before, after)
-		}
 	}
 }

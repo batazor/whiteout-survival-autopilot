@@ -3,6 +3,7 @@ package adb
 import (
 	"fmt"
 	"log/slog"
+	"math/rand"
 	"os"
 	"os/exec"
 	"strconv"
@@ -89,17 +90,39 @@ func (a *ADBController) Screenshot(path string) error {
 	return nil
 }
 
-// ClickRegion performs a tap action in the center of the named region.
+// ClickRegion performs a tap action in the center of the named region with slight random offset.
 func (a *ADBController) ClickRegion(name string, area *config.AreaLookup) error {
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
 		return fmt.Errorf("region '%s' not found: %w", name, err)
 	}
-	x, y, _, _ := bbox.ToPixels()
+
+	x, y, w, h := bbox.ToPixels()
+
+	// Центр области
+	centerX := x + w/2
+	centerY := y + h/2
+
+	// Отклонение до 5% от ширины и высоты
+	offsetX := int(float64(w) * 0.05)
+	offsetY := int(float64(h) * 0.05)
+
+	// Генерация случайного отклонения в диапазоне [-offsetX..offsetX]
+	randX := centerX + randInt(-offsetX, offsetX)
+	randY := centerY + randInt(-offsetY, offsetY)
+
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
-		strconv.Itoa(x), strconv.Itoa(y),
+		strconv.Itoa(randX), strconv.Itoa(randY),
 	)
 	return cmd.Run()
+}
+
+// randInt returns a random int in [min, max]
+func randInt(min, max int) int {
+	if min == max {
+		return min
+	}
+	return min + rand.Intn(max-min+1)
 }
 
 // Swipe performs a swipe gesture from (x1, y1) to (x2, y2) in the given duration (ms).

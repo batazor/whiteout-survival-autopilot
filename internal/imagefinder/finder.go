@@ -12,19 +12,16 @@ import (
 	"gocv.io/x/gocv"
 )
 
-type Region struct {
-	X      int
-	Y      int
-	Width  int
-	Height int
-}
-
 // MatchIconInRegion performs template matching in a specified region of the screenshot.
-// Returns:
-//   - match: true if confidence >= threshold
-//   - confidence: max match score from template matching
-//   - error: if loading or processing failed
-func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold float32, logger *slog.Logger) (bool, float32, error) {
+// It automatically resizes the icon to fit the region while preserving aspect ratio,
+// converts both to grayscale, applies Gaussian blur, and performs matching.
+func MatchIconInRegion(
+	screenshotPath string,
+	iconPath string,
+	region image.Rectangle,
+	threshold float32,
+	logger *slog.Logger,
+) (bool, float32, error) {
 	logger.Info("🔍 Starting icon match",
 		slog.String("screenshot", screenshotPath),
 		slog.String("icon", iconPath),
@@ -32,52 +29,86 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 		slog.Float64("threshold", float64(threshold)),
 	)
 
+	// Load screenshot
 	screenshot := gocv.IMRead(screenshotPath, gocv.IMReadColor)
 	if screenshot.Empty() {
-		return false, 0, ErrImageNotLoaded(screenshotPath)
+		return false, 0, ErrImageNotLoaded("screenshot")
 	}
 	defer screenshot.Close()
 
+	// Load icon/template
 	icon := gocv.IMRead(iconPath, gocv.IMReadColor)
 	if icon.Empty() {
-		return false, 0, ErrImageNotLoaded(iconPath)
+		return false, 0, fmt.Errorf("failed to load icon from path: %s", iconPath)
 	}
 	defer icon.Close()
 
-	rect := image.Rect(region.X, region.Y, region.X+region.Width, region.Y+region.Height)
-	if rect.Max.X > screenshot.Cols() || rect.Max.Y > screenshot.Rows() {
-		return false, 0, fmt.Errorf("region out of bounds: %+v", rect)
+	// Ensure region is within bounds
+	if region.Max.X > screenshot.Cols() || region.Max.Y > screenshot.Rows() {
+		return false, 0, fmt.Errorf("region out of bounds: %+v", region)
 	}
 
-	cropped := screenshot.Region(rect)
+	// Crop region from screenshot
+	cropped := screenshot.Region(region)
 	defer cropped.Close()
 
+	// Resize icon to fit cropped region while maintaining aspect ratio
+	cropW := cropped.Cols()
+	cropH := cropped.Rows()
+	iconW := icon.Cols()
+	iconH := icon.Rows()
+
+	scaleX := float64(cropW) / float64(iconW)
+	scaleY := float64(cropH) / float64(iconH)
+	scale := scaleX
+	if scaleY < scaleX {
+		scale = scaleY
+	}
+
+	newW := int(float64(iconW) * scale)
+	newH := int(float64(iconH) * scale)
+
+	if newW < 1 || newH < 1 {
+		return false, 0, fmt.Errorf("scaled icon size too small")
+	}
+
+	resizedIcon := gocv.NewMat()
+	defer resizedIcon.Close()
+	gocv.Resize(icon, &resizedIcon, image.Pt(newW, newH), 0, 0, gocv.InterpolationArea)
+
+	// Convert both to grayscale
+	grayCrop := gocv.NewMat()
+	grayIcon := gocv.NewMat()
+	defer grayCrop.Close()
+	defer grayIcon.Close()
+	gocv.CvtColor(cropped, &grayCrop, gocv.ColorBGRToGray)
+	gocv.CvtColor(resizedIcon, &grayIcon, gocv.ColorBGRToGray)
+
+	// Apply Gaussian Blur
+	gocv.GaussianBlur(grayCrop, &grayCrop, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
+	gocv.GaussianBlur(grayIcon, &grayIcon, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
+
+	// Template Matching
 	result := gocv.NewMat()
 	defer result.Close()
-
-	// Use empty Mat instead of creating a new one that's never closed
-	gocv.MatchTemplate(cropped, icon, &result, gocv.TmCcoeffNormed, gocv.NewMat())
-
+	gocv.MatchTemplate(grayCrop, grayIcon, &result, gocv.TmCcoeffNormed, gocv.NewMat())
 	_, maxVal, _, maxLoc := gocv.MinMaxLoc(result)
+
 	logger.Info("📊 Icon match result", slog.Float64("confidence", float64(maxVal)))
 	match := maxVal >= threshold
 
+	// Highlight match in original screenshot
 	if match {
-		topLeft := image.Pt(region.X+maxLoc.X, region.Y+maxLoc.Y)
-		bottomRight := image.Pt(topLeft.X+icon.Cols(), topLeft.Y+icon.Rows())
+		topLeft := image.Pt(region.Min.X+maxLoc.X, region.Min.Y+maxLoc.Y)
+		bottomRight := image.Pt(topLeft.X+resizedIcon.Cols(), topLeft.Y+resizedIcon.Rows())
 		highlightColor := color.RGBA{G: 255, A: 255}
 		gocv.Rectangle(&screenshot, image.Rect(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y), highlightColor, 2)
 	}
 
-	// Save debug images
+	// Save annotated debug image and match map
 	debugPath, resultMapPath := generateOutputPaths(screenshotPath)
-	if err := os.MkdirAll(filepath.Dir(debugPath), 0755); err != nil {
-		logger.Warn("Failed to create debug directory", slog.String("error", err.Error()))
-	}
-
-	if ok := gocv.IMWrite(debugPath, screenshot); !ok {
-		logger.Warn("Failed to save debug image", slog.String("path", debugPath))
-	}
+	_ = os.MkdirAll(filepath.Dir(debugPath), 0755)
+	_ = gocv.IMWrite(debugPath, screenshot)
 
 	grayscale := gocv.NewMat()
 	defer grayscale.Close()
@@ -86,10 +117,7 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 	grayscale8U := gocv.NewMat()
 	defer grayscale8U.Close()
 	grayscale.ConvertTo(&grayscale8U, gocv.MatTypeCV8U)
-
-	if ok := gocv.IMWrite(resultMapPath, grayscale8U); !ok {
-		logger.Warn("Failed to save result map", slog.String("path", resultMapPath))
-	}
+	_ = gocv.IMWrite(resultMapPath, grayscale8U)
 
 	return match, maxVal, nil
 }
@@ -98,7 +126,7 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 func generateOutputPaths(originalPath string) (debugPath string, resultMapPath string) {
 	ext := filepath.Ext(originalPath)
 	base := strings.TrimSuffix(filepath.Base(originalPath), ext)
-	dir := filepath.Dir(originalPath)
+	dir := "out"
 
 	debugPath = filepath.Join(dir, "debug_"+base+".png")
 	resultMapPath = filepath.Join(dir, "debug_"+base+"_matchmap.png")
