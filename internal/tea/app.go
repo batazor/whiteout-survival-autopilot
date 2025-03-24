@@ -7,6 +7,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
@@ -16,41 +17,85 @@ import (
 )
 
 type App struct {
-	ctx       context.Context
-	repo      repository.StateRepository
-	loader    config.UseCaseLoader
-	evaluator config.TriggerEvaluator
-	executor  executor.UseCaseExecutor
-	gameFSM   *fsm.GameFSM
-	state     *domain.State
-	logger    *slog.Logger
+	ctx          context.Context
+	repo         repository.StateRepository
+	loader       config.UseCaseLoader
+	evaluator    config.TriggerEvaluator
+	executor     executor.UseCaseExecutor
+	gameFSM      *fsm.GameFSM
+	state        *domain.State
+	areas        *config.AreaLookup
+	analyzeRules config.ScreenAnalyzeRules
+	analyzer     *analyzer.Analyzer
+	logger       *slog.Logger
 }
 
 func NewApp() (*App, error) {
 	ctx := context.Background()
 
-	// Initialize app-wide logger
+	// Global logger
 	appLogger, err := logger.InitializeLogger("app")
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize app logger: %w", err)
 	}
 
-	app := &App{
-		ctx:       ctx,
-		repo:      repository.NewFileStateRepository("db/state.yaml"),
-		loader:    config.NewUseCaseLoader("usecases"),
-		evaluator: config.NewTriggerEvaluator(),
-		executor:  executor.NewUseCaseExecutor(),
-		gameFSM:   fsm.NewGameFSM(appLogger),
-		logger:    appLogger,
+	// Load area references
+	areas, err := config.LoadAreaReferences("references/area.json")
+	if err != nil {
+		appLogger.Error("failed to load area.json", slog.Any("error", err))
+		return nil, fmt.Errorf("failed to load area.json: %w", err)
 	}
 
+	// Load screen analysis rules
+	rules, err := config.LoadAnalyzeRules("references/analyze.yaml")
+	if err != nil {
+		appLogger.Error("failed to load analyze.yaml", slog.Any("error", err))
+		return nil, fmt.Errorf("failed to load analyze.yaml: %w", err)
+	}
+
+	app := &App{
+		ctx:          ctx,
+		repo:         repository.NewFileStateRepository("db/state.yaml"),
+		loader:       config.NewUseCaseLoader("usecases"),
+		evaluator:    config.NewTriggerEvaluator(),
+		executor:     executor.NewUseCaseExecutor(),
+		gameFSM:      fsm.NewGameFSM(appLogger),
+		areas:        areas,
+		analyzeRules: rules,
+		logger:       appLogger,
+	}
+
+	// Load saved state
 	state, err := app.repo.LoadState(ctx)
 	if err != nil {
 		appLogger.Error("failed to load state.yaml", slog.Any("error", err))
 		return nil, fmt.Errorf("failed to load initial state: %w", err)
 	}
 	app.state = state
+
+	// Set FSM callbacks
+	app.gameFSM.SetCallback(app)
+	app.gameFSM.SetStateGetter(func() *domain.State {
+		return app.state
+	})
+
+	// Initialize analyzer
+	app.analyzer = analyzer.NewAnalyzer(areas, rules, appLogger)
+
+	// Run analysis on startup screenshot (you can customize the path)
+	imagePath := "screenshots/startup.png"
+	currentScreen := app.gameFSM.Current()
+
+	if err := app.analyzer.Analyze(imagePath, app.state, currentScreen); err != nil {
+		appLogger.Warn("initial screenshot analysis failed", slog.Any("error", err))
+	} else {
+		appLogger.Info("initial state updated from screenshot", slog.String("screen", currentScreen))
+	}
+
+	// Save updated state
+	if err := app.repo.SaveState(ctx, app.state); err != nil {
+		appLogger.Error("failed to persist state after analysis", slog.Any("error", err))
+	}
 
 	appLogger.Info("App initialized", slog.Int("accounts", len(state.Accounts)))
 	return app, nil
@@ -70,4 +115,25 @@ func (a *App) AllCharacters() []domain.Gamer {
 		characters = append(characters, acc.Characters...)
 	}
 	return characters
+}
+
+func (a *App) UpdateStateFromScreenshot(screen string) {
+	imagePath := "screenshots/current.png"
+
+	// 1. Capture screenshot from device
+	if err := a.analyzer.Controller().Screenshot(imagePath); err != nil {
+		a.logger.Error("failed to capture screenshot", slog.Any("error", err))
+		return
+	}
+
+	// 2. Run analyzer
+	if err := a.analyzer.Analyze(imagePath, a.state, screen); err != nil {
+		a.logger.Error("analysis failed", slog.Any("error", err))
+		return
+	}
+
+	// 3. Save updated state
+	if err := a.repo.SaveState(a.ctx, a.state); err != nil {
+		a.logger.Error("failed to save state after analysis", slog.Any("error", err))
+	}
 }

@@ -1,0 +1,195 @@
+[
+  {
+    "ocr": "\/data\/upload\/1\/ec986df7-city_main.png",
+    "id": 1,
+    "bbox": [
+      {
+        "x": 18.148148148148145,
+        "y": 7.208333333333326,
+        "width": 23.7962962962963,
+        "height": 1.7916666666666679,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.64814814814815,
+        "y": 7.124999999999991,
+        "width": 7.222222222222214,
+        "height": 1.7500000000000018,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80,
+        "y": 4.249999999999991,
+        "width": 15.18518518518519,
+        "height": 1.875,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.0185185185185186,
+        "y": 4.208333333333334,
+        "width": 11.203703703703704,
+        "height": 4.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.476259532377,
+        "y": 10.184669979401336,
+        "width": 28.48983515941829,
+        "height": 24.296774742810378,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 85.98483915544753,
+        "y": 34.946702110903836,
+        "width": 12.29198533087811,
+        "height": 5.272917071843955,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.6950141238487131,
+        "y": 93.9950779699471,
+        "width": 17.09734744667834,
+        "height": 5.504511860881806,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.04338699345474,
+        "y": 94.18273178338626,
+        "width": 14.178288126513749,
+        "height": 5.379409318589055,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.02871184197514,
+        "y": 94.0576292410935,
+        "width": 14.873302250362471,
+        "height": 5.441960589735416,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 51.153039515265284,
+        "y": 94.0576292410935,
+        "width": 14.595296600822984,
+        "height": 5.50451186088182,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.55537283809491,
+        "y": 94.0576292410935,
+        "width": 14.734299425592724,
+        "height": 5.441960589735416,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.37471463523377,
+        "y": 93.49466780077603,
+        "width": 13.483274002665041,
+        "height": 6.067473301199286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9730197733881985,
+        "y": 89.30373263396831,
+        "width": 97.71898581312907,
+        "height": 3.377768641904737,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.6680338972369115,
+        "y": 83.48646441735457,
+        "width": 9.452192084342498,
+        "height": 4.1909351668077335,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 10.842220332039926,
+        "y": 84.36218221340394,
+        "width": 73.67149712796359,
+        "height": 2.8148072015872856,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 87.15477113062863,
+        "y": 82.92350297703709,
+        "width": 10.703217507270182,
+        "height": 5.129204234003524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 87.15477113062863,
+        "y": 77.16878603156975,
+        "width": 10.703217507270182,
+        "height": 4.8789991494179645,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.13900282476974263,
+        "y": 42.70303562991208,
+        "width": 4.72609604217125,
+        "height": 7.193396181834174,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "power",
+      "vipLevel",
+      "gems",
+      "chief_profile",
+      "events_area",
+      "war_icon",
+      "to_exploration",
+      "to_heroes",
+      "to_backpack",
+      "sto_hop",
+      "to_alliance",
+      "to_world",
+      "chat_short",
+      "missions_button",
+      "next_mission",
+      "to_messages",
+      "to_chief_order",
+      "main_menu"
+    ],
+    "annotator": 1,
+    "annotation_id": 1,
+    "created_at": "2025-03-23T18:47:11.165017Z",
+    "updated_at": "2025-03-23T18:47:11.165094Z",
+    "lead_time": 1010.907
+  }
+]
