@@ -9,6 +9,7 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
+	"github.com/batazor/whiteout-survival-autopilot/internal/century"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
@@ -97,6 +98,35 @@ func NewApp() (*App, error) {
 
 	// Initialize analyzer
 	app.analyzer = analyzer.NewAnalyzer(areas, rules, appLogger)
+
+	// Fetch additional player data from Century API
+	for i := range app.state.Accounts {
+		for j := range app.state.Accounts[i].Characters {
+			char := &app.state.Accounts[i].Characters[j]
+
+			playerInfo, err := century.FetchPlayerInfo(char.ID)
+			if err != nil {
+				appLogger.Warn("failed to fetch player info",
+					slog.Int64("fid", int64(char.ID)),
+					slog.String("nickname", char.Nickname),
+					slog.Any("error", err),
+				)
+				continue
+			}
+
+			char.Nickname = playerInfo.Data.Nickname
+			char.State = playerInfo.Data.KID
+			char.Buildings.Furnace.Level = playerInfo.Data.StoveLevel
+			char.Avatar = playerInfo.Data.AvatarImage
+
+			appLogger.Info("updated character info",
+				slog.Int64("fid", int64(char.ID)),
+				slog.String("nickname", char.Nickname),
+				slog.Int("state", char.State),
+				slog.Int("furnace_level", char.Buildings.Furnace.Level),
+			)
+		}
+	}
 
 	// Run analysis on startup screenshot
 	imagePath := "screenshots/startup.png"

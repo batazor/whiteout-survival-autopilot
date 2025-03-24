@@ -15,6 +15,7 @@ type Account struct {
 type Gamer struct {
 	ID          int           `yaml:"id"`          // Уникальный идентификатор персонажа (fid).
 	Nickname    string        `yaml:"nickname"`    // Псевдоним персонажа.
+	State       int           `yaml:"state"`       // Государство персонажа.
 	Avatar      string        `yaml:"avatar"`      // URL аватара персонажа.
 	Power       int           `yaml:"power"`       // Мощь персонажа.
 	VIPLevel    int           `yaml:"vipLevel"`    // VIP-уровень.
@@ -89,9 +90,8 @@ type AllianceState struct {
 }
 
 // Buildings представляет собой набор зданий персонажа.
-// Вместо фиксированных полей используется карта, где ключ — тип здания, а значение — информация о здании.
 type Buildings struct {
-	Items map[string]Building `yaml:"items"`
+	Furnace Building `yaml:"furnace"` // Печь.
 }
 
 // Building описывает отдельное здание.
