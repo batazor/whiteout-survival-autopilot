@@ -3,13 +3,16 @@ to_main_city:
     action: text
     type: integer
     threshold: 0.9
+
   - name: vipLevel
     action: text
     type: integer
     threshold: 0.9
+
   - name: to_message
     action: exist
     threshold: 0.9
+
   - name: to_alliance
     action: exist
     threshold: 0.9

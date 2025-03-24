@@ -1,63 +1,51 @@
-package diffutil
+package utils
 
 import (
 	"fmt"
 	"reflect"
-	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
 
-var (
-	changedStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Bold(true)   // красный
-	normalStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("7"))              // белый
-	fieldStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("8")).Italic(true) // серый
-)
+// PrintStyledDiff takes two pointers to structs and prints their diff using colors
+func PrintStyledDiff(oldVal, newVal interface{}) {
+	oldV := reflect.ValueOf(oldVal).Elem()
+	newV := reflect.ValueOf(newVal).Elem()
+	typ := oldV.Type()
 
-func DiffStruct(oldVal, newVal any) string {
-	var builder strings.Builder
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("63"))
+	fieldStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("7"))
+	oldStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("1"))
+	newStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("2"))
 
-	oldV := reflect.ValueOf(oldVal)
-	newV := reflect.ValueOf(newVal)
+	fmt.Println(titleStyle.Render("🔍 State Changes:"))
 
-	// В случае указателей
-	if oldV.Kind() == reflect.Ptr {
-		oldV = oldV.Elem()
-	}
-	if newV.Kind() == reflect.Ptr {
-		newV = newV.Elem()
-	}
+	compareStructFields(oldV, newV, typ, "", fieldStyle, oldStyle, newStyle)
+}
 
-	if oldV.Type() != newV.Type() {
-		return changedStyle.Render("Incompatible types for diff")
-	}
+func compareStructFields(oldV, newV reflect.Value, typ reflect.Type, prefix string, fieldStyle, oldStyle, newStyle lipgloss.Style) {
+	for i := 0; i < typ.NumField(); i++ {
+		field := typ.Field(i)
+		name := field.Name
+		oldField := oldV.Field(i)
+		newField := newV.Field(i)
 
-	t := oldV.Type()
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-		oldF := oldV.Field(i)
-		newF := newV.Field(i)
+		fieldPath := name
+		if prefix != "" {
+			fieldPath = prefix + "." + name
+		}
 
-		// Пропускаем несравнимые поля
-		if !oldF.CanInterface() || !newF.CanInterface() {
+		// Handle nested structs
+		if field.Type.Kind() == reflect.Struct {
+			compareStructFields(oldField, newField, field.Type, fieldPath, fieldStyle, oldStyle, newStyle)
 			continue
 		}
 
-		oldStr := fmt.Sprintf("%v", oldF.Interface())
-		newStr := fmt.Sprintf("%v", newF.Interface())
-
-		if oldStr != newStr {
-			builder.WriteString(fmt.Sprintf("%s: %s → %s\n",
-				fieldStyle.Render(field.Name),
-				normalStyle.Render(oldStr),
-				changedStyle.Render(newStr),
-			))
+		// Compare values
+		if !reflect.DeepEqual(oldField.Interface(), newField.Interface()) {
+			fmt.Printf(" %s:\n", fieldStyle.Render(fieldPath))
+			fmt.Printf("   old → %s\n", oldStyle.Render(fmt.Sprintf("%v", oldField.Interface())))
+			fmt.Printf("   new → %s\n", newStyle.Render(fmt.Sprintf("%v", newField.Interface())))
 		}
 	}
-
-	if builder.Len() == 0 {
-		return lipgloss.NewStyle().Foreground(lipgloss.Color("10")).Render("No changes")
-	}
-
-	return builder.String()
 }

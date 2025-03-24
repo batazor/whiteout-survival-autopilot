@@ -3,10 +3,9 @@ package analyzer
 import (
 	"fmt"
 	"log/slog"
-	"regexp"
+	"reflect"
 	"strconv"
-
-	"github.com/charmbracelet/lipgloss"
+	"strings"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
@@ -45,30 +44,30 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 	charPtr := &newChar
 
 	for _, rule := range rules {
-		region, err := a.areas.GetRegionByName(rule.Name)
+		bbox, err := a.areas.GetRegionByName(rule.Name)
 		if err != nil {
 			a.logger.Warn("region not found for rule", slog.String("region", rule.Name))
 			continue
 		}
-		x, y, w, h := region.ToPixels()
-		zone := imagefinder.Region{X: x, Y: y, Width: w, Height: h}
+
+		x, y, w, h := bbox.ToPixels()
+		region := imagefinder.Region{X: x, Y: y, Width: w, Height: h}
 		threshold := rule.Threshold
 		if threshold == 0 {
-			threshold = 0.85
+			threshold = 0.9
 		}
 
 		switch rule.Action {
 		case "exist":
-			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, rule.Name+".png", zone, float32(threshold))
+			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, rule.Name, region, float32(threshold))
 			if err != nil {
 				a.logger.Error("icon match failed", slog.String("region", rule.Name), slog.Any("error", err))
 				continue
 			}
-
-			a.logger.Info("exist check",
+			a.logger.Info("icon match result",
 				slog.String("region", rule.Name),
 				slog.Bool("found", found),
-				slog.Float64("confidence", float64(confidence)),
+				slog.Float64("confidence", confidence),
 			)
 
 			if found {
@@ -83,9 +82,10 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 			}
 
 		case "text":
-			text, err := vision.ExtractTextFromRegion(imagePath, zone)
+			rect := bbox.ToRectangle()
+			text, err := vision.ExtractTextFromRegion(imagePath, rect)
 			if err != nil {
-				a.logger.Error("text extraction failed", slog.String("region", rule.Name), slog.Any("error", err))
+				a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 				continue
 			}
 
@@ -94,36 +94,28 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 				slog.String("text", text),
 			)
 
-			switch rule.Type {
-			case "integer":
-				parsed := extractInteger(text)
-				switch rule.Name {
-				case "power":
-					charPtr.Power = parsed
-				case "vipLevel":
-					charPtr.VIPLevel = parsed
-				case "gems":
-					charPtr.Gems = parsed
-				}
+			switch rule.Name {
+			case "power":
+				val := parseNumber(text)
+				charPtr.Power = val
+			case "vipLevel":
+				val := parseNumber(text)
+				charPtr.VIPLevel = val
 			}
 		}
 	}
 
 	newState.Accounts[0].Characters[0] = *charPtr
 
-	diff := diffutil.DiffStruct(oldState, &newState)
-	if diff != "" {
-		fmt.Println("\n" + lipgloss.NewStyle().Foreground(lipgloss.Color("219")).Render("Updated Fields:"))
-		fmt.Println(diff)
-	}
+	// Log diff using lipgloss
+	utils.PrintStyledDiff(oldState, &newState)
 
 	return &newState, nil
 }
 
-// extractInteger parses and cleans a number string like "1 234 567" → 1234567
-func extractInteger(raw string) int {
-	re := regexp.MustCompile(`[^\d]`)
-	cleaned := re.ReplaceAllString(raw, "")
-	val, _ := strconv.Atoi(cleaned)
+// parseNumber converts a string like "1 234 567" → 1234567
+func parseNumber(s string) int {
+	clean := strings.ReplaceAll(s, " ", "")
+	val, _ := strconv.Atoi(clean)
 	return val
 }

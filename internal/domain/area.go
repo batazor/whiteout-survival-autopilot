@@ -1,5 +1,9 @@
 package domain
 
+import (
+	"image"
+)
+
 type AreaReference struct {
 	OCR           string   `json:"ocr"`
 	ID            int      `json:"id"`
@@ -23,4 +27,9 @@ func (b *BBox) ToPixels() (x, y, w, h int) {
 	w = int(b.Width * float64(b.OriginalWidth) / 100)
 	h = int(b.Height * float64(b.OriginalHeight) / 100)
 	return
+}
+
+func (b *BBox) ToRectangle() image.Rectangle {
+	x, y, w, h := b.ToPixels()
+	return image.Rect(x, y, x+w, y+h)
 }
