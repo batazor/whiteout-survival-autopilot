@@ -5,6 +5,8 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	bubblezone "github.com/lrstanley/bubblezone"
+
+	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
 // CharacterSelectModel представляет модель выбора персонажа.
@@ -17,6 +19,9 @@ type CharacterSelectModel struct {
 
 // NewCharacterSelectModel создает новую модель выбора персонажа.
 func NewCharacterSelectModel(app *App) tea.Model {
+	// We begin in the main city
+	app.gameFSM.ForceTo(fsm.StateMainCity)
+
 	return &CharacterSelectModel{
 		app:       app,
 		cursor:    0,

@@ -30,7 +30,7 @@ accounts:
                 count: 15
                 max: 30
             state:
-                isNeedSupport: true
+                isNeedSupport: false
                 isWar: 1
                 isChests: 3
           buildings:

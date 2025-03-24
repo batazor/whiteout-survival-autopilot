@@ -40,5 +40,6 @@ func (r *fileRepo) SaveState(ctx context.Context, s *domain.State) error {
 	if err != nil {
 		return fmt.Errorf("marshal error: %w", err)
 	}
+
 	return os.WriteFile(r.filename, bytes, 0o644)
 }

@@ -3,6 +3,7 @@ package analyzer
 import (
 	"fmt"
 	"log/slog"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -58,7 +59,8 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 
 		switch rule.Action {
 		case "exist":
-			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, rule.Name, region, float32(threshold))
+			iconPath := filepath.Join("references", "icons", rule.Name+".png")
+			found, confidence, err := imagefinder.MatchIconInRegion(imagePath, iconPath, region, float32(threshold))
 			if err != nil {
 				a.logger.Error("icon match failed",
 					slog.String("region", rule.Name),
@@ -73,15 +75,13 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 				slog.Float64("confidence", float64(confidence)),
 			)
 
-			if found {
-				switch rule.Name {
-				case "to_alliance":
-					charPtr.Alliance.State.IsNeedSupport = true
-				case "to_message":
-					charPtr.Messages.State.IsNewMessage = true
-				case "claim_button":
-					charPtr.Messages.State.IsNewReports = true
-				}
+			switch rule.Name {
+			case "allience_help":
+				charPtr.Alliance.State.IsNeedSupport = found
+			case "to_message":
+				charPtr.Messages.State.IsNewMessage = found
+			case "claim_button":
+				charPtr.Messages.State.IsNewReports = found
 			}
 
 		case "text":

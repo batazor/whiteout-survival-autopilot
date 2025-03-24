@@ -2,6 +2,7 @@ package adb
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 	"os/exec"
 	"strconv"
@@ -24,11 +25,14 @@ type DeviceController interface {
 // ADBController implements the DeviceController interface using the adb CLI tool.
 type ADBController struct {
 	deviceID string
+	logger   *slog.Logger
 }
 
 // NewADBController creates a new instance of the ADBController.
-func NewADBController() *ADBController {
-	return &ADBController{}
+func NewADBController(logger *slog.Logger) *ADBController {
+	return &ADBController{
+		logger: logger,
+	}
 }
 
 // ListDevices returns all connected ADB devices.
@@ -64,14 +68,25 @@ func (a *ADBController) GetActiveDevice() string {
 
 // Screenshot captures a screenshot from the active device and writes it to the given file path.
 func (a *ADBController) Screenshot(path string) error {
-	cmd := exec.Command("adb", "-s", a.deviceID, "exec-out", "screencap", "-p")
+	a.logger.Info("Capturing screenshot from device",
+		slog.String("device", a.deviceID),
+		slog.String("output", path),
+	)
 
+	cmd := exec.Command("adb", "-s", a.deviceID, "exec-out", "screencap", "-p")
 	out, err := cmd.Output()
 	if err != nil {
+		a.logger.Error("Failed to execute screencap", slog.Any("error", err))
 		return fmt.Errorf("failed to capture screenshot: %w", err)
 	}
 
-	return os.WriteFile(path, out, 0644)
+	if err := os.WriteFile(path, out, 0644); err != nil {
+		a.logger.Error("Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
+		return fmt.Errorf("failed to write screenshot: %w", err)
+	}
+
+	a.logger.Info("Screenshot saved successfully", slog.String("path", path))
+	return nil
 }
 
 // ClickRegion performs a tap action in the center of the named region.

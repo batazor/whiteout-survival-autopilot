@@ -92,15 +92,11 @@ func NewApp() (*App, error) {
 	// Fetch additional player data from Century API
 	app.UpdateCharacterInfoFromCentury()
 
-	// Save updated state
 	if err := app.repo.SaveState(ctx, app.state); err != nil {
 		appLogger.Error("failed to persist state after analysis", slog.Any("error", err))
 	}
 
 	appLogger.Info("App initialized", slog.Int("accounts", len(state.Accounts)))
-
-	// We begin in the main city
-	app.gameFSM.ForceTo(fsm.StateMainCity)
 
 	return app, nil
 }
@@ -154,6 +150,9 @@ func (a *App) UpdateStateFromScreenshot(screen string) {
 		return
 	}
 	a.state = newState
+
+	// Save updated state
+	a.logger.Error("DEBUG333", a.state)
 
 	if err := a.repo.SaveState(a.ctx, a.state); err != nil {
 		a.logger.Error("failed to save state after analysis", slog.Any("error", err))

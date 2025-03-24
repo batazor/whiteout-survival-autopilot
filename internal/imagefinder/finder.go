@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -33,7 +34,7 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 	// Load icon/template
 	icon := gocv.IMRead(iconPath, gocv.IMReadColor)
 	if icon.Empty() {
-		return false, 0, ErrImageNotLoaded("icon")
+		return false, 0, fmt.Errorf("failed to load icon from path: %s", iconPath)
 	}
 	defer icon.Close()
 
@@ -73,7 +74,8 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 
 	// Save heatmap image
 	if err := saveHeatmap(result, heatmapPath); err != nil {
-		return false, maxVal, err
+		// TODO: add logger
+		return false, maxVal, nil
 	}
 
 	return match, maxVal, nil
@@ -81,6 +83,18 @@ func MatchIconInRegion(screenshotPath, iconPath string, region Region, threshold
 
 // saveHeatmap converts result matrix to heatmap image and saves it.
 func saveHeatmap(result gocv.Mat, path string) error {
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("failed to create directory %s: %w", dir, err)
+	}
+
+	// Try test-write
+	testFile := filepath.Join(dir, "test.tmp")
+	if err := os.WriteFile(testFile, []byte("test"), 0644); err != nil {
+		return fmt.Errorf("write test to %s failed: %w", testFile, err)
+	}
+	_ = os.Remove(testFile)
+
 	// Normalize and convert to 8-bit
 	gocv.Normalize(result, &result, 0, 255, gocv.NormMinMax)
 	result8U := gocv.NewMat()
@@ -93,8 +107,9 @@ func saveHeatmap(result gocv.Mat, path string) error {
 	gocv.ApplyColorMap(result8U, &heatmap, gocv.ColormapJet)
 
 	if ok := gocv.IMWrite(path, heatmap); !ok {
-		return fmt.Errorf("failed to save heatmap: %s", path)
+		return fmt.Errorf("gocv.IMWrite failed for path: %s", path)
 	}
+
 	return nil
 }
 
