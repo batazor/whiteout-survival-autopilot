@@ -4,27 +4,36 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
+	bubblezone "github.com/lrstanley/bubblezone"
 )
 
+// CharacterSelectModel представляет модель выбора персонажа.
 type CharacterSelectModel struct {
 	app       *App
 	cursor    int
 	charCount int
+	zones     *bubblezone.Manager
 }
 
+// NewCharacterSelectModel создает новую модель выбора персонажа.
 func NewCharacterSelectModel(app *App) tea.Model {
 	return &CharacterSelectModel{
 		app:       app,
 		cursor:    0,
 		charCount: len(app.AllCharacters()),
+		zones:     bubblezone.New(),
 	}
 }
 
+// Init инициализирует модель.
 func (m *CharacterSelectModel) Init() tea.Cmd {
 	return nil
 }
 
+// Update обрабатывает входящие сообщения и обновляет состояние модели.
 func (m *CharacterSelectModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var cmd tea.Cmd
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -41,12 +50,24 @@ func (m *CharacterSelectModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			return NewUsecaseListModelWithChar(m.app, m.cursor, m), nil
 		}
+	case tea.MouseMsg:
+		if msg.Action == tea.MouseActionPress && msg.Button == tea.MouseButtonLeft {
+			for i := 0; i < m.charCount; i++ {
+				zoneID := fmt.Sprintf("char-%d", i)
+				if m.zones.Get(zoneID).InBounds(msg) {
+					m.cursor = i
+					return NewUsecaseListModelWithChar(m.app, i, m), nil
+				}
+			}
+		}
 	}
-	return m, nil
+
+	return m, cmd
 }
 
+// View возвращает строковое представление текущего состояния модели.
 func (m *CharacterSelectModel) View() string {
-	s := "Select Character:\n\n"
+	s := "Выберите персонажа:\n\n"
 	chars := m.app.AllCharacters()
 
 	for i, char := range chars {
@@ -54,10 +75,11 @@ func (m *CharacterSelectModel) View() string {
 		if i == m.cursor {
 			cursor = ">"
 		}
-		s += fmt.Sprintf(" %s %d) %s (Power: %d, VIP: %d)\n",
-			cursor, i+1, char.Nickname, char.Power, char.VIPLevel)
+		zoneID := fmt.Sprintf("char-%d", i)
+		line := fmt.Sprintf("%s %d) %s (Сила: %d, VIP: %d)", cursor, i+1, char.Nickname, char.Power, char.VIPLevel)
+		s += m.zones.Mark(zoneID, line) + "\n"
 	}
 
-	s += "\n↑ ↓ to move • Enter to select • q to quit"
-	return s
+	s += "\n↑ ↓ для перемещения • Enter для выбора • q для выхода"
+	return m.zones.Scan(s)
 }

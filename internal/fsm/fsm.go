@@ -19,65 +19,64 @@ type StateUpdateCallback interface {
 // State Definitions: Each constant represents a game screen (state)
 // --------------------------------------------------------------------
 const (
-	StateMainCity        = "main_city"
-	StateActivityTriumph = "activity_triumph"
-	StateAllianceManage  = "alliance_manage"
-	StateAllianceHistory = "alliance_history"
-	StateAllianceList    = "alliance_list"
-	StateAllianceVote    = "alliance_vote"
-	StateAllianceRanking = "alliance_ranking"
-	StateEvents          = "events"
-	StateProfile         = "profile"
-	StateLeaderboard     = "leaderboard"
-	StateSettings        = "settings"
-	StateVIP             = "vip"
-	StateChiefOrders     = "chief_orders"
-	StateMail            = "mail"
-	StateDawnMarket      = "dawn_market"
-	StateExploration     = "exploration"
+	StateMainCity         = "main_city"
+	StateActivityTriumph  = "activity_triumph"
+	StateAllianceManage   = "alliance_manage"
+	StateAllianceSettings = "alliance_settings" // 🆕 добавлено
+	StateAllianceHistory  = "alliance_history"
+	StateAllianceList     = "alliance_list"
+	StateAllianceVote     = "alliance_vote"
+	StateAllianceRanking  = "alliance_ranking"
+	StateEvents           = "events"
+	StateProfile          = "profile"
+	StateLeaderboard      = "leaderboard"
+	StateSettings         = "settings"
+	StateVIP              = "vip"
+	StateChiefOrders      = "chief_orders"
+	StateMail             = "mail"
+	StateDawnMarket       = "dawn_market"
+	StateExploration      = "exploration"
 )
 
 // --------------------------------------------------------------------
-// Event Definitions: Each event triggers a transition between states.
+// Event Definitions
 // --------------------------------------------------------------------
 type Event string
 
 const (
-	EventGoToAllianceManage  Event = "to_alliance_manage"
-	EventGoToEvents          Event = "to_events"
-	EventGoToProfile         Event = "to_profile"
-	EventGoToLeaderboard     Event = "to_leaderboard"
-	EventGoToSettings        Event = "to_settings"
-	EventGoToVIP             Event = "to_vip"
-	EventGoToChiefOrders     Event = "to_chief_orders"
-	EventGoToMail            Event = "to_mail"
-	EventGoToDawnMarket      Event = "to_dawn_market"
-	EventGoToExploration     Event = "to_exploration"
-	EventGoToActivityTriumph Event = "to_activity_triumph"
-	EventGoToAllianceHistory Event = "to_alliance_history"
-	EventGoToAllianceList    Event = "to_alliance_list"
-	EventGoToAllianceVote    Event = "to_alliance_vote"
-	EventGoToAllianceRanking Event = "to_alliance_ranking"
-	EventBack                Event = "back"
+	EventGoToAllianceManage   Event = "to_alliance_manage"
+	EventGoToAllianceSettings Event = "to_alliance_settings" // 🆕 добавлено
+	EventGoToEvents           Event = "to_events"
+	EventGoToProfile          Event = "to_profile"
+	EventGoToLeaderboard      Event = "to_leaderboard"
+	EventGoToSettings         Event = "to_settings"
+	EventGoToVIP              Event = "to_vip"
+	EventGoToChiefOrders      Event = "to_chief_orders"
+	EventGoToMail             Event = "to_mail"
+	EventGoToDawnMarket       Event = "to_dawn_market"
+	EventGoToExploration      Event = "to_exploration"
+	EventGoToActivityTriumph  Event = "to_activity_triumph"
+	EventGoToAllianceHistory  Event = "to_alliance_history"
+	EventGoToAllianceList     Event = "to_alliance_list"
+	EventGoToAllianceVote     Event = "to_alliance_vote"
+	EventGoToAllianceRanking  Event = "to_alliance_ranking"
+	EventBack                 Event = "back"
 )
 
-// --------------------------------------------------------------------
-// GameFSM struct wraps the looplab/fsm FSM to manage game screen transitions.
-// --------------------------------------------------------------------
 type GameFSM struct {
 	fsm           *lpfsm.FSM
 	logger        *slog.Logger
 	onStateChange func(state string)
 	callback      StateUpdateCallback
-	getState      func() *domain.State // 👈 для получения текущего состояния
+	getState      func() *domain.State
 }
 
-// NewGameFSM initializes and returns a new GameFSM with predefined transitions.
 func NewGameFSM(logger *slog.Logger) *GameFSM {
 	g := &GameFSM{logger: logger}
 
 	transitions := lpfsm.Events{
 		{Name: string(EventGoToAllianceManage), Src: []string{StateMainCity}, Dst: StateAllianceManage},
+		{Name: string(EventGoToAllianceSettings), Src: []string{StateAllianceManage}, Dst: StateAllianceSettings}, // 🆕
 		{Name: string(EventGoToEvents), Src: []string{StateMainCity}, Dst: StateEvents},
 		{Name: string(EventGoToProfile), Src: []string{StateMainCity}, Dst: StateProfile},
 		{Name: string(EventGoToLeaderboard), Src: []string{StateMainCity}, Dst: StateLeaderboard},
@@ -92,6 +91,7 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		{Name: string(EventGoToAllianceList), Src: []string{StateAllianceManage}, Dst: StateAllianceList},
 		{Name: string(EventGoToAllianceVote), Src: []string{StateAllianceManage}, Dst: StateAllianceVote},
 		{Name: string(EventGoToAllianceRanking), Src: []string{StateAllianceManage}, Dst: StateAllianceRanking},
+
 		{Name: string(EventBack), Src: []string{
 			StateVIP, StateProfile, StateLeaderboard, StateSettings,
 			StateChiefOrders, StateMail, StateDawnMarket,
@@ -100,6 +100,7 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		{Name: string(EventBack), Src: []string{StateActivityTriumph}, Dst: StateEvents},
 		{Name: string(EventBack), Src: []string{
 			StateAllianceHistory, StateAllianceList, StateAllianceVote, StateAllianceRanking,
+			StateAllianceSettings, // 🆕 можно вернуться к alliance_manage
 		}, Dst: StateAllianceManage},
 		{Name: string(EventBack), Src: []string{StateAllianceManage}, Dst: StateMainCity},
 		{Name: string(EventBack), Src: []string{StateExploration}, Dst: StateMainCity},
@@ -124,22 +125,18 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 	return g
 }
 
-// SetStateGetter assigns a function to retrieve the current state.
-func (g *GameFSM) SetStateGetter(getter func() *domain.State) {
-	g.getState = getter
-}
-
-// SetCallback assigns a callback to be triggered after ForceTo.
 func (g *GameFSM) SetCallback(cb StateUpdateCallback) {
 	g.callback = cb
 }
 
-// SetOnStateChange is used for optional console or TUI refresh.
+func (g *GameFSM) SetStateGetter(getter func() *domain.State) {
+	g.getState = getter
+}
+
 func (g *GameFSM) SetOnStateChange(f func(state string)) {
 	g.onStateChange = f
 }
 
-// Transition triggers a valid FSM transition.
 func (g *GameFSM) Transition(event Event) error {
 	err := g.fsm.Event(context.Background(), string(event))
 	if err != nil {
@@ -155,12 +152,10 @@ func (g *GameFSM) Transition(event Event) error {
 	return nil
 }
 
-// Current returns the FSM's current state.
 func (g *GameFSM) Current() string {
 	return g.fsm.Current()
 }
 
-// ForceTo forcefully sets the FSM to a new state and triggers analysis.
 func (g *GameFSM) ForceTo(target string) {
 	prev := g.Current()
 	g.fsm.SetState(target)
@@ -173,20 +168,12 @@ func (g *GameFSM) ForceTo(target string) {
 	}
 
 	if g.callback != nil {
+		before := g.getState()
 		g.callback.UpdateStateFromScreenshot(target)
-	}
-
-	if g.callback != nil {
-		prevState := g.getState()
-		g.callback.UpdateStateFromScreenshot(target)
-		nextState := g.getState()
+		after := g.getState()
 
 		if g.logger != nil {
-			diff := diffutil.DiffStruct(prevState, nextState)
-			if diff != "" {
-				fmt.Println("\n📊 State diff:")
-				fmt.Println(diff)
-			}
+			utils.PrintStyledDiff(before, after)
 		}
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
+	bubblezone "github.com/lrstanley/bubblezone"
 )
 
 var menuChoices = []string{
@@ -17,12 +18,14 @@ type MenuModel struct {
 	cursor    int
 	quitting  bool
 	outputLog string
+	zones     *bubblezone.Manager
 }
 
 func NewMenuModel(app *App) MenuModel {
 	return MenuModel{
 		app:    app,
 		cursor: 0,
+		zones:  bubblezone.New(),
 	}
 }
 
@@ -32,13 +35,11 @@ func (m MenuModel) Init() tea.Cmd {
 
 func (m MenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "q":
 			m.quitting = true
 			return m, tea.Quit
-
 		case "up":
 			if m.cursor > 0 {
 				m.cursor--
@@ -48,16 +49,31 @@ func (m MenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor++
 			}
 		case "enter":
-			switch m.cursor {
-			case 0: // Start Bot: character -> usecase
-				return NewCharacterSelectModel(m.app), nil
-			case 1: // View state
-				m.outputLog = fmt.Sprintf("Accounts: %d", len(m.app.state.Accounts))
-			case 2: // Quit
-				m.quitting = true
-				return m, tea.Quit
+			return m.activateSelected()
+		}
+	case tea.MouseMsg:
+		for i := range menuChoices {
+			if m.zones.Get(fmt.Sprintf("menu-%d", i)).InBounds(msg) {
+				m.cursor = i
+				if msg.Type == tea.MouseLeft {
+					return m.activateSelected()
+				}
 			}
 		}
+	}
+
+	return m, nil
+}
+
+func (m *MenuModel) activateSelected() (tea.Model, tea.Cmd) {
+	switch m.cursor {
+	case 0: // Start Bot: character -> usecase
+		return NewCharacterSelectModel(m.app), nil
+	case 1: // View state
+		m.outputLog = fmt.Sprintf("Accounts: %d", len(m.app.state.Accounts))
+	case 2: // Quit
+		m.quitting = true
+		return m, tea.Quit
 	}
 	return m, nil
 }
@@ -75,10 +91,11 @@ func (m MenuModel) View() string {
 		if m.cursor == i {
 			cursor = ">"
 		}
-		s += fmt.Sprintf("%s %s\n", cursor, choice)
+		item := fmt.Sprintf("%s %s", cursor, choice)
+		s += m.zones.Mark(fmt.Sprintf("menu-%d", i), item) + "\n"
 	}
 
 	s += "\n" + m.outputLog
-	s += "\n↑ ↓ to move • Enter to select • q to quit"
-	return s
+	s += "\n↑ ↓ to move • Enter/click to select • q to quit"
+	return m.zones.Scan(s)
 }

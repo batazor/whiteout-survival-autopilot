@@ -82,14 +82,16 @@ func NewApp() (*App, error) {
 	// Initialize analyzer
 	app.analyzer = analyzer.NewAnalyzer(areas, rules, appLogger)
 
-	// Run analysis on startup screenshot (you can customize the path)
+	// Run analysis on startup screenshot
 	imagePath := "screenshots/startup.png"
 	currentScreen := app.gameFSM.Current()
 
-	if err := app.analyzer.Analyze(imagePath, app.state, currentScreen); err != nil {
+	newState, err := app.analyzer.AnalyzeAndUpdateState(imagePath, app.state, currentScreen)
+	if err != nil {
 		appLogger.Warn("initial screenshot analysis failed", slog.Any("error", err))
 	} else {
 		appLogger.Info("initial state updated from screenshot", slog.String("screen", currentScreen))
+		app.state = newState
 	}
 
 	// Save updated state
@@ -117,22 +119,19 @@ func (a *App) AllCharacters() []domain.Gamer {
 	return characters
 }
 
+// UpdateStateFromScreenshot captures, analyzes and saves new state
 func (a *App) UpdateStateFromScreenshot(screen string) {
 	imagePath := "screenshots/current.png"
 
-	// 1. Capture screenshot from device
-	if err := a.analyzer.Controller().Screenshot(imagePath); err != nil {
-		a.logger.Error("failed to capture screenshot", slog.Any("error", err))
-		return
-	}
+	// TODO: Capture screenshot with real device integration (e.g. ADB)
 
-	// 2. Run analyzer
-	if err := a.analyzer.Analyze(imagePath, a.state, screen); err != nil {
+	newState, err := a.analyzer.AnalyzeAndUpdateState(imagePath, a.state, screen)
+	if err != nil {
 		a.logger.Error("analysis failed", slog.Any("error", err))
 		return
 	}
+	a.state = newState
 
-	// 3. Save updated state
 	if err := a.repo.SaveState(a.ctx, a.state); err != nil {
 		a.logger.Error("failed to save state after analysis", slog.Any("error", err))
 	}
