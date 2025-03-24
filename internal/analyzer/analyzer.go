@@ -3,7 +3,6 @@ package analyzer
 import (
 	"fmt"
 	"log/slog"
-	"reflect"
 	"strconv"
 	"strings"
 
@@ -67,7 +66,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 			a.logger.Info("icon match result",
 				slog.String("region", rule.Name),
 				slog.Bool("found", found),
-				slog.Float64("confidence", confidence),
+				slog.Float64("confidence", float64(confidence)),
 			)
 
 			if found {
