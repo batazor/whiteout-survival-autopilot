@@ -14,6 +14,11 @@ main_city:
     threshold: 0.4
 
 exploration:
-  - name: claim_button
-    action: exist
+  - name: isClaimActive
+    action: color_check
+    expected_color: green
+    threshold: 0.9
+  - name: exploreLevel
+    action: text
+    type: integer
     threshold: 0.9

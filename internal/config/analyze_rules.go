@@ -8,11 +8,13 @@ import (
 )
 
 type AnalyzeRule struct {
-	Name      string  `yaml:"name"`      // Название региона (например: power, to_message)
-	Action    string  `yaml:"action"`    // Действие: "text" или "exist"
-	Type      string  `yaml:"type"`      // Тип значения: "integer", "string" (только для action: text)
-	Threshold float64 `yaml:"threshold"` // Порог уверенности (например: 0.9), опционально
-	Target    string  `yaml:"target"`    // Путь к полю в структуре State (например: alliance.state.isNeedSupport)
+	Name          string  `yaml:"name"`      // Название региона (например: power, to_message)
+	Action        string  `yaml:"action"`    // Действие: "text" или "exist"
+	Type          string  `yaml:"type"`      // Тип значения: "integer", "string" (только для action: text)
+	Threshold     float64 `yaml:"threshold"` // Порог уверенности (например: 0.9), опционально
+	Target        string  `yaml:"target"`    // Путь к полю в структуре State (например: alliance.state.isNeedSupport)
+	ExpectedColor string  `yaml:"expected_color,omitempty"`
+	Log           string  `yaml:"log,omitempty"`
 }
 
 type ScreenAnalyzeRules map[string][]AnalyzeRule
@@ -31,7 +33,9 @@ func LoadAnalyzeRules(path string) (ScreenAnalyzeRules, error) {
 	// Optional: Validate actions
 	for screen, ruleList := range rules {
 		for i, rule := range ruleList {
-			if rule.Action != "text" && rule.Action != "exist" {
+			if rule.Action != "text" &&
+				rule.Action != "exist" &&
+				rule.Action != "color_check" {
 				return nil, fmt.Errorf("invalid action '%s' in rule[%d] for screen '%s'", rule.Action, i, screen)
 			}
 		}

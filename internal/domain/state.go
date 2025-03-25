@@ -36,7 +36,7 @@ type Exploration struct {
 
 // ExplorationState описывает состояние исследования мира.
 type ExplorationState struct {
-	IsClaimButtonGreen bool `yaml:"isClaimButtonGreen"` // Признак доступности кнопки "Забрать".
+	IsClaimActive bool `yaml:"isClaimActive"` // Признак доступности кнопки "Забрать".
 }
 
 // Resources описывает ресурсы, которыми владеет персонаж.

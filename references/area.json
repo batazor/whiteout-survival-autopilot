@@ -201,5 +201,58 @@
     "created_at": "2025-03-23T18:47:11.165017Z",
     "updated_at": "2025-03-24T14:58:03.845874Z",
     "lead_time": 5646.839
+  },
+  {
+    "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
+    "id": 2,
+    "bbox": [
+      {
+        "x": 77.22222222222223,
+        "y": 76.33333333333334,
+        "width": 17.22222222222223,
+        "height": 2.5833333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.370370370370374,
+        "y": 84.58333333333333,
+        "width": 9.351851851851855,
+        "height": 2.0416666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 29.907407407407412,
+        "y": 91.25000000000001,
+        "width": 40.18518518518517,
+        "height": 4.791666666666657,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9832841691248771,
+        "y": 4.277286135693216,
+        "width": 10.160603080957065,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "isClaimActive",
+      "exploreLevel",
+      "claim_button",
+      "explore_tomain_city"
+    ],
+    "annotator": 1,
+    "annotation_id": 2,
+    "created_at": "2025-03-25T17:14:51.932986Z",
+    "updated_at": "2025-03-25T17:14:51.933016Z",
+    "lead_time": 265.395
   }
 ]

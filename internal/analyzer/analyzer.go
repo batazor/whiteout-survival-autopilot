@@ -101,6 +101,34 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 				}
 				mu.Unlock()
 
+			case "color_check":
+				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold))
+				if err != nil {
+					a.logger.Error("color check failed",
+						slog.String("region", rule.Name),
+						slog.Any("error", err),
+						slog.String("expected_color", rule.ExpectedColor),
+					)
+					return
+				}
+
+				a.logger.Info("color check result",
+					slog.String("region", rule.Name),
+					slog.Bool("found", found),
+					slog.String("expected_color", rule.ExpectedColor),
+				)
+
+				if rule.Log != "" {
+					a.logger.Info(rule.Log)
+				}
+
+				mu.Lock()
+				switch rule.Name {
+				case "isClaimActive":
+					charPtr.Exploration.State.IsClaimActive = found
+				}
+				mu.Unlock()
+
 			case "text":
 				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
 				if err != nil {
