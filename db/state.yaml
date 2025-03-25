@@ -5,8 +5,8 @@ accounts:
           nickname: batazor
           state: 2558
           avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-          power: 14150083
-          vipLevel: 6
+          power: 0
+          vipLevel: 0
           resources:
             wood: 100000
             food: 250000
@@ -30,7 +30,7 @@ accounts:
                 count: 15
                 max: 30
             state:
-                isNeedSupport: true
+                isNeedSupport: false
                 isWar: 1
                 isChests: 3
           buildings:
@@ -43,7 +43,7 @@ accounts:
             economy:
                 level: 3
         - id: 423382817
-          nickname: lord423382817
+          nickname: bart
           state: 2690
           avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
           power: 987
@@ -76,7 +76,7 @@ accounts:
                 isChests: 0
           buildings:
             furnace:
-                level: 11
+                level: 13
                 power: 0
           researchs:
             battle:
@@ -86,7 +86,7 @@ accounts:
     - email: user2@gmail.com
       characters:
         - id: 423382817
-          nickname: lord423382817
+          nickname: bart
           state: 2690
           avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
           power: 0
@@ -119,7 +119,7 @@ accounts:
                 isChests: 0
           buildings:
             furnace:
-                level: 11
+                level: 13
                 power: 0
           researchs:
             battle:
