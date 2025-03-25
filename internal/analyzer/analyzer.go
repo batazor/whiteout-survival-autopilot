@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
@@ -42,74 +43,91 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 	newChar := newState.Accounts[0].Characters[0]
 	charPtr := &newChar
 
+	var wg sync.WaitGroup
+	var mu sync.Mutex
+
 	for _, rule := range rules {
-		bbox, err := a.areas.GetRegionByName(rule.Name)
-		if err != nil {
-			a.logger.Warn("region not found for rule", slog.String("region", rule.Name))
-			continue
-		}
+		rule := rule // capture range variable
+		wg.Add(1)
 
-		region := bbox.ToRectangle()
-		threshold := rule.Threshold
-		if threshold == 0 {
-			threshold = 0.9
-		}
+		go func() {
+			defer wg.Done()
 
-		switch rule.Action {
-		case "exist":
-			iconPath := filepath.Join("references", "icons", rule.Name+".png")
-			found, confidence, err := imagefinder.MatchIconInRegion(
-				imagePath,
-				iconPath,
-				region,
-				float32(threshold),
-				a.logger,
-			)
+			bbox, err := a.areas.GetRegionByName(rule.Name)
 			if err != nil {
-				a.logger.Error("icon match failed",
-					slog.String("region", rule.Name),
-					slog.Any("error", err),
-					slog.String("image_path", imagePath),
+				a.logger.Warn("region not found for rule", slog.String("region", rule.Name))
+				return
+			}
+
+			region := bbox.ToRectangle()
+			threshold := rule.Threshold
+			if threshold == 0 {
+				threshold = 0.9
+			}
+
+			switch rule.Action {
+			case "exist":
+				iconPath := filepath.Join("references", "icons", rule.Name+".png")
+				found, confidence, err := imagefinder.MatchIconInRegion(
+					imagePath,
+					iconPath,
+					region,
+					float32(threshold),
+					a.logger,
 				)
-				continue
-			}
-			a.logger.Info("icon match result",
-				slog.String("region", rule.Name),
-				slog.Bool("found", found),
-				slog.Float64("confidence", float64(confidence)),
-			)
+				if err != nil {
+					a.logger.Error("icon match failed",
+						slog.String("region", rule.Name),
+						slog.Any("error", err),
+						slog.String("image_path", imagePath),
+					)
+					return
+				}
 
-			switch rule.Name {
-			case "allience_help":
-				charPtr.Alliance.State.IsNeedSupport = found
-			case "to_message":
-				charPtr.Messages.State.IsNewMessage = found
-			case "claim_button":
-				charPtr.Messages.State.IsNewReports = found
-			}
+				a.logger.Info("icon match result",
+					slog.String("region", rule.Name),
+					slog.Bool("found", found),
+					slog.Float64("confidence", float64(confidence)),
+				)
 
-		case "text":
-			text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
-			if err != nil {
-				a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
-				continue
-			}
+				mu.Lock()
+				switch rule.Name {
+				case "allience_help":
+					charPtr.Alliance.State.IsNeedSupport = found
+				case "to_message":
+					charPtr.Messages.State.IsNewMessage = found
+				case "claim_button":
+					charPtr.Messages.State.IsNewReports = found
+				}
+				mu.Unlock()
 
-			a.logger.Info("text result",
-				slog.String("region", rule.Name),
-				slog.String("text", text),
-			)
+			case "text":
+				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
+				if err != nil {
+					a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
+					return
+				}
 
-			switch rule.Name {
-			case "power":
+				a.logger.Info("text result",
+					slog.String("region", rule.Name),
+					slog.String("text", text),
+				)
+
 				val := parseNumber(text)
-				charPtr.Power = val
-			case "vipLevel":
-				val := parseNumber(text)
-				charPtr.VIPLevel = val
+
+				mu.Lock()
+				switch rule.Name {
+				case "power":
+					charPtr.Power = val
+				case "vipLevel":
+					charPtr.VIPLevel = val
+				}
+				mu.Unlock()
 			}
-		}
+		}()
 	}
+
+	wg.Wait()
 
 	newState.Accounts[0].Characters[0] = *charPtr
 
