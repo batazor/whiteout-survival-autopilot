@@ -7,6 +7,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
 type UsecaseListModel struct {
@@ -18,6 +19,7 @@ type UsecaseListModel struct {
 	err       error
 	quitting  bool
 	fromMenu  tea.Model
+	tabs      TabModel
 	charIndex int
 }
 
@@ -27,6 +29,7 @@ func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) t
 		cursor:    0,
 		fromMenu:  from,
 		charIndex: characterIndex,
+		tabs:      NewTabs(fsm.AllStates),
 	}
 
 	model.reloadUsecases()
@@ -38,7 +41,7 @@ func (m *UsecaseListModel) Init() tea.Cmd {
 }
 
 func (m *UsecaseListModel) reloadUsecases() {
-	currentNode := m.app.gameFSM.Current()
+	currentNode := m.tabs.Current()
 
 	all, err := m.app.loader.LoadAll(m.app.ctx)
 	filtered := make([]*domain.UseCase, 0, len(all))
@@ -82,6 +85,13 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return m.fromMenu, nil
+		case "left", "right":
+			old := m.tabs.Index
+			m.tabs, _ = m.tabs.Update(msg)
+			if m.tabs.Index != old {
+				m.reloadUsecases()
+				m.cursor = 0
+			}
 
 		case "up":
 			if m.cursor > 0 {
@@ -116,7 +126,7 @@ func (m *UsecaseListModel) View() string {
 		return fmt.Sprintf("Failed to load usecases: %v\nPress q to go back.", m.err)
 	}
 
-	s := "Usecases:\n"
+	s := m.tabs.View() + "\nUsecases:\n"
 	for i, uc := range m.usecases {
 		cursor := " "
 		if i == m.cursor {
