@@ -7,8 +7,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
-	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
@@ -17,11 +15,19 @@ type UseCaseExecutor interface {
 	ExecuteUseCase(uc *domain.UseCase, state *domain.State)
 }
 
+type Analyzer interface {
+	AnalyzeAndUpdateState(imagePath string, state *domain.State, rules []domain.AnalyzeRule) (*domain.State, error)
+}
+
+type ADB interface {
+	Screenshot(path string) error
+}
+
 func NewUseCaseExecutor(
 	logger *slog.Logger,
 	triggerEvaluator config.TriggerEvaluator,
-	analyzer *analyzer.Analyzer,
-	adb *adb.Controller,
+	analyzer Analyzer,
+	adb ADB,
 ) UseCaseExecutor {
 	return &executorImpl{
 		logger:           logger,
@@ -34,8 +40,8 @@ func NewUseCaseExecutor(
 type executorImpl struct {
 	logger           *slog.Logger
 	triggerEvaluator config.TriggerEvaluator
-	analyzer         *analyzer.Analyzer
-	adb              *adb.Controller
+	analyzer         Analyzer
+	adb              ADB
 }
 
 func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {

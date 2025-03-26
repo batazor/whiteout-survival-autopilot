@@ -27,7 +27,7 @@ func NewAnalyzer(areas *config.AreaLookup, logger *slog.Logger) *Analyzer {
 	}
 }
 
-func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.State, rules []config.AnalyzeRule) (*domain.State, error) {
+func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.State, rules []domain.AnalyzeRule) (*domain.State, error) {
 	if len(oldState.Accounts) == 0 || len(oldState.Accounts[0].Characters) == 0 {
 		return nil, fmt.Errorf("no characters in state")
 	}

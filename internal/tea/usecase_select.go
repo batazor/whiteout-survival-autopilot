@@ -116,11 +116,10 @@ func (m *UsecaseListModel) View() string {
 			cursor = ">"
 		}
 		triggerStatus := m.triggerOK[i]
-		s += fmt.Sprintf(" %s %d) [%s] %s (%s → %s)\n",
-			cursor, i+1, triggerStatus, uc.Name, uc.Node, uc.FinalNode)
+		s += fmt.Sprintf(" %s %d) [%s] %s \n", cursor, i+1, triggerStatus, uc.Name)
 	}
 
-	// Add refresh option
+	// Add a refresh option
 	cursor := " "
 	if m.cursor == len(m.usecases) {
 		cursor = ">"
