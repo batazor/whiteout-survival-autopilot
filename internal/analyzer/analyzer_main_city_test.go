@@ -58,11 +58,11 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 
 	// Логи
 	t.Logf("Power: %d", char.Power)
-	t.Logf("VIP Level: %d", char.VIPLevel)
+	t.Logf("VIP Level: %d", char.Vip_Level)
 	t.Logf("Alliance Help: %v", char.Alliance.State.IsNeedSupport)
 
 	// Ожидаемые значения
 	assert.Equal(t, 13350651, char.Power)
-	assert.Equal(t, 6, char.VIPLevel)
+	assert.Equal(t, 6, char.Vip_Level)
 	assert.True(t, char.Alliance.State.IsNeedSupport)
 }

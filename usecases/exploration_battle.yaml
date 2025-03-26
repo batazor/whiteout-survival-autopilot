@@ -1,26 +1,37 @@
 name: Exploration Battle
 
-node: exploration
+node: exploration_battle
 
-ttl: 30m
+ttl: 0
+
+trigger: "exploration.state.myPower >= exploration.state.enemyPower"
 
 steps:
-  - click: explore_button          # Нажатие кнопки "Исследовать".
-  - click: quick_deploy_button     # Нажатие кнопки "Быстрый деплой".
-  - click: fight_button           # Инициация боя.
-  - wait: 5000                    # Ожидание 5000 миллисекунд для получения результата боя.
-  - if:
-      trigger: "contains(text, 'defeat')"   # Если результат содержит "defeat" (поражение)
-      then:
-        - setTTL: 24h                   # Установка TTL на 24 часа.
-          usecaseName: Exploration Battle  # Название usecase.
-        - click: exploration_back           # Возврат в главное меню.
-      else:
-        - if:
-            trigger: "contains(text, 'viktor')"  # Если результат содержит "viktor" (победа)
-            then:
-              - click: fight_button           # Продолжение боя.
-            else:
-              - wait: 5000                    # Если результат не распознан, ожидаем повторно.
+  - click: quick_deploy_button
+  - click: battle_button
+  - wait: 10s
+  - action: loop
+    trigger: '!(exploration.state.battleStatus.contains("defeat") || exploration.state.battleStatus.contains("viktory"))'
+    steps:
+      - action: screenshot
+        analyze:
+          - name: exploration_battle_status
+            action: text
+            type: integer
+            threshold: 0.5
+            set: exploration.state.battleStatus
+      - if:
+          trigger: 'exploration.state.battleStatus.contains("defeat")'   # Если результат содержит "defeat" (поражение)
+          then:
+            - setTTL: 24h                       # Установка TTL на 24 часа.
+              usecaseName: Exploration Battle   # Название usecase.
+            - click: exploration_return_to_city # Возврат в главное меню.
+            - action: loop_stop
+      - if:
+          trigger: 'exploration.state.battleStatus.contains("viktory")'  # Если результат содержит "viktor" (победа)
+          then:
+            - click: battle_continue # Продолжение боя.
+            - action: loop_stop
+      - wait: 5s
 
-final_node: main_menu
+final_node: main_city

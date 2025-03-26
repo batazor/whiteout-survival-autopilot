@@ -4,21 +4,33 @@ main_city:
     type: integer
     threshold: 0.9
 
-  - name: vipLevel
+  - name: vip_level
     action: text
     type: integer
     threshold: 0.9
 
-  - name: alliance_help
+  - name: alliance.state.isNeedSupport
     action: exist
     threshold: 0.4
 
 exploration:
-  - name: isClaimActive
+  - name: exploration.state.isClaimActive
     action: color_check
     expected_color: green
-    threshold: 0.9
-  - name: exploreLevel
+    threshold: 0.5
+
+  - name: exploration.level
     action: text
     type: integer
-    threshold: 0.9
+    threshold: 0.5
+
+exploration_fight:
+  - name: exploration.state.myPower
+    action: text
+    type: integer
+    threshold: 0.5
+
+  - name: exploration.state.enemyPower
+    action: text
+    type: integer
+    threshold: 0.5

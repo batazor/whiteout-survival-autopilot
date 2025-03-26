@@ -18,7 +18,7 @@ type Gamer struct {
 	State       int           `yaml:"state"`       // Государство персонажа.
 	Avatar      string        `yaml:"avatar"`      // URL аватара персонажа.
 	Power       int           `yaml:"power"`       // Мощь персонажа.
-	VIPLevel    int           `yaml:"vipLevel"`    // VIP-уровень.
+	Vip_Level   int           `yaml:"vip_level"`   // VIP-уровень.
 	Resources   Resources     `yaml:"resources"`   // Ресурсы персонажа.
 	Gems        int           `yaml:"gems"`        // Количество гемов (премиум-валюта).
 	Exploration Exploration   `yaml:"exploration"` // Исследование мира.
@@ -31,6 +31,7 @@ type Gamer struct {
 
 // Exploration описывает уровень исследования мира.
 type Exploration struct {
+	Level int              `yaml:"level"`
 	State ExplorationState `yaml:"state"`
 }
 

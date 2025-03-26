@@ -12,7 +12,6 @@ type AnalyzeRule struct {
 	Action        string  `yaml:"action"`    // Действие: "text" или "exist"
 	Type          string  `yaml:"type"`      // Тип значения: "integer", "string" (только для action: text)
 	Threshold     float64 `yaml:"threshold"` // Порог уверенности (например: 0.9), опционально
-	Target        string  `yaml:"target"`    // Путь к полю в структуре State (например: alliance.state.isNeedSupport)
 	ExpectedColor string  `yaml:"expected_color,omitempty"`
 	Log           string  `yaml:"log,omitempty"`
 }

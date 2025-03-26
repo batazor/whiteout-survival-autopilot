@@ -177,7 +177,7 @@
     ],
     "transcription": [
       "power",
-      "vipLevel",
+      "vip_level",
       "gems",
       "chief_profile",
       "events_area",
@@ -185,7 +185,7 @@
       "to_exploration",
       "to_heroes",
       "to_backpack",
-      "sto_hop",
+      "to_shop",
       "to_alliance",
       "to_world",
       "chat_short",
@@ -194,13 +194,13 @@
       "to_messages",
       "to_chief_order",
       "main_menu",
-      "alliance_help"
+      "alliance.state.isNeedSupport"
     ],
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-24T14:58:03.845874Z",
-    "lead_time": 5646.839
+    "updated_at": "2025-03-26T16:32:14.151984Z",
+    "lead_time": 6140.491
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -244,15 +244,15 @@
       }
     ],
     "transcription": [
-      "isClaimActive",
-      "exploreLevel",
+      "exploration.state.isClaimActive",
+      "exploration.level",
       "claim_button",
-      "explore_tomain_city"
+      "explore_to_main_city"
     ],
     "annotator": 1,
     "annotation_id": 2,
     "created_at": "2025-03-25T17:14:51.932986Z",
-    "updated_at": "2025-03-25T17:14:51.933016Z",
-    "lead_time": 265.395
+    "updated_at": "2025-03-26T16:32:28.571685Z",
+    "lead_time": 1343.409
   }
 ]

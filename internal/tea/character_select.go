@@ -83,7 +83,7 @@ func (m *CharacterSelectModel) View() string {
 		zoneID := fmt.Sprintf("char-%d", i)
 		line := fmt.Sprintf(
 			"%s %d) %s (Сила: %d, VIP: %d, Печь: %d)",
-			cursor, i+1, char.Nickname, char.Power, char.VIPLevel, char.Buildings.Furnace.Level,
+			cursor, i+1, char.Nickname, char.Power, char.Vip_Level, char.Buildings.Furnace.Level,
 		)
 		s += m.zones.Mark(zoneID, line) + "\n"
 	}

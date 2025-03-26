@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"path/filepath"
+	"reflect"
 	"strconv"
 	"strings"
 	"sync"
@@ -65,69 +66,25 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 				threshold = 0.9
 			}
 
+			var value any
+
 			switch rule.Action {
 			case "exist":
-				iconPath := filepath.Join("references", "icons", rule.Name+".png")
-				found, confidence, err := imagefinder.MatchIconInRegion(
-					imagePath,
-					iconPath,
-					region,
-					float32(threshold),
-					a.logger,
-				)
+				iconPath := filepath.Join("references", "icons", filepath.Base(rule.Name)+".png")
+				found, _, err := imagefinder.MatchIconInRegion(imagePath, iconPath, region, float32(threshold), a.logger)
 				if err != nil {
-					a.logger.Error("icon match failed",
-						slog.String("region", rule.Name),
-						slog.Any("error", err),
-						slog.String("image_path", imagePath),
-					)
+					a.logger.Error("icon match failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
-
-				a.logger.Info("icon match result",
-					slog.String("region", rule.Name),
-					slog.Bool("found", found),
-					slog.Float64("confidence", float64(confidence)),
-				)
-
-				mu.Lock()
-				switch rule.Name {
-				case "alliance_help":
-					charPtr.Alliance.State.IsNeedSupport = found
-				case "to_message":
-					charPtr.Messages.State.IsNewMessage = found
-				case "claim_button":
-					charPtr.Messages.State.IsNewReports = found
-				}
-				mu.Unlock()
+				value = found
 
 			case "color_check":
 				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
 				if err != nil {
-					a.logger.Error("color check failed",
-						slog.String("region", rule.Name),
-						slog.Any("error", err),
-						slog.String("expected_color", rule.ExpectedColor),
-					)
+					a.logger.Error("color check failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
-
-				a.logger.Info("color check result",
-					slog.String("region", rule.Name),
-					slog.Bool("found", found),
-					slog.String("expected_color", rule.ExpectedColor),
-				)
-
-				if rule.Log != "" {
-					a.logger.Info(rule.Log)
-				}
-
-				mu.Lock()
-				switch rule.Name {
-				case "isClaimActive":
-					charPtr.Exploration.State.IsClaimActive = found
-				}
-				mu.Unlock()
+				value = found
 
 			case "text":
 				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
@@ -135,28 +92,31 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 					a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
-
-				a.logger.Info("text result",
-					slog.String("region", rule.Name),
-					slog.String("text", text),
-				)
-
-				val := parseNumber(text)
-
-				mu.Lock()
-				switch rule.Name {
-				case "power":
-					charPtr.Power = val
-				case "vipLevel":
-					charPtr.VIPLevel = val
+				a.logger.Info("text result", slog.String("region", rule.Name), slog.String("text", text))
+				switch rule.Type {
+				case "integer":
+					value = parseNumber(text)
+				case "string":
+					value = text
+				default:
+					a.logger.Warn("unsupported type", slog.String("type", rule.Type))
+					return
 				}
-				mu.Unlock()
+			default:
+				a.logger.Warn("unsupported action", slog.String("action", rule.Action))
+				return
+			}
+
+			mu.Lock()
+			defer mu.Unlock()
+
+			if err := setFieldByPath(reflect.ValueOf(charPtr).Elem(), strings.Split(rule.Name, "."), value); err != nil {
+				a.logger.Error("failed to set field", slog.String("path", rule.Name), slog.Any("error", err))
 			}
 		}()
 	}
 
 	wg.Wait()
-
 	newState.Accounts[0].Characters[0] = *charPtr
 
 	return &newState, nil
@@ -167,4 +127,40 @@ func parseNumber(s string) int {
 	clean := strings.ReplaceAll(s, " ", "")
 	val, _ := strconv.Atoi(clean)
 	return val
+}
+
+// setFieldByPath sets a nested field by string path using reflection
+func setFieldByPath(v reflect.Value, path []string, value any) error {
+	for i, part := range path {
+		if i == len(path)-1 {
+			field := v.FieldByNameFunc(func(name string) bool {
+				return strings.EqualFold(name, part)
+			})
+			if !field.IsValid() || !field.CanSet() {
+				return fmt.Errorf("cannot set field: %s", part)
+			}
+			val := reflect.ValueOf(value)
+			if val.Type().ConvertibleTo(field.Type()) {
+				field.Set(val.Convert(field.Type()))
+			} else {
+				return fmt.Errorf("type mismatch for field %s", part)
+			}
+			return nil
+		}
+
+		v = v.FieldByNameFunc(func(name string) bool {
+			return strings.EqualFold(name, part)
+		})
+		if !v.IsValid() {
+			return fmt.Errorf("invalid field: %s", part)
+		}
+		if v.Kind() == reflect.Ptr {
+			if v.IsNil() {
+				v.Set(reflect.New(v.Type().Elem()))
+			}
+			v = v.Elem()
+		}
+	}
+
+	return nil
 }

@@ -6,7 +6,7 @@ accounts:
           state: 2558
           avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
           power: 14485262
-          vipLevel: 6
+          vip_level: 0
           resources:
             wood: 100000
             food: 250000
@@ -14,8 +14,11 @@ accounts:
             meat: 8000
           gems: 100
           exploration:
+            level: 0
             state:
-                isClaimActive: false
+              isClaimActive: false
+              myPower: 0
+              enemyPower: 0
           heroes:
             state:
                 isHeroes: false
@@ -90,7 +93,7 @@ accounts:
           state: 2690
           avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
           power: 0
-          vipLevel: 0
+          vip_level: 0
           resources:
             wood: 0
             food: 0

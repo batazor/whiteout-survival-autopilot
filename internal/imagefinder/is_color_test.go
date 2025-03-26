@@ -23,7 +23,7 @@ func TestIsColorDominant_Table(t *testing.T) {
 		{
 			name:          "Claim button is active (green)",
 			imagePath:     "../../references/screenshots/exploration.png",
-			regionKey:     "isClaimActive",
+			regionKey:     "exploration.state.isClaimActive",
 			expectedColor: "green",
 			threshold:     0.7,
 			wantDominant:  true,
@@ -31,7 +31,7 @@ func TestIsColorDominant_Table(t *testing.T) {
 		{
 			name:          "Claim button is disabled (no green)",
 			imagePath:     "../../references/screenshots/exploration_disable.png",
-			regionKey:     "isClaimActive",
+			regionKey:     "exploration.state.isClaimActive",
 			expectedColor: "green",
 			threshold:     0.7,
 			wantDominant:  false,

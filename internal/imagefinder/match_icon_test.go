@@ -17,7 +17,7 @@ func TestMatchIconInRegion(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Получаем прямоугольник для иконки
-	region, ok := areaConfig.Get("alliance_help")
+	region, ok := areaConfig.Get("alliance.state.isNeedSupport")
 	assert.True(t, ok)
 
 	// Пути к изображениям
