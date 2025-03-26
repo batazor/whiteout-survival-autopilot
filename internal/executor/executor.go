@@ -1,63 +1,76 @@
 package executor
 
 import (
-	"fmt"
-	"log"
+	"log/slog"
+	"strings"
 	"time"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
 type UseCaseExecutor interface {
-	ExecuteUseCase(uc *domain.UseCase)
+	ExecuteUseCase(uc *domain.UseCase, state *domain.State)
 }
 
-func NewUseCaseExecutor() UseCaseExecutor {
-	return &executorImpl{}
+func NewUseCaseExecutor(logger *slog.Logger, triggerEvaluator config.TriggerEvaluator) UseCaseExecutor {
+	return &executorImpl{
+		logger:           logger,
+		triggerEvaluator: triggerEvaluator,
+	}
 }
 
-type executorImpl struct{}
+type executorImpl struct {
+	logger           *slog.Logger
+	triggerEvaluator config.TriggerEvaluator
+}
 
-func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase) {
-	log.Printf("=== Start usecase: %s ===", uc.Name)
+func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {
+	e.logger.Info("=== Start usecase ===", slog.String("name", uc.Name))
 	for _, step := range uc.Steps {
-		e.runStep(step, 0)
+		e.runStep(step, 0, state)
 	}
-	log.Printf("=== End usecase: %s ===", uc.Name)
+	e.logger.Info("=== End usecase ===", slog.String("name", uc.Name))
 }
 
-// runStep is recursive if you have nested If -> Then/Else steps
-func (e *executorImpl) runStep(step domain.Step, indent int) {
-	prefix := ""
-	for i := 0; i < indent; i++ {
-		prefix += "  "
-	}
+func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State) {
+	prefix := strings.Repeat("  ", indent)
 
 	if step.Click != "" {
-		fmt.Printf("%sClick: %s\n", prefix, step.Click)
-		// Here you'd do the actual click action...
+		e.logger.Info(prefix+"Click", slog.String("target", step.Click))
+		// TODO: ADB click
 	}
+
 	if step.Action != "" {
-		fmt.Printf("%sAction: %s\n", prefix, step.Action)
+		e.logger.Info(prefix+"Action", slog.String("action", step.Action))
 	}
+
 	if step.Wait > 0 {
-		fmt.Printf("%sWaiting for: %v...\n", prefix, step.Wait)
+		e.logger.Info(prefix+"Wait", slog.Duration("duration", step.Wait))
 		time.Sleep(step.Wait)
 	}
-	if step.If != nil {
-		fmt.Printf("%sIF: %s\n", prefix, step.If.Trigger)
-		// Evaluate condition in real code. For now, we pretend it’s true
-		conditionTrue := true
 
-		if conditionTrue {
-			fmt.Printf("%s  THEN:\n", prefix)
+	if step.If != nil {
+		e.logger.Info(prefix+"If Trigger", slog.String("expr", step.If.Trigger))
+
+		result, err := e.triggerEvaluator.EvaluateTrigger(step.If.Trigger, state)
+		if err != nil {
+			e.logger.Error(prefix+"Trigger evaluation failed",
+				slog.String("expr", step.If.Trigger),
+				slog.Any("error", err),
+			)
+			return
+		}
+
+		if result {
+			e.logger.Info(prefix + "Condition met: executing THEN")
 			for _, s := range step.If.Then {
-				e.runStep(s, indent+2)
+				e.runStep(s, indent+1, state)
 			}
 		} else if len(step.If.Else) > 0 {
-			fmt.Printf("%s  ELSE:\n", prefix)
+			e.logger.Info(prefix + "Condition NOT met: executing ELSE")
 			for _, s := range step.If.Else {
-				e.runStep(s, indent+2)
+				e.runStep(s, indent+1, state)
 			}
 		}
 	}

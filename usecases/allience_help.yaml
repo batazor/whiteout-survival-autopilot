@@ -8,5 +8,3 @@ ttl: 0
 
 steps:
   - click: alliance_help
-
-final_node: main_city

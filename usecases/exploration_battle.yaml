@@ -33,5 +33,3 @@ steps:
             - click: battle_continue # Продолжение боя.
             - action: loop_stop
       - wait: 5s
-
-final_node: main_city

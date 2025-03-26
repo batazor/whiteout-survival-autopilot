@@ -3,7 +3,6 @@ package teaapp
 import (
 	"fmt"
 	"log/slog"
-	"path/filepath"
 	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
@@ -89,33 +88,6 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 				ucLogger.Warn("Unknown step type", slog.Any("step", step))
 			}
 		}
-	}
-
-	// --- Step 3: Transition to final node ---
-	if usecase.FinalNode != "" && a.gameFSM.Current() != usecase.FinalNode {
-		a.logger.Info("FSM transition to final node",
-			slog.String("from", usecase.Node),
-			slog.String("to", usecase.FinalNode),
-		)
-		a.gameFSM.ForceTo(usecase.FinalNode)
-	}
-
-	// --- Step 4: Analyze screen after usecase (if screenshot already exists) ---
-	afterPath := filepath.Join("screenshots", "after_"+usecase.FinalNode+".png")
-	newState, err := a.analyzer.AnalyzeAndUpdateState(afterPath, a.state, usecase.FinalNode)
-	if err != nil {
-		a.logger.Warn("post-usecase state analysis failed", slog.Any("error", err))
-	} else {
-		a.state = newState
-	}
-
-	// --- Step 5: Save updated state ---
-	if err := a.repo.SaveState(a.ctx, a.state); err != nil {
-		return fmt.Errorf("failed to save state: %w", err)
-	}
-
-	if ucLogger != nil {
-		ucLogger.Info("Usecase Finished", slog.String("final_node", usecase.FinalNode))
 	}
 
 	return nil

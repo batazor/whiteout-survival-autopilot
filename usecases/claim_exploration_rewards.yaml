@@ -9,5 +9,3 @@ ttl: 30m
 steps:
   - click: claim_button       # Click the claim button on the exploration screen.
     log: "💰 Claiming exploration rewards"
-
-final_node: main_menu
