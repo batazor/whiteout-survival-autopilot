@@ -9,8 +9,10 @@ type UseCase struct {
 	Name    string `yaml:"name"`    // Название сценария
 	Node    string `yaml:"node"`    // Начальное состояние (экран)
 	Trigger string `yaml:"trigger"` // Условие запуска сценария (CEL-выражение)
-	Steps   []Step `yaml:"steps"`   // Последовательность шагов сценария
+	Steps   Steps  `yaml:"steps"`   // Последовательность шагов сценария
 }
+
+type Steps []Step
 
 // Step представляет отдельный шаг сценария.
 // Поддерживаются действия клика, выполнение дополнительных действий, ожидание и условные операторы.
@@ -18,10 +20,12 @@ type Step struct {
 	SetTTL      string `yaml:"setTTL,omitempty"`      // TTL duration (e.g. "24h") to set in Redis
 	UsecaseName string `yaml:"usecaseName,omitempty"` // Target usecase name for the TTL
 
-	Click  string        `yaml:"click,omitempty"`  // Клик по элементу (например, "to_mail")
-	Action string        `yaml:"action,omitempty"` // Дополнительное действие (например, "screenshot")
-	Wait   time.Duration `yaml:"wait,omitempty"`   // Ожидание, заданное строкой, например, "5s"
-	If     *IfStep       `yaml:"if,omitempty"`     // Условный оператор, если шаг включает проверку
+	Click   string        `yaml:"click,omitempty"`  // Клик по элементу (например, "to_mail")
+	Action  string        `yaml:"action,omitempty"` // Дополнительное действие (например, "screenshot")
+	Wait    time.Duration `yaml:"wait,omitempty"`   // Ожидание, заданное строкой, например, "5s"
+	If      *IfStep       `yaml:"if,omitempty"`     // Условный оператор, если шаг включает проверку
+	Trigger string        `yaml:"trigger"`
+	Steps   Steps
 }
 
 // IfStep описывает условный шаг с ветками then/else.
