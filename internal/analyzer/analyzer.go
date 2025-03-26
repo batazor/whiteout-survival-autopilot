@@ -102,7 +102,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 				mu.Unlock()
 
 			case "color_check":
-				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold))
+				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
 				if err != nil {
 					a.logger.Error("color check failed",
 						slog.String("region", rule.Name),
