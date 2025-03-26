@@ -18,25 +18,48 @@ type StateUpdateCallback interface {
 // State Definitions: Each constant represents a game screen (state)
 // --------------------------------------------------------------------
 const (
-	InitialState          = "initial"
-	StateMainCity         = "main_city"
-	StateActivityTriumph  = "activity_triumph"
-	StateAllianceManage   = "alliance_manage"
-	StateAllianceSettings = "alliance_settings"
-	StateAllianceHistory  = "alliance_history"
-	StateAllianceList     = "alliance_list"
-	StateAllianceVote     = "alliance_vote"
-	StateAllianceRanking  = "alliance_ranking"
-	StateEvents           = "events"
-	StateProfile          = "profile"
-	StateLeaderboard      = "leaderboard"
-	StateSettings         = "settings"
-	StateVIP              = "vip"
-	StateChiefOrders      = "chief_orders"
-	StateMail             = "mail"
-	StateDawnMarket       = "dawn_market"
-	StateExploration      = "exploration"
+	InitialState           = "initial"
+	StateMainCity          = "main_city"
+	StateActivityTriumph   = "activity_triumph"
+	StateAllianceManage    = "alliance_manage"
+	StateAllianceSettings  = "alliance_settings"
+	StateAllianceHistory   = "alliance_history"
+	StateAllianceList      = "alliance_list"
+	StateAllianceVote      = "alliance_vote"
+	StateAllianceRanking   = "alliance_ranking"
+	StateEvents            = "events"
+	StateProfile           = "profile"
+	StateLeaderboard       = "leaderboard"
+	StateSettings          = "settings"
+	StateVIP               = "vip"
+	StateChiefOrders       = "chief_orders"
+	StateMail              = "mail"
+	StateDawnMarket        = "dawn_market"
+	StateExploration       = "exploration"
+	StateExplorationButtle = "exploration_buttle"
 )
+
+var AllStates = []string{
+	InitialState,
+	StateMainCity,
+	StateActivityTriumph,
+	StateAllianceManage,
+	StateAllianceSettings,
+	StateAllianceHistory,
+	StateAllianceList,
+	StateAllianceVote,
+	StateAllianceRanking,
+	StateEvents,
+	StateProfile,
+	StateLeaderboard,
+	StateSettings,
+	StateVIP,
+	StateChiefOrders,
+	StateMail,
+	StateDawnMarket,
+	StateExploration,
+	StateExplorationButtle,
+}
 
 // --------------------------------------------------------------------
 // Event Definitions
@@ -44,23 +67,24 @@ const (
 type Event string
 
 const (
-	EventGoToAllianceManage   Event = "to_alliance_manage"
-	EventGoToAllianceSettings Event = "to_alliance_settings" // 🆕 добавлено
-	EventGoToEvents           Event = "to_events"
-	EventGoToProfile          Event = "to_profile"
-	EventGoToLeaderboard      Event = "to_leaderboard"
-	EventGoToSettings         Event = "to_settings"
-	EventGoToVIP              Event = "to_vip"
-	EventGoToChiefOrders      Event = "to_chief_orders"
-	EventGoToMail             Event = "to_mail"
-	EventGoToDawnMarket       Event = "to_dawn_market"
-	EventGoToExploration      Event = "to_exploration"
-	EventGoToActivityTriumph  Event = "to_activity_triumph"
-	EventGoToAllianceHistory  Event = "to_alliance_history"
-	EventGoToAllianceList     Event = "to_alliance_list"
-	EventGoToAllianceVote     Event = "to_alliance_vote"
-	EventGoToAllianceRanking  Event = "to_alliance_ranking"
-	EventBack                 Event = "back"
+	EventGoToAllianceManage    Event = "to_alliance_manage"
+	EventGoToAllianceSettings  Event = "to_alliance_settings"
+	EventGoToEvents            Event = "to_events"
+	EventGoToProfile           Event = "to_profile"
+	EventGoToLeaderboard       Event = "to_leaderboard"
+	EventGoToSettings          Event = "to_settings"
+	EventGoToVIP               Event = "to_vip"
+	EventGoToChiefOrders       Event = "to_chief_orders"
+	EventGoToMail              Event = "to_mail"
+	EventGoToDawnMarket        Event = "to_dawn_market"
+	EventGoToExploration       Event = "to_exploration"
+	EventGoToExplorationButtle Event = "to_exploration_buttle"
+	EventGoToActivityTriumph   Event = "to_activity_triumph"
+	EventGoToAllianceHistory   Event = "to_alliance_history"
+	EventGoToAllianceList      Event = "to_alliance_list"
+	EventGoToAllianceVote      Event = "to_alliance_vote"
+	EventGoToAllianceRanking   Event = "to_alliance_ranking"
+	EventBack                  Event = "back"
 )
 
 type GameFSM struct {
@@ -76,7 +100,7 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 
 	transitions := lpfsm.Events{
 		{Name: string(EventGoToAllianceManage), Src: []string{StateMainCity}, Dst: StateAllianceManage},
-		{Name: string(EventGoToAllianceSettings), Src: []string{StateAllianceManage}, Dst: StateAllianceSettings}, // 🆕
+		{Name: string(EventGoToAllianceSettings), Src: []string{StateAllianceManage}, Dst: StateAllianceSettings},
 		{Name: string(EventGoToEvents), Src: []string{StateMainCity}, Dst: StateEvents},
 		{Name: string(EventGoToProfile), Src: []string{StateMainCity}, Dst: StateProfile},
 		{Name: string(EventGoToLeaderboard), Src: []string{StateMainCity}, Dst: StateLeaderboard},
@@ -86,12 +110,12 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		{Name: string(EventGoToMail), Src: []string{StateMainCity}, Dst: StateMail},
 		{Name: string(EventGoToDawnMarket), Src: []string{StateMainCity}, Dst: StateDawnMarket},
 		{Name: string(EventGoToExploration), Src: []string{StateMainCity}, Dst: StateExploration},
+		{Name: string(EventGoToExplorationButtle), Src: []string{StateExploration}, Dst: StateExplorationButtle},
 		{Name: string(EventGoToActivityTriumph), Src: []string{StateEvents}, Dst: StateActivityTriumph},
 		{Name: string(EventGoToAllianceHistory), Src: []string{StateAllianceManage}, Dst: StateAllianceHistory},
 		{Name: string(EventGoToAllianceList), Src: []string{StateAllianceManage}, Dst: StateAllianceList},
 		{Name: string(EventGoToAllianceVote), Src: []string{StateAllianceManage}, Dst: StateAllianceVote},
 		{Name: string(EventGoToAllianceRanking), Src: []string{StateAllianceManage}, Dst: StateAllianceRanking},
-
 		{Name: string(EventBack), Src: []string{
 			StateVIP, StateProfile, StateLeaderboard, StateSettings,
 			StateChiefOrders, StateMail, StateDawnMarket,
@@ -100,10 +124,11 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		{Name: string(EventBack), Src: []string{StateActivityTriumph}, Dst: StateEvents},
 		{Name: string(EventBack), Src: []string{
 			StateAllianceHistory, StateAllianceList, StateAllianceVote, StateAllianceRanking,
-			StateAllianceSettings, // 🆕 можно вернуться к alliance_manage
+			StateAllianceSettings,
 		}, Dst: StateAllianceManage},
 		{Name: string(EventBack), Src: []string{StateAllianceManage}, Dst: StateMainCity},
 		{Name: string(EventBack), Src: []string{StateExploration}, Dst: StateMainCity},
+		{Name: string(EventBack), Src: []string{StateExplorationButtle}, Dst: StateMainCity},
 	}
 
 	callbacks := lpfsm.Callbacks{

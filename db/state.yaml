@@ -5,8 +5,8 @@ accounts:
           nickname: batazor
           state: 2558
           avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-          power: 14485262
-          vip_level: 0
+          power: 15144382
+          vip_level: 6
           resources:
             wood: 100000
             food: 250000
@@ -16,9 +16,7 @@ accounts:
           exploration:
             level: 0
             state:
-              isClaimActive: false
-              myPower: 0
-              enemyPower: 0
+                isClaimActive: false
           heroes:
             state:
                 isHeroes: false
@@ -33,7 +31,7 @@ accounts:
                 count: 15
                 max: 30
             state:
-                isNeedSupport: false
+                isNeedSupport: true
                 isWar: 1
                 isChests: 3
           buildings:
@@ -50,7 +48,7 @@ accounts:
           state: 2690
           avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
           power: 987
-          vipLevel: 4
+          vip_level: 0
           resources:
             wood: 5000
             food: 7000
@@ -58,6 +56,7 @@ accounts:
             meat: 1000
           gems: 0
           exploration:
+            level: 0
             state:
                 isClaimActive: false
           heroes:
@@ -101,6 +100,7 @@ accounts:
             meat: 0
           gems: 0
           exploration:
+            level: 0
             state:
                 isClaimActive: false
           heroes:

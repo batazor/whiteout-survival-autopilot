@@ -38,32 +38,39 @@ func (m *UsecaseListModel) Init() tea.Cmd {
 }
 
 func (m *UsecaseListModel) reloadUsecases() {
-	ucs, err := m.app.loader.LoadAll(m.app.ctx)
-	results := make([]string, len(ucs))
+	currentNode := m.app.gameFSM.Current()
+
+	all, err := m.app.loader.LoadAll(m.app.ctx)
+	filtered := make([]*domain.UseCase, 0, len(all))
+	results := make([]string, 0, len(all))
 
 	if err == nil {
-		for i, uc := range ucs {
-			if uc.Trigger == "" {
-				results[i] = "✅"
+		for _, uc := range all {
+			if uc.Node != currentNode {
 				continue
 			}
-			ok, err := m.app.evaluator.EvaluateTrigger(uc.Trigger, m.app.state)
-			if err != nil {
-				m.app.logger.Error("trigger eval error",
-					slog.String("usecase", uc.Name),
-					slog.String("trigger", uc.Trigger),
-					slog.Any("error", err),
-				)
-				results[i] = "⚠️"
-			} else if ok {
-				results[i] = "✅"
-			} else {
-				results[i] = "❌"
+
+			triggerStatus := "✅"
+			if uc.Trigger != "" {
+				ok, err := m.app.evaluator.EvaluateTrigger(uc.Trigger, m.app.state)
+				if err != nil {
+					m.app.logger.Error("trigger eval error",
+						slog.String("usecase", uc.Name),
+						slog.String("trigger", uc.Trigger),
+						slog.Any("error", err),
+					)
+					triggerStatus = "⚠️"
+				} else if !ok {
+					triggerStatus = "❌"
+				}
 			}
+
+			filtered = append(filtered, uc)
+			results = append(results, triggerStatus)
 		}
 	}
 
-	m.usecases = ucs
+	m.usecases = filtered
 	m.triggerOK = results
 	m.err = err
 }
