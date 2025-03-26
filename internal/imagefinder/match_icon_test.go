@@ -22,7 +22,7 @@ func TestMatchIconInRegion(t *testing.T) {
 
 	// Пути к изображениям
 	screenshotPath := "../../references/screenshots/city_main.png"
-	iconPath := "../../references/icons/alliance_help.png"
+	iconPath := "../../references/icons/alliance.state.isNeedSupport.png"
 
 	// Настраиваем логгер
 	logPath := "../../logs/test_match_icon.log"
