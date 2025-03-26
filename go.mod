@@ -3,6 +3,7 @@ module github.com/batazor/whiteout-survival-autopilot
 go 1.24.1
 
 require (
+	github.com/charmbracelet/bubbles v0.20.0
 	github.com/charmbracelet/bubbletea v1.3.4
 	github.com/google/cel-go v0.24.1
 	github.com/looplab/fsm v1.0.2

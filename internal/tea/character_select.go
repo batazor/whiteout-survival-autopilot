@@ -3,6 +3,7 @@ package teaapp
 import (
 	"fmt"
 
+	"github.com/charmbracelet/bubbles/help"
 	tea "github.com/charmbracelet/bubbletea"
 	bubblezone "github.com/lrstanley/bubblezone"
 
@@ -15,6 +16,7 @@ type CharacterSelectModel struct {
 	cursor    int
 	charCount int
 	zones     *bubblezone.Manager
+	help      help.Model
 }
 
 // NewCharacterSelectModel создает новую модель выбора персонажа.
@@ -27,6 +29,7 @@ func NewCharacterSelectModel(app *App) tea.Model {
 		cursor:    0,
 		charCount: len(app.AllCharacters()),
 		zones:     bubblezone.New(),
+		help:      help.New(),
 	}
 }
 
@@ -88,6 +91,6 @@ func (m *CharacterSelectModel) View() string {
 		s += m.zones.Mark(zoneID, line) + "\n"
 	}
 
-	s += "\n↑ ↓ для перемещения • Enter для выбора • q для выхода"
+	s += "\n\n" + m.help.View(keys)
 	return m.zones.Scan(s)
 }

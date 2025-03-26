@@ -3,6 +3,7 @@ package teaapp
 import (
 	"fmt"
 
+	"github.com/charmbracelet/bubbles/help"
 	tea "github.com/charmbracelet/bubbletea"
 	bubblezone "github.com/lrstanley/bubblezone"
 )
@@ -12,6 +13,7 @@ type DeviceSelectModel struct {
 	devices []string
 	cursor  int
 	zones   *bubblezone.Manager
+	help    help.Model
 }
 
 func NewDeviceSelectModel(app *App, devices []string) tea.Model {
@@ -20,6 +22,7 @@ func NewDeviceSelectModel(app *App, devices []string) tea.Model {
 		devices: devices,
 		cursor:  0,
 		zones:   bubblezone.New(),
+		help:    help.New(),
 	}
 }
 
@@ -72,6 +75,6 @@ func (m *DeviceSelectModel) View() string {
 		s += m.zones.Mark(fmt.Sprintf("device-%d", i), item) + "\n"
 	}
 
-	s += "\n↑ ↓ to move • Enter to select • q to quit"
+	s += "\n\n" + m.help.View(keys)
 	return m.zones.Scan(s)
 }

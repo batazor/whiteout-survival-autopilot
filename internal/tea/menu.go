@@ -3,6 +3,7 @@ package teaapp
 import (
 	"fmt"
 
+	"github.com/charmbracelet/bubbles/help"
 	tea "github.com/charmbracelet/bubbletea"
 	bubblezone "github.com/lrstanley/bubblezone"
 )
@@ -19,6 +20,7 @@ type MenuModel struct {
 	quitting  bool
 	outputLog string
 	zones     *bubblezone.Manager
+	help      help.Model
 }
 
 func NewMenuModel(app *App) MenuModel {
@@ -26,6 +28,7 @@ func NewMenuModel(app *App) MenuModel {
 		app:    app,
 		cursor: 0,
 		zones:  bubblezone.New(),
+		help:   help.New(),
 	}
 }
 
@@ -105,6 +108,6 @@ func (m MenuModel) View() string {
 	}
 
 	s += "\n" + m.outputLog
-	s += "\n↑ ↓ to move • Enter/click to select • q to quit"
+	s += "\n\n" + m.help.View(keys)
 	return m.zones.Scan(s)
 }
