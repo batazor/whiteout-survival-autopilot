@@ -92,7 +92,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 
 				mu.Lock()
 				switch rule.Name {
-				case "allience_help":
+				case "alliance_help":
 					charPtr.Alliance.State.IsNeedSupport = found
 				case "to_message":
 					charPtr.Messages.State.IsNewMessage = found

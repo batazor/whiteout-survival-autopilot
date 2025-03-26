@@ -17,12 +17,12 @@ func TestMatchIconInRegion(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Получаем прямоугольник для иконки
-	region, ok := areaConfig.Get("allience_help")
+	region, ok := areaConfig.Get("alliance_help")
 	assert.True(t, ok)
 
 	// Пути к изображениям
 	screenshotPath := "../../references/screenshots/city_main.png"
-	iconPath := "../../references/icons/allience_help.png"
+	iconPath := "../../references/icons/alliance_help.png"
 
 	// Настраиваем логгер
 	logPath := "../../logs/test_match_icon.log"

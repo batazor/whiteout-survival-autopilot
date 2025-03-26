@@ -9,7 +9,7 @@ main_city:
     type: integer
     threshold: 0.9
 
-  - name: allience_help
+  - name: alliance_help
     action: exist
     threshold: 0.4
 

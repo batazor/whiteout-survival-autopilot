@@ -1,4 +1,4 @@
-name: Click to allience help
+name: Click to alliance help button
 
 node: main_city
 
@@ -7,6 +7,6 @@ trigger: "alliance.state.isNeedSupport == true"
 ttl: 0
 
 steps:
-  - click: allience_help
+  - click: alliance_help
 
 final_node: main_city
