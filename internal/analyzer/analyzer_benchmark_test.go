@@ -22,7 +22,7 @@ func BenchmarkAnalyzeAndUpdateState(b *testing.B) {
 	}
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelError}))
-	an := NewAnalyzer(areaConfig, rules, logger)
+	an := NewAnalyzer(areaConfig, logger)
 
 	state := &domain.State{
 		Accounts: []domain.Account{
@@ -40,7 +40,7 @@ func BenchmarkAnalyzeAndUpdateState(b *testing.B) {
 	// --- Reset timer and benchmark ---
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_, err := an.AnalyzeAndUpdateState(imagePath, state, screen)
+		_, err := an.AnalyzeAndUpdateState(imagePath, state, rules[screen])
 		if err != nil {
 			b.Errorf("analysis failed: %v", err)
 		}

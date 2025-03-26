@@ -17,25 +17,17 @@ import (
 
 type Analyzer struct {
 	areas  *config.AreaLookup
-	rules  config.ScreenAnalyzeRules
 	logger *slog.Logger
 }
 
-func NewAnalyzer(areas *config.AreaLookup, rules config.ScreenAnalyzeRules, logger *slog.Logger) *Analyzer {
+func NewAnalyzer(areas *config.AreaLookup, logger *slog.Logger) *Analyzer {
 	return &Analyzer{
 		areas:  areas,
-		rules:  rules,
 		logger: logger,
 	}
 }
 
-func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.State, screen string) (*domain.State, error) {
-	rules, ok := a.rules[screen]
-	if !ok {
-		a.logger.Warn("no analysis rules found for screen", slog.String("screen", screen))
-		return oldState, nil
-	}
-
+func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.State, rules []config.AnalyzeRule) (*domain.State, error) {
 	if len(oldState.Accounts) == 0 || len(oldState.Accounts[0].Characters) == 0 {
 		return nil, fmt.Errorf("no characters in state")
 	}

@@ -26,6 +26,7 @@ type App struct {
 	gameFSM    *fsm.GameFSM
 	state      *domain.State
 	areas      *config.AreaLookup
+	rules      config.ScreenAnalyzeRules
 	analyzer   *analyzer.Analyzer
 	controller adb.DeviceController
 	logger     *slog.Logger
@@ -68,6 +69,7 @@ func NewApp() (*App, error) {
 		executor:   executor.NewUseCaseExecutor(),
 		gameFSM:    fsm.NewGameFSM(appLogger),
 		areas:      areas,
+		rules:      rules,
 		controller: controller,
 		logger:     appLogger,
 	}
@@ -87,7 +89,7 @@ func NewApp() (*App, error) {
 	})
 
 	// Initialize analyzer
-	app.analyzer = analyzer.NewAnalyzer(areas, rules, appLogger)
+	app.analyzer = analyzer.NewAnalyzer(areas, appLogger)
 
 	// Fetch additional player data from Century API
 	app.UpdateCharacterInfoFromCentury()
@@ -143,8 +145,13 @@ func (a *App) UpdateStateFromScreenshot(screen string) {
 		return
 	}
 
+	rules, ok := a.rules[screen]
+	if !ok {
+		a.logger.Warn("no analysis rules found for screen", slog.String("screen", screen))
+	}
+
 	// Analyze and update
-	newState, err := a.analyzer.AnalyzeAndUpdateState(imagePath, a.state, screen)
+	newState, err := a.analyzer.AnalyzeAndUpdateState(imagePath, a.state, rules)
 	if err != nil {
 		a.logger.Error("analysis failed", slog.Any("error", err))
 		return

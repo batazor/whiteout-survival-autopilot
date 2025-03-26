@@ -34,7 +34,7 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 	}))
 
 	// Инициализируем analyzer
-	an := analyzer.NewAnalyzer(areas, rules, logger)
+	an := analyzer.NewAnalyzer(areas, logger)
 
 	// Заготовка старого состояния
 	oldState := &domain.State{
@@ -51,7 +51,8 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 	screenshotPath := "../../references/screenshots/city_main.png"
 
 	// Анализируем
-	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, "main_city")
+	screen := "main_city"
+	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules[screen])
 	assert.NoError(t, err)
 
 	char := newState.Accounts[0].Characters[0]

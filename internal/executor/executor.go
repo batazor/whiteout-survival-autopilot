@@ -1,10 +1,14 @@
 package executor
 
 import (
+	"fmt"
 	"log/slog"
+	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
+	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
@@ -13,16 +17,25 @@ type UseCaseExecutor interface {
 	ExecuteUseCase(uc *domain.UseCase, state *domain.State)
 }
 
-func NewUseCaseExecutor(logger *slog.Logger, triggerEvaluator config.TriggerEvaluator) UseCaseExecutor {
+func NewUseCaseExecutor(
+	logger *slog.Logger,
+	triggerEvaluator config.TriggerEvaluator,
+	analyzer *analyzer.Analyzer,
+	adb *adb.Controller,
+) UseCaseExecutor {
 	return &executorImpl{
 		logger:           logger,
 		triggerEvaluator: triggerEvaluator,
+		analyzer:         analyzer,
+		adb:              adb,
 	}
 }
 
 type executorImpl struct {
 	logger           *slog.Logger
 	triggerEvaluator config.TriggerEvaluator
+	analyzer         *analyzer.Analyzer
+	adb              *adb.Controller
 }
 
 func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {
@@ -74,6 +87,25 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 		case "loop_stop":
 			e.logger.Info(prefix + "Received loop_stop")
 			return true
+
+		case "screenshot":
+			imagePath := filepath.Join("out", fmt.Sprintf("%s_step_%d.png", strings.ReplaceAll(step.UsecaseName, " ", "_"), indent))
+			e.logger.Info(prefix+"Taking screenshot", slog.String("path", imagePath))
+
+			if err := e.adb.Screenshot(imagePath); err != nil {
+				e.logger.Error(prefix+"Failed to capture screenshot", slog.Any("error", err))
+				return false
+			}
+
+			if len(step.Analyze) > 0 {
+				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, state, step.Analyze)
+				if err != nil {
+					e.logger.Error(prefix+"Analyze failed", slog.Any("error", err))
+				} else {
+					*state = *newState
+					e.logger.Info(prefix + "Analyze completed and state updated")
+				}
+			}
 		}
 	}
 

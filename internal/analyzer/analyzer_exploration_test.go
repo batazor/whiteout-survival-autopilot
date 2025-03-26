@@ -33,7 +33,7 @@ func TestAnalyzeExplorationScreens(t *testing.T) {
 	}))
 
 	// Инициализируем analyzer
-	an := analyzer.NewAnalyzer(areas, rules, logger)
+	an := analyzer.NewAnalyzer(areas, logger)
 
 	tests := []struct {
 		name             string
@@ -67,7 +67,8 @@ func TestAnalyzeExplorationScreens(t *testing.T) {
 				},
 			}
 
-			newState, err := an.AnalyzeAndUpdateState(tt.screenshot, oldState, "exploration")
+			screen := "exploration"
+			newState, err := an.AnalyzeAndUpdateState(tt.screenshot, oldState, rules[screen])
 			assert.NoError(t, err)
 
 			char := newState.Accounts[0].Characters[0]

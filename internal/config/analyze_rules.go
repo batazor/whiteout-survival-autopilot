@@ -5,18 +5,11 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v3"
+
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-type AnalyzeRule struct {
-	Name          string  `yaml:"name"`      // Название региона (например: power, to_message)
-	Action        string  `yaml:"action"`    // Действие: "text" или "exist"
-	Type          string  `yaml:"type"`      // Тип значения: "integer", "string" (только для action: text)
-	Threshold     float64 `yaml:"threshold"` // Порог уверенности (например: 0.9), опционально
-	ExpectedColor string  `yaml:"expected_color,omitempty"`
-	Log           string  `yaml:"log,omitempty"`
-}
-
-type ScreenAnalyzeRules map[string][]AnalyzeRule
+type ScreenAnalyzeRules map[string][]domain.AnalyzeRule
 
 func LoadAnalyzeRules(path string) (ScreenAnalyzeRules, error) {
 	data, err := os.ReadFile(path)

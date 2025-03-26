@@ -23,21 +23,21 @@ type DeviceController interface {
 	Swipe(x1, y1, x2, y2, durationMs int) error
 }
 
-// ADBController implements the DeviceController interface using the adb CLI tool.
-type ADBController struct {
+// The Controller implements the DeviceController interface using the adb CLI tool.
+type Controller struct {
 	deviceID string
 	logger   *slog.Logger
 }
 
-// NewADBController creates a new instance of the ADBController.
-func NewADBController(logger *slog.Logger) *ADBController {
-	return &ADBController{
+// NewADBController creates a new instance of the Controller.
+func NewADBController(logger *slog.Logger) *Controller {
+	return &Controller{
 		logger: logger,
 	}
 }
 
 // ListDevices returns all connected ADB devices.
-func (a *ADBController) ListDevices() ([]string, error) {
+func (a *Controller) ListDevices() ([]string, error) {
 	out, err := exec.Command("adb", "devices").Output()
 	if err != nil {
 		return nil, fmt.Errorf("adb not found or failed to list devices: %w", err)
@@ -58,17 +58,17 @@ func (a *ADBController) ListDevices() ([]string, error) {
 }
 
 // SetActiveDevice sets the device ID to be used for all ADB commands.
-func (a *ADBController) SetActiveDevice(serial string) {
+func (a *Controller) SetActiveDevice(serial string) {
 	a.deviceID = serial
 }
 
 // GetActiveDevice returns the currently selected device ID.
-func (a *ADBController) GetActiveDevice() string {
+func (a *Controller) GetActiveDevice() string {
 	return a.deviceID
 }
 
 // Screenshot captures a screenshot from the active device and writes it to the given file path.
-func (a *ADBController) Screenshot(path string) error {
+func (a *Controller) Screenshot(path string) error {
 	a.logger.Info("Capturing screenshot from device",
 		slog.String("device", a.deviceID),
 		slog.String("output", path),
@@ -91,7 +91,7 @@ func (a *ADBController) Screenshot(path string) error {
 }
 
 // ClickRegion performs a tap action in the center of the named region with slight random offset.
-func (a *ADBController) ClickRegion(name string, area *config.AreaLookup) error {
+func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
 		return fmt.Errorf("region '%s' not found: %w", name, err)
@@ -126,7 +126,7 @@ func randInt(min, max int) int {
 }
 
 // Swipe performs a swipe gesture from (x1, y1) to (x2, y2) in the given duration (ms).
-func (a *ADBController) Swipe(x1, y1, x2, y2, durationMs int) error {
+func (a *Controller) Swipe(x1, y1, x2, y2, durationMs int) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "swipe",
 		strconv.Itoa(x1), strconv.Itoa(y1),
 		strconv.Itoa(x2), strconv.Itoa(y2),
