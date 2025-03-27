@@ -45,6 +45,26 @@ type executorImpl struct {
 }
 
 func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {
+	if uc.Trigger != "" {
+		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, state)
+		if err != nil {
+			e.logger.Error("Trigger evaluation failed",
+				slog.String("usecase", uc.Name),
+				slog.String("trigger", uc.Trigger),
+				slog.Any("error", err),
+			)
+			return
+		}
+
+		if !ok {
+			e.logger.Warn("Trigger not met, skipping usecase",
+				slog.String("usecase", uc.Name),
+				slog.String("trigger", uc.Trigger),
+			)
+			return
+		}
+	}
+
 	e.logger.Info("=== Start usecase ===", slog.String("name", uc.Name))
 	for _, step := range uc.Steps {
 		e.runStep(step, 0, state)

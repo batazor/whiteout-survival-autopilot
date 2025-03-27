@@ -5,7 +5,7 @@ accounts:
           nickname: batazor
           state: 2558
           avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-          power: 15159394
+          power: 15363568
           vip_level: 6
           resources:
             wood: 100000
@@ -31,12 +31,12 @@ accounts:
                 count: 15
                 max: 30
             state:
-                isNeedSupport: true
+                isNeedSupport: false
                 isWar: 1
                 isChests: 3
           buildings:
             furnace:
-                level: 23
+                level: 24
                 power: 0
           researchs:
             battle:

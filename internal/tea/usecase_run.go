@@ -25,6 +25,26 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 	}
 	usecase := usecases[ucIndex]
 
+	ok, err := a.evaluator.EvaluateTrigger(usecase.Trigger, a.state)
+	if err != nil {
+		a.logger.Error("Trigger evaluation failed",
+			slog.String("usecase", usecase.Name),
+			slog.String("trigger", usecase.Trigger),
+			slog.Any("error", err),
+		)
+
+		return err
+	}
+
+	if !ok {
+		a.logger.Warn("Trigger not met, skipping usecase",
+			slog.String("usecase", usecase.Name),
+			slog.String("trigger", usecase.Trigger),
+		)
+
+		return fmt.Errorf("trigger is disabled")
+	}
+
 	current := a.gameFSM.Current()
 	fmt.Printf("📍 Current Screen: %s\n", current)
 

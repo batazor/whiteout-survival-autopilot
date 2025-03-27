@@ -115,7 +115,7 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					slog.String("name", m.selected.Name),
 					slog.Any("error", err))
 			}
-			return m.fromMenu, nil
+			return m, nil
 		}
 	}
 	return m, nil
