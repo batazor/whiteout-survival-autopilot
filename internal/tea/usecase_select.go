@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 
+	"github.com/charmbracelet/bubbles/help"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
@@ -23,6 +24,7 @@ type UsecaseListModel struct {
 	tabs       TabModel
 	charIndex  int
 	lastOutput string
+	help       help.Model
 }
 
 func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) tea.Model {
@@ -32,6 +34,11 @@ func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) t
 		fromMenu:  from,
 		charIndex: characterIndex,
 		tabs:      NewTabs(fsm.AllStates),
+		help: func() help.Model {
+			h := help.New()
+			h.Styles = helpStyle
+			return h
+		}(),
 	}
 
 	model.reloadUsecases()
@@ -163,8 +170,7 @@ func (m *UsecaseListModel) View() string {
 		}
 		s += "\n" + outputBoxStyle.Render(styled)
 	}
-
-	s += "\n✅ Passed • ❌ Not Met • ⚠️ Error • ↑ ↓ to move • Enter to select • q to go back"
+	s += "\n" + m.help.View(keys)
 	return s
 }
 

@@ -22,7 +22,11 @@ func NewDeviceSelectModel(app *App, devices []string) tea.Model {
 		devices: devices,
 		cursor:  0,
 		zones:   bubblezone.New(),
-		help:    help.New(),
+		help: func() help.Model {
+			h := help.New()
+			h.Styles = helpStyle
+			return h
+		}(),
 	}
 }
 

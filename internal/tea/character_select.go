@@ -29,7 +29,11 @@ func NewCharacterSelectModel(app *App) tea.Model {
 		cursor:    0,
 		charCount: len(app.AllCharacters()),
 		zones:     bubblezone.New(),
-		help:      help.New(),
+		help: func() help.Model {
+			h := help.New()
+			h.Styles = helpStyle
+			return h
+		}(),
 	}
 }
 

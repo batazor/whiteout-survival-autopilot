@@ -28,7 +28,11 @@ func NewMenuModel(app *App) MenuModel {
 		app:    app,
 		cursor: 0,
 		zones:  bubblezone.New(),
-		help:   help.New(),
+		help: func() help.Model {
+			h := help.New()
+			h.Styles = helpStyle
+			return h
+		}(),
 	}
 }
 
