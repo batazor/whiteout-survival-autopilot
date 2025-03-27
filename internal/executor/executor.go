@@ -9,6 +9,7 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 )
 
 type UseCaseExecutor interface {
@@ -83,6 +84,30 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 		e.logger.Info(prefix+"Action", slog.String("action", step.Action))
 
 		switch step.Action {
+		case "reset":
+			if step.Set == "" {
+				e.logger.Warn(prefix + "Reset skipped: missing 'set' field")
+				return false
+			}
+
+			// Получим текущее значение для логирования
+			prevVal, _ := utils.GetStateFieldByPath(state, step.Set)
+
+			if err := utils.SetStateFieldByPath(state, step.Set, step.To); err != nil {
+				e.logger.Error(prefix+"Failed to reset state field",
+					slog.String("path", step.Set),
+					slog.Any("from", prevVal),
+					slog.Any("to", step.To),
+					slog.Any("error", err),
+				)
+			} else {
+				e.logger.Info(prefix+"State field reset",
+					slog.String("path", step.Set),
+					slog.Any("from", prevVal),
+					slog.Any("to", step.To),
+				)
+			}
+
 		case "loop":
 			if step.Trigger == "" {
 				e.logger.Warn(prefix + "Loop trigger is missing, skipping loop")

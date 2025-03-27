@@ -31,3 +31,6 @@ steps:
           then:
             - click: battle_continue # Продолжение боя.
       - wait: 5s
+  - action: reset
+    set: exploration.state.battleStatus
+    to: ""

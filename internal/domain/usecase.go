@@ -37,6 +37,9 @@ type Step struct {
 	// Управление TTL (например, чтобы отложить повторное выполнение usecase)
 	SetTTL      string `yaml:"setTTL,omitempty"`      // Продолжительность, например "24h"
 	UsecaseName string `yaml:"usecaseName,omitempty"` // Название usecase, к которому применяется TTL
+
+	Set string      `yaml:"set,omitempty"` // ← сюда попадёт path вроде "exploration.state.battleStatus"
+	To  interface{} `yaml:"to,omitempty"`  // ← новое значение (в твоём случае — "")
 }
 
 // IfStep описывает условную конструкцию вида if { then {} else {} }
