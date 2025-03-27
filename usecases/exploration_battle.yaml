@@ -7,17 +7,18 @@ ttl: 0
 trigger: "exploration.state.myPower >= exploration.state.enemyPower"
 
 steps:
-  - click: quick_deploy_button
+#  - click: quick_deploy_button
+  - wait: 200ms
   - click: exploration_fight_button
   - wait: 10s
   - action: loop
-    trigger: '!(exploration.state.battleStatus.contains("defeat") || exploration.state.battleStatus.contains("viktory"))'
+    trigger: '!(exploration.state.battleStatus.contains("Defeat") || exploration.state.battleStatus.contains("Victory"))'
     steps:
       - action: screenshot
         analyze:
           - name: exploration.state.battleStatus
             action: text
-            type: integer
+            type: string
             threshold: 0.5
       - if:
           trigger: 'exploration.state.battleStatus.contains("defeat")'   # Если результат содержит "defeat" (поражение)

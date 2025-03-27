@@ -11,6 +11,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
@@ -27,6 +28,7 @@ type App struct {
 	rules      config.ScreenAnalyzeRules
 	analyzer   *analyzer.Analyzer
 	controller adb.DeviceController
+	executor   executor.UseCaseExecutor
 	logger     *slog.Logger
 }
 
@@ -54,21 +56,28 @@ func NewApp() (*App, error) {
 	}
 
 	// Init ADB
-	controller, err := InitADBController(appLogger)
+	adbController, err := InitADBController(appLogger)
 	if err != nil {
 		return nil, err
 	}
+
+	// Initialize analyzerConttroller
+	analyzerConttroller := analyzer.NewAnalyzer(areas, appLogger)
+
+	evaluator := config.NewTriggerEvaluator()
 
 	app := &App{
 		ctx:        ctx,
 		repo:       repository.NewFileStateRepository("db/state.yaml"),
 		loader:     config.NewUseCaseLoader("usecases"),
 		evaluator:  config.NewTriggerEvaluator(),
-		gameFSM:    fsm.NewGameFSM(appLogger, controller, areas),
+		gameFSM:    fsm.NewGameFSM(appLogger, adbController, areas),
 		areas:      areas,
 		rules:      rules,
-		controller: controller,
+		controller: adbController,
 		logger:     appLogger,
+		analyzer:   analyzerConttroller,
+		executor:   executor.NewUseCaseExecutor(appLogger, evaluator, analyzerConttroller, adbController),
 	}
 
 	// Load saved state
@@ -84,9 +93,6 @@ func NewApp() (*App, error) {
 	app.gameFSM.SetStateGetter(func() *domain.State {
 		return app.state
 	})
-
-	// Initialize analyzer
-	app.analyzer = analyzer.NewAnalyzer(areas, appLogger)
 
 	// Fetch additional player data from Century API
 	app.UpdateCharacterInfoFromCentury()
