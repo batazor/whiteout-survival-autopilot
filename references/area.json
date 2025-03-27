@@ -246,14 +246,14 @@
     "transcription": [
       "exploration.state.isClaimActive",
       "exploration.level",
-      "to_exploration_buttle",
+      "to_exploration_battle",
       "exploration_back"
     ],
     "annotator": 1,
     "annotation_id": 2,
     "created_at": "2025-03-25T17:14:51.932986Z",
-    "updated_at": "2025-03-27T09:16:20.528766Z",
-    "lead_time": 1466.128
+    "updated_at": "2025-03-27T10:20:32.072199Z",
+    "lead_time": 1482.0149999999999
   },
   {
     "ocr": "\/data\/upload\/1\/376d15ad-to_exploration_buttle.png",
@@ -306,7 +306,7 @@
       }
     ],
     "transcription": [
-      "to_exploration_buttle_back",
+      "to_exploration_battle_back",
       "exploration.state.myPower",
       "exploration.state.enemyPower",
       "quick_deploy_button",
@@ -315,8 +315,8 @@
     "annotator": 1,
     "annotation_id": 4,
     "created_at": "2025-03-27T07:42:17.825841Z",
-    "updated_at": "2025-03-27T07:42:17.825873Z",
-    "lead_time": 188.904
+    "updated_at": "2025-03-27T10:24:48.338224Z",
+    "lead_time": 224.02599999999998
   },
   {
     "ocr": "\/data\/upload\/1\/94d8ee96-to_exploration_buttle_defeat.png",

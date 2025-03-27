@@ -37,7 +37,10 @@ type Exploration struct {
 
 // ExplorationState описывает состояние исследования мира.
 type ExplorationState struct {
-	IsClaimActive bool `yaml:"isClaimActive"` // Признак доступности кнопки "Забрать".
+	IsClaimActive bool   `yaml:"isClaimActive"` // Признак доступности кнопки "Забрать".
+	MyPower       int    `yaml:"myPower"`
+	EnemyPower    int    `yaml:"enemyPower"`
+	BattleStatus  string `yaml:"battleStatus"`
 }
 
 // Resources описывает ресурсы, которыми владеет персонаж.

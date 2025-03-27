@@ -39,7 +39,7 @@ func init() {
 	fsmGraph[StateAllianceRanking] = append(fsmGraph[StateAllianceRanking], StateAllianceManage)
 	fsmGraph[StateAllianceManage] = append(fsmGraph[StateAllianceManage], StateMainCity)
 	fsmGraph[StateExploration] = append(fsmGraph[StateExploration], StateMainCity)
-	fsmGraph[StateExplorationButtle] = append(fsmGraph[StateExplorationButtle], StateExploration)
+	fsmGraph[StateExplorationBattle] = append(fsmGraph[StateExplorationBattle], StateExploration)
 }
 
 type StateUpdateCallback interface {
@@ -68,7 +68,7 @@ const (
 	StateMail              = "mail"
 	StateDawnMarket        = "dawn_market"
 	StateExploration       = "exploration"
-	StateExplorationButtle = "exploration_buttle"
+	StateExplorationBattle = "exploration_battle"
 )
 
 var AllStates = []string{
@@ -90,7 +90,7 @@ var AllStates = []string{
 	StateMail,
 	StateDawnMarket,
 	StateExploration,
-	StateExplorationButtle,
+	StateExplorationBattle,
 }
 
 type TransitionStep struct {
@@ -126,7 +126,7 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	//	StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
 	//},
 	StateExploration: {
-		StateExplorationButtle: {{Action: "to_exploration_buttle", Wait: 300 * time.Millisecond}},
+		StateExplorationBattle: {{Action: "to_exploration_battle", Wait: 300 * time.Millisecond}},
 	},
 }
 

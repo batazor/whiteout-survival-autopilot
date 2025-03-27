@@ -8,28 +8,25 @@ trigger: "exploration.state.myPower >= exploration.state.enemyPower"
 
 steps:
   - click: quick_deploy_button
-  - click: battle_button
+  - click: exploration_fight_button
   - wait: 10s
   - action: loop
     trigger: '!(exploration.state.battleStatus.contains("defeat") || exploration.state.battleStatus.contains("viktory"))'
     steps:
       - action: screenshot
         analyze:
-          - name: exploration_battle_status
+          - name: exploration.state.battleStatus
             action: text
             type: integer
             threshold: 0.5
-            set: exploration.state.battleStatus
       - if:
           trigger: 'exploration.state.battleStatus.contains("defeat")'   # Если результат содержит "defeat" (поражение)
           then:
-            - setTTL: 24h                       # Установка TTL на 24 часа.
-              usecaseName: Exploration Battle   # Название usecase.
-            - click: exploration_return_to_city # Возврат в главное меню.
+#            - setTTL: 24h                       # Установка TTL на 24 часа.
+#              usecaseName: Exploration Battle   # Название usecase.
             - action: loop_stop
       - if:
           trigger: 'exploration.state.battleStatus.contains("viktory")'  # Если результат содержит "viktor" (победа)
           then:
             - click: battle_continue # Продолжение боя.
-            - action: loop_stop
       - wait: 5s
