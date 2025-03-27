@@ -152,7 +152,7 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			m.selected = m.usecases[m.cursor]
-			err := m.app.runUsecase(m.cursor, m.charIndex)
+			err := m.app.runUsecaseByName(m.selected.Name, m.charIndex)
 			if err != nil {
 				m.app.logger.Error("failed to run usecase",
 					slog.String("name", m.selected.Name),

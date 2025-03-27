@@ -247,13 +247,13 @@
       "exploration.state.isClaimActive",
       "exploration.level",
       "to_exploration_buttle",
-      "to_exploration_back"
+      "exploration_back"
     ],
     "annotator": 1,
     "annotation_id": 2,
     "created_at": "2025-03-25T17:14:51.932986Z",
-    "updated_at": "2025-03-27T07:44:57.221303Z",
-    "lead_time": 1446.0539999999999
+    "updated_at": "2025-03-27T09:16:20.528766Z",
+    "lead_time": 1466.128
   },
   {
     "ocr": "\/data\/upload\/1\/376d15ad-to_exploration_buttle.png",
@@ -360,5 +360,71 @@
     "created_at": "2025-03-27T07:42:09.473279Z",
     "updated_at": "2025-03-27T07:42:09.473328Z",
     "lead_time": 104.894
+  },
+  {
+    "ocr": "\/data\/upload\/1\/eb562662-exploration_claim_confirmation.png",
+    "id": 5,
+    "bbox": [
+      {
+        "x": 31.79285480170436,
+        "y": 67.6991150442478,
+        "width": 36.38151425762045,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 13.76597836774828,
+        "y": 46.46017699115045,
+        "width": 72.10750573582433,
+        "height": 18.73156342182891,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_claim_confirmation_button",
+      "exploration_claim_rewards"
+    ],
+    "annotator": 1,
+    "annotation_id": 5,
+    "created_at": "2025-03-27T09:40:43.963432Z",
+    "updated_at": "2025-03-27T09:46:14.550588Z",
+    "lead_time": 173.915
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d55dac73-exploration_rewards.png",
+    "id": 6,
+    "bbox": [
+      {
+        "x": 13.76597836774828,
+        "y": 83.18584070796462,
+        "width": 70.79646017699116,
+        "height": 14.01179941002951,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 36.873156342182895,
+        "width": 92.10095050803017,
+        "height": 41.59292035398231,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "tap_anywhere_to_exit",
+      "exploration_rewards_total"
+    ],
+    "annotator": 1,
+    "annotation_id": 6,
+    "created_at": "2025-03-27T09:51:11.702566Z",
+    "updated_at": "2025-03-27T09:51:11.702593Z",
+    "lead_time": 78.277
   }
 ]

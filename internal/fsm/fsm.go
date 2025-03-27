@@ -206,6 +206,10 @@ func (g *GameFSM) ForceTo(target string) {
 		}
 
 		for _, step := range steps {
+			if _, ok := g.lookup.Get(step.Action); !ok {
+				panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
+			}
+
 			if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
 				g.logger.Error("Transition step failed", slog.String("action", step.Action), slog.Any("error", err))
 				break
@@ -244,11 +248,15 @@ func logAutoPath(path []string) {
 func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
 	g.logger.Info("Trying indirect transition", slog.String("via", from), slog.Any("steps", steps))
 	for _, step := range steps {
-		err := g.adb.ClickRegion(step.Action, g.lookup)
-		if err != nil {
+		if _, ok := g.lookup.Get(step.Action); !ok {
+			panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
+		}
+
+		if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
 			g.logger.Error("Indirect transition failed", slog.String("step", step.Action), slog.Any("error", err))
 			return err
 		}
+
 		wait := step.Wait + time.Duration(rand.Intn(300)+100)*time.Millisecond
 		time.Sleep(wait)
 	}
@@ -311,13 +319,17 @@ func (g *GameFSM) pathToSteps(path []string) []TransitionStep {
 		if s, ok := transitionPaths[from][to]; ok {
 			steps = append(steps, s...)
 		} else {
-			// Assume fallback as 'back' if not explicitly defined
+			fallback := from + "_back"
 			steps = append(steps, TransitionStep{
-				Action: "back",
+				Action: fallback,
 				Wait:   300 * time.Millisecond,
 			})
 			if g.logger != nil {
-				g.logger.Warn("FSM fallback step assumed", slog.String("from", from), slog.String("to", to))
+				g.logger.Warn("FSM fallback step assumed",
+					slog.String("from", from),
+					slog.String("to", to),
+					slog.String("fallback_action", fallback),
+				)
 			}
 		}
 	}

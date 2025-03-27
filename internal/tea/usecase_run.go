@@ -5,11 +5,12 @@ import (
 	"log/slog"
 	"time"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
 // runUsecase executes a selected usecase for a specific character
-func (a *App) runUsecase(ucIndex, charIndex int) error {
+func (a *App) runUsecaseByName(usecaseName string, charIndex int) error {
 	chars := a.AllCharacters()
 	if charIndex < 0 || charIndex >= len(chars) {
 		return fmt.Errorf("character index out of range")
@@ -20,10 +21,17 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 	if err != nil {
 		return fmt.Errorf("failed to load usecases: %w", err)
 	}
-	if ucIndex < 0 || ucIndex >= len(usecases) {
-		return fmt.Errorf("usecase index out of range")
+
+	var usecase *domain.UseCase
+	for _, uc := range usecases {
+		if uc.Name == usecaseName {
+			usecase = uc
+			break
+		}
 	}
-	usecase := usecases[ucIndex]
+	if usecase == nil {
+		return fmt.Errorf("usecase '%s' not found", usecaseName)
+	}
 
 	ok, err := a.evaluator.EvaluateTrigger(usecase.Trigger, a.state)
 	if err != nil {

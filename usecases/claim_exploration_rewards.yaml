@@ -9,3 +9,5 @@ ttl: 30m
 steps:
   - click: exploration.state.isClaimActive       # Click the claim button on the exploration screen.
     log: "💰 Claiming exploration rewards"
+  - click: exploration_claim_confirmation_button
+  - click: tap_anywhere_to_exit
