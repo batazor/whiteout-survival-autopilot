@@ -66,6 +66,19 @@ func (a *App) runUsecase(ucIndex, charIndex int) error {
 			slog.String("from", current),
 			slog.String("to", usecase.Node),
 		)
+
+		// Highlight FSM auto-path if any
+		if path := a.gameFSM.FindPath(current, usecase.Node); len(path) > 1 {
+			fmt.Print("🧭 FSM Auto-Path: ")
+			for i, p := range path {
+				if i > 0 {
+					fmt.Print(" → ")
+				}
+				fmt.Printf("%s", p)
+			}
+			fmt.Println()
+		}
+
 		a.gameFSM.ForceTo(usecase.Node)
 	}
 

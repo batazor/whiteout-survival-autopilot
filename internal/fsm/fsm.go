@@ -195,7 +195,7 @@ func (g *GameFSM) ForceTo(target string) {
 	if g.controller != nil {
 		steps, found := transitionPaths[prev][target]
 		if !found {
-			path := g.findPath(prev, target)
+			path := g.FindPath(prev, target)
 			if len(path) > 1 {
 				g.logger.Warn("FSM path generated dynamically", slog.Any("path", path))
 				steps = g.pathToSteps(path)
@@ -306,7 +306,7 @@ func ValidateTransitionActions(areas map[string]config.Region) {
 	}
 }
 
-func (g *GameFSM) findPath(from, to string) []string {
+func (g *GameFSM) FindPath(from, to string) []string {
 	visited := map[string]bool{}
 	type node struct {
 		state string
