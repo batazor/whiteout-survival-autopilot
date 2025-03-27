@@ -18,18 +18,19 @@ import (
 )
 
 type App struct {
-	ctx        context.Context
-	repo       repository.StateRepository
-	loader     config.UseCaseLoader
-	evaluator  config.TriggerEvaluator
-	gameFSM    *fsm.GameFSM
-	state      *domain.State
-	areas      *config.AreaLookup
-	rules      config.ScreenAnalyzeRules
-	analyzer   *analyzer.Analyzer
-	controller adb.DeviceController
-	executor   executor.UseCaseExecutor
-	logger     *slog.Logger
+	ctx           context.Context
+	repo          repository.StateRepository
+	loader        config.UseCaseLoader
+	evaluator     config.TriggerEvaluator
+	gameFSM       *fsm.GameFSM
+	state         *domain.State
+	areas         *config.AreaLookup
+	rules         config.ScreenAnalyzeRules
+	analyzer      *analyzer.Analyzer
+	controller    adb.DeviceController
+	executor      executor.UseCaseExecutor
+	cancelUsecase context.CancelFunc
+	logger        *slog.Logger
 }
 
 func NewApp() (*App, error) {
@@ -77,7 +78,7 @@ func NewApp() (*App, error) {
 		controller: adbController,
 		logger:     appLogger,
 		analyzer:   analyzerConttroller,
-		executor:   executor.NewUseCaseExecutor(appLogger, evaluator, analyzerConttroller, adbController),
+		executor:   executor.NewUseCaseExecutor(appLogger, evaluator, analyzerConttroller, adbController, areas),
 	}
 
 	// Load saved state

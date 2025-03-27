@@ -352,14 +352,14 @@
     ],
     "transcription": [
       "exploration_to_main_city",
-      "exploration_buttle_retry",
+      "exploration_battle_retry",
       "exploration.state.battleStatus"
     ],
     "annotator": 1,
     "annotation_id": 3,
     "created_at": "2025-03-27T07:42:09.473279Z",
-    "updated_at": "2025-03-27T07:42:09.473328Z",
-    "lead_time": 104.894
+    "updated_at": "2025-03-27T11:41:09.718024Z",
+    "lead_time": 149.203
   },
   {
     "ocr": "\/data\/upload\/1\/eb562662-exploration_claim_confirmation.png",
@@ -426,5 +426,38 @@
     "created_at": "2025-03-27T09:51:11.702566Z",
     "updated_at": "2025-03-27T09:51:11.702593Z",
     "lead_time": 78.277
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a0387172-exploration_battle_viktory.png",
+    "id": 7,
+    "bbox": [
+      {
+        "x": 55.71943625040971,
+        "y": 73.59882005899706,
+        "width": 36.38151425762046,
+        "height": 3.5398230088495666,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.07046869878729,
+        "y": 81.2684365781711,
+        "width": 38.3480825958702,
+        "height": 1.9174041297935105,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_battle_continue_button",
+      "exploration_auto_challenge_mode"
+    ],
+    "annotator": 1,
+    "annotation_id": 7,
+    "created_at": "2025-03-27T11:44:01.959679Z",
+    "updated_at": "2025-03-27T11:44:01.959708Z",
+    "lead_time": 77.705
   }
 ]

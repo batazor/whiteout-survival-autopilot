@@ -1,40 +1,40 @@
 package executor
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 )
 
 type UseCaseExecutor interface {
-	ExecuteUseCase(uc *domain.UseCase, state *domain.State)
+	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.State)
 }
 
 type Analyzer interface {
 	AnalyzeAndUpdateState(imagePath string, state *domain.State, rules []domain.AnalyzeRule) (*domain.State, error)
 }
 
-type ADB interface {
-	Screenshot(path string) error
-}
-
 func NewUseCaseExecutor(
 	logger *slog.Logger,
 	triggerEvaluator config.TriggerEvaluator,
 	analyzer Analyzer,
-	adb ADB,
+	adb adb.DeviceController,
+	area *config.AreaLookup,
 ) UseCaseExecutor {
 	return &executorImpl{
 		logger:           logger,
 		triggerEvaluator: triggerEvaluator,
 		analyzer:         analyzer,
 		adb:              adb,
+		area:             area,
 	}
 }
 
@@ -42,10 +42,20 @@ type executorImpl struct {
 	logger           *slog.Logger
 	triggerEvaluator config.TriggerEvaluator
 	analyzer         Analyzer
-	adb              ADB
+	adb              adb.DeviceController
+	area             *config.AreaLookup
 }
 
-func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {
+func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.State) {
+	select {
+	case <-ctx.Done():
+		e.logger.Warn("Usecase cancelled before execution started",
+			slog.String("usecase", uc.Name))
+		return
+	default:
+		// Continue if not cancelled
+	}
+
 	if uc.Trigger != "" {
 		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, state)
 		if err != nil {
@@ -68,16 +78,32 @@ func (e *executorImpl) ExecuteUseCase(uc *domain.UseCase, state *domain.State) {
 
 	e.logger.Info("=== Start usecase ===", slog.String("name", uc.Name))
 	for _, step := range uc.Steps {
-		e.runStep(step, 0, state)
+		e.runStep(ctx, step, 0, state)
 	}
 	e.logger.Info("=== End usecase ===", slog.String("name", uc.Name))
 }
 
-func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State) bool {
+func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int, state *domain.State) bool {
+	select {
+	case <-ctx.Done():
+		e.logger.Warn("Step cancelled by context")
+		return true
+	default:
+	}
+
 	prefix := strings.Repeat("  ", indent)
 
 	if step.Click != "" {
 		e.logger.Info(prefix+"Click", slog.String("target", step.Click))
+
+		err := e.adb.ClickRegion(step.Click, e.area)
+		if err != nil {
+			e.logger.Error(prefix+"Failed to click region",
+				slog.String("target", step.Click),
+				slog.Any("error", err),
+			)
+			return true
+		}
 	}
 
 	if step.Action != "" {
@@ -90,10 +116,12 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 				return false
 			}
 
-			// Получим текущее значение для логирования
-			prevVal, _ := utils.GetStateFieldByPath(state, step.Set)
+			char := &state.Accounts[0].Characters[0]
 
-			if err := utils.SetStateFieldByPath(state, step.Set, step.To); err != nil {
+			// Получим текущее значение для логирования
+			prevVal, _ := utils.GetStateFieldByPath(char, step.Set)
+
+			if err := utils.SetStateFieldByPath(char, step.Set, step.To); err != nil {
 				e.logger.Error(prefix+"Failed to reset state field",
 					slog.String("path", step.Set),
 					slog.Any("from", prevVal),
@@ -116,6 +144,13 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 			e.logger.Info(prefix+"Entering loop", slog.String("trigger", step.Trigger))
 
 			for {
+				select {
+				case <-ctx.Done():
+					e.logger.Warn(prefix + "Loop interrupted by context")
+					return true
+				default:
+				}
+
 				shouldContinue, err := e.triggerEvaluator.EvaluateTrigger(step.Trigger, state)
 				if err != nil {
 					e.logger.Error(prefix+"Trigger evaluation failed", slog.Any("error", err))
@@ -127,8 +162,7 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 				}
 
 				for _, s := range step.Steps {
-					stopped := e.runStep(s, indent+1, state)
-					if stopped {
+					if stopped := e.runStep(ctx, s, indent+1, state); stopped {
 						e.logger.Info(prefix + "Loop stopped manually (loop_stop)")
 						return false
 					}
@@ -160,9 +194,15 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 		}
 	}
 
+	// Wait
 	if step.Wait > 0 {
 		e.logger.Info(prefix+"Wait", slog.Duration("duration", step.Wait))
-		time.Sleep(step.Wait)
+		select {
+		case <-time.After(step.Wait):
+		case <-ctx.Done():
+			e.logger.Warn(prefix+"Wait interrupted by context cancel", slog.Duration("wait", step.Wait))
+			return true
+		}
 	}
 
 	if step.If != nil {
@@ -180,7 +220,7 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 		if result {
 			e.logger.Info(prefix + "Condition met: executing THEN")
 			for _, s := range step.If.Then {
-				stopped := e.runStep(s, indent+1, state)
+				stopped := e.runStep(ctx, s, indent+1, state)
 				if stopped {
 					return true
 				}
@@ -188,7 +228,7 @@ func (e *executorImpl) runStep(step domain.Step, indent int, state *domain.State
 		} else if len(step.If.Else) > 0 {
 			e.logger.Info(prefix + "Condition NOT met: executing ELSE")
 			for _, s := range step.If.Else {
-				stopped := e.runStep(s, indent+1, state)
+				stopped := e.runStep(ctx, s, indent+1, state)
 				if stopped {
 					return true
 				}

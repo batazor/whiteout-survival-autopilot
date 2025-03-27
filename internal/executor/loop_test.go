@@ -1,6 +1,7 @@
 package executor_test
 
 import (
+	"context"
 	"log/slog"
 	"os"
 	"testing"
@@ -65,7 +66,7 @@ func TestLoopExecution(t *testing.T) {
 		},
 	}
 
-	exec.ExecuteUseCase(usecase, state)
+	exec.ExecuteUseCase(context.TODO(), usecase, state)
 
 	require.Equal(2, evaluator.counter, "loop should evaluate trigger exactly 2 times")
 }

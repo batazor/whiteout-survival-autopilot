@@ -5,12 +5,12 @@ import (
 
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"
+	"github.com/google/cel-go/ext"
 	exprpb "google.golang.org/genproto/googleapis/api/expr/v1alpha1"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-// TriggerEvaluator interface
 type TriggerEvaluator interface {
 	EvaluateTrigger(expr string, st *domain.State) (bool, error)
 }
@@ -33,7 +33,7 @@ func (t *triggerEvaluator) EvaluateTrigger(expr string, st *domain.State) (bool,
 	flat := make(map[string]interface{})
 	flattenStruct("", char, flat)
 
-	// Create CEL env from keys dynamically
+	// Build a list of declarations for every known field
 	var declsList []*exprpb.Decl
 	for k, v := range flat {
 		switch v.(type) {
@@ -46,12 +46,17 @@ func (t *triggerEvaluator) EvaluateTrigger(expr string, st *domain.State) (bool,
 		}
 	}
 
-	env, err := cel.NewEnv(cel.Declarations(declsList...))
+	// Создаём окружение CEL с нашими переменными + библиотекой ext.Strings()
+	// ext.Strings() автоматически добавляет метод: string.lowerAscii()
+	env, err := cel.NewEnv(
+		cel.Declarations(declsList...),
+		ext.Strings(),
+	)
 	if err != nil {
 		return false, fmt.Errorf("creating CEL env: %w", err)
 	}
 
-	// Compile expression
+	// Компилируем выражение
 	ast, issues := env.Compile(expr)
 	if issues != nil && issues.Err() != nil {
 		return false, fmt.Errorf("compile error: %w", issues.Err())
@@ -62,12 +67,13 @@ func (t *triggerEvaluator) EvaluateTrigger(expr string, st *domain.State) (bool,
 		return false, fmt.Errorf("program creation error: %w", err)
 	}
 
-	// Eval with the flattened data
+	// Выполняем
 	out, _, err := prg.Eval(flat)
 	if err != nil {
 		return false, fmt.Errorf("eval error: %w", err)
 	}
 
+	// Ожидаем bool
 	result, ok := out.Value().(bool)
 	if !ok {
 		return false, fmt.Errorf("trigger result is not bool: %v", out)

@@ -104,6 +104,11 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "q":
+			if m.app.cancelUsecase != nil {
+				m.app.logger.Info("⛔ Usecase interrupted by user")
+				m.app.cancelUsecase()
+			}
+
 			return m.fromMenu, nil
 
 		case "left", "right":

@@ -1,6 +1,7 @@
 package teaapp
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 
@@ -54,7 +55,11 @@ func (a *App) runUsecaseByName(usecaseName string, charIndex int) error {
 
 	fmt.Printf("🎬 Running usecase: %s for character %s (ID: %d)\n", usecase.Name, char.Nickname, char.ID)
 
-	a.executor.ExecuteUseCase(usecase, a.state)
+	ctx, cancel := context.WithCancel(a.ctx)
+	a.cancelUsecase = cancel
+	defer func() { a.cancelUsecase = nil }()
+
+	a.executor.ExecuteUseCase(ctx, usecase, a.state)
 
 	return nil
 }

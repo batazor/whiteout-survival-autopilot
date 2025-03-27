@@ -7,12 +7,14 @@ ttl: 0
 trigger: "exploration.state.myPower >= exploration.state.enemyPower"
 
 steps:
-#  - click: quick_deploy_button
+  - click: quick_deploy_button
   - wait: 200ms
   - click: exploration_fight_button
   - wait: 10s
+
   - action: loop
-    trigger: '!(exploration.state.battleStatus.contains("Defeat") || exploration.state.battleStatus.contains("Victory"))'
+    # Цикл продолжается, пока lowerAscii(battleStatus) не содержит ни "defeat", ни "victory"
+    trigger: '!(exploration.state.battleStatus.lowerAscii().contains("defeat") || exploration.state.battleStatus.lowerAscii().contains("victory"))'
     steps:
       - action: screenshot
         analyze:
@@ -20,17 +22,24 @@ steps:
             action: text
             type: string
             threshold: 0.5
+
       - if:
-          trigger: 'exploration.state.battleStatus.contains("defeat")'   # Если результат содержит "defeat" (поражение)
+          trigger: 'exploration.state.battleStatus.lowerAscii().contains("defeat")'
           then:
-#            - setTTL: 24h                       # Установка TTL на 24 часа.
-#              usecaseName: Exploration Battle   # Название usecase.
             - action: loop_stop
+
       - if:
-          trigger: 'exploration.state.battleStatus.contains("viktory")'  # Если результат содержит "viktor" (победа)
+          trigger: 'exploration.state.battleStatus.lowerAscii().contains("victory")'
           then:
-            - click: battle_continue # Продолжение боя.
-      - wait: 5s
+            - click: exploration_battle_continue_button
+            - wait: 100ms
+            - click: exploration_fight_button
+            - action: reset
+              set: exploration.state.battleStatus
+              to: ""
+
+      - wait: 2s
+
   - action: reset
     set: exploration.state.battleStatus
     to: ""
