@@ -25,6 +25,7 @@ type UsecaseListModel struct {
 	charIndex  int
 	lastOutput string
 	help       help.Model
+	popup      tea.Model
 }
 
 func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) tea.Model {
@@ -88,18 +89,50 @@ func (m *UsecaseListModel) reloadUsecases() {
 }
 
 func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	if m.popup != nil {
+		newPopup, cmd := m.popup.Update(msg)
+		if newPopup == nil {
+			m.popup = nil
+		} else {
+			m.popup = newPopup
+		}
+		return m, cmd
+	}
+
 	switch msg := msg.(type) {
 
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return m.fromMenu, nil
+
 		case "left", "right":
 			old := m.tabs.Index
 			m.tabs, _ = m.tabs.Update(msg)
 			if m.tabs.Index != old {
+				newNode := m.tabs.Current()
+				m.app.logger.Info("Switching tab and forcing FSM state", slog.String("to", newNode))
+				m.app.gameFSM.ForceTo(newNode) // ✅ переходим в соответствующий стейт
 				m.reloadUsecases()
 				m.cursor = 0
+			}
+
+		case "s":
+			if m.popup == nil {
+				m.popup = NewStateSelectModel(fsm.AllStates, func(state string) tea.Cmd {
+					m.app.logger.Info("State selected via popup", slog.String("to", state))
+					m.app.gameFSM.ForceTo(state)
+					for i, s := range fsm.AllStates {
+						if s == state {
+							m.tabs.Index = i
+							break
+						}
+					}
+					m.reloadUsecases()
+					m.cursor = 0
+					m.popup = nil
+					return nil
+				})
 			}
 
 		case "up":
@@ -170,7 +203,13 @@ func (m *UsecaseListModel) View() string {
 		}
 		s += "\n" + outputBoxStyle.Render(styled)
 	}
-	s += "\n" + m.help.View(keys)
+	s += "\n" + m.help.View(usecaseKeys)
+	s += "\n\n" + triggerStatusLegend()
+
+	if m.popup != nil {
+		return m.popup.View()
+	}
+
 	return s
 }
 
