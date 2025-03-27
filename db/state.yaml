@@ -14,9 +14,9 @@ accounts:
             meat: 8000
           gems: 100
           exploration:
-            level: 0
+            level: 308
             state:
-                isClaimActive: false
+                isClaimActive: true
           heroes:
             state:
                 isHeroes: false

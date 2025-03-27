@@ -64,7 +64,7 @@ func NewApp() (*App, error) {
 		repo:       repository.NewFileStateRepository("db/state.yaml"),
 		loader:     config.NewUseCaseLoader("usecases"),
 		evaluator:  config.NewTriggerEvaluator(),
-		gameFSM:    fsm.NewGameFSM(appLogger),
+		gameFSM:    fsm.NewGameFSM(appLogger, controller, areas),
 		areas:      areas,
 		rules:      rules,
 		controller: controller,

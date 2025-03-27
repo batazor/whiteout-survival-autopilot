@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-26T16:32:14.151984Z",
-    "lead_time": 6140.491
+    "updated_at": "2025-03-26T16:33:40.364272Z",
+    "lead_time": 6150.096
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -246,13 +246,119 @@
     "transcription": [
       "exploration.state.isClaimActive",
       "exploration.level",
-      "claim_button",
-      "explore_to_main_city"
+      "to_exploration_buttle",
+      "to_exploration_back"
     ],
     "annotator": 1,
     "annotation_id": 2,
     "created_at": "2025-03-25T17:14:51.932986Z",
-    "updated_at": "2025-03-26T16:32:28.571685Z",
-    "lead_time": 1343.409
+    "updated_at": "2025-03-27T07:44:57.221303Z",
+    "lead_time": 1446.0539999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/376d15ad-to_exploration_buttle.png",
+    "id": 3,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 4.277286135693216,
+        "width": 9.505080301540481,
+        "height": 3.6873156342182893,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.47222222222222,
+        "y": 11.749999999999993,
+        "width": 20.555555555555557,
+        "height": 1.4583333333333321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.29629629629629,
+        "y": 11.708333333333327,
+        "width": 20.09259259259261,
+        "height": 1.5833333333333304,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.210750573582433,
+        "y": 93.36283185840709,
+        "width": 39.33136676499509,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.75286791215995,
+        "y": 93.36283185840709,
+        "width": 39.986889544411675,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_exploration_buttle_back",
+      "exploration.state.myPower",
+      "exploration.state.enemyPower",
+      "quick_deploy_button",
+      "exploration_fight_button"
+    ],
+    "annotator": 1,
+    "annotation_id": 4,
+    "created_at": "2025-03-27T07:42:17.825841Z",
+    "updated_at": "2025-03-27T07:42:17.825873Z",
+    "lead_time": 188.904
+  },
+  {
+    "ocr": "\/data\/upload\/1\/94d8ee96-to_exploration_buttle_defeat.png",
+    "id": 4,
+    "bbox": [
+      {
+        "x": 8.521796132415602,
+        "y": 73.00884955752214,
+        "width": 36.38151425762046,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 55.71943625040971,
+        "y": 73.00884955752214,
+        "width": 36.05375286791217,
+        "height": 3.982300884955748,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120944,
+        "y": 36.13569321533924,
+        "width": 35.07046869878729,
+        "height": 4.86725663716814,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_to_main_city",
+      "exploration_buttle_retry",
+      "exploration.state.battleStatus"
+    ],
+    "annotator": 1,
+    "annotation_id": 3,
+    "created_at": "2025-03-27T07:42:09.473279Z",
+    "updated_at": "2025-03-27T07:42:09.473328Z",
+    "lead_time": 104.894
   }
 ]

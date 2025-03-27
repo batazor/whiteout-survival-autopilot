@@ -6,11 +6,11 @@ import (
 	"log/slog"
 	"math/rand"
 	"os"
-	"sort"
 	"time"
 
 	lpfsm "github.com/looplab/fsm"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
@@ -100,31 +100,31 @@ type TransitionStep struct {
 
 var transitionPaths = map[string]map[string][]TransitionStep{
 	StateMainCity: {
-		StateExploration:    {{Action: "to_exploration", Wait: 300 * time.Millisecond}},
-		StateEvents:         {{Action: "to_events", Wait: 300 * time.Millisecond}},
-		StateProfile:        {{Action: "to_profile", Wait: 300 * time.Millisecond}},
-		StateLeaderboard:    {{Action: "to_leaderboard", Wait: 300 * time.Millisecond}},
-		StateSettings:       {{Action: "to_settings", Wait: 300 * time.Millisecond}},
-		StateVIP:            {{Action: "to_vip", Wait: 300 * time.Millisecond}},
-		StateChiefOrders:    {{Action: "to_chief_orders", Wait: 300 * time.Millisecond}},
-		StateMail:           {{Action: "to_mail", Wait: 300 * time.Millisecond}},
-		StateDawnMarket:     {{Action: "to_dawn_market", Wait: 300 * time.Millisecond}},
-		StateAllianceManage: {{Action: "to_alliance_manage", Wait: 300 * time.Millisecond}},
-		StateAllianceSettings: {
-			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
-			{Action: "to_alliance_settings", Wait: 300 * time.Millisecond},
-		},
+		StateExploration: {{Action: "to_exploration", Wait: 300 * time.Millisecond}},
+		//StateEvents:         {{Action: "to_events", Wait: 300 * time.Millisecond}},
+		//StateProfile:        {{Action: "to_profile", Wait: 300 * time.Millisecond}},
+		//StateLeaderboard:    {{Action: "to_leaderboard", Wait: 300 * time.Millisecond}},
+		//StateSettings:       {{Action: "to_settings", Wait: 300 * time.Millisecond}},
+		//StateVIP:            {{Action: "to_vip", Wait: 300 * time.Millisecond}},
+		//StateChiefOrders:    {{Action: "to_chief_orders", Wait: 300 * time.Millisecond}},
+		//StateMail:           {{Action: "to_mail", Wait: 300 * time.Millisecond}},
+		//StateDawnMarket:     {{Action: "to_dawn_market", Wait: 300 * time.Millisecond}},
+		//StateAllianceManage: {{Action: "to_alliance_manage", Wait: 300 * time.Millisecond}},
+		//StateAllianceSettings: {
+		//	{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
+		//	{Action: "to_alliance_settings", Wait: 300 * time.Millisecond},
+		//},
 	},
-	StateEvents: {
-		StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
-	},
-	StateAllianceManage: {
-		StateAllianceHistory:  {{Action: "to_alliance_history", Wait: 300 * time.Millisecond}},
-		StateAllianceList:     {{Action: "to_alliance_list", Wait: 300 * time.Millisecond}},
-		StateAllianceVote:     {{Action: "to_alliance_vote", Wait: 300 * time.Millisecond}},
-		StateAllianceRanking:  {{Action: "to_alliance_ranking", Wait: 300 * time.Millisecond}},
-		StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
-	},
+	//StateEvents: {
+	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
+	//},
+	//StateAllianceManage: {
+	//	StateAllianceHistory:  {{Action: "to_alliance_history", Wait: 300 * time.Millisecond}},
+	//	StateAllianceList:     {{Action: "to_alliance_list", Wait: 300 * time.Millisecond}},
+	//	StateAllianceVote:     {{Action: "to_alliance_vote", Wait: 300 * time.Millisecond}},
+	//	StateAllianceRanking:  {{Action: "to_alliance_ranking", Wait: 300 * time.Millisecond}},
+	//	StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
+	//},
 	StateExploration: {
 		StateExplorationButtle: {{Action: "to_exploration_buttle", Wait: 300 * time.Millisecond}},
 	},
@@ -136,14 +136,20 @@ type GameFSM struct {
 	onStateChange func(state string)
 	callback      StateUpdateCallback
 	getState      func() *domain.State
-	controller    interface {
-		ClickRegion(name string, areas map[string]config.Region) error
-	}
-	areas map[string]config.Region
+	adb           adb.DeviceController
+	lookup        *config.AreaLookup
 }
 
-func NewGameFSM(logger *slog.Logger) *GameFSM {
-	g := &GameFSM{logger: logger}
+func NewGameFSM(
+	logger *slog.Logger,
+	adb adb.DeviceController,
+	lookup *config.AreaLookup,
+) *GameFSM {
+	g := &GameFSM{
+		logger: logger,
+		adb:    adb,
+		lookup: lookup,
+	}
 
 	transitions := lpfsm.Events{}
 	callbacks := lpfsm.Callbacks{
@@ -161,6 +167,8 @@ func NewGameFSM(logger *slog.Logger) *GameFSM {
 		},
 	}
 
+	g.ValidateTransitionActions()
+
 	g.fsm = lpfsm.NewFSM(InitialState, transitions, callbacks)
 	return g
 }
@@ -177,14 +185,6 @@ func (g *GameFSM) SetOnStateChange(f func(state string)) {
 	g.onStateChange = f
 }
 
-func (g *GameFSM) SetController(ctrl interface {
-	ClickRegion(string, map[string]config.Region) error
-}, areas map[string]config.Region) {
-	ValidateTransitionActions(areas)
-	g.controller = ctrl
-	g.areas = areas
-}
-
 func (g *GameFSM) Current() string {
 	return g.fsm.Current()
 }
@@ -192,7 +192,7 @@ func (g *GameFSM) Current() string {
 func (g *GameFSM) ForceTo(target string) {
 	prev := g.Current()
 
-	if g.controller != nil {
+	if g.adb != nil {
 		steps, found := transitionPaths[prev][target]
 		if !found {
 			path := g.FindPath(prev, target)
@@ -206,7 +206,7 @@ func (g *GameFSM) ForceTo(target string) {
 		}
 
 		for _, step := range steps {
-			if err := g.controller.ClickRegion(step.Action, g.areas); err != nil {
+			if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
 				g.logger.Error("Transition step failed", slog.String("action", step.Action), slog.Any("error", err))
 				break
 			}
@@ -241,39 +241,10 @@ func logAutoPath(path []string) {
 	fmt.Fprintln(file)
 }
 
-func DumpAllRequiredActions(filename string) error {
-	actions := map[string]struct{}{}
-	for _, targets := range transitionPaths {
-		for _, steps := range targets {
-			for _, step := range steps {
-				actions[step.Action] = struct{}{}
-			}
-		}
-	}
-
-	var sorted []string
-	for k := range actions {
-		sorted = append(sorted, k)
-	}
-	sort.Strings(sorted)
-
-	f, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	fmt.Fprintln(f, "# Required area.json actions")
-	for _, action := range sorted {
-		fmt.Fprintln(f, action)
-	}
-	return nil
-}
-
 func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
 	g.logger.Info("Trying indirect transition", slog.String("via", from), slog.Any("steps", steps))
 	for _, step := range steps {
-		err := g.controller.ClickRegion(step.Action, g.areas)
+		err := g.adb.ClickRegion(step.Action, g.lookup)
 		if err != nil {
 			g.logger.Error("Indirect transition failed", slog.String("step", step.Action), slog.Any("error", err))
 			return err
@@ -281,20 +252,23 @@ func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
 		wait := step.Wait + time.Duration(rand.Intn(300)+100)*time.Millisecond
 		time.Sleep(wait)
 	}
+
 	return nil
 }
 
-func ValidateTransitionActions(areas map[string]config.Region) {
+func (g *GameFSM) ValidateTransitionActions() {
 	missing := make(map[string][]string)
+
 	for from, targets := range transitionPaths {
 		for to, steps := range targets {
 			for _, step := range steps {
-				if _, ok := areas[step.Action]; !ok {
+				if _, ok := g.lookup.Get(step.Action); !ok {
 					missing[from] = append(missing[from], fmt.Sprintf("%s → %s: '%s'", from, to, step.Action))
 				}
 			}
 		}
 	}
+
 	if len(missing) > 0 {
 		errMsg := "❌ Missing required region definitions in area.json:\n"
 		for _, issues := range missing {
