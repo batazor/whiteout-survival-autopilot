@@ -5,22 +5,24 @@ import (
 	"log/slog"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
 type UsecaseListModel struct {
-	app       *App
-	cursor    int
-	usecases  []*domain.UseCase
-	triggerOK []string // "✅", "❌", or "⚠️"
-	selected  *domain.UseCase
-	err       error
-	quitting  bool
-	fromMenu  tea.Model
-	tabs      TabModel
-	charIndex int
+	app        *App
+	cursor     int
+	usecases   []*domain.UseCase
+	triggerOK  []string // "✅", "❌", or "⚠️"
+	selected   *domain.UseCase
+	err        error
+	quitting   bool
+	fromMenu   tea.Model
+	tabs       TabModel
+	charIndex  int
+	lastOutput string
 }
 
 func NewUsecaseListModelWithChar(app *App, characterIndex int, from tea.Model) tea.Model {
@@ -110,11 +112,18 @@ func (m *UsecaseListModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			m.selected = m.usecases[m.cursor]
-			if err := m.app.runUsecase(m.cursor, m.charIndex); err != nil {
+			err := m.app.runUsecase(m.cursor, m.charIndex)
+			if err != nil {
 				m.app.logger.Error("failed to run usecase",
 					slog.String("name", m.selected.Name),
 					slog.Any("error", err))
+				m.lastOutput = fmt.Sprintf("❌ %s: %v", m.selected.Name, err)
+			} else {
+				m.lastOutput = fmt.Sprintf("✅ %s executed successfully", m.selected.Name)
 			}
+
+			m.reloadUsecases()
+
 			return m, nil
 		}
 	}
@@ -144,6 +153,27 @@ func (m *UsecaseListModel) View() string {
 	s += fmt.Sprintf(" %s %d) 🔄 Refresh (screenshot + re-eval)\n", cursor, len(m.usecases)+1)
 
 	s += fmt.Sprintf("\nTotal: %d usecases\n", len(m.usecases))
+
+	if m.lastOutput != "" {
+		var styled string
+		if len(m.lastOutput) >= 2 && m.lastOutput[:2] == "✅" {
+			styled = outputSuccess.Render(m.lastOutput)
+		} else {
+			styled = outputError.Render(m.lastOutput)
+		}
+		s += "\n" + outputBoxStyle.Render(styled)
+	}
+
 	s += "\n✅ Passed • ❌ Not Met • ⚠️ Error • ↑ ↓ to move • Enter to select • q to go back"
 	return s
 }
+
+var outputBoxStyle = lipgloss.NewStyle().
+	Border(lipgloss.RoundedBorder()).
+	Padding(0, 1).
+	MarginTop(1).
+	Foreground(lipgloss.Color("15")).
+	BorderForeground(lipgloss.Color("241"))
+
+var outputSuccess = lipgloss.NewStyle().Foreground(lipgloss.Color("10")) // green
+var outputError = lipgloss.NewStyle().Foreground(lipgloss.Color("9"))    // red
