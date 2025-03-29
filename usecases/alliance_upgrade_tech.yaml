@@ -8,18 +8,25 @@ steps:
   - action: screenshot               # 📸 Ищем иконку технологии с зелёным пальцем вверх (избранная технология)
     analyze:
       - name: alliance.tech.favorite
-        action: exist
-        threshold: 0.4
+        action: findIcon
+        threshold: 0.86
         saveAsRegion: true          # 💾 Сохраняем зону найденной иконки под именем alliance.tech.favorite
 
   - click: alliance.tech.favorite   # 👉 Кликаем по найденной технологии, чтобы открыть экран с кнопкой "Contribute"
 
+  - wait: 200ms # Ждем отрисовки анимации
+
   - action: screenshot               # 📸 Делаем скриншот текущего экрана
     analyze:
-      - name: alliance.tech.isAllianceContributeButton
+      - name: alliance.state.isAllianceContributeButton
         action: color_check          # 🎨 Проверяем цвет кнопки "Contribute"
-        expected_color: blue
+        expectedColor: blue
         threshold: 0.5
+
+  - if:
+      trigger: "alliance.state.isAllianceContributeButton == false"
+      then:
+        - click: alliance_tech_contibute_back
 
   - action: loop                     # 🔁 Запускаем цикл, пока кнопка "Contribute" остаётся синей
     trigger: "alliance.state.isAllianceContributeButton == true"
@@ -31,10 +38,11 @@ steps:
         analyze:
           - name: alliance.state.isAllianceContributeButton
             action: color_check
-            expected_color: blue
+            expectedColor: blue
             threshold: 0.5
 
       - if:
           trigger: "alliance.state.isAllianceContributeButton == false"
           then:
+            - click: alliance_tech_contibute_back
             - action: loop_stop      # 🛑 Если кнопка стала серой (нельзя жать), выходим из цикла

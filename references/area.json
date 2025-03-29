@@ -888,14 +888,14 @@
       }
     ],
     "transcription": [
-      "alliance.tech.isAllianceContributeButton",
+      "alliance.state.isAllianceContributeButton",
       "alliance.tech.isAllianceContributeCount",
       "alliance_tech_contibute_back"
     ],
     "annotator": 1,
     "annotation_id": 13,
     "created_at": "2025-03-28T14:21:22.252771Z",
-    "updated_at": "2025-03-28T16:45:52.398968Z",
-    "lead_time": 320.102
+    "updated_at": "2025-03-29T11:12:04.077146Z",
+    "lead_time": 328.721
   }
 ]

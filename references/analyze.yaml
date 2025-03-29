@@ -16,7 +16,7 @@ main_city:
 exploration:
   - name: exploration.state.isClaimActive
     action: color_check
-    expected_color: green
+    expectedColor: green
     threshold: 0.5
 
   - name: exploration.level

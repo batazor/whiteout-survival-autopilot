@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+	"log/slog"
 	"os"
 	"path/filepath"
 
@@ -60,4 +61,23 @@ func (a *AreaLookup) Get(name string) (Region, bool) {
 		}
 	}
 	return Region{}, false
+}
+
+func (a *AreaLookup) AddTemporaryRegion(name string, region Region) {
+	bbox := domain.NewBBoxFromRect(region.Zone, 1080, 2400)
+
+	a.Areas = append(a.Areas, domain.AreaReference{
+		OCR:           "generated",
+		ID:            -1,
+		BBox:          []domain.BBox{bbox},
+		Transcription: []string{name},
+	})
+
+	slog.Info("🗺️ Добавлена временная зона",
+		slog.String("name", name),
+		slog.Float64("x", bbox.X),
+		slog.Float64("y", bbox.Y),
+		slog.Float64("width", bbox.Width),
+		slog.Float64("height", bbox.Height),
+	)
 }

@@ -242,7 +242,7 @@ func (g *GameFSM) ForceTo(target string) {
 }
 
 func logAutoPath(path []string) {
-	logDir := "log"
+	logDir := "logs"
 	if err := os.MkdirAll(logDir, 0755); err != nil {
 		fmt.Fprintf(os.Stderr, "failed to create log dir: %v\n", err)
 		return
@@ -275,7 +275,7 @@ func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
 			return err
 		}
 
-		wait := step.Wait + time.Duration(rand.Intn(300)+100)*time.Millisecond
+		wait := step.Wait + time.Duration(rand.Intn(300)+500)*time.Millisecond
 		time.Sleep(wait)
 	}
 

@@ -236,5 +236,29 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 		}
 	}
 
+	if step.Longtap != "" {
+		e.logger.Info(prefix+"Longtap", slog.String("target", step.Longtap), slog.Duration("hold", step.Wait))
+
+		bbox, err := e.area.GetRegionByName(step.Longtap)
+		if err != nil {
+			e.logger.Error(prefix+"Failed to find region for longtap",
+				slog.String("target", step.Longtap),
+				slog.Any("error", err),
+			)
+			return true
+		}
+
+		x, y, _, _ := bbox.ToPixels()
+
+		err = e.adb.Swipe(x, y, x, y, step.Wait) // ⬅ swipe на то же место с временем
+		if err != nil {
+			e.logger.Error(prefix+"Failed to perform longtap",
+				slog.String("target", step.Longtap),
+				slog.Any("error", err),
+			)
+			return true
+		}
+	}
+
 	return false
 }

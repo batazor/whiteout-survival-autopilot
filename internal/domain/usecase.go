@@ -20,9 +20,10 @@ type Steps []Step
 // включать анализ скриншота (analyze), или управлять TTL.
 type Step struct {
 	// Общие действия
-	Click  string        `yaml:"click,omitempty"`  // Название региона, по которому нужно кликнуть
-	Action string        `yaml:"action,omitempty"` // Специальное действие: "loop", "loop_stop", "screenshot", и т.д.
-	Wait   time.Duration `yaml:"wait,omitempty"`   // Ожидание (например, "5s")
+	Click   string        `yaml:"click,omitempty"`   // Название региона, по которому нужно кликнуть
+	Longtap string        `yaml:"longtap,omitempty"` // Название региона, по которому нужно сделать долгий тап
+	Action  string        `yaml:"action,omitempty"`  // Специальное действие: "loop", "loop_stop", "screenshot", и т.д.
+	Wait    time.Duration `yaml:"wait,omitempty"`    // Ожидание (например, "5s")
 
 	// Условный блок if { then {} else {} }
 	If *IfStep `yaml:"if,omitempty"`
@@ -51,11 +52,11 @@ type IfStep struct {
 
 // AnalyzeRule описывает правила для анализа региона экрана (screenshot).
 type AnalyzeRule struct {
-	Name          string  `yaml:"name"`                     // Название региона (и ключ для сохранения)
-	Action        string  `yaml:"action"`                   // Действие: "text", "exist", "color_check"
-	Type          string  `yaml:"type,omitempty"`           // Тип результата (например, "integer", если action = text)
-	Threshold     float64 `yaml:"threshold,omitempty"`      // Уровень уверенности, по умолчанию 0.9
-	ExpectedColor string  `yaml:"expected_color,omitempty"` // Цвет для проверки (например, "green")
-	Log           string  `yaml:"log,omitempty"`            // Сообщение для логирования (опционально)
-	SaveAsRegion  bool    `yaml:"saveAsRegion,omitempty"`   // если true — сохранить зону как новую временную область с именем .Name
+	Name          string  `yaml:"name"`                    // Название региона (и ключ для сохранения)
+	Action        string  `yaml:"action"`                  // Действие: "text", "exist", "color_check"
+	Type          string  `yaml:"type,omitempty"`          // Тип результата (например, "integer", если action = text)
+	Threshold     float64 `yaml:"threshold,omitempty"`     // Уровень уверенности, по умолчанию 0.9
+	ExpectedColor string  `yaml:"expectedColor,omitempty"` // Цвет для проверки (например, "green")
+	Log           string  `yaml:"log,omitempty"`           // Сообщение для логирования (опционально)
+	SaveAsRegion  bool    `yaml:"saveAsRegion,omitempty"`  // если true — сохранить зону как новую временную область с именем .Name
 }

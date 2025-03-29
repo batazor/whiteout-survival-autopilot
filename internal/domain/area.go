@@ -33,3 +33,15 @@ func (b *BBox) ToRectangle() image.Rectangle {
 	x, y, w, h := b.ToPixels()
 	return image.Rect(x, y, x+w, y+h)
 }
+
+func NewBBoxFromRect(r image.Rectangle, originalW, originalH int) BBox {
+	return BBox{
+		X:              float64(r.Min.X) / float64(originalW) * 100,
+		Y:              float64(r.Min.Y) / float64(originalH) * 100,
+		Width:          float64(r.Dx()) / float64(originalW) * 100,
+		Height:         float64(r.Dy()) / float64(originalH) * 100,
+		Rotation:       0,
+		OriginalWidth:  originalW,
+		OriginalHeight: originalH,
+	}
+}

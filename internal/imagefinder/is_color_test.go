@@ -16,7 +16,7 @@ func TestIsColorDominant_Table(t *testing.T) {
 		name          string
 		imagePath     string
 		regionKey     string
-		expectedColor string
+		expectedColor string `yaml:"expectedColor,omitempty" mapstructure:"expectedColor"`
 		threshold     float32
 		wantDominant  bool
 	}{

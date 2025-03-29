@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 )
@@ -20,7 +21,7 @@ type DeviceController interface {
 
 	Screenshot(path string) error
 	ClickRegion(name string, area *config.AreaLookup) error
-	Swipe(x1, y1, x2, y2, durationMs int) error
+	Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error
 }
 
 // The Controller implements the DeviceController interface using the adb CLI tool.
@@ -127,7 +128,7 @@ func randInt(min, max int) int {
 
 // Swipe performs a swipe gesture from (x1, y1) to (x2, y2) in the given duration (ms),
 // adding slight randomness to simulate natural finger movement.
-func (a *Controller) Swipe(x1, y1, x2, y2, durationMs int) error {
+func (a *Controller) Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error {
 	// Добавим "дрожание" ±2 пикселя
 	jitter := func(v int) int {
 		return v + randInt(-2, 2)
@@ -141,7 +142,7 @@ func (a *Controller) Swipe(x1, y1, x2, y2, durationMs int) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "swipe",
 		strconv.Itoa(startX), strconv.Itoa(startY),
 		strconv.Itoa(endX), strconv.Itoa(endY),
-		strconv.Itoa(durationMs),
+		strconv.Itoa(int(durationMs.Milliseconds())),
 	)
 
 	a.logger.Info("Swipe with jitter",
@@ -149,14 +150,14 @@ func (a *Controller) Swipe(x1, y1, x2, y2, durationMs int) error {
 		slog.Int("startY", startY),
 		slog.Int("endX", endX),
 		slog.Int("endY", endY),
-		slog.Int("durationMs", durationMs),
+		strconv.Itoa(int(durationMs.Milliseconds())),
 	)
 
 	return cmd.Run()
 }
 
 // LongTapRegion performs a long press in the center of the named region with jitter using the Swipe method.
-func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, durationMs int) error {
+func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, durationMs time.Duration) error {
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
 		return fmt.Errorf("region '%s' not found: %w", name, err)
@@ -170,7 +171,7 @@ func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, duratio
 		slog.String("region", name),
 		slog.Int("x", centerX),
 		slog.Int("y", centerY),
-		slog.Int("duration", durationMs),
+		slog.Duration("duration", durationMs),
 	)
 
 	// Просто используем Swipe с одинаковыми координатами и встроенным jitter

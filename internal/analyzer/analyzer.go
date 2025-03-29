@@ -2,6 +2,7 @@ package analyzer
 
 import (
 	"fmt"
+	"image"
 	"log/slog"
 	"path/filepath"
 	"reflect"
@@ -9,6 +10,7 @@ import (
 	"strings"
 	"sync"
 
+	finder "github.com/batazor/whiteout-survival-autopilot/internal/analyzer/findIcon"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/imagefinder"
@@ -32,6 +34,14 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 		return nil, fmt.Errorf("no characters in state")
 	}
 
+	for _, rule := range rules {
+		a.logger.Info("🧪 DSL rule",
+			slog.String("name", rule.Name),
+			slog.String("action", rule.Action),
+			slog.String("expectedColor", rule.ExpectedColor),
+		)
+	}
+
 	newState := *oldState
 	newChar := newState.Accounts[0].Characters[0]
 	charPtr := &newChar
@@ -41,18 +51,35 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 
 	for _, rule := range rules {
 		rule := rule // capture range variable
+
+		// 🔍 Логируем содержимое правила
+		a.logger.Info("🔎 AnalyzeRule loaded",
+			slog.String("name", rule.Name),
+			slog.String("action", rule.Action),
+			slog.String("type", rule.Type),
+			slog.Float64("threshold", rule.Threshold),
+			slog.String("expectedColor", rule.ExpectedColor),
+			slog.Bool("saveAsRegion", rule.SaveAsRegion),
+		)
+
 		wg.Add(1)
 
 		go func() {
 			defer wg.Done()
 
+			var region image.Rectangle
 			bbox, err := a.areas.GetRegionByName(rule.Name)
 			if err != nil {
-				a.logger.Warn("region not found for rule", slog.String("region", rule.Name))
-				return
+				if rule.SaveAsRegion {
+					a.logger.Warn("region not found for rule (will try to detect and save)", slog.String("region", rule.Name))
+					region = image.Rect(0, 0, 1080, 2400) // fallback: весь экран
+				} else {
+					panic(fmt.Sprintf("❌ Region not found for rule: %s", rule.Name))
+				}
+			} else {
+				region = bbox.ToRectangle()
 			}
 
-			region := bbox.ToRectangle()
 			threshold := rule.Threshold
 			if threshold == 0 {
 				threshold = 0.9
@@ -69,6 +96,35 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 					return
 				}
 				value = found
+
+			case "findIcon":
+				iconPath := filepath.Join("references", "icons", filepath.Base(rule.Name)+".png")
+				a.logger.Info("🔎 Starting findIcon", slog.String("rule", rule.Name), slog.String("iconPath", iconPath), slog.Float64("threshold", float64(threshold)))
+
+				boxes, err := finder.FindIcons(imagePath, iconPath, float32(threshold), a.logger)
+				if err != nil {
+					a.logger.Error("❌ Icon search failed", slog.String("icon", rule.Name), slog.Any("error", err))
+					return
+				}
+
+				a.logger.Info("📦 Icon search result", slog.String("icon", rule.Name), slog.Int("matches", len(boxes)))
+
+				value = len(boxes) > 0
+
+				if rule.SaveAsRegion && len(boxes) > 0 {
+					bbox := boxes[0]
+					x, y, w, h := bbox.ToPixels()
+					newRegion := config.Region{Zone: image.Rect(x, y, x+w, y+h)}
+					a.areas.AddTemporaryRegion(rule.Name, newRegion)
+
+					a.logger.Info("💾 Saved new region from findIcon",
+						slog.String("name", rule.Name),
+						slog.Int("x", x),
+						slog.Int("y", y),
+						slog.Int("width", w),
+						slog.Int("height", h),
+					)
+				}
 
 			case "color_check":
 				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
@@ -103,7 +159,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Stat
 			defer mu.Unlock()
 
 			if err := setFieldByPath(reflect.ValueOf(charPtr).Elem(), strings.Split(rule.Name, "."), value); err != nil {
-				a.logger.Error("failed to set field", slog.String("path", rule.Name), slog.Any("error", err))
+				panic(fmt.Sprintf("❌ failed to set field [%s]: %v", rule.Name, err))
 			}
 		}()
 	}
