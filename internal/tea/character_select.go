@@ -60,7 +60,8 @@ func (m *CharacterSelectModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor++
 			}
 		case "enter":
-			return NewUsecaseListModelWithChar(m.app, m.cursor, m), nil
+			m.app.CurrentCharacterIndex = m.cursor
+			return NewMenuModel(m.app), nil
 		}
 	case tea.MouseMsg:
 		if msg.Action == tea.MouseActionPress && msg.Button == tea.MouseButtonLeft {
@@ -68,7 +69,8 @@ func (m *CharacterSelectModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				zoneID := fmt.Sprintf("char-%d", i)
 				if m.zones.Get(zoneID).InBounds(msg) {
 					m.cursor = i
-					return NewUsecaseListModelWithChar(m.app, i, m), nil
+					m.app.CurrentCharacterIndex = i
+					return NewMenuModel(m.app), nil
 				}
 			}
 		}

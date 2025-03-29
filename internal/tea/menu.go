@@ -75,7 +75,7 @@ func (m MenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m *MenuModel) activateSelected() (tea.Model, tea.Cmd) {
 	switch m.cursor {
 	case 0: // Start Bot: character -> usecase
-		return NewCharacterSelectModel(m.app), nil
+		return NewUsecaseListModelWithChar(m.app, m.app.CurrentCharacterIndex, m), nil
 	case 1: // View state
 		m.outputLog = fmt.Sprintf("Accounts: %d", len(m.app.state.Accounts))
 	case 2: // Quit
@@ -92,15 +92,23 @@ func (m MenuModel) View() string {
 
 	s := "🎮 Whiteout Survival Autopilot\n\n"
 
-	// Show connected device
+	// Show a connected device
 	deviceID := m.app.controller.GetActiveDevice()
 	if deviceID != "" {
-		s += fmt.Sprintf("📱 Connected device: %s\n\n", deviceID)
+		s += fmt.Sprintf("📱 Connected device: %s\n", deviceID)
 	} else {
-		s += "⚠️ No connected device\n\n"
+		s += "⚠️ No connected device\n"
 	}
 
-	s += "Choose an option:\n\n"
+	// Show selected character info
+	allChars := m.app.AllCharacters()
+	if idx := m.app.CurrentCharacterIndex; idx >= 0 && idx < len(allChars) {
+		char := allChars[idx]
+		s += fmt.Sprintf("🧍 Character: %s | Power: %d | VIP: %d | Furnace: %d\n",
+			char.Nickname, char.Power, char.Vip_Level, char.Buildings.Furnace.Level)
+	}
+
+	s += "\nChoose an option:\n\n"
 
 	for i, choice := range menuChoices {
 		cursor := " "

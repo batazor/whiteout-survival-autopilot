@@ -31,6 +31,8 @@ type App struct {
 	executor      executor.UseCaseExecutor
 	cancelUsecase context.CancelFunc
 	logger        *slog.Logger
+
+	CurrentCharacterIndex int
 }
 
 func NewApp() (*App, error) {
@@ -71,7 +73,7 @@ func NewApp() (*App, error) {
 		ctx:        ctx,
 		repo:       repository.NewFileStateRepository("db/state.yaml"),
 		loader:     config.NewUseCaseLoader("usecases"),
-		evaluator:  config.NewTriggerEvaluator(),
+		evaluator:  evaluator,
 		gameFSM:    fsm.NewGameFSM(appLogger, adbController, areas),
 		areas:      areas,
 		rules:      rules,
@@ -121,8 +123,7 @@ func (a *App) Run() error {
 	case 1:
 		a.controller.SetActiveDevice(devices[0])
 		a.logger.Info("ADB device selected automatically", slog.String("device", devices[0]))
-		return tea.NewProgram(NewMenuModel(a)).Start()
-
+		return tea.NewProgram(NewCharacterSelectModel(a)).Start()
 	default:
 		// Multiple devices, prompt user to select
 		a.logger.Info("multiple ADB devices found", slog.Int("count", len(devices)))
@@ -154,7 +155,6 @@ func (a *App) UpdateStateFromScreenshot(screen string) {
 		a.logger.Warn("no analysis rules found for screen", slog.String("screen", screen))
 	}
 
-	// Analyze and update
 	newState, err := a.analyzer.AnalyzeAndUpdateState(imagePath, a.state, rules)
 	if err != nil {
 		a.logger.Error("analysis failed", slog.Any("error", err))
