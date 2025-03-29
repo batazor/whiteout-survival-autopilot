@@ -33,3 +33,4 @@ go.work.sum
 
 # IDE
 .idea
+.DS_Store
