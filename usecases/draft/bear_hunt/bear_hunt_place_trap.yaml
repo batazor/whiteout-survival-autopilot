@@ -1,0 +1,16 @@
+name: "🪤 Place Bear Trap"
+
+node: alliance_war
+
+ttl: 6h
+
+trigger: "character.role == 'R4' || character.role == 'R5'"
+
+steps:
+  - click: to_alliance_war
+  - wait: 300ms
+  - click: place_trap_button
+  - wait: 200ms
+  - click: confirm_place_trap
+  - set: trap.state.isActive
+    to: true

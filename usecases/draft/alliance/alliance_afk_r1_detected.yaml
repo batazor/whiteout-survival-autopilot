@@ -1,0 +1,13 @@
+name: AFK (R1) Detected
+node: alliance_manage
+trigger: "alliance.members.count > 20"
+steps:
+  - click: alliance_member_button
+  - wait: 300ms
+  - action: screenshot
+    analyze:
+      - name: alliance_member_count
+        action: text
+        type: integer
+        threshold: 0.9
+  - click: alliance_back

@@ -1,0 +1,21 @@
+name: "❄️ Start Rally to Polar Terror (Max 3/day)"
+
+node: world_map
+
+ttl: 8h  # Ограничим до 3 раз в день
+
+trigger: "rally.state.canStart == true && rally.state.target == 'PolarTerror' && rally.state.dailyPolarCount < 3"
+
+steps:
+  - click: to_world_map
+  - wait: 1s
+
+  - click: polar_terror_icon
+  - wait: 500ms
+
+  - click: rally_start_button
+  - wait: 300ms
+
+  - click: rally_confirm_button
+
+  - increment: rally.state.dailyPolarCount

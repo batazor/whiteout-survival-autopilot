@@ -1,0 +1,14 @@
+name: "🧭 Recall Troops Before Wave 9/19"
+
+node: alliance_screen
+
+ttl: 2m
+
+trigger: "crazy_joe.state.wave == 8 || crazy_joe.state.wave == 18"
+
+steps:
+  - click: troop_movement_button
+  - wait: 500ms
+  - click: recall_all_reinforcements
+  - set: crazy_joe.state.hasReinforced
+    to: false

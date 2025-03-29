@@ -1,0 +1,14 @@
+name: "❌ Kick Player for Wrong Troops"
+
+node: rally_screen
+
+ttl: 5m
+
+trigger: "rally.state.badTroopRatio >= 0.5 && rally.state.allowKick == true"
+
+steps:
+  - action: kick_from_rally
+    player: rally.state.player
+  - action: send_message
+    to: rally.state.player
+    message: "🚫 Вы были исключены из ралли из-за неподходящего состава войск."

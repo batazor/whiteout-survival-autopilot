@@ -1,0 +1,16 @@
+name: "🔄 Auto-Update Rally Join Setting"
+
+node: alliance_war
+
+ttl: 5h  # Обновляем каждые 5 часов
+
+trigger: "true"
+
+steps:
+  - click: auto_rally_settings_button
+  - wait: 300ms
+
+  - click: auto_rally_toggle_on    # Включаем авто-присоединение к ралли
+  - wait: 300ms
+
+  - click: auto_rally_close_button

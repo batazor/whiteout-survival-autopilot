@@ -1,0 +1,18 @@
+name: "🔁 Reinforce Allies After Wave 11"
+
+node: alliance_screen
+
+ttl: 10m
+
+trigger: "crazy_joe.state.wave == 11 && crazy_joe.state.hasReinforced == false"
+
+steps:
+  - click: alliance_fortress_button
+  - wait: 500ms
+  - click: select_ally_fortress
+  - wait: 500ms
+  - click: send_reinforcement_button
+  - wait: 200ms
+  - click: reinforce_confirm_button
+  - set: crazy_joe.state.hasReinforced
+    to: true
