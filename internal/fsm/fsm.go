@@ -55,6 +55,7 @@ const (
 	StateMainCity          = "main_city"
 	StateActivityTriumph   = "activity_triumph"
 	StateAllianceManage    = "alliance_manage"
+	StateAllianceTech      = "alliance_tech"
 	StateAllianceSettings  = "alliance_settings"
 	StateAllianceHistory   = "alliance_history"
 	StateAllianceList      = "alliance_list"
@@ -77,6 +78,7 @@ var AllStates = []string{
 	StateMainCity,
 	StateActivityTriumph,
 	StateAllianceManage,
+	StateAllianceTech,
 	StateAllianceSettings,
 	StateAllianceHistory,
 	StateAllianceList,
@@ -101,7 +103,9 @@ type TransitionStep struct {
 
 var transitionPaths = map[string]map[string][]TransitionStep{
 	StateMainCity: {
-		StateExploration: {{Action: "to_exploration", Wait: 300 * time.Millisecond}},
+		StateExploration: {
+			{Action: "to_exploration", Wait: 300 * time.Millisecond},
+		},
 		//StateEvents:         {{Action: "to_events", Wait: 300 * time.Millisecond}},
 		//StateProfile:        {{Action: "to_profile", Wait: 300 * time.Millisecond}},
 		//StateLeaderboard:    {{Action: "to_leaderboard", Wait: 300 * time.Millisecond}},
@@ -110,7 +114,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		//StateChiefOrders:    {{Action: "to_chief_orders", Wait: 300 * time.Millisecond}},
 		//StateMail:           {{Action: "to_mail", Wait: 300 * time.Millisecond}},
 		//StateDawnMarket:     {{Action: "to_dawn_market", Wait: 300 * time.Millisecond}},
-		//StateAllianceManage: {{Action: "to_alliance_manage", Wait: 300 * time.Millisecond}},
+		StateAllianceManage: {
+			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
+		},
 		//StateAllianceSettings: {
 		//	{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
 		//	{Action: "to_alliance_settings", Wait: 300 * time.Millisecond},
@@ -119,13 +125,16 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	//StateEvents: {
 	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
 	//},
-	//StateAllianceManage: {
-	//	StateAllianceHistory:  {{Action: "to_alliance_history", Wait: 300 * time.Millisecond}},
-	//	StateAllianceList:     {{Action: "to_alliance_list", Wait: 300 * time.Millisecond}},
-	//	StateAllianceVote:     {{Action: "to_alliance_vote", Wait: 300 * time.Millisecond}},
-	//	StateAllianceRanking:  {{Action: "to_alliance_ranking", Wait: 300 * time.Millisecond}},
-	//	StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
-	//},
+	StateAllianceManage: {
+		StateAllianceTech: {
+			{Action: "to_alliance_tech", Wait: 300 * time.Millisecond},
+		},
+		//	StateAllianceHistory:  {{Action: "to_alliance_history", Wait: 300 * time.Millisecond}},
+		//	StateAllianceList:     {{Action: "to_alliance_list", Wait: 300 * time.Millisecond}},
+		//	StateAllianceVote:     {{Action: "to_alliance_vote", Wait: 300 * time.Millisecond}},
+		//	StateAllianceRanking:  {{Action: "to_alliance_ranking", Wait: 300 * time.Millisecond}},
+		//	StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
+	},
 	StateExploration: {
 		StateExplorationBattle: {{Action: "to_exploration_battle", Wait: 300 * time.Millisecond}},
 	},
@@ -215,7 +224,7 @@ func (g *GameFSM) ForceTo(target string) {
 				g.logger.Error("Transition step failed", slog.String("action", step.Action), slog.Any("error", err))
 				break
 			}
-			wait := step.Wait + time.Duration(rand.Intn(300)+100)*time.Millisecond
+			wait := step.Wait + time.Duration(rand.Intn(300)+200)*time.Millisecond
 			g.logger.Debug("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
 		}

@@ -56,6 +56,6 @@ type AnalyzeRule struct {
 	Type          string  `yaml:"type,omitempty"`           // Тип результата (например, "integer", если action = text)
 	Threshold     float64 `yaml:"threshold,omitempty"`      // Уровень уверенности, по умолчанию 0.9
 	ExpectedColor string  `yaml:"expected_color,omitempty"` // Цвет для проверки (например, "green")
-	Set           string  `yaml:"set,omitempty"`            // Путь к полю, куда сохранить результат
 	Log           string  `yaml:"log,omitempty"`            // Сообщение для логирования (опционально)
+	SaveAsRegion  bool    `yaml:"saveAsRegion,omitempty"`   // если true — сохранить зону как новую временную область с именем .Name
 }

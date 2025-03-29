@@ -78,6 +78,7 @@ type Alliance struct {
 	Power   int           `yaml:"power"`   // Мощь альянса.
 	Members MembersInfo   `yaml:"members"` // Информация о членах альянса.
 	State   AllianceState `yaml:"state"`   // Дополнительное состояние альянса.
+	Tech    AllianceTech  `yaml:"tech"`    // Технологии альянса (например, вклад).
 }
 
 // MembersInfo содержит сведения о количестве участников альянса.
@@ -88,9 +89,15 @@ type MembersInfo struct {
 
 // AllianceState описывает состояние альянса.
 type AllianceState struct {
-	IsNeedSupport bool `yaml:"isNeedSupport"` // Признак участия в альянсе.
-	IsWar         int  `yaml:"isWar"`         // Количество текущих войн.
-	IsChests      int  `yaml:"isChests"`      // Количество доступных сундуков.
+	IsNeedSupport              bool `yaml:"isNeedSupport"`              // Признак участия в альянсе.
+	IsWar                      int  `yaml:"isWar"`                      // Количество текущих войн.
+	IsChests                   int  `yaml:"isChests"`                   // Количество доступных сундуков.
+	IsAllianceContributeButton bool `yaml:"isAllianceContributeButton"` // Кнопка вклада в технологию
+}
+
+// AllianceTech описывает технологические аспекты альянса.
+type AllianceTech struct {
+	Favorite bool `yaml:"favorite"`
 }
 
 // Buildings представляет собой набор зданий персонажа.

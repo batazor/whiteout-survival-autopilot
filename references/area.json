@@ -186,7 +186,7 @@
       "to_heroes",
       "to_backpack",
       "to_shop",
-      "to_alliance",
+      "to_alliance_manage",
       "to_world",
       "chat_short",
       "missions_button",
@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-26T16:33:40.364272Z",
-    "lead_time": 6150.096
+    "updated_at": "2025-03-28T15:50:08.637698Z",
+    "lead_time": 6222.432
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -459,5 +459,443 @@
     "created_at": "2025-03-27T11:44:01.959679Z",
     "updated_at": "2025-03-27T11:44:01.959708Z",
     "lead_time": 77.705
+  },
+  {
+    "ocr": "\/data\/upload\/1\/c7b1b3fc-alliance.png",
+    "id": 8,
+    "bbox": [
+      {
+        "x": 56.755565370370384,
+        "y": 17.859763833333332,
+        "width": 38.38382166666667,
+        "height": 1.550115875000003,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 72.0106739814815,
+        "y": 19.926585000000003,
+        "width": 23.292746481481487,
+        "height": 1.8453760416666647,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.5771364814814826,
+        "y": 42.735432875000015,
+        "width": 41.50045675925927,
+        "height": 5.388498041666672,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.413103055555557,
+        "y": 51.002717541666684,
+        "width": 41.50045675925927,
+        "height": 5.314683000000002,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.741169907407408,
+        "y": 59.63907741666669,
+        "width": 41.500456759259265,
+        "height": 4.945607791666667,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.413103055555557,
+        "y": 67.83254704166669,
+        "width": 42.484657314814825,
+        "height": 5.388498041666679,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 42.587802791666675,
+        "width": 41.17238990740743,
+        "height": 5.314683000000002,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 50.92890250000002,
+        "width": 41.66449018518521,
+        "height": 5.609943166666675,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.818763148148165,
+        "y": 59.63907741666669,
+        "width": 41.50045675925928,
+        "height": 5.462313083333335,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 67.90636208333336,
+        "width": 41.336423333333336,
+        "height": 5.388498041666651,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 21.6322517207473,
+        "y": 93.06784660766964,
+        "width": 11.143887250081939,
+        "height": 4.86725663716814,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 44.90331039003606,
+        "y": 93.06784660766964,
+        "width": 10.488364470665353,
+        "height": 4.424778761061944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.19108489019993,
+        "y": 93.06784660766964,
+        "width": 10.81612586037366,
+        "height": 4.572271386430671,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9832841691248771,
+        "y": 4.277286135693216,
+        "width": 10.81612586037365,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_power",
+      "allieace_member_count",
+      "to_alliance_to_war",
+      "to_alliance_to_territory",
+      "to_alliance_to_shop",
+      "to_alliance_power_rankings",
+      "to_alliance_chests",
+      "to_alliance_battle",
+      "to_alliance_tech",
+      "to_alliance_help",
+      "to_alliance_members",
+      "to_alliance_trumph",
+      "to_alliance_settings",
+      "alliance_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 8,
+    "created_at": "2025-03-28T12:22:39.512498Z",
+    "updated_at": "2025-03-28T16:21:19.257745Z",
+    "lead_time": 741.815
+  },
+  {
+    "ocr": "\/data\/upload\/1\/3635e25c-allience_manage.png",
+    "id": 9,
+    "bbox": [
+      {
+        "x": 8.19403474270731,
+        "y": 12.389380530973455,
+        "width": 37.037037037037045,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.866273352999017,
+        "y": 20.206489675516227,
+        "width": 37.69255981645363,
+        "height": 4.424778761061948,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 8.19403474270731,
+        "y": 28.023598820059004,
+        "width": 37.36479842674534,
+        "height": 4.867256637168136,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 54.08062930186824,
+        "y": 12.389380530973455,
+        "width": 36.70927564732875,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.42510652245166,
+        "y": 20.058997050147497,
+        "width": 38.348082595870224,
+        "height": 5.014749262536874,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 54.08062930186824,
+        "y": 27.87610619469027,
+        "width": 37.69255981645364,
+        "height": 5.162241887905605,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.424778761061948,
+        "width": 10.160603080957065,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_log",
+      "alliance_list",
+      "alliance_vote",
+      "alliance_message",
+      "alliance_ranking",
+      "leave_alliance",
+      "settings_to_alliance_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 9,
+    "created_at": "2025-03-28T12:25:32.701966Z",
+    "updated_at": "2025-03-28T12:25:32.701993Z",
+    "lead_time": 101.006
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d6a28d8a-allience_tech.png",
+    "id": 10,
+    "bbox": [
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 9.832841691248772,
+        "height": 3.6873156342182902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 19.46902654867257,
+        "width": 27.85971812520485,
+        "height": 3.6873156342182902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.38151425762046,
+        "y": 18.879056047197643,
+        "width": 26.87643395607997,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.51884627990823,
+        "y": 19.6165191740413,
+        "width": 27.531956735496564,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "tech_to_alliance",
+      "alliance_tech_growth",
+      "alliance_tech_territory",
+      "alliance_tech_battle"
+    ],
+    "annotator": 1,
+    "annotation_id": 10,
+    "created_at": "2025-03-28T12:28:04.238823Z",
+    "updated_at": "2025-03-28T12:28:04.238854Z",
+    "lead_time": 112.828
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d364edb8-allience_territory_bonus_overview.png",
+    "id": 11,
+    "bbox": [
+      {
+        "x": 1.3110455588331695,
+        "y": 4.277286135693216,
+        "width": 9.50508030154048,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 3.9331366764995086,
+        "y": 8.702064896755164,
+        "width": 24.582104228121928,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 31.79285480170436,
+        "y": 9.292035398230091,
+        "width": 22.943297279580467,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 58.669288757784344,
+        "y": 9.439528023598822,
+        "width": 24.58210422812192,
+        "height": 2.949852507374633,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.75286791215995,
+        "y": 92.62536873156344,
+        "width": 37.364798426745345,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_territory_to_alliance_back",
+      "alliance_bonus_overview",
+      "alliance_territory_buildings",
+      "alliance_special_buildings",
+      "alliance_resource_exchange"
+    ],
+    "annotator": 1,
+    "annotation_id": 11,
+    "created_at": "2025-03-28T12:29:42.605832Z",
+    "updated_at": "2025-03-28T12:29:42.605859Z",
+    "lead_time": 95.726
+  },
+  {
+    "ocr": "\/data\/upload\/1\/afaa0668-events.png",
+    "id": 12,
+    "bbox": [
+      {
+        "x": 0.9832841691248771,
+        "y": 3.9823008849557526,
+        "width": 10.488364470665358,
+        "height": 3.9823008849557526,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 6.555227794165848,
+        "y": 10.176991150442479,
+        "width": 23.926581448705345,
+        "height": 4.719764011799411,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.026876433956083,
+        "y": 17.994100294985255,
+        "width": 64.2412323828253,
+        "height": 3.539823008849556,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events_back",
+      "events",
+      "events_time"
+    ],
+    "annotator": 1,
+    "annotation_id": 12,
+    "created_at": "2025-03-28T12:30:45.192835Z",
+    "updated_at": "2025-03-28T12:30:45.192882Z",
+    "lead_time": 60.502
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9ef6186c-alliance_tech_contribute.png",
+    "id": 13,
+    "bbox": [
+      {
+        "x": 53.75286791215995,
+        "y": 73.89380530973453,
+        "width": 33.43166175024583,
+        "height": 4.572271386430671,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 74.40183546378238,
+        "y": 70.79646017699116,
+        "width": 2.9498525073746293,
+        "height": 1.9174041297935105,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.50508030154048,
+        "y": 84.070796460177,
+        "width": 82.92363159619798,
+        "height": 8.702064896755175,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.tech.isAllianceContributeButton",
+      "alliance.tech.isAllianceContributeCount",
+      "alliance_tech_contibute_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 13,
+    "created_at": "2025-03-28T14:21:22.252771Z",
+    "updated_at": "2025-03-28T16:45:52.398968Z",
+    "lead_time": 320.102
   }
 ]
