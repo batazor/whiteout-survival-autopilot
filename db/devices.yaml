@@ -1,0 +1,19 @@
+devices:
+  - name: RF8RC00M8MF
+    profiles:
+      - email: batazor111@gmail.com
+        gamer:
+          - id: 423382817
+            nickname: bart
+          - id: 420195101
+            nickname: paradox
+      - email: viktor.login@emergingtravel.com
+        gamer:
+          - id: 422228462
+            nickname: bravo
+          - id: 420902982
+            nickname: agent007
+      - email: whiteboris392@gmail.com
+        gamer:
+          - id: 424639700
+            nickname: aaar
