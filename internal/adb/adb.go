@@ -31,9 +31,10 @@ type Controller struct {
 }
 
 // NewController creates a new instance of the Controller.
-func NewController(logger *slog.Logger) (*Controller, error) {
+func NewController(logger *slog.Logger, name string) (*Controller, error) {
 	return &Controller{
-		logger: logger,
+		logger:   logger,
+		deviceID: name,
 	}, nil
 }
 

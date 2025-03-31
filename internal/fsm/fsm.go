@@ -75,12 +75,11 @@ const (
 	StateExplorationBattle = "exploration_battle"
 
 	// Смена аккаунта
-	StateChiefProfile                           = "chief_profile"
-	StateChiefProfileSetting                    = "chief_profile_setting"
-	StateChiefProfileAccount                    = "chief_profile_account"
-	StateChiefProfileAccountChangeAccount       = "chief_profile_account_change_account"
-	StateChiefProfileAccountChangeGoogle        = "chief_profile_account_change_account_google"
-	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
+	StateChiefProfile                     = "chief_profile"
+	StateChiefProfileSetting              = "chief_profile_setting"
+	StateChiefProfileAccount              = "chief_profile_account"
+	StateChiefProfileAccountChangeAccount = "chief_profile_account_change_account"
+	StateChiefProfileAccountChangeGoogle  = "chief_profile_account_change_account_google"
 )
 
 var AllStates = []string{
@@ -109,7 +108,6 @@ var AllStates = []string{
 	StateChiefProfileAccount,
 	StateChiefProfileAccountChangeAccount,
 	StateChiefProfileAccountChangeGoogle,
-	StateChiefProfileAccountChangeGoogleConfirm,
 }
 
 type TransitionStep struct {
@@ -161,12 +159,7 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "to_google_account", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccountChangeGoogle: {
-		StateChiefProfileAccountChangeGoogleConfirm: {
-			{Action: "to_google_continue", Wait: 300 * time.Millisecond},
-		},
-	},
-	StateChiefProfileAccountChangeGoogleConfirm: {},
+	StateChiefProfileAccountChangeGoogle: {},
 	//StateEvents: {
 	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
 	//},
@@ -224,7 +217,7 @@ func NewGame(
 
 	g.ValidateTransitionActions()
 
-	g.fsm = lpfsm.NewFSM(InitialState, transitions, callbacks)
+	g.fsm = lpfsm.NewFSM(StateMainCity, transitions, callbacks)
 	return g
 }
 
@@ -247,8 +240,16 @@ func (g *GameFSM) Current() string {
 func (g *GameFSM) ForceTo(target string) {
 	prev := g.Current()
 
+	if prev == target {
+		g.logger.Debug("FSM already at target state, skipping", slog.String("state", target))
+		return
+	}
+
+	var steps []TransitionStep
+	found := false
+
 	if g.adb != nil {
-		steps, found := transitionPaths[prev][target]
+		steps, found = transitionPaths[prev][target]
 		if !found {
 			path := g.FindPath(prev, target)
 			if len(path) > 1 {
@@ -256,7 +257,7 @@ func (g *GameFSM) ForceTo(target string) {
 				steps = g.pathToSteps(path)
 				logAutoPath(path)
 			} else {
-				g.logger.Error("No path found to target state", slog.String("from", prev), slog.String("to", target))
+				panic(fmt.Sprintf("❌ FSM: no path found from '%s' to '%s'", prev, target))
 			}
 		}
 
@@ -266,9 +267,9 @@ func (g *GameFSM) ForceTo(target string) {
 			}
 
 			if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
-				g.logger.Error("Transition step failed", slog.String("action", step.Action), slog.Any("error", err))
-				break
+				panic(fmt.Sprintf("❌ ADB click failed for action '%s': %v", step.Action, err))
 			}
+
 			wait := step.Wait + time.Duration(rand.Intn(300)+200)*time.Millisecond
 			g.logger.Debug("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
@@ -277,9 +278,10 @@ func (g *GameFSM) ForceTo(target string) {
 
 	g.fsm.SetState(target)
 
-	if g.logger != nil {
-		g.logger.Warn("FSM forcefully moved to new state", slog.String("from", prev), slog.String("to", target))
-	}
+	g.logger.Warn("FSM forcefully moved to new state",
+		slog.String("from", prev),
+		slog.String("to", target),
+	)
 
 	if g.callback != nil {
 		g.callback.UpdateStateFromScreenshot(target)
