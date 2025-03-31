@@ -30,11 +30,11 @@ type Controller struct {
 	logger   *slog.Logger
 }
 
-// NewADBController creates a new instance of the Controller.
-func NewADBController(logger *slog.Logger) *Controller {
+// NewController creates a new instance of the Controller.
+func NewController(logger *slog.Logger) (*Controller, error) {
 	return &Controller{
 		logger: logger,
-	}
+	}, nil
 }
 
 // ListDevices returns all connected ADB devices.

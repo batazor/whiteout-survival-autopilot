@@ -8,7 +8,7 @@ import (
 )
 
 func InitADBController(logger *slog.Logger) (adb.DeviceController, error) {
-	controller := adb.NewADBController(logger)
+	controller := adb.NewController(logger)
 
 	devices, err := controller.ListDevices()
 	if err != nil {

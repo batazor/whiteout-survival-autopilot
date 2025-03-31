@@ -41,6 +41,8 @@ func init() {
 	fsmGraph[StateAllianceManage] = append(fsmGraph[StateAllianceManage], StateMainCity)
 	fsmGraph[StateExploration] = append(fsmGraph[StateExploration], StateMainCity)
 	fsmGraph[StateExplorationBattle] = append(fsmGraph[StateExplorationBattle], StateExploration)
+	fsmGraph[StateChiefProfile] = append(fsmGraph[StateChiefProfile], StateChiefProfileSetting)
+	fsmGraph[StateChiefProfileSetting] = append(fsmGraph[StateChiefProfileSetting], StateChiefProfileAccount)
 }
 
 type StateUpdateCallback interface {
@@ -71,6 +73,14 @@ const (
 	StateDawnMarket        = "dawn_market"
 	StateExploration       = "exploration"
 	StateExplorationBattle = "exploration_battle"
+
+	// Смена аккаунта
+	StateChiefProfile                           = "chief_profile"
+	StateChiefProfileSetting                    = "chief_profile_setting"
+	StateChiefProfileAccount                    = "chief_profile_account"
+	StateChiefProfileAccountChangeAccount       = "chief_profile_account_change_account"
+	StateChiefProfileAccountChangeGoogle        = "chief_profile_account_change_account_google"
+	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
 )
 
 var AllStates = []string{
@@ -94,6 +104,12 @@ var AllStates = []string{
 	StateDawnMarket,
 	StateExploration,
 	StateExplorationBattle,
+	StateChiefProfile,
+	StateChiefProfileSetting,
+	StateChiefProfileAccount,
+	StateChiefProfileAccountChangeAccount,
+	StateChiefProfileAccountChangeGoogle,
+	StateChiefProfileAccountChangeGoogleConfirm,
 }
 
 type TransitionStep struct {
@@ -121,7 +137,36 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		//	{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
 		//	{Action: "to_alliance_settings", Wait: 300 * time.Millisecond},
 		//},
+		StateChiefProfile: {
+			{Action: "to_chief_profile", Wait: 300 * time.Millisecond},
+		},
 	},
+	StateChiefProfile: {
+		StateChiefProfileSetting: {
+			{Action: "to_chief_profile_setting", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileSetting: {
+		StateChiefProfileAccount: {
+			{Action: "to_chief_profile_account", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileAccount: {
+		StateChiefProfileAccountChangeAccount: {
+			{Action: "to_change_account", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileAccountChangeAccount: {
+		StateChiefProfileAccountChangeGoogle: {
+			{Action: "to_google_account", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileAccountChangeGoogle: {
+		StateChiefProfileAccountChangeGoogleConfirm: {
+			{Action: "to_google_continue", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileAccountChangeGoogleConfirm: {},
 	//StateEvents: {
 	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
 	//},

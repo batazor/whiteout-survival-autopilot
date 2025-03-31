@@ -179,7 +179,7 @@
       "power",
       "vip_level",
       "gems",
-      "chief_profile",
+      "to_chief_profile",
       "events_area",
       "war_icon",
       "to_exploration",
@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-28T15:50:08.637698Z",
-    "lead_time": 6222.432
+    "updated_at": "2025-03-31T08:52:42.545284Z",
+    "lead_time": 6275.473
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -897,5 +897,256 @@
     "created_at": "2025-03-28T14:21:22.252771Z",
     "updated_at": "2025-03-29T11:12:04.077146Z",
     "lead_time": 328.721
+  },
+  {
+    "ocr": "\/data\/upload\/1\/b0675001-chief_profile_account_change_account.png",
+    "id": 14,
+    "bbox": [
+      {
+        "x": 14.093739757456571,
+        "y": 36.72566371681417,
+        "width": 72.43526712553262,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 15.07702392658145,
+        "y": 43.21533923303836,
+        "width": 70.46869878728286,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 14.093739757456571,
+        "y": 48.52507374631269,
+        "width": 71.77974434611603,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_guest_account",
+      "to_facebook_account",
+      "to_google_account"
+    ],
+    "annotator": 1,
+    "annotation_id": 17,
+    "created_at": "2025-03-31T08:41:27.147094Z",
+    "updated_at": "2025-03-31T08:41:27.147123Z",
+    "lead_time": 49.38099999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f460246d-chief_profile_account_google_continue.png",
+    "id": 15,
+    "bbox": [
+      {
+        "x": 54.408390691576535,
+        "y": 66.96165191740414,
+        "width": 29.498525073746315,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.026876433956083,
+        "y": 66.81415929203541,
+        "width": 26.87643395607998,
+        "height": 4.129793510324475,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_google_continue",
+      "to_google_continue_cancel"
+    ],
+    "annotator": 1,
+    "annotation_id": 18,
+    "created_at": "2025-03-31T08:41:43.066824Z",
+    "updated_at": "2025-03-31T08:47:56.069581Z",
+    "lead_time": 23.314
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d9999782-chief_profile_account_google.png",
+    "id": 16,
+    "bbox": [
+      {
+        "x": 9.50508030154048,
+        "y": 39.085545722713874,
+        "width": 77.6794493608653,
+        "height": 7.227138643067846,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 10.160603080957065,
+        "y": 47.6401179941003,
+        "width": 76.36840380203213,
+        "height": 6.489675516224196,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 10.81612586037365,
+        "y": 55.30973451327434,
+        "width": 75.71288102261555,
+        "height": 7.079646017699119,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "email:gamer1",
+      "email:gamer2",
+      "email:gamer3"
+    ],
+    "annotator": 1,
+    "annotation_id": 20,
+    "created_at": "2025-03-31T08:49:57.435669Z",
+    "updated_at": "2025-03-31T08:49:57.435696Z",
+    "lead_time": 90.106
+  },
+  {
+    "ocr": "\/data\/upload\/1\/58c00902-chief_profile_account.png",
+    "id": 17,
+    "bbox": [
+      {
+        "x": 32.448377581120944,
+        "y": 93.51032448377583,
+        "width": 36.38151425762046,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 10.81612586037365,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_change_account",
+      "account_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 16,
+    "created_at": "2025-03-31T08:41:05.349027Z",
+    "updated_at": "2025-03-31T08:46:14.575356Z",
+    "lead_time": 41.287
+  },
+  {
+    "ocr": "\/data\/upload\/1\/24d0b8e9-chief_profile_setting.png",
+    "id": 18,
+    "bbox": [
+      {
+        "x": 54.73615208128483,
+        "y": 14.306784660766963,
+        "width": 35.39823008849558,
+        "height": 5.014749262536876,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 8.521796132415602,
+        "y": 22.27138643067847,
+        "width": 35.72599147820387,
+        "height": 4.867256637168143,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_chief_profile_account",
+      "to_chief_characters"
+    ],
+    "annotator": 1,
+    "annotation_id": 15,
+    "created_at": "2025-03-31T08:40:49.839173Z",
+    "updated_at": "2025-03-31T08:51:14.659585Z",
+    "lead_time": 53.461999999999996
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ea8c2615-welcome_back.png",
+    "id": 19,
+    "bbox": [
+      {
+        "x": 32.77613897082924,
+        "y": 74.18879056047199,
+        "width": 34.742707309078995,
+        "height": 3.834808259587035,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.77613897082924,
+        "y": 36.578171091445434,
+        "width": 47.19764011799411,
+        "height": 2.064896755162245,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "welcome_back_continue_button",
+      "welocme_back_time_offline"
+    ],
+    "annotator": 1,
+    "annotation_id": 19,
+    "created_at": "2025-03-31T08:42:07.624853Z",
+    "updated_at": "2025-03-31T08:45:06.345994Z",
+    "lead_time": 61.31099999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9ee4ca3b-chief_profile.png",
+    "id": 20,
+    "bbox": [
+      {
+        "x": 77.67944936086529,
+        "y": 94.24778761061948,
+        "width": 19.337921992789262,
+        "height": 4.719764011799413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.11406096361849,
+        "y": 94.10029498525076,
+        "width": 21.6322517207473,
+        "height": 4.719764011799413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_chief_profile_setting",
+      "to_leaderboard"
+    ],
+    "annotator": 1,
+    "annotation_id": 14,
+    "created_at": "2025-03-31T08:40:33.292596Z",
+    "updated_at": "2025-03-31T08:44:21.933459Z",
+    "lead_time": 243.254
   }
 ]
