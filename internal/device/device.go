@@ -17,6 +17,9 @@ type Device struct {
 	Logger   *slog.Logger
 	ADB      adb.DeviceController
 	FSM      *fsm.GameFSM
+
+	activeProfileIdx int
+	activeGamerIdx   int
 }
 
 func New(name string, profiles []domain.Profile, log *slog.Logger, lookup *config.AreaLookup) (*Device, error) {
@@ -28,7 +31,7 @@ func New(name string, profiles []domain.Profile, log *slog.Logger, lookup *confi
 	}
 
 	log.Info("🔧 Инициализация FSM")
-	stateFSM := fsm.NewGameFSM(log, controller, lookup)
+	stateFSM := fsm.NewGame(log, controller, lookup)
 
 	return &Device{
 		Name:     name,

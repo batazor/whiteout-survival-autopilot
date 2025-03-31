@@ -10,11 +10,6 @@ type Device struct {
 }
 
 type Profile struct {
-	Email string           `yaml:"email"`
-	Gamer []GamerOfProfile `yaml:"gamer"`
-}
-
-type GamerOfProfile struct {
-	ID       int    `yaml:"id"`
-	Nickname string `yaml:"nickname"`
+	Email string  `yaml:"email"`
+	Gamer []Gamer `yaml:"gamer"`
 }

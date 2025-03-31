@@ -195,7 +195,7 @@ type GameFSM struct {
 	lookup        *config.AreaLookup
 }
 
-func NewGameFSM(
+func NewGame(
 	logger *slog.Logger,
 	adb adb.DeviceController,
 	lookup *config.AreaLookup,
