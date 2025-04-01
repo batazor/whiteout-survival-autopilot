@@ -3,6 +3,7 @@ package device
 import (
 	"context"
 	"fmt"
+	"image"
 	"log/slog"
 	"time"
 
@@ -10,6 +11,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 type Device struct {
@@ -71,6 +73,8 @@ func (d *Device) Start(ctx context.Context) {
 }
 
 func (d *Device) SetActiveGamer(profileIdx, gamerIdx int) {
+	ctx := context.Background()
+
 	d.activeProfileIdx = profileIdx
 	d.activeGamerIdx = gamerIdx
 
@@ -96,7 +100,7 @@ func (d *Device) SetActiveGamer(profileIdx, gamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(email:gamer1) failed: %v", err))
 	}
 
-	time.Sleep(5 * time.Second)
+	vision.WaitForText(ctx, d.ADB, []string{"Choose"}, time.Second, image.Rectangle{}, 1)
 
 	d.Logger.Info("🟢 Клик по кнопке продолжения Google", slog.String("region", "to_google_continue"))
 	if err := d.ADB.ClickRegion("to_google_continue", d.areaLookup); err != nil {
@@ -104,9 +108,7 @@ func (d *Device) SetActiveGamer(profileIdx, gamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
-	time.Sleep(20 * time.Second)
-
-	// TODO: check ads
+	vision.WaitForText(ctx, d.ADB, []string{"Confirm"}, time.Second, image.Rectangle{}, 1)
 
 	d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
 	if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {

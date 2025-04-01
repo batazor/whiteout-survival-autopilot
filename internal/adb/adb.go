@@ -1,7 +1,9 @@
 package adb
 
 import (
+	"bytes"
 	"fmt"
+	"image"
 	"log/slog"
 	"math/rand"
 	"os"
@@ -19,7 +21,7 @@ type DeviceController interface {
 	SetActiveDevice(serial string)
 	GetActiveDevice() string
 
-	Screenshot(path string) error
+	Screenshot(path string) (image.Image, error)
 	ClickRegion(name string, area *config.AreaLookup) error
 	Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error
 }
@@ -70,7 +72,7 @@ func (a *Controller) GetActiveDevice() string {
 }
 
 // Screenshot captures a screenshot from the active device and writes it to the given file path.
-func (a *Controller) Screenshot(path string) error {
+func (a *Controller) Screenshot(path string) (image.Image, error) {
 	a.logger.Info("Capturing screenshot from device",
 		slog.String("device", a.deviceID),
 		slog.String("output", path),
@@ -80,16 +82,23 @@ func (a *Controller) Screenshot(path string) error {
 	out, err := cmd.Output()
 	if err != nil {
 		a.logger.Error("Failed to execute screencap", slog.Any("error", err))
-		return fmt.Errorf("failed to capture screenshot: %w", err)
+		return nil, fmt.Errorf("failed to capture screenshot: %w", err)
 	}
 
-	if err := os.WriteFile(path, out, 0644); err != nil {
-		a.logger.Error("Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
-		return fmt.Errorf("failed to write screenshot: %w", err)
+	if path != "" {
+		if err := os.WriteFile(path, out, 0644); err != nil {
+			a.logger.Error("Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
+			return nil, fmt.Errorf("failed to write screenshot: %w", err)
+		}
+		a.logger.Info("Screenshot saved successfully", slog.String("path", path))
 	}
 
-	a.logger.Info("Screenshot saved successfully", slog.String("path", path))
-	return nil
+	img, _, err := image.Decode(bytes.NewReader(out))
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode screenshot: %w", err)
+	}
+
+	return img, nil
 }
 
 // ClickRegion performs a tap action in the center of the named region with slight random offset.
