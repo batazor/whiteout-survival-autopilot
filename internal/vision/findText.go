@@ -7,20 +7,12 @@ import (
 
 	"github.com/otiai10/gosseract/v2"
 	"gocv.io/x/gocv"
+
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-// OCRResult holds a recognized word with its confidence and bounding box.
-type OCRResult struct {
-	Text       string
-	Confidence float64
-	X          int
-	Y          int
-	Width      int
-	Height     int
-}
-
 // ProcessImage applies all OCR strategies in parallel and returns the aggregated OCR results.
-func ProcessImage(imagePath string) ([]OCRResult, error) {
+func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 	// Read the image from file
 	img := gocv.IMRead(imagePath, gocv.IMReadColor)
 	if img.Empty() {
@@ -35,7 +27,7 @@ func ProcessImage(imagePath string) ([]OCRResult, error) {
 
 	// Channel to collect results from goroutines
 	type ocrResultSet struct {
-		results []OCRResult
+		results []domain.OCRResult
 		err     error
 	}
 	resultsChan := make(chan ocrResultSet, len(strategies))
@@ -77,12 +69,12 @@ func ProcessImage(imagePath string) ([]OCRResult, error) {
 				return
 			}
 			// Filter out words with 2 or fewer characters, or confidence below 40
-			var ocrResults []OCRResult
+			var ocrResults []domain.OCRResult
 			for _, box := range boxes {
 				if len(box.Word) > 2 && box.Confidence >= 10 {
 					rect := box.Box
 					scale := 2
-					ocrResults = append(ocrResults, OCRResult{
+					ocrResults = append(ocrResults, domain.OCRResult{
 						Text:       box.Word,
 						Confidence: box.Confidence,
 						X:          rect.Min.X / scale,
@@ -101,7 +93,7 @@ func ProcessImage(imagePath string) ([]OCRResult, error) {
 	close(resultsChan)
 
 	// Collect results and check for errors
-	var allResults []OCRResult
+	var allResults []domain.OCRResult
 	var collectErr error
 	for res := range resultsChan {
 		if res.err != nil {
@@ -123,7 +115,7 @@ func ProcessImage(imagePath string) ([]OCRResult, error) {
 }
 
 // removeDuplicates filters out duplicate OCR results by text and location overlap.
-func removeDuplicates(results []OCRResult) []OCRResult {
+func removeDuplicates(results []domain.OCRResult) []domain.OCRResult {
 	marked := make([]bool, len(results))
 	for i := 0; i < len(results); i++ {
 		if marked[i] {
@@ -152,7 +144,7 @@ func removeDuplicates(results []OCRResult) []OCRResult {
 		}
 	}
 	// Build a new slice excluding marked duplicates
-	deduped := make([]OCRResult, 0, len(results))
+	deduped := make([]domain.OCRResult, 0, len(results))
 	for idx, res := range results {
 		if !marked[idx] {
 			deduped = append(deduped, res)

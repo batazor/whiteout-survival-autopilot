@@ -94,13 +94,16 @@ func (d *Device) SetActiveGamer(profileIdx, gamerIdx int) {
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
 	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
 
-	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("region", "email:gamer1"))
-	if err := d.ADB.ClickRegion("email:gamer1", d.areaLookup); err != nil {
+	// ждем email
+	emailZones, _ := vision.WaitForText(ctx, d.ADB, []string{profile.Email}, time.Second, image.Rectangle{})
+
+	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("text", emailZones.Text))
+	if err := d.ADB.ClickOCRResult(emailZones); err != nil {
 		d.Logger.Error("❌ Не удалось кликнуть по email аккаунту", slog.Any("err", err))
 		panic(fmt.Sprintf("ClickRegion(email:gamer1) failed: %v", err))
 	}
 
-	vision.WaitForText(ctx, d.ADB, []string{"Choose"}, time.Second, image.Rectangle{}, 1)
+	time.Sleep(3 * time.Second)
 
 	d.Logger.Info("🟢 Клик по кнопке продолжения Google", slog.String("region", "to_google_continue"))
 	if err := d.ADB.ClickRegion("to_google_continue", d.areaLookup); err != nil {
@@ -108,14 +111,19 @@ func (d *Device) SetActiveGamer(profileIdx, gamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
-	vision.WaitForText(ctx, d.ADB, []string{"Confirm"}, time.Second, image.Rectangle{}, 1)
+	// Проверка на страницу - добро пожаловать
+	newCtx, _ := context.WithTimeout(ctx, 10*time.Second)
+	resp, _ := vision.WaitForText(newCtx, d.ADB, []string{"Welcome"}, time.Second, image.Rectangle{})
 
-	d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
-	if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
-		d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
-		panic(fmt.Sprintf("ClickRegion(welcome_back_continue_button) failed: %v", err))
+	if resp != nil {
+		d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
+		if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
+			d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
+			panic(fmt.Sprintf("ClickRegion(welcome_back_continue_button) failed: %v", err))
+		}
 	}
 
 	d.Logger.Info("✅ Вход выполнен, переход в Main City")
-	d.FSM.ForceTo(fsm.StateMainCity)
+	d.Logger.Info("🔧 Инициализация FSM")
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
 }

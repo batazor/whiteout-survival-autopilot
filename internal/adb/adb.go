@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
 // DeviceController defines the interface for interacting with an Android device via ADB.
@@ -23,6 +24,7 @@ type DeviceController interface {
 
 	Screenshot(path string) (image.Image, error)
 	ClickRegion(name string, area *config.AreaLookup) error
+	ClickOCRResult(result *domain.OCRResult) error
 	Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error
 }
 
@@ -101,7 +103,8 @@ func (a *Controller) Screenshot(path string) (image.Image, error) {
 	return img, nil
 }
 
-// ClickRegion performs a tap action in the center of the named region with slight random offset.
+// ClickRegion performs a tap action in the center of the named region with slight random offset,
+// clamping the result to stay inside the bounding box.
 func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
@@ -110,17 +113,34 @@ func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 
 	x, y, w, h := bbox.ToPixels()
 
-	// Центр области
 	centerX := x + w/2
 	centerY := y + h/2
 
-	// Отклонение до 5% от ширины и высоты
 	offsetX := int(float64(w) * 0.05)
 	offsetY := int(float64(h) * 0.05)
 
-	// Генерация случайного отклонения в диапазоне [-offsetX..offsetX]
-	randX := centerX + randInt(-offsetX, offsetX)
-	randY := centerY + randInt(-offsetY, offsetY)
+	randX := clamp(centerX+randInt(-offsetX, offsetX), x, x+w-1)
+	randY := clamp(centerY+randInt(-offsetY, offsetY), y, y+h-1)
+
+	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
+		strconv.Itoa(randX), strconv.Itoa(randY),
+	)
+	return cmd.Run()
+}
+
+// ClickOCRResult performs a tap action in the center of the OCR result bounding box with slight random offset,
+// clamping the result to stay inside the bounding box.
+func (a *Controller) ClickOCRResult(result *domain.OCRResult) error {
+	x, y, w, h := result.X, result.Y, result.Width, result.Height
+
+	centerX := x + w/2
+	centerY := y + h/2
+
+	offsetX := int(float64(w) * 0.05)
+	offsetY := int(float64(h) * 0.05)
+
+	randX := clamp(centerX+randInt(-offsetX, offsetX), x, x+w-1)
+	randY := clamp(centerY+randInt(-offsetY, offsetY), y, y+h-1)
 
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
 		strconv.Itoa(randX), strconv.Itoa(randY),
@@ -242,4 +262,15 @@ func (a *Controller) GetScreenResolution() (int, int, error) {
 		slog.Int("height", h),
 	)
 	return w, h, nil
+}
+
+// clamp ограничивает значение в пределах [min, max]
+func clamp(val, min, max int) int {
+	if val < min {
+		return min
+	}
+	if val > max {
+		return max
+	}
+	return val
 }

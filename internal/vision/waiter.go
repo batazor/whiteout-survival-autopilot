@@ -14,6 +14,7 @@ import (
 	"gocv.io/x/gocv"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
 // WaitForText ищет указанный текст на экране с интервалом.
@@ -24,7 +25,7 @@ func WaitForText(
 	targetTexts []string,
 	interval time.Duration,
 	region image.Rectangle,
-) (*OCRResult, error) {
+) (*domain.OCRResult, error) {
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 
@@ -78,7 +79,7 @@ func WaitForText(
 }
 
 // ProcessImageFromMat обёртка вокруг ProcessImage, но принимает Mat напрямую
-func ProcessImageFromMat(mat gocv.Mat) ([]OCRResult, error) {
+func ProcessImageFromMat(mat gocv.Mat) ([]domain.OCRResult, error) {
 	// Временный файл
 	tempPath := filepath.Join("/tmp", fmt.Sprintf("mat_ocr_%d.png", time.Now().UnixNano()))
 	if ok := gocv.IMWrite(tempPath, mat); !ok {
