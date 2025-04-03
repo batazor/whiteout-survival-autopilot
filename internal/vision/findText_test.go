@@ -12,14 +12,14 @@ import (
 
 func TestProcessImage_DebugOutput(t *testing.T) {
 	// 1. Загрузка исходного изображения
-	img := gocv.IMRead("references/welcome_back.png", gocv.IMReadColor)
+	img := gocv.IMRead("references/characters.png", gocv.IMReadColor)
 	if img.Empty() {
-		t.Fatalf("Не удалось загрузить изображение: references/welcome_back.png")
+		t.Fatalf("Не удалось загрузить изображение: references/characters.png")
 	}
 	defer img.Close()
 
 	// 2. Вызов функции OCR для получения результатов
-	results, err := vision.ProcessImage("references/welcome_back.png")
+	results, err := vision.ProcessImage("references/characters.png")
 	if err != nil {
 		t.Fatalf("Ошибка при вызове ProcessImage: %v", err)
 	}

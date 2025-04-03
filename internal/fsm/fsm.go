@@ -16,33 +16,38 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-var fsmGraph = map[string][]string{}
+func buildFSMGraph() map[string][]string {
+	// 🧼 Полный сброс, чтобы избежать остатков от других FSM
+	fsmGraph := map[string][]string{}
 
-func init() {
 	for from, targets := range transitionPaths {
 		for to := range targets {
 			fsmGraph[from] = append(fsmGraph[from], to)
 		}
 	}
-	fsmGraph[StateProfile] = append(fsmGraph[StateProfile], StateMainCity)
-	fsmGraph[StateLeaderboard] = append(fsmGraph[StateLeaderboard], StateMainCity)
-	fsmGraph[StateSettings] = append(fsmGraph[StateSettings], StateMainCity)
-	fsmGraph[StateVIP] = append(fsmGraph[StateVIP], StateMainCity)
-	fsmGraph[StateChiefOrders] = append(fsmGraph[StateChiefOrders], StateMainCity)
-	fsmGraph[StateMail] = append(fsmGraph[StateMail], StateMainCity)
-	fsmGraph[StateDawnMarket] = append(fsmGraph[StateDawnMarket], StateMainCity)
-	fsmGraph[StateEvents] = append(fsmGraph[StateEvents], StateMainCity)
-	fsmGraph[StateActivityTriumph] = append(fsmGraph[StateActivityTriumph], StateEvents)
-	fsmGraph[StateAllianceSettings] = append(fsmGraph[StateAllianceSettings], StateAllianceManage)
-	fsmGraph[StateAllianceHistory] = append(fsmGraph[StateAllianceHistory], StateAllianceManage)
-	fsmGraph[StateAllianceList] = append(fsmGraph[StateAllianceList], StateAllianceManage)
-	fsmGraph[StateAllianceVote] = append(fsmGraph[StateAllianceVote], StateAllianceManage)
-	fsmGraph[StateAllianceRanking] = append(fsmGraph[StateAllianceRanking], StateAllianceManage)
-	fsmGraph[StateAllianceManage] = append(fsmGraph[StateAllianceManage], StateMainCity)
-	fsmGraph[StateExploration] = append(fsmGraph[StateExploration], StateMainCity)
-	fsmGraph[StateExplorationBattle] = append(fsmGraph[StateExplorationBattle], StateExploration)
-	fsmGraph[StateChiefProfile] = append(fsmGraph[StateChiefProfile], StateChiefProfileSetting)
-	fsmGraph[StateChiefProfileSetting] = append(fsmGraph[StateChiefProfileSetting], StateChiefProfileAccount)
+
+	// Дополнительные возвратные переходы
+	//fsmGraph[StateProfile] = append(fsmGraph[StateProfile], StateMainCity)
+	//fsmGraph[StateLeaderboard] = append(fsmGraph[StateLeaderboard], StateMainCity)
+	//fsmGraph[StateSettings] = append(fsmGraph[StateSettings], StateMainCity)
+	//fsmGraph[StateVIP] = append(fsmGraph[StateVIP], StateMainCity)
+	//fsmGraph[StateChiefOrders] = append(fsmGraph[StateChiefOrders], StateMainCity)
+	//fsmGraph[StateMail] = append(fsmGraph[StateMail], StateMainCity)
+	//fsmGraph[StateDawnMarket] = append(fsmGraph[StateDawnMarket], StateMainCity)
+	//fsmGraph[StateEvents] = append(fsmGraph[StateEvents], StateMainCity)
+	//fsmGraph[StateActivityTriumph] = append(fsmGraph[StateActivityTriumph], StateEvents)
+	//fsmGraph[StateAllianceSettings] = append(fsmGraph[StateAllianceSettings], StateAllianceManage)
+	//fsmGraph[StateAllianceHistory] = append(fsmGraph[StateAllianceHistory], StateAllianceManage)
+	//fsmGraph[StateAllianceList] = append(fsmGraph[StateAllianceList], StateAllianceManage)
+	//fsmGraph[StateAllianceVote] = append(fsmGraph[StateAllianceVote], StateAllianceManage)
+	//fsmGraph[StateAllianceRanking] = append(fsmGraph[StateAllianceRanking], StateAllianceManage)
+	//fsmGraph[StateAllianceManage] = append(fsmGraph[StateAllianceManage], StateMainCity)
+	//fsmGraph[StateExploration] = append(fsmGraph[StateExploration], StateMainCity)
+	//fsmGraph[StateExplorationBattle] = append(fsmGraph[StateExplorationBattle], StateExploration)
+	//fsmGraph[StateChiefProfile] = append(fsmGraph[StateChiefProfile], StateChiefProfileSetting)
+	//fsmGraph[StateChiefProfileSetting] = append(fsmGraph[StateChiefProfileSetting], StateChiefProfileAccount)
+
+	return fsmGraph
 }
 
 type StateUpdateCallback interface {
@@ -75,11 +80,13 @@ const (
 	StateExplorationBattle = "exploration_battle"
 
 	// Смена аккаунта
-	StateChiefProfile                     = "chief_profile"
-	StateChiefProfileSetting              = "chief_profile_setting"
-	StateChiefProfileAccount              = "chief_profile_account"
-	StateChiefProfileAccountChangeAccount = "chief_profile_account_change_account"
-	StateChiefProfileAccountChangeGoogle  = "chief_profile_account_change_account_google"
+	StateChiefProfile                           = "chief_profile"
+	StateChiefCharacters                        = "chief_characters"
+	StateChiefProfileSetting                    = "chief_profile_setting"
+	StateChiefProfileAccount                    = "chief_profile_account"
+	StateChiefProfileAccountChangeAccount       = "chief_profile_account_change_account"
+	StateChiefProfileAccountChangeGoogle        = "chief_profile_account_change_account_google"
+	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
 )
 
 var AllStates = []string{
@@ -105,9 +112,11 @@ var AllStates = []string{
 	StateExplorationBattle,
 	StateChiefProfile,
 	StateChiefProfileSetting,
+	StateChiefCharacters,
 	StateChiefProfileAccount,
 	StateChiefProfileAccountChangeAccount,
 	StateChiefProfileAccountChangeGoogle,
+	StateChiefProfileAccountChangeGoogleConfirm,
 }
 
 type TransitionStep struct {
@@ -148,6 +157,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		StateChiefProfileAccount: {
 			{Action: "to_chief_profile_account", Wait: 300 * time.Millisecond},
 		},
+		StateChiefCharacters: {
+			{Action: "to_chief_characters", Wait: 300 * time.Millisecond},
+		},
 	},
 	StateChiefProfileAccount: {
 		StateChiefProfileAccountChangeAccount: {
@@ -159,7 +171,13 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "to_google_account", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccountChangeGoogle: {},
+	StateChiefProfileAccountChangeGoogle: {
+		StateChiefProfileAccountChangeGoogleConfirm: {
+			{Action: "to_google_continue", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefProfileAccountChangeGoogleConfirm: {},
+	StateChiefCharacters:                        {},
 	//StateEvents: {
 	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
 	//},
@@ -186,6 +204,7 @@ type GameFSM struct {
 	getState      func() *domain.State
 	adb           adb.DeviceController
 	lookup        *config.AreaLookup
+	fsmGraph      map[string][]string
 }
 
 func NewGame(
@@ -194,9 +213,10 @@ func NewGame(
 	lookup *config.AreaLookup,
 ) *GameFSM {
 	g := &GameFSM{
-		logger: logger,
-		adb:    adb,
-		lookup: lookup,
+		logger:   logger,
+		adb:      adb,
+		lookup:   lookup,
+		fsmGraph: buildFSMGraph(),
 	}
 
 	transitions := lpfsm.Events{}
@@ -276,12 +296,16 @@ func (g *GameFSM) ForceTo(target string) {
 		}
 	}
 
-	g.fsm.SetState(target)
-
-	g.logger.Warn("FSM forcefully moved to new state",
-		slog.String("from", prev),
-		slog.String("to", target),
-	)
+	// Try using the FSM event system first if possible
+	eventName := fmt.Sprintf("%s_to_%s", prev, target)
+	if err := g.fsm.Event(context.Background(), eventName); err != nil {
+		// If the event isn't defined, fall back to direct state change
+		g.fsm.SetState(target)
+		g.logger.Warn("FSM forcefully moved to new state",
+			slog.String("from", prev),
+			slog.String("to", target),
+		)
+	}
 
 	if g.callback != nil {
 		g.callback.UpdateStateFromScreenshot(target)
@@ -353,27 +377,83 @@ func (g *GameFSM) ValidateTransitionActions() {
 	}
 }
 
-func (g *GameFSM) FindPath(from, to string) []string {
-	visited := map[string]bool{}
-	type node struct {
-		state string
-		path  []string
+// cost возвращает стоимость ребра между состояниями.
+// Если для перехода from -> to определён прямой переход, стоимость равна 1,
+// иначе – предполагается fallback с стоимостью 2.
+func cost(from, to string) int {
+	if _, ok := transitionPaths[from][to]; ok {
+		return 1
 	}
-	queue := []node{{from, []string{from}}}
-	for len(queue) > 0 {
-		n := queue[0]
-		queue = queue[1:]
-		if n.state == to {
-			return n.path
+	return 2
+}
+
+// FindPath ищет кратчайший путь (по суммарной стоимости ребер) от состояния from до to
+// с использованием алгоритма Дейкстры.
+func (g *GameFSM) FindPath(from, to string) []string {
+	// Собираем все состояния: ключи графа и их соседи.
+	nodes := make(map[string]bool)
+	for state, neighbors := range g.fsmGraph {
+		nodes[state] = true
+		for _, n := range neighbors {
+			nodes[n] = true
 		}
-		visited[n.state] = true
-		for _, next := range fsmGraph[n.state] {
-			if !visited[next] {
-				queue = append(queue, node{next, append(n.path, next)})
+	}
+
+	const inf = int(^uint(0) >> 1)
+	dist := make(map[string]int)
+	prev := make(map[string]string)
+	for node := range nodes {
+		dist[node] = inf
+	}
+	dist[from] = 0
+
+	// Множество непосещённых вершин.
+	unvisited := make(map[string]bool)
+	for node := range nodes {
+		unvisited[node] = true
+	}
+
+	for len(unvisited) > 0 {
+		var u string
+		minDist := inf
+		for node := range unvisited {
+			if d := dist[node]; d < minDist {
+				minDist = d
+				u = node
+			}
+		}
+		if u == "" {
+			break // не осталось достижимых вершин
+		}
+		if u == to {
+			break // достигли целевого состояния
+		}
+		delete(unvisited, u)
+		for _, v := range g.fsmGraph[u] {
+			if !unvisited[v] {
+				continue
+			}
+			alt := dist[u] + cost(u, v)
+			if alt < dist[v] {
+				dist[v] = alt
+				prev[v] = u
 			}
 		}
 	}
-	return nil
+
+	if dist[to] == inf {
+		return nil // путь не найден
+	}
+
+	// Восстанавливаем путь
+	var path []string
+	for u := to; u != ""; u = prev[u] {
+		path = append([]string{u}, path...)
+		if u == from {
+			break
+		}
+	}
+	return path
 }
 
 func (g *GameFSM) pathToSteps(path []string) []TransitionStep {
@@ -384,18 +464,8 @@ func (g *GameFSM) pathToSteps(path []string) []TransitionStep {
 		if s, ok := transitionPaths[from][to]; ok {
 			steps = append(steps, s...)
 		} else {
-			fallback := from + "_back"
-			steps = append(steps, TransitionStep{
-				Action: fallback,
-				Wait:   300 * time.Millisecond,
-			})
-			if g.logger != nil {
-				g.logger.Warn("FSM fallback step assumed",
-					slog.String("from", from),
-					slog.String("to", to),
-					slog.String("fallback_action", fallback),
-				)
-			}
+			// Нет прямого перехода – выбрасываем ошибку
+			panic(fmt.Sprintf("❌ FSM: direct transition from '%s' to '%s' not defined", from, to))
 		}
 	}
 	return steps

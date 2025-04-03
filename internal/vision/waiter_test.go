@@ -12,12 +12,18 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 // mockADB реализует adb.DeviceController для тестов
 type mockADB struct {
 	img image.Image
+}
+
+func (m *mockADB) ClickOCRResult(result *domain.OCRResult) error {
+	//TODO implement me
+	panic("implement me")
 }
 
 func (m *mockADB) ListDevices() ([]string, error) {
