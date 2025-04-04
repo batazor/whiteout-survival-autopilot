@@ -57,7 +57,7 @@ func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName st
 	defer client.Close()
 
 	client.SetImage(tmpPath)
-	client.SetWhitelist("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	client.SetWhitelist("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]")
 	client.SetPageSegMode(gosseract.PSM_SINGLE_BLOCK)
 
 	text, err := client.Text()

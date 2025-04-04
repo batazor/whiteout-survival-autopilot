@@ -3,11 +3,11 @@ module github.com/batazor/whiteout-survival-autopilot
 go 1.24.1
 
 require (
-	github.com/agnivade/levenshtein v1.2.1
 	github.com/charmbracelet/bubbles v0.20.0
 	github.com/charmbracelet/bubbletea v1.3.4
 	github.com/charmbracelet/lipgloss v1.1.0
 	github.com/google/cel-go v0.24.1
+	github.com/lithammer/fuzzysearch v1.1.8
 	github.com/looplab/fsm v1.0.2
 	github.com/lrstanley/bubblezone v0.0.0-20250315020633-c249a3fe1231
 	github.com/otiai10/gosseract/v2 v2.4.2-0.20250324235626-52db940d5195
@@ -15,7 +15,6 @@ require (
 	github.com/stretchr/testify v1.10.0
 	gocv.io/x/gocv v0.41.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576
-	gopkg.in/gographics/imagick.v2 v2.7.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 

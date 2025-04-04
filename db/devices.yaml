@@ -3,6 +3,8 @@ devices:
     profiles:
       - email: batazor111@gmail.com
         gamer:
+          - id: 401227964
+            nickname: batazor
           - id: 423382817
             nickname: bart
           - id: 420195101

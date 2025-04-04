@@ -20,7 +20,7 @@ func main() {
 		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
 	}
 
-	devicesCfg, err := config.LoadDeviceConfig("./db/devices.yaml")
+	devicesCfg, err := config.LoadDeviceConfig("./db/devices.yaml", "./db/state.yaml")
 	if err != nil {
 		log.Fatalf("❌ Ошибка загрузки конфигурации: %v", err)
 	}
@@ -35,7 +35,7 @@ func main() {
 		go func(devName string, profiles domain.Profiles, log *slog.Logger) {
 			defer wg.Done()
 
-			d, err := device.New(devName, profiles, log)
+			d, err := device.New(devName, profiles, log, "./references/area.json")
 			if err != nil {
 				log.Error("❌ Ошибка создания девайса", "error", err)
 				return

@@ -12,7 +12,7 @@ import (
 )
 
 // LoadDeviceConfig читает YAML-файл конфигурации устройств и десериализует его в структуру domain.Config.
-func LoadDeviceConfig(devicesFile string) (*domain.Config, error) {
+func LoadDeviceConfig(devicesFile string, stateFile string) (*domain.Config, error) {
 	devicesData, err := os.ReadFile(filepath.Clean(devicesFile))
 	if err != nil {
 		return nil, fmt.Errorf("failed to read devices.yaml: %w", err)
@@ -24,7 +24,7 @@ func LoadDeviceConfig(devicesFile string) (*domain.Config, error) {
 	}
 
 	// Загрузка state.yaml
-	stateMap, err := LoadStateSnapshot("db/state.yaml")
+	stateMap, err := LoadStateSnapshot(stateFile)
 	if err != nil {
 		return nil, fmt.Errorf("failed to load state.yaml: %w", err)
 	}
