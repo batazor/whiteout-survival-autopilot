@@ -16,13 +16,23 @@ import (
 func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int, error) {
 	d.Logger.Info("🚀 Определение текущего игрока")
 
+	// 0. Переходим на экран профиля
 	d.FSM.ForceTo(fsm.StateChiefProfile)
 
+	// 1. Делаем скриншот экрана профиля
+	_, err := d.ADB.Screenshot(imagePath)
+	if err != nil {
+		d.Logger.Error("❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
+		return -1, -1, err
+	}
+
+	// 2. Определяем активного игрока через OCR
 	zones, ok := d.areaLookup.Get("chief_profile_nickname")
 	if !ok {
 		return -1, -1, errors.New("❌ зона 'chief_profile_nickname' не найдена в area.json")
 	}
 
+	// 3. Распознаём никнейм игрока
 	nicknameRaw, err := vision.ExtractTextFromRegion(imagePath, zones.Zone, "gamer_detected")
 	if err != nil {
 		return -1, -1, err

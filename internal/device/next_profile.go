@@ -11,23 +11,21 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
-func (d *Device) NextProfile(profileIdx, gamerIdx int) {
+func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	ctx := context.Background()
 
 	d.activeProfileIdx = profileIdx
-	d.activeGamerIdx = gamerIdx
 
 	profile := d.Profiles[profileIdx]
-	gamer := &profile.Gamer[gamerIdx]
+	expected := &profile.Gamer[expectedGamerIdx]
 
 	d.Logger.Info("🎮 Смена активного игрока",
 		slog.String("email", profile.Email),
-		slog.String("nickname", gamer.Nickname),
-		slog.Int("id", gamer.ID),
+		slog.String("ожидаемый", expected.Nickname),
 	)
 
-	// Устанавливаем колбэк для FSM
-	d.FSM.SetCallback(gamer)
+	// Устанавливаем колбэк (временно, уточним ниже)
+	d.FSM.SetCallback(expected)
 
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
@@ -50,10 +48,9 @@ func (d *Device) NextProfile(profileIdx, gamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
-	// Проверка на страницу - добро пожаловать
+	// Проверка welcome back
 	newCtx, _ := context.WithTimeout(ctx, 10*time.Second)
 	resp, _ := vision.WaitForText(newCtx, d.ADB, []string{"Welcome"}, time.Second, image.Rectangle{})
-
 	if resp != nil {
 		d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
 		if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
@@ -62,7 +59,32 @@ func (d *Device) NextProfile(profileIdx, gamerIdx int) {
 		}
 	}
 
-	d.Logger.Info("✅ Вход выполнен, переход в Main City")
-	d.Logger.Info("🔧 Инициализация FSM")
+	// 📸 Определяем активного игрока после входа
+	tmpPath := "screenshots/after_profile_switch.png"
+	pIdx, gIdx, err := d.DetectedGamer(ctx, tmpPath)
+	if err != nil || pIdx != profileIdx {
+		d.Logger.Warn("⚠️ После входа активный профиль не совпадает", slog.Any("detected_profile", pIdx), slog.Any("err", err))
+		return
+	}
+
+	d.activeGamerIdx = gIdx
+	active := &d.Profiles[pIdx].Gamer[gIdx]
+
+	d.Logger.Info("🔎 Игрок после входа", slog.String("nickname", active.Nickname))
+
+	// Устанавливаем колбэк на того, кто реально активен
+	d.FSM.SetCallback(active)
+
+	// Если это НЕ тот, кого мы ожидали → переключаемся
+	if active.ID != expected.ID {
+		d.Logger.Warn("🛑 Автоматически выбран не тот игрок — делаем переключение",
+			slog.String("ожидался", expected.Nickname),
+			slog.String("получен", active.Nickname),
+		)
+		d.NextGamer(profileIdx, expectedGamerIdx)
+	}
+
+	// FSM пересоздать
+	d.Logger.Info("🔧 Инициализация FSM после профиля")
 	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
 }
