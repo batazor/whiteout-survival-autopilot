@@ -1,5 +1,7 @@
 package domain
 
+type Gamers []Gamer
+
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
 	CurrentScreen string `yaml:"-"` // FSM состояние — обновляется во время игры
@@ -22,4 +24,20 @@ type Gamer struct {
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {
 	g.CurrentScreen = screen
+}
+
+// Len returns the number of gamers.
+func (g Gamers) Len() int {
+	return len(g)
+}
+
+// Swap exchanges the gamers at indices i and j.
+func (g Gamers) Swap(i, j int) {
+	g[i], g[j] = g[j], g[i]
+}
+
+// Less compares two gamers by their Nickname.
+// Adjust this comparison if you want to sort by another field (e.g., ID, Power, etc.).
+func (g Gamers) Less(i, j int) bool {
+	return g[i].Nickname < g[j].Nickname
 }

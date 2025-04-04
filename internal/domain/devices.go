@@ -8,8 +8,3 @@ type Device struct {
 	Name     string    `yaml:"name"`
 	Profiles []Profile `yaml:"profiles"`
 }
-
-type Profile struct {
-	Email string  `yaml:"email"`
-	Gamer []Gamer `yaml:"gamer"`
-}

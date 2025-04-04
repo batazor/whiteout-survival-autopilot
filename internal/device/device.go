@@ -16,7 +16,7 @@ import (
 
 type Device struct {
 	Name       string
-	Profiles   []domain.Profile
+	Profiles   domain.Profiles
 	Logger     *slog.Logger
 	ADB        adb.DeviceController
 	FSM        *fsm.GameFSM
@@ -26,7 +26,7 @@ type Device struct {
 	activeGamerIdx   int
 }
 
-func New(name string, profiles []domain.Profile, log *slog.Logger) (*Device, error) {
+func New(name string, profiles domain.Profiles, log *slog.Logger) (*Device, error) {
 	log.Info("🔧 Инициализация ADB-контроллера")
 	controller, err := adb.NewController(log, name)
 	if err != nil {

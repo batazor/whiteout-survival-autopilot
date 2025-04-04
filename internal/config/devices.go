@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"gopkg.in/yaml.v3"
 
@@ -28,15 +29,22 @@ func LoadDeviceConfig(devicesFile string) (*domain.Config, error) {
 		return nil, fmt.Errorf("failed to load state.yaml: %w", err)
 	}
 
-	// Мержим по ID
+	// Мержим по ID и сортируем профили и игроков для стабильного порядка
 	for dIdx := range cfg.Devices {
 		for pIdx := range cfg.Devices[dIdx].Profiles {
+			// Мержим состояние для каждого игрока (Gamer)
 			for gIdx, gamer := range cfg.Devices[dIdx].Profiles[pIdx].Gamer {
 				if full, ok := stateMap[gamer.ID]; ok {
 					cfg.Devices[dIdx].Profiles[pIdx].Gamer[gIdx] = full
 				}
 			}
+
+			// Сортируем игроков по Nickname
+			sort.Sort(domain.Gamers(cfg.Devices[dIdx].Profiles[pIdx].Gamer))
 		}
+
+		// Сортируем профили по Email
+		sort.Sort(domain.Profiles(cfg.Devices[dIdx].Profiles))
 	}
 
 	return &cfg, nil

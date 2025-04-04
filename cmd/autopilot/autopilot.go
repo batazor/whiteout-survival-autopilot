@@ -32,7 +32,7 @@ func main() {
 
 		deviceLogger := appLogger.With("device", dev.Name)
 
-		go func(devName string, profiles []domain.Profile, log *slog.Logger) {
+		go func(devName string, profiles domain.Profiles, log *slog.Logger) {
 			defer wg.Done()
 
 			d, err := device.New(devName, profiles, log)
