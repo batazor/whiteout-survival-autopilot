@@ -12,7 +12,6 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
-	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 )
 
 func main() {
@@ -21,12 +20,6 @@ func main() {
 	rdb := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
-
-	// TODO: use redis queue
-	_ = &redis_queue.RedisQueue{
-		Rdb: rdb,
-		Key: "bot:usecase_queue",
-	}
 
 	appLogger, err := logger.InitializeLogger("app")
 	if err != nil {
@@ -48,7 +41,7 @@ func main() {
 		go func(devName string, profiles domain.Profiles, log *slog.Logger) {
 			defer wg.Done()
 
-			d, err := device.New(devName, profiles, log, "./references/area.json")
+			d, err := device.New(devName, profiles, log, "./references/area.json", rdb)
 			if err != nil {
 				log.Error("❌ Ошибка создания девайса", "error", err)
 				return

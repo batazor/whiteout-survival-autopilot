@@ -3,6 +3,7 @@ package redis_queue
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/redis/go-redis/v9"
 
@@ -10,25 +11,39 @@ import (
 )
 
 type RedisQueue struct {
-	Rdb *redis.Client
-	Key string
+	rdb   *redis.Client
+	botID string
 }
 
+func (q *RedisQueue) key() string {
+	return fmt.Sprintf("bot:queue:%s", q.botID)
+}
+
+func NewBotQueue(rdb *redis.Client, botID string) *RedisQueue {
+	return &RedisQueue{
+		rdb:   rdb,
+		botID: botID,
+	}
+}
+
+// Push добавляет UseCase в приоритетную очередь Redis.
+// Чем выше uc.Priority (0–100), тем выше приоритет задачи (меньше score).
 func (q *RedisQueue) Push(ctx context.Context, uc *domain.UseCase) error {
 	data, err := json.Marshal(uc)
 	if err != nil {
 		return err
 	}
 
-	score := float64(100 - uc.Priority) // Чем выше приоритет — тем ниже score
-	return q.Rdb.ZAdd(ctx, q.Key, redis.Z{
+	score := float64(100 - uc.Priority) // Чем выше приоритет, тем ниже score
+	return q.rdb.ZAdd(ctx, q.key(), redis.Z{
 		Score:  score,
 		Member: data,
 	}).Err()
 }
 
+// Pop извлекает самый приоритетный UseCase из очереди Redis.
 func (q *RedisQueue) Pop(ctx context.Context) (*domain.UseCase, error) {
-	items, err := q.Rdb.ZPopMin(ctx, q.Key, 1).Result()
+	items, err := q.rdb.ZPopMin(ctx, q.key(), 1).Result()
 	if err != nil || len(items) == 0 {
 		return nil, err
 	}
@@ -39,4 +54,24 @@ func (q *RedisQueue) Pop(ctx context.Context) (*domain.UseCase, error) {
 	}
 
 	return &uc, nil
+}
+
+// Peek возвращает самый приоритетный UseCase без удаления (полезно для анализа)
+func (q *RedisQueue) Peek(ctx context.Context) (*domain.UseCase, error) {
+	items, err := q.rdb.ZRangeWithScores(ctx, q.key(), 0, 0).Result()
+	if err != nil || len(items) == 0 {
+		return nil, err
+	}
+
+	var uc domain.UseCase
+	if err := json.Unmarshal([]byte(items[0].Member.(string)), &uc); err != nil {
+		return nil, err
+	}
+
+	return &uc, nil
+}
+
+// Len возвращает количество задач в очереди
+func (q *RedisQueue) Len(ctx context.Context) (int64, error) {
+	return q.rdb.ZCard(ctx, q.key()).Result()
 }

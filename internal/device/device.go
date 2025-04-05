@@ -3,10 +3,13 @@ package device
 import (
 	"log/slog"
 
+	"github.com/redis/go-redis/v9"
+
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 )
 
 type Device struct {
@@ -16,12 +19,13 @@ type Device struct {
 	ADB        adb.DeviceController
 	FSM        *fsm.GameFSM
 	areaLookup *config.AreaLookup
+	Queue      *redis_queue.RedisQueue
 
 	activeProfileIdx int
 	activeGamerIdx   int
 }
 
-func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string) (*Device, error) {
+func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string, rdb *redis.Client) (*Device, error) {
 	log.Info("🔧 Инициализация ADB-контроллера")
 	controller, err := adb.NewController(log, name)
 	if err != nil {
@@ -42,5 +46,6 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		ADB:        controller,
 		FSM:        fsm.NewGame(log, controller, areaLookup),
 		areaLookup: areaLookup,
+		Queue:      redis_queue.NewBotQueue(rdb, name),
 	}, nil
 }
