@@ -152,6 +152,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		StateChiefProfileSetting: {
 			{Action: "to_chief_profile_setting", Wait: 300 * time.Millisecond},
 		},
+		StateMainCity: {
+			{Action: "chief_profile_back", Wait: 300 * time.Millisecond},
+		},
 	},
 	StateChiefProfileSetting: {
 		StateChiefProfileAccount: {

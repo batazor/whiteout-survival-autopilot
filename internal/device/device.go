@@ -1,9 +1,7 @@
 package device
 
 import (
-	"context"
 	"log/slog"
-	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
@@ -45,38 +43,4 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		FSM:        fsm.NewGame(log, controller, areaLookup),
 		areaLookup: areaLookup,
 	}, nil
-}
-
-func (d *Device) Start(ctx context.Context) {
-	d.Logger.Info("🚀 Старт девайса")
-
-	for {
-		for pIdx, profile := range d.Profiles {
-			for gIdx := range profile.Gamer {
-				select {
-				case <-ctx.Done():
-					d.Logger.Info("🛑 Остановка девайса по контексту")
-					return
-				default:
-					if gIdx == 0 {
-						d.Logger.Info("🔄 Смена профиля и переход к первому игроку",
-							"profile_index", pIdx,
-							"gamer_index", gIdx,
-							"nickname", profile.Gamer[gIdx].Nickname,
-						)
-						d.NextProfile(pIdx, gIdx)
-					} else {
-						d.Logger.Info("👤 Переход к следующему игроку того же профиля",
-							"profile_index", pIdx,
-							"gamer_index", gIdx,
-							"nickname", profile.Gamer[gIdx].Nickname,
-						)
-						d.NextGamer(pIdx, gIdx)
-					}
-
-					time.Sleep(5 * time.Second)
-				}
-			}
-		}
-	}
 }

@@ -1146,18 +1146,28 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.277286135693216,
+        "width": 10.488364470665356,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "to_chief_profile_setting",
       "to_leaderboard",
-      "chief_profile_nickname"
+      "chief_profile_nickname",
+      "chief_profile_back"
     ],
     "annotator": 1,
     "annotation_id": 14,
     "created_at": "2025-03-31T08:40:33.292596Z",
-    "updated_at": "2025-04-04T13:47:19.137240Z",
-    "lead_time": 276.44599999999997
+    "updated_at": "2025-04-05T02:55:36.777838Z",
+    "lead_time": 601.242
   },
   {
     "ocr": "\/data\/upload\/1\/bb5fab70-characters_change.png",
@@ -1224,5 +1234,38 @@
     "created_at": "2025-04-03T14:59:56.764622Z",
     "updated_at": "2025-04-03T14:59:56.764653Z",
     "lead_time": 55.423
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4c1d398b-ad_natalia.png",
+    "id": 23,
+    "bbox": [
+      {
+        "x": 6.88298918387414,
+        "y": 90.26548672566373,
+        "width": 86.2012454932809,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.23467715503115,
+        "y": 14.74926253687316,
+        "width": 8.194034742707302,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "ad_banner_close",
+      "ad_banner_natalia_close"
+    ],
+    "annotator": 1,
+    "annotation_id": 23,
+    "created_at": "2025-04-05T03:08:17.277851Z",
+    "updated_at": "2025-04-05T03:08:17.277882Z",
+    "lead_time": 142.994
   }
 ]

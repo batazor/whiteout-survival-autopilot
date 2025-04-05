@@ -9,6 +9,7 @@ import (
 
 	"github.com/lithammer/fuzzysearch/fuzzy"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
@@ -18,6 +19,11 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 
 	// 0. Переходим на экран профиля
 	d.FSM.ForceTo(fsm.StateChiefProfile)
+
+	defer func() {
+		// 4. Возвращаемся на главный экран
+		d.FSM.ForceTo(fsm.StateMainCity)
+	}()
 
 	// 1. Делаем скриншот экрана профиля
 	_, err := d.ADB.Screenshot(imagePath)
@@ -81,4 +87,32 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	)
 
 	return best.profileIdx, best.gamerIdx, nil
+}
+
+func (d *Device) DetectAndSetCurrentGamer(ctx context.Context) (*domain.Gamer, int, int, error) {
+	const tmpPath = "screenshots/after_profile_switch.png"
+
+	// 📸 Делаем скриншот и определяем активного игрока
+	_, err := d.ADB.Screenshot(tmpPath)
+	if err != nil {
+		d.Logger.Error("❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
+		return nil, -1, -1, err
+	}
+
+	pIdx, gIdx, err := d.DetectedGamer(ctx, tmpPath)
+	if err != nil || pIdx < 0 || gIdx < 0 {
+		d.Logger.Warn("⚠️ Не удалось определить активного игрока", slog.Any("err", err))
+		return nil, -1, -1, err
+	}
+
+	// 💾 Сохраняем как текущего
+	d.activeProfileIdx = pIdx
+	d.activeGamerIdx = gIdx
+
+	active := &d.Profiles[pIdx].Gamer[gIdx]
+	d.Logger.Info("🔎 Активный игрок определён", slog.String("nickname", active.Nickname))
+
+	d.FSM.SetCallback(active)
+
+	return active, pIdx, gIdx, nil
 }

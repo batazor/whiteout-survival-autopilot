@@ -27,6 +27,9 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	// Устанавливаем колбэк (временно, уточним ниже)
 	d.FSM.SetCallback(expected)
 
+	// 🔧 Пересоздаём FSM для нового аккаунта до любых ForceTo/WaitForText
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
 	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
@@ -48,32 +51,22 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
-	// Проверка welcome back
-	newCtx, _ := context.WithTimeout(ctx, 10*time.Second)
-	resp, _ := vision.WaitForText(newCtx, d.ADB, []string{"Welcome"}, time.Second, image.Rectangle{})
-	if resp != nil {
-		d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
-		if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
-			d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
-			panic(fmt.Sprintf("ClickRegion(welcome_back_continue_button) failed: %v", err))
-		}
+	// сбросим FSM
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+
+	// Проверка стартовых баннеров
+	err := d.handleEntryScreens(ctx)
+	if err != nil {
+		d.Logger.Error("❌ Не удалось обработать стартовые баннеры", slog.Any("err", err))
+		panic(fmt.Sprintf("handleEntryScreens() failed: %v", err))
 	}
 
-	// 📸 Определяем активного игрока после входа
-	tmpPath := "screenshots/after_profile_switch.png"
-	pIdx, gIdx, err := d.DetectedGamer(ctx, tmpPath)
+	// Проверяем, что мы находимся на экране профиля
+	active, pIdx, _, err := d.DetectAndSetCurrentGamer(ctx)
 	if err != nil || pIdx != profileIdx {
 		d.Logger.Warn("⚠️ После входа активный профиль не совпадает", slog.Any("detected_profile", pIdx), slog.Any("err", err))
 		return
 	}
-
-	d.activeGamerIdx = gIdx
-	active := &d.Profiles[pIdx].Gamer[gIdx]
-
-	d.Logger.Info("🔎 Игрок после входа", slog.String("nickname", active.Nickname))
-
-	// Устанавливаем колбэк на того, кто реально активен
-	d.FSM.SetCallback(active)
 
 	// Если это НЕ тот, кого мы ожидали → переключаемся
 	if active.ID != expected.ID {
@@ -84,7 +77,9 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		d.NextGamer(profileIdx, expectedGamerIdx)
 	}
 
-	// FSM пересоздать
-	d.Logger.Info("🔧 Инициализация FSM после профиля")
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+	// Устанавливаем колбэк (настоящий)
+	d.FSM.SetCallback(active)
+
+	// Успешно переключились на новый профиль
+	d.Logger.Info("✅ Успешно переключились на новый профиль", "nickname", active.Nickname)
 }

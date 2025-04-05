@@ -50,16 +50,11 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(character_change_confirm) failed: %v", err))
 	}
 
-	// Проверка на страницу - добро пожаловать
-	newCtx, _ := context.WithTimeout(ctx, 10*time.Second)
-	resp, _ := vision.WaitForText(newCtx, d.ADB, []string{"Welcome"}, time.Second, image.Rectangle{})
-
-	if resp != nil {
-		d.Logger.Info("🟢 Клик по кнопке Welcome Back", slog.String("region", "welcome_back_continue_button"))
-		if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
-			d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
-			panic(fmt.Sprintf("ClickRegion(welcome_back_continue_button) failed: %v", err))
-		}
+	// Проверка стартовых баннеров
+	err := d.handleEntryScreens(ctx)
+	if err != nil {
+		d.Logger.Error("❌ Не удалось обработать стартовые баннеры", slog.Any("err", err))
+		panic(fmt.Sprintf("handleEntryScreens() failed: %v", err))
 	}
 
 	d.Logger.Info("✅ Вход выполнен, переход в Main City")
