@@ -15,6 +15,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 
 	allKeywords := []string{
 		"Welcome",     // welcome back
+		"Alliance",    // альянс
 		"natalia",     // реклама
 		"Exploration", // главный экран — выходим
 	}
@@ -36,7 +37,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 				d.Logger.Info("🧠 Обнаружен текст: " + text)
 
 				switch {
-				case strings.Contains(text, "exploration"):
+				case strings.Contains(text, "exploration"), strings.Contains(text, "alliance"):
 					d.Logger.Info("✅ Обнаружен основной экран (Exploration) — выходим из handleEntryScreens")
 					return nil
 
@@ -48,11 +49,11 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 						return err
 					}
 
-					time.Sleep(2 * time.Second)
+					time.Sleep(100 * time.Millisecond)
 				}
 			}
 
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(300 * time.Millisecond)
 		}
 	}
 
