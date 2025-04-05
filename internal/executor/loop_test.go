@@ -27,7 +27,7 @@ func (m *mockEvaluator) EvaluateTrigger(expr string, state *domain.State) (bool,
 
 type noopAnalyzer struct{}
 
-func (a *noopAnalyzer) AnalyzeAndUpdateState(imagePath string, state *domain.State, rules []domain.AnalyzeRule) (*domain.State, error) {
+func (a *noopAnalyzer) AnalyzeAndUpdateState(imagePath string, state *domain.State, rules []domain.AnalyzeRule) (*domain.Gamer, error) {
 	return state, nil
 }
 

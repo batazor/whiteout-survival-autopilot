@@ -82,4 +82,6 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 
 	// Успешно переключились на новый профиль
 	d.Logger.Info("✅ Успешно переключились на новый профиль", "nickname", active.Nickname)
+
+	d.Play()
 }

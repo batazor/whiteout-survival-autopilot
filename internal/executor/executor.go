@@ -15,11 +15,11 @@ import (
 )
 
 type UseCaseExecutor interface {
-	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.State)
+	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.Gamer)
 }
 
 type Analyzer interface {
-	AnalyzeAndUpdateState(imagePath string, state *domain.State, rules []domain.AnalyzeRule) (*domain.State, error)
+	AnalyzeAndUpdateState(imagePath string, state *domain.Gamer, rules []domain.AnalyzeRule) (*domain.Gamer, error)
 }
 
 func NewUseCaseExecutor(
@@ -46,7 +46,7 @@ type executorImpl struct {
 	area             *config.AreaLookup
 }
 
-func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.State) {
+func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer) {
 	select {
 	case <-ctx.Done():
 		e.logger.Warn("Usecase cancelled before execution started",
@@ -57,7 +57,7 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, s
 	}
 
 	if uc.Trigger != "" {
-		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, state)
+		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, gamer)
 		if err != nil {
 			e.logger.Error("Trigger evaluation failed",
 				slog.String("usecase", uc.Name),
@@ -78,12 +78,12 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, s
 
 	e.logger.Info("=== Start usecase ===", slog.String("name", uc.Name))
 	for _, step := range uc.Steps {
-		e.runStep(ctx, step, 0, state)
+		e.runStep(ctx, step, 0, gamer)
 	}
 	e.logger.Info("=== End usecase ===", slog.String("name", uc.Name))
 }
 
-func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int, state *domain.State) bool {
+func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int, gamer *domain.Gamer) bool {
 	select {
 	case <-ctx.Done():
 		e.logger.Warn("Step cancelled by context")
@@ -116,12 +116,10 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				return false
 			}
 
-			char := &state.Accounts[0].Characters[0]
-
 			// Получим текущее значение для логирования
-			prevVal, _ := utils.GetStateFieldByPath(char, step.Set)
+			prevVal, _ := utils.GetStateFieldByPath(gamer, step.Set)
 
-			if err := utils.SetStateFieldByPath(char, step.Set, step.To); err != nil {
+			if err := utils.SetStateFieldByPath(gamer, step.Set, step.To); err != nil {
 				e.logger.Error(prefix+"Failed to reset state field",
 					slog.String("path", step.Set),
 					slog.Any("from", prevVal),
@@ -151,7 +149,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				default:
 				}
 
-				shouldContinue, err := e.triggerEvaluator.EvaluateTrigger(step.Trigger, state)
+				shouldContinue, err := e.triggerEvaluator.EvaluateTrigger(step.Trigger, gamer)
 				if err != nil {
 					e.logger.Error(prefix+"Trigger evaluation failed", slog.Any("error", err))
 					break
@@ -162,7 +160,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				}
 
 				for _, s := range step.Steps {
-					if stopped := e.runStep(ctx, s, indent+1, state); stopped {
+					if stopped := e.runStep(ctx, s, indent+1, gamer); stopped {
 						e.logger.Info(prefix + "Loop stopped manually (loop_stop)")
 						return false
 					}
@@ -177,17 +175,17 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 			imagePath := filepath.Join("out", fmt.Sprintf("%s_step_%d.png", strings.ReplaceAll(step.UsecaseName, " ", "_"), indent))
 			e.logger.Info(prefix+"Taking screenshot", slog.String("path", imagePath))
 
-			if err := e.adb.Screenshot(imagePath); err != nil {
+			if _, err := e.adb.Screenshot(imagePath); err != nil {
 				e.logger.Error(prefix+"Failed to capture screenshot", slog.Any("error", err))
 				return false
 			}
 
 			if len(step.Analyze) > 0 {
-				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, state, step.Analyze)
+				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, gamer, step.Analyze)
 				if err != nil {
 					e.logger.Error(prefix+"Analyze failed", slog.Any("error", err))
 				} else {
-					*state = *newState
+					*gamer = *newState
 					e.logger.Info(prefix + "Analyze completed and state updated")
 				}
 			}
@@ -208,7 +206,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 	if step.If != nil {
 		e.logger.Info(prefix+"If Trigger", slog.String("expr", step.If.Trigger))
 
-		result, err := e.triggerEvaluator.EvaluateTrigger(step.If.Trigger, state)
+		result, err := e.triggerEvaluator.EvaluateTrigger(step.If.Trigger, gamer)
 		if err != nil {
 			e.logger.Error(prefix+"Trigger evaluation failed",
 				slog.String("expr", step.If.Trigger),
@@ -220,7 +218,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 		if result {
 			e.logger.Info(prefix + "Condition met: executing THEN")
 			for _, s := range step.If.Then {
-				stopped := e.runStep(ctx, s, indent+1, state)
+				stopped := e.runStep(ctx, s, indent+1, gamer)
 				if stopped {
 					return true
 				}
@@ -228,7 +226,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 		} else if len(step.If.Else) > 0 {
 			e.logger.Info(prefix + "Condition NOT met: executing ELSE")
 			for _, s := range step.If.Else {
-				stopped := e.runStep(ctx, s, indent+1, state)
+				stopped := e.runStep(ctx, s, indent+1, gamer)
 				if stopped {
 					return true
 				}

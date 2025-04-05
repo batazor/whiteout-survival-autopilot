@@ -60,4 +60,6 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 	d.Logger.Info("✅ Вход выполнен, переход в Main City")
 	d.Logger.Info("🔧 Инициализация FSM")
 	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+
+	d.Play()
 }

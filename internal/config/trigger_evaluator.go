@@ -12,7 +12,7 @@ import (
 )
 
 type TriggerEvaluator interface {
-	EvaluateTrigger(expr string, st *domain.State) (bool, error)
+	EvaluateTrigger(expr string, st *domain.Gamer) (bool, error)
 }
 
 func NewTriggerEvaluator() TriggerEvaluator {
@@ -22,13 +22,8 @@ func NewTriggerEvaluator() TriggerEvaluator {
 type triggerEvaluator struct{}
 
 // EvaluateTrigger compiles the CEL expression (expr) and then evaluates it
-// against the data we extract from *domain.State.
-func (t *triggerEvaluator) EvaluateTrigger(expr string, st *domain.State) (bool, error) {
-	if len(st.Accounts) == 0 || len(st.Accounts[0].Characters) == 0 {
-		return false, fmt.Errorf("no character data available")
-	}
-	char := st.Accounts[0].Characters[0]
-
+// against the data we extract from *domain.Gamer.
+func (t *triggerEvaluator) EvaluateTrigger(expr string, char *domain.Gamer) (bool, error) {
 	// Flatten nested Gamer struct into map[string]interface{}
 	flat := make(map[string]interface{})
 	flattenStruct("", char, flat)

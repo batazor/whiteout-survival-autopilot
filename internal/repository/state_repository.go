@@ -11,8 +11,8 @@ import (
 )
 
 type StateRepository interface {
-	LoadState(ctx context.Context) (*domain.State, error)
-	SaveState(ctx context.Context, s *domain.State) error
+	LoadState(ctx context.Context) (*domain.Gamer, error)
+	SaveState(ctx context.Context, s *domain.Gamer) error
 }
 
 func NewFileStateRepository(filename string) StateRepository {
@@ -23,7 +23,7 @@ type fileRepo struct {
 	filename string
 }
 
-func (r *fileRepo) LoadState(ctx context.Context) (*domain.State, error) {
+func (r *fileRepo) LoadState(ctx context.Context) (*domain.Gamer, error) {
 	data, err := os.ReadFile(r.filename)
 	if err != nil {
 		return nil, fmt.Errorf("read file error: %w", err)
@@ -35,7 +35,7 @@ func (r *fileRepo) LoadState(ctx context.Context) (*domain.State, error) {
 	return &st, nil
 }
 
-func (r *fileRepo) SaveState(ctx context.Context, s *domain.State) error {
+func (r *fileRepo) SaveState(ctx context.Context, s *domain.Gamer) error {
 	bytes, err := yaml.Marshal(s)
 	if err != nil {
 		return fmt.Errorf("marshal error: %w", err)
