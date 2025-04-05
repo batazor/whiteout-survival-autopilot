@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/imagefinder"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
@@ -18,6 +19,8 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 		"Alliance",
 		"natalia",
 		"Exploration",
+		"Hero Gear",
+		"General Speedup",
 	}
 
 	timeout := 20 * time.Second
@@ -32,6 +35,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 		case <-ctx.Done():
 			return ctx.Err()
 		default:
+			// проверяем текст на экране
 			result, _ := vision.WaitForText(ctx, d.ADB, allKeywords, time.Second, image.Rectangle{})
 			if result != nil {
 				text := strings.ToLower(strings.TrimSpace(result.Text))
@@ -45,7 +49,10 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 						mainScreenDetectedAt = time.Now()
 					}
 
-				case strings.Contains(text, "welcome"), strings.Contains(text, "natalia"):
+				case strings.Contains(text, "welcome"),
+					strings.Contains(text, "natalia"),
+					strings.Contains(text, "hero gear"),
+					strings.Contains(text, "general speedup"):
 					d.Logger.Info("🌀 Найден pop-up ('%s') — закрываем", text)
 					err := d.ADB.ClickRegion("ad_banner_close", d.areaLookup)
 					if err != nil {
@@ -55,6 +62,25 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 					time.Sleep(300 * time.Millisecond)
 					mainScreenDetectedAt = time.Time{} // сбрасываем, так как появилось новое окно
 				}
+			}
+
+			// проверяем наличие кнопки confirm, если есть — кликаем
+			// проверяем по наличию зеленого в зоне welcome_back_continue_button, потому что OCR плохо работает
+			// на этом экране
+			isConfirm, err := imagefinder.CheckRegionColor(ctx, d.ADB, d.areaLookup, "welcome_back_continue_button", "green", 0.3, d.Logger)
+			if err != nil {
+				d.Logger.Error("❌ Ошибка проверки цвета", slog.Any("err", err))
+				return err
+			}
+
+			if isConfirm {
+				d.Logger.Info("🟢 Клик по кнопке продолжения welcome_back_continue_button")
+				if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
+					d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
+					return err
+				}
+
+				time.Sleep(1 * time.Second)
 			}
 
 			// ✅ Если главный экран был замечен и прошло >2.5 секунды — считаем, что всё чисто

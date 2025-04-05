@@ -1,6 +1,7 @@
 package imagefinder
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"log/slog"
@@ -8,6 +9,9 @@ import (
 	"strings"
 
 	"gocv.io/x/gocv"
+
+	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
+	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 )
 
 // IsColorDominant проверяет, доминирует ли ожидаемый цвет в указанном регионе изображения.
@@ -89,4 +93,47 @@ func IsColorDominant(imagePath string, region image.Rectangle, expected string, 
 
 	logger.Info("❌ Expected color is not dominant")
 	return false, nil
+}
+
+// CheckRegionColor делает скриншот и проверяет доминирование цвета в заданной зоне.
+func CheckRegionColor(
+	ctx context.Context,
+	adb adb.DeviceController,
+	lookup *config.AreaLookup,
+	regionName string,
+	expectedColor string,
+	threshold float32,
+	logger *slog.Logger,
+) (bool, error) {
+	logger.Info("📸 Делаем скриншот для анализа цвета",
+		slog.String("region", regionName),
+		slog.String("expected_color", expectedColor),
+		slog.Float64("threshold", float64(threshold)),
+	)
+
+	imagePath := fmt.Sprintf("screenshots/check_%s.png", regionName)
+
+	_, err := adb.Screenshot(imagePath)
+	if err != nil {
+		logger.Error("❌ Не удалось сделать скриншот", slog.Any("err", err))
+		return false, err
+	}
+
+	region, ok := lookup.Get(regionName)
+	if !ok {
+		return false, fmt.Errorf("region '%s' not found in area definitions", regionName)
+	}
+
+	result, err := IsColorDominant(imagePath, region.Zone, expectedColor, threshold, logger)
+	if err != nil {
+		return false, err
+	}
+
+	logger.Info("🎨 Результат анализа цвета",
+		slog.String("region", regionName),
+		slog.String("expected_color", expectedColor),
+		slog.Bool("is_dominant", result),
+	)
+
+	return result, nil
 }

@@ -13,19 +13,18 @@ import (
 
 // ProcessImage applies all OCR strategies in parallel and returns the aggregated OCR results.
 func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
-	// Read the image from file
 	img := gocv.IMRead(imagePath, gocv.IMReadColor)
 	if img.Empty() {
 		return nil, fmt.Errorf("failed to read image: %s", imagePath)
 	}
 	defer img.Close()
 
-	// List of strategy functions to apply
 	strategies := []func(gocv.Mat) (gocv.Mat, error){
 		PreprocessForOCR,
+		PreprocessHLS,
+		PreprocessYCrCb,
 	}
 
-	// Channel to collect results from goroutines
 	type ocrResultSet struct {
 		results []domain.OCRResult
 		err     error
@@ -33,28 +32,31 @@ func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 	resultsChan := make(chan ocrResultSet, len(strategies))
 	var wg sync.WaitGroup
 
-	// Launch each strategy in a separate goroutine
 	for _, stratFn := range strategies {
 		wg.Add(1)
 		go func(fn func(gocv.Mat) (gocv.Mat, error)) {
 			defer wg.Done()
-			// Apply preprocessing strategy
+
 			processedMat, err := fn(img)
-			if err != nil {
-				resultsChan <- ocrResultSet{nil, err}
+			if err != nil || processedMat.Empty() {
+				resultsChan <- ocrResultSet{nil, fmt.Errorf("preprocessing error: %v", err)}
 				return
 			}
 			defer processedMat.Close()
-			// Scale the processed image up by 2x for better OCR accuracy
-			scaledMat := gocv.NewMat()
-			gocv.Resize(processedMat, &scaledMat, image.Point{}, 2.0, 2.0, gocv.InterpolationNearestNeighbor)
-			// Perform OCR using Tesseract (via gosseract)
+
+			// Upscale x2 for better OCR accuracy
+			scaled := gocv.NewMat()
+			gocv.Resize(processedMat, &scaled, image.Point{}, 2.0, 2.0, gocv.InterpolationNearestNeighbor)
+			defer scaled.Close()
+
 			client := gosseract.NewClient()
 			defer client.Close()
-			// (Optional: set language if needed, e.g., client.SetLanguage("eng"))
-			// Encode the scaled image to bytes (PNG format for lossless compression)
-			buf, err := gocv.IMEncode(".png", scaledMat)
-			scaledMat.Close()
+
+			client.SetLanguage("eng")
+			client.SetPageSegMode(gosseract.PSM_AUTO)
+			client.SetVariable("user_defined_dpi", "814") // 407 ppi * 2
+
+			buf, err := gocv.IMEncode(".png", scaled)
 			if err != nil {
 				resultsChan <- ocrResultSet{nil, fmt.Errorf("image encode error: %v", err)}
 				return
@@ -63,12 +65,13 @@ func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 				resultsChan <- ocrResultSet{nil, fmt.Errorf("tesseract set image error: %v", err)}
 				return
 			}
-			boxes, err := client.GetBoundingBoxes(gosseract.RIL_WORD)
+
+			boxes, err := client.GetBoundingBoxes(gosseract.RIL_TEXTLINE)
 			if err != nil {
 				resultsChan <- ocrResultSet{nil, fmt.Errorf("tesseract OCR error: %v", err)}
 				return
 			}
-			// Filter out words with 2 or fewer characters, or confidence below 40
+
 			var ocrResults []domain.OCRResult
 			for _, box := range boxes {
 				if len(box.Word) > 2 && box.Confidence >= 10 {
@@ -88,30 +91,24 @@ func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 		}(stratFn)
 	}
 
-	// Wait for all goroutines to finish and close the channel
 	wg.Wait()
 	close(resultsChan)
 
-	// Collect results and check for errors
 	var allResults []domain.OCRResult
 	var collectErr error
 	for res := range resultsChan {
 		if res.err != nil {
 			collectErr = res.err
-			// continue gathering (all goroutines have finished) to close channel properly
 		}
 		if res.results != nil {
 			allResults = append(allResults, res.results...)
 		}
 	}
 	if collectErr != nil {
-		// If any strategy failed, return the error (no results)
 		return nil, collectErr
 	}
 
-	// Remove duplicate entries (same text and overlapping coordinates)
-	deduped := removeDuplicates(allResults)
-	return deduped, nil
+	return removeDuplicates(allResults), nil
 }
 
 // removeDuplicates filters out duplicate OCR results by text and location overlap.
@@ -126,24 +123,20 @@ func removeDuplicates(results []domain.OCRResult) []domain.OCRResult {
 				continue
 			}
 			if results[i].Text == results[j].Text {
-				// Compute bounding boxes for both results
 				rectA := image.Rect(results[i].X, results[i].Y, results[i].X+results[i].Width, results[i].Y+results[i].Height)
 				rectB := image.Rect(results[j].X, results[j].Y, results[j].X+results[j].Width, results[j].Y+results[j].Height)
-				// Check if bounding boxes overlap
 				inter := rectA.Intersect(rectB)
 				if inter.Dx() > 0 && inter.Dy() > 0 {
-					// If overlapping and same text, mark the one with lower confidence as duplicate
 					if results[i].Confidence >= results[j].Confidence {
 						marked[j] = true
 					} else {
 						marked[i] = true
-						break // current i is inferior, stop comparing it with others
+						break
 					}
 				}
 			}
 		}
 	}
-	// Build a new slice excluding marked duplicates
 	deduped := make([]domain.OCRResult, 0, len(results))
 	for idx, res := range results {
 		if !marked[idx] {
@@ -153,50 +146,69 @@ func removeDuplicates(results []domain.OCRResult) []domain.OCRResult {
 	return deduped
 }
 
-// PreprocessForOCR обрабатывает входное изображение с белым текстом на зелёном фоне
-// и возвращает Mat с белым текстом на чёрном фоне.
+// PreprocessForOCR усиливает контраст и превращает картинку в бинарную
 func PreprocessForOCR(src gocv.Mat) (gocv.Mat, error) {
-	// 1. Преобразование в HSV и маскирование фона указанного зелёного цвета
-	hsv := gocv.NewMat()
-	defer hsv.Close()
-	gocv.CvtColor(src, &hsv, gocv.ColorBGRToHSV)
-	// Определяем диапазон HSV для светло-зелёного фона (примерно Hue ~ 60 ±10, Sat ~ 90-255, Val ~ 90-255)
-	lower := gocv.NewMatWithSizeFromScalar(gocv.NewScalar(50.0, 90.0, 90.0, 0.0), hsv.Rows(), hsv.Cols(), gocv.MatTypeCV8UC3)
-	defer lower.Close()
-	upper := gocv.NewMatWithSizeFromScalar(gocv.NewScalar(70.0, 255.0, 255.0, 0.0), hsv.Rows(), hsv.Cols(), gocv.MatTypeCV8UC3)
-	defer upper.Close()
-	mask := gocv.NewMat()
-	defer mask.Close()
-	gocv.InRange(hsv, lower, upper, &mask) // теперь mask имеет белый фон и чёрный текст
+	lab := gocv.NewMat()
+	gocv.CvtColor(src, &lab, gocv.ColorBGRToLab)
+	defer lab.Close()
 
-	// 2. Морфологические операции для усиления маски (удаление шумов, закрытие мелких дыр)
+	ch := gocv.Split(lab)
+	if len(ch) < 1 {
+		return gocv.NewMat(), fmt.Errorf("split returned no channels")
+	}
+	L := ch[0]
+	defer func() {
+		for _, c := range ch {
+			c.Close()
+		}
+	}()
+	clahe := gocv.NewCLAHEWithParams(2.0, image.Pt(8, 8))
+	defer clahe.Close()
+	clahe.Apply(L, &L)
+
+	bin := gocv.NewMat()
+	gocv.AdaptiveThreshold(L, &bin, 255,
+		gocv.AdaptiveThresholdMean, gocv.ThresholdBinaryInv, 31, 15)
+	defer bin.Close()
+
 	kernel := gocv.GetStructuringElement(gocv.MorphRect, image.Pt(3, 3))
 	defer kernel.Close()
-	gocv.Erode(mask, &mask, kernel)  // слегка сужаем области фона, убирая мелкие белые пятна в тексте
-	gocv.Dilate(mask, &mask, kernel) // восстанавливаем основной фон, текст остаётся вырезанным чётче
+	gocv.MorphologyEx(bin, &bin, gocv.MorphClose, kernel)
 
-	// 3. Повышение контраста: перевод в оттенки серого и гистограммная эквализация
-	gray := gocv.NewMat()
-	defer gray.Close()
-	gocv.CvtColor(src, &gray, gocv.ColorBGRToGray)
-	gocv.EqualizeHist(gray, &gray) // выравниваем гистограмму, повышая контраст между текстом и фоном
+	return bin.Clone(), nil
+}
 
-	// 4. Применение маски к серому изображению и финальная бинаризация (Otsu)
-	textMask := gocv.NewMat()
-	defer textMask.Close()
-	gocv.BitwiseNot(mask, &textMask) // инвертируем маску: белым становится текст, фон — чёрным
-	textOnly := gocv.NewMat()
-	defer textOnly.Close()
-	gocv.BitwiseAnd(gray, textMask, &textOnly) // оставляем на изображении только текст (фон обнулён)
-	binMat := gocv.NewMat()
-	defer binMat.Close()
-	// Пороговое преобразование с методом Отсу для получения белого текста на чёрном фоне
-	gocv.Threshold(textOnly, &binMat, 0.0, 255.0, gocv.ThresholdBinary|gocv.ThresholdOtsu)
+func PreprocessYCrCb(src gocv.Mat) (gocv.Mat, error) {
+	ycc := gocv.NewMat()
+	defer ycc.Close()
+	gocv.CvtColor(src, &ycc, gocv.ColorBGRToYCrCb)
 
-	// 5. Масштабирование результата 2x для улучшения читаемости мелкого текста
-	finalMat := gocv.NewMat()
-	// Используем ближайшего соседа, чтобы сохранить чёткие границы текста при масштабировании
-	gocv.Resize(binMat, &finalMat, image.Point{}, 1.0, 1.0, gocv.InterpolationNearestNeighbor)
-	// Возвращаем полученное бинарное изображение (1 канал: белый текст на чёрном фоне)
-	return finalMat, nil
+	channels := gocv.Split(ycc)
+	y := channels[0]
+
+	smooth := gocv.NewMat()
+	defer smooth.Close()
+	gocv.BilateralFilter(y, &smooth, 9, 75, 75)
+
+	bin := gocv.NewMat()
+	defer bin.Close()
+	gocv.Threshold(smooth, &bin, 0, 255, gocv.ThresholdBinary|gocv.ThresholdOtsu)
+
+	return bin.Clone(), nil
+}
+
+func PreprocessHLS(src gocv.Mat) (gocv.Mat, error) {
+	hls := gocv.NewMat()
+	defer hls.Close()
+	gocv.CvtColor(src, &hls, gocv.ColorBGRToHLSFull)
+
+	lChan := gocv.Split(hls)[1]
+
+	gocv.EqualizeHist(lChan, &lChan)
+	bin := gocv.NewMat()
+	defer bin.Close()
+	gocv.AdaptiveThreshold(lChan, &bin, 255,
+		gocv.AdaptiveThresholdGaussian, gocv.ThresholdBinaryInv, 25, 10)
+
+	return bin.Clone(), nil
 }

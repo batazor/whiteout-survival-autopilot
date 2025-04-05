@@ -29,7 +29,7 @@ func TestOCR_ExtractPowerAndVIP(t *testing.T) {
 		expected int
 	}{
 		{"power", 13350651},
-		{"vipLevel", 6},
+		{"vip_level", 6},
 		{"gems", 9727},
 	}
 
