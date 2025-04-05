@@ -14,17 +14,18 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 	d.Logger.Info("🔎 Проверка экранов входа (welcome / реклама)")
 
 	allKeywords := []string{
-		"Welcome",     // welcome back
-		"Alliance",    // альянс
-		"natalia",     // реклама
-		"Exploration", // главный экран — выходим
+		"Welcome",
+		"Alliance",
+		"natalia",
+		"Exploration",
 	}
 
 	timeout := 20 * time.Second
 	start := time.Now()
 
-	// Свайп для закрытия стартовых экранов и на всякий случай
 	defer d.swipeToDismiss()
+
+	mainScreenDetectedAt := time.Time{}
 
 	for time.Since(start) < timeout {
 		select {
@@ -38,19 +39,28 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 
 				switch {
 				case strings.Contains(text, "exploration"), strings.Contains(text, "alliance"):
-					d.Logger.Info("✅ Обнаружен основной экран (Exploration) — выходим из handleEntryScreens")
-					return nil
+					// 📌 Обнаружен главный экран — запоминаем время
+					if mainScreenDetectedAt.IsZero() {
+						d.Logger.Info("🔔 Найден главный экран — контрольная пауза")
+						mainScreenDetectedAt = time.Now()
+					}
 
 				case strings.Contains(text, "welcome"), strings.Contains(text, "natalia"):
-					d.Logger.Info("🌀 Обнаружен pop-up ('%s') — выполняем свайп для закрытия", text)
+					d.Logger.Info("🌀 Найден pop-up ('%s') — закрываем", text)
 					err := d.ADB.ClickRegion("ad_banner_close", d.areaLookup)
 					if err != nil {
 						d.Logger.Error("❌ Не удалось закрыть pop-up", slog.Any("err", err))
 						return err
 					}
-
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(300 * time.Millisecond)
+					mainScreenDetectedAt = time.Time{} // сбрасываем, так как появилось новое окно
 				}
+			}
+
+			// ✅ Если главный экран был замечен и прошло >2.5 секунды — считаем, что всё чисто
+			if !mainScreenDetectedAt.IsZero() && time.Since(mainScreenDetectedAt) > 2500*time.Millisecond {
+				d.Logger.Info("✅ Подтверждён основной экран — выходим из handleEntryScreens")
+				return nil
 			}
 
 			time.Sleep(300 * time.Millisecond)
@@ -58,7 +68,6 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 	}
 
 	d.Logger.Warn("⏱ Ничего не найдено — выполняем проактивный свайп")
-
 	return nil
 }
 
