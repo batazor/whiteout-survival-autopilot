@@ -11,6 +11,7 @@ require (
 	github.com/looplab/fsm v1.0.2
 	github.com/lrstanley/bubblezone v0.0.0-20250315020633-c249a3fe1231
 	github.com/otiai10/gosseract/v2 v2.4.2-0.20250324235626-52db940d5195
+	github.com/redis/go-redis/v9 v9.7.3
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
 	gocv.io/x/gocv v0.41.0
@@ -22,11 +23,13 @@ require (
 	cel.dev/expr v0.19.1 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/charmbracelet/colorprofile v0.2.3-0.20250311203215-f60798e515dc // indirect
 	github.com/charmbracelet/x/ansi v0.8.0 // indirect
 	github.com/charmbracelet/x/cellbuf v0.0.13-0.20250311204145-2c3ea96c31dd // indirect
 	github.com/charmbracelet/x/term v0.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect

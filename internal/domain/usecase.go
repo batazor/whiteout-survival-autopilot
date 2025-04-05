@@ -6,10 +6,11 @@ import (
 
 // UseCase представляет сценарий, описанный в YAML-файле.
 type UseCase struct {
-	Name    string `yaml:"name"`    // Название сценария
-	Node    string `yaml:"node"`    // Начальный экран/состояние, с которого начинается usecase
-	Trigger string `yaml:"trigger"` // CEL-выражение, которое определяет, запускать ли usecase
-	Steps   Steps  `yaml:"steps"`   // Последовательность шагов
+	Name     string `yaml:"name"`     // Название сценария
+	Priority int    `yaml:"priority"` // Приоритет сценария (от 0 до 100)
+	Node     string `yaml:"node"`     // Начальный экран/состояние, с которого начинается usecase
+	Trigger  string `yaml:"trigger"`  // CEL-выражение, которое определяет, запускать ли usecase
+	Steps    Steps  `yaml:"steps"`    // Последовательность шагов
 }
 
 // Steps — это просто срез Step

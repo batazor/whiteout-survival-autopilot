@@ -6,14 +6,27 @@ import (
 	"log/slog"
 	"sync"
 
+	"github.com/redis/go-redis/v9"
+
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
+	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 )
 
 func main() {
 	ctx := context.Background()
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+
+	// TODO: use redis queue
+	_ = &redis_queue.RedisQueue{
+		Rdb: rdb,
+		Key: "bot:usecase_queue",
+	}
 
 	appLogger, err := logger.InitializeLogger("app")
 	if err != nil {
