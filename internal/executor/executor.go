@@ -11,11 +11,12 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 )
 
 type UseCaseExecutor interface {
-	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.Gamer)
+	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.Gamer, queue *redis_queue.Queue)
 }
 
 type Analyzer interface {
@@ -46,14 +47,19 @@ type executorImpl struct {
 	area             *config.AreaLookup
 }
 
-func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer) {
-	select {
-	case <-ctx.Done():
-		e.logger.Warn("Usecase cancelled before execution started",
-			slog.String("usecase", uc.Name))
+func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer, queue *redis_queue.Queue) {
+	botID := fmt.Sprintf("%d", gamer.ID)
+
+	shouldSkip, err := queue.ShouldSkip(ctx, botID, uc.Name)
+	if err != nil {
+		// Ошибка Redis → логируем и скипаем
+		e.logger.Error("Failed to check TTL skip", slog.Any("error", err))
 		return
-	default:
-		// Continue if not cancelled
+	}
+	if shouldSkip {
+		// TTL не истёк → скипаем
+		e.logger.Info("⏭️ UseCase skipped due to TTL", slog.String("usecase", uc.Name), slog.String("botID", botID))
+		return
 	}
 
 	if uc.Trigger != "" {
@@ -81,6 +87,13 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 		e.runStep(ctx, step, 0, gamer)
 	}
 	e.logger.Info("=== End usecase ===", slog.String("name", uc.Name))
+
+	// После успешного выполнения ставим TTL
+	if uc.TTL > 0 {
+		if err := queue.SetLastExecuted(ctx, botID, uc.Name, uc.TTL); err != nil {
+			e.logger.Error("Failed to set last executed TTL", slog.Any("error", err))
+		}
+	}
 }
 
 func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int, gamer *domain.Gamer) bool {

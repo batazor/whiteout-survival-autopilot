@@ -31,6 +31,14 @@ func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, log *slo
 
 func (b *Bot) Play(ctx context.Context) {
 	for {
+		select {
+		case <-ctx.Done():
+			b.Logger.Warn("🛑 Контекст отменён — завершаю работу бота")
+			return
+		default:
+		}
+
+		// получаем use‑case из очереди
 		uc, err := b.Queue.Pop(ctx)
 		if err != nil {
 			b.Logger.Warn("⚠️ Не удалось получить use‑case", "err", err)
@@ -47,7 +55,7 @@ func (b *Bot) Play(ctx context.Context) {
 
 		// переходим на стартовый экран юзкейса
 		b.Device.FSM.ForceTo(uc.Node)
-		b.Device.Executor.ExecuteUseCase(ctx, uc, b.Gamer)
+		b.Device.Executor.ExecuteUseCase(ctx, uc, b.Gamer, b.Queue)
 
 		// Время для отрисовки экрана
 		time.Sleep(1 * time.Second)
