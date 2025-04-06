@@ -21,9 +21,6 @@ func (d *Device) loadUseCases(ctx context.Context, path string) {
 			d.Logger.Warn("🛑 Загрузка usecases отменена")
 			return
 		default:
-			if uc.Trigger == "" || uc.Node == "" {
-				continue
-			}
 			if err := d.Queue.Push(ctx, uc); err != nil {
 				d.Logger.Error("❌ Не удалось добавить usecase в очередь", "usecase", uc.Name, "error", err)
 			} else {

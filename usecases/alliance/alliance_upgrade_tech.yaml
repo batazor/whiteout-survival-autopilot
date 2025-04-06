@@ -28,7 +28,7 @@ steps:
   - if:
       trigger: "alliance.state.isAllianceContributeButton == false"
       then:
-        - click: alliance_tech_contibute_back
+        - click: alliance_tech_contribute_back
 
   - action: loop                     # 🔁 Запускаем цикл, пока кнопка "Contribute" остаётся синей
     trigger: "alliance.state.isAllianceContributeButton == true"
@@ -46,5 +46,5 @@ steps:
       - if:
           trigger: "alliance.state.isAllianceContributeButton == false"
           then:
-            - click: alliance_tech_contibute_back
+            - click: alliance_tech_contribute_back
             - action: loop_stop      # 🛑 Если кнопка стала серой (нельзя жать), выходим из цикла

@@ -605,13 +605,13 @@
       "to_alliance_members",
       "to_alliance_trumph",
       "to_alliance_settings",
-      "alliance_back"
+      "to_alliance_back"
     ],
     "annotator": 1,
     "annotation_id": 8,
     "created_at": "2025-03-28T12:22:39.512498Z",
-    "updated_at": "2025-03-28T16:21:19.257745Z",
-    "lead_time": 741.815
+    "updated_at": "2025-04-06T06:07:22.063292Z",
+    "lead_time": 877.5060000000001
   },
   {
     "ocr": "\/data\/upload\/1\/3635e25c-allience_manage.png",
@@ -738,7 +738,7 @@
       }
     ],
     "transcription": [
-      "tech_to_alliance",
+      "from_tech_to_alliance",
       "alliance_tech_growth",
       "alliance_tech_territory",
       "alliance_tech_battle"
@@ -746,8 +746,8 @@
     "annotator": 1,
     "annotation_id": 10,
     "created_at": "2025-03-28T12:28:04.238823Z",
-    "updated_at": "2025-03-28T12:28:04.238854Z",
-    "lead_time": 112.828
+    "updated_at": "2025-04-06T06:22:17.791471Z",
+    "lead_time": 139.266
   },
   {
     "ocr": "\/data\/upload\/1\/d364edb8-allience_territory_bonus_overview.png",
@@ -890,13 +890,13 @@
     "transcription": [
       "alliance.state.isAllianceContributeButton",
       "alliance.tech.isAllianceContributeCount",
-      "alliance_tech_contibute_back"
+      "alliance_tech_contribute_back"
     ],
     "annotator": 1,
     "annotation_id": 13,
     "created_at": "2025-03-28T14:21:22.252771Z",
-    "updated_at": "2025-03-29T11:12:04.077146Z",
-    "lead_time": 328.721
+    "updated_at": "2025-04-06T06:17:23.331821Z",
+    "lead_time": 352.8
   },
   {
     "ocr": "\/data\/upload\/1\/b0675001-chief_profile_account_change_account.png",

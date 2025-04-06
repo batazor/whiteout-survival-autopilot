@@ -63,7 +63,7 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 	}
 
 	// Load usecases from the directory
-	go device.loadUseCases(context.Background(), "./usecases")
+	device.loadUseCases(context.Background(), "./usecases")
 
 	return device, nil
 }
