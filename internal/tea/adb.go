@@ -24,6 +24,6 @@ func InitADBController(logger *slog.Logger) (adb.DeviceController, error) {
 		return controller, nil
 	default:
 		logger.Warn("Multiple ADB devices found", slog.Int("count", len(devices)))
-		return controller, nil // UI selection will be handled in Run()
+		return controller, nil // UI selection will be handled in Play()
 	}
 }

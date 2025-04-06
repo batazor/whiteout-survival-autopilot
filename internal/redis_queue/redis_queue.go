@@ -10,25 +10,22 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-type RedisQueue struct {
+type Queue struct {
 	rdb   *redis.Client
 	botID string
 }
 
-func (q *RedisQueue) key() string {
+func (q *Queue) key() string {
 	return fmt.Sprintf("bot:queue:%s", q.botID)
 }
 
-func NewBotQueue(rdb *redis.Client, botID string) *RedisQueue {
-	return &RedisQueue{
-		rdb:   rdb,
-		botID: botID,
-	}
+func NewGamerQueue(rdb *redis.Client, gamerID int) *Queue {
+	return &Queue{rdb: rdb, botID: fmt.Sprintf("gamer:%d", gamerID)}
 }
 
 // Push добавляет UseCase в приоритетную очередь Redis.
 // Чем выше uc.Priority (0–100), тем выше приоритет задачи (меньше score).
-func (q *RedisQueue) Push(ctx context.Context, uc *domain.UseCase) error {
+func (q *Queue) Push(ctx context.Context, uc *domain.UseCase) error {
 	data, err := json.Marshal(uc)
 	if err != nil {
 		return err
@@ -42,7 +39,7 @@ func (q *RedisQueue) Push(ctx context.Context, uc *domain.UseCase) error {
 }
 
 // Pop извлекает самый приоритетный UseCase из очереди Redis.
-func (q *RedisQueue) Pop(ctx context.Context) (*domain.UseCase, error) {
+func (q *Queue) Pop(ctx context.Context) (*domain.UseCase, error) {
 	items, err := q.rdb.ZPopMin(ctx, q.key(), 1).Result()
 	if err != nil || len(items) == 0 {
 		return nil, err
@@ -57,7 +54,7 @@ func (q *RedisQueue) Pop(ctx context.Context) (*domain.UseCase, error) {
 }
 
 // Peek возвращает самый приоритетный UseCase без удаления (полезно для анализа)
-func (q *RedisQueue) Peek(ctx context.Context) (*domain.UseCase, error) {
+func (q *Queue) Peek(ctx context.Context) (*domain.UseCase, error) {
 	items, err := q.rdb.ZRangeWithScores(ctx, q.key(), 0, 0).Result()
 	if err != nil || len(items) == 0 {
 		return nil, err
@@ -72,6 +69,6 @@ func (q *RedisQueue) Peek(ctx context.Context) (*domain.UseCase, error) {
 }
 
 // Len возвращает количество задач в очереди
-func (q *RedisQueue) Len(ctx context.Context) (int64, error) {
+func (q *Queue) Len(ctx context.Context) (int64, error) {
 	return q.rdb.ZCard(ctx, q.key()).Result()
 }

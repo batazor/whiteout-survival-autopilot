@@ -1,7 +1,6 @@
 package device
 
 import (
-	"context"
 	"log/slog"
 
 	"github.com/redis/go-redis/v9"
@@ -12,7 +11,6 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
-	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 )
 
 type Device struct {
@@ -22,7 +20,7 @@ type Device struct {
 	ADB        adb.DeviceController
 	FSM        *fsm.GameFSM
 	areaLookup *config.AreaLookup
-	Queue      *redis_queue.RedisQueue
+	rdb        *redis.Client
 	Executor   executor.UseCaseExecutor
 
 	activeProfileIdx int
@@ -58,12 +56,9 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		ADB:        controller,
 		FSM:        fsm.NewGame(log, controller, areaLookup),
 		areaLookup: areaLookup,
-		Queue:      redis_queue.NewBotQueue(rdb, name),
+		rdb:        rdb,
 		Executor:   exec,
 	}
-
-	// Load usecases from the directory
-	device.loadUseCases(context.Background(), "./usecases")
 
 	return device, nil
 }
