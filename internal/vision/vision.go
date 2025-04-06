@@ -12,7 +12,7 @@ import (
 )
 
 // ExtractTextFromRegion performs OCR on a specific screen region and highlights text boxes.
-func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName string) (string, error) {
+func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName string, clane bool) (string, error) {
 	// Load full screenshot
 	img := gocv.IMRead(imagePath, gocv.IMReadColor)
 	if img.Empty() {
@@ -29,9 +29,21 @@ func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName st
 	defer gray.Close()
 	gocv.CvtColor(cropped, &gray, gocv.ColorBGRToGray)
 
+	// Optional: CLAHE
+	if clane {
+		clahe := gocv.NewCLAHE()
+		defer clahe.Close()
+		clahe.Apply(gray, &gray)
+	}
+
+	// Thresholding
 	bin := gocv.NewMat()
 	defer bin.Close()
 	gocv.Threshold(gray, &bin, 0, 255, gocv.ThresholdBinary|gocv.ThresholdOtsu)
+
+	// Объединяет символы с разрывами
+	kernel := gocv.GetStructuringElement(gocv.MorphRect, image.Pt(2, 2))
+	gocv.MorphologyEx(bin, &bin, gocv.MorphClose, kernel)
 
 	// Optional: Resize up if too small
 	if bin.Cols() < 100 {
@@ -57,8 +69,10 @@ func ExtractTextFromRegion(imagePath string, zone image.Rectangle, outputName st
 	defer client.Close()
 
 	client.SetImage(tmpPath)
+	client.SetLanguage("eng")
 	client.SetWhitelist("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]")
-	client.SetPageSegMode(gosseract.PSM_SINGLE_BLOCK)
+	client.SetPageSegMode(gosseract.PSM_SINGLE_LINE)
+	client.SetVariable("user_defined_dpi", "814") // 407 ppi * 2
 
 	text, err := client.Text()
 	if err != nil {

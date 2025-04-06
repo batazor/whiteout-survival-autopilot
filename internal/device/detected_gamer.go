@@ -39,7 +39,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	}
 
 	// 3. Распознаём никнейм игрока
-	nicknameRaw, err := vision.ExtractTextFromRegion(imagePath, zones.Zone, "gamer_detected")
+	nicknameRaw, err := vision.ExtractTextFromRegion(imagePath, zones.Zone, "gamer_detected", true)
 	if err != nil {
 		return -1, -1, err
 	}

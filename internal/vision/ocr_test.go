@@ -43,7 +43,7 @@ func TestOCR_ExtractPowerAndVIP(t *testing.T) {
 			}
 
 			rect := region.ToRectangle()
-			text, err := vision.ExtractTextFromRegion(imagePath, rect, tt.name)
+			text, err := vision.ExtractTextFromRegion(imagePath, rect, tt.name, false)
 			if err != nil {
 				t.Fatalf("OCR failed: %v", err)
 			}

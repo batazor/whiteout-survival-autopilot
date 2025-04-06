@@ -54,12 +54,17 @@ type IfStep struct {
 
 // AnalyzeRule описывает правила для анализа региона экрана (screenshot).
 type AnalyzeRule struct {
-	Name          string  `yaml:"name"`                    // Название региона (и ключ для сохранения)
-	Action        string  `yaml:"action"`                  // Действие: "text", "exist", "color_check", "findIcon", "findText"
-	Text          string  `yaml:"text,omitempty"`          // Текст для поиска (например, "Battle")
-	Type          string  `yaml:"type,omitempty"`          // Тип результата (например, "integer", если action = text)
-	Threshold     float64 `yaml:"threshold,omitempty"`     // Уровень уверенности, по умолчанию 0.9
-	ExpectedColor string  `yaml:"expectedColor,omitempty"` // Цвет для проверки (например, "green")
-	Log           string  `yaml:"log,omitempty"`           // Сообщение для логирования (опционально)
-	SaveAsRegion  bool    `yaml:"saveAsRegion,omitempty"`  // если true — сохранить зону как новую временную область с именем .Name
+	Name          string            `yaml:"name"`                    // Название региона (и ключ для сохранения)
+	Action        string            `yaml:"action"`                  // Действие: "text", "exist", "color_check", "findIcon", "findText"
+	Text          string            `yaml:"text,omitempty"`          // Текст для поиска (например, "Battle")
+	Type          string            `yaml:"type,omitempty"`          // Тип результата (например, "integer", если action = text)
+	Threshold     float64           `yaml:"threshold,omitempty"`     // Уровень уверенности, по умолчанию 0.9
+	ExpectedColor string            `yaml:"expectedColor,omitempty"` // Цвет для проверки (например, "green")
+	Log           string            `yaml:"log,omitempty"`           // Сообщение для логирования (опционально)
+	SaveAsRegion  bool              `yaml:"saveAsRegion,omitempty"`  // если true — сохранить зону как новую временную область с именем .Name
+	Options       *AnalyzeImageRule `yaml:"options,omitempty"`       // Опции для анализа изображения
+}
+
+type AnalyzeImageRule struct {
+	Clane bool `yaml:"clane,omitempty"` // если true — использовать CLAHE
 }

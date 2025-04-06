@@ -5,6 +5,7 @@ import (
 	"log"
 	"log/slog"
 	"sync"
+	"time"
 
 	"github.com/redis/go-redis/v9"
 
@@ -40,6 +41,9 @@ func main() {
 
 	// ─── Предзагрузка use‑case’ов ────────────────────────────────────────────
 	redis_queue.PreloadQueues(ctx, rdb, devicesCfg.AllProfiles(), "./usecases")
+
+	// ── Запуск глобального рефиллера задач ───────────────────────────────
+	go redis_queue.StartGlobalUsecaseRefiller(ctx, devicesCfg, "./usecases", rdb, appLogger, 5*time.Minute)
 
 	// ─── Запуск устройств и ботов ────────────────────────────────────────────
 	var wg sync.WaitGroup

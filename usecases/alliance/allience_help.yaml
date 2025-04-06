@@ -4,7 +4,7 @@ node: main_city
 
 trigger: "alliance.state.isNeedSupport == true"
 
-ttl: 0
+ttl: 30s
 
 steps:
   - click: alliance.state.isNeedSupport

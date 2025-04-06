@@ -2,7 +2,7 @@ name: Exploration Battle
 
 node: exploration_battle
 
-ttl: 0
+ttl: 12h
 
 trigger: "exploration.state.myPower >= exploration.state.enemyPower"
 
@@ -22,10 +22,13 @@ steps:
             action: text
             type: string
             threshold: 0.5
+            options:
+              clane: true
 
       - if:
           trigger: 'exploration.state.battleStatus.lowerAscii().contains("defeat")'
           then:
+            - action: exploration_battle_back_area
             - action: loop_stop
 
       - if:
@@ -38,7 +41,7 @@ steps:
               set: exploration.state.battleStatus
               to: ""
 
-      - wait: 2s
+      - wait: 1s
 
   - action: reset
     set: exploration.state.battleStatus

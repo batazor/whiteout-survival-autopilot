@@ -3,6 +3,7 @@ package vision
 import (
 	"fmt"
 	"image"
+	"sort"
 	"sync"
 
 	"github.com/otiai10/gosseract/v2"
@@ -12,7 +13,7 @@ import (
 )
 
 // ProcessImage applies all OCR strategies in parallel and returns the aggregated OCR results.
-func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
+func ProcessImage(imagePath string) (domain.OCRResults, error) {
 	img := gocv.IMRead(imagePath, gocv.IMReadColor)
 	if img.Empty() {
 		return nil, fmt.Errorf("failed to read image: %s", imagePath)
@@ -26,7 +27,7 @@ func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 	}
 
 	type ocrResultSet struct {
-		results []domain.OCRResult
+		results domain.OCRResults
 		err     error
 	}
 	resultsChan := make(chan ocrResultSet, len(strategies))
@@ -108,11 +109,15 @@ func ProcessImage(imagePath string) ([]domain.OCRResult, error) {
 		return nil, collectErr
 	}
 
-	return removeDuplicates(allResults), nil
+	// Remove duplicates and sort results
+	list := removeDuplicates(allResults)
+	sort.Sort(list)
+
+	return list, nil
 }
 
 // removeDuplicates filters out duplicate OCR results by text and location overlap.
-func removeDuplicates(results []domain.OCRResult) []domain.OCRResult {
+func removeDuplicates(results domain.OCRResults) domain.OCRResults {
 	marked := make([]bool, len(results))
 	for i := 0; i < len(results); i++ {
 		if marked[i] {

@@ -341,10 +341,19 @@
         "original_height": 2400
       },
       {
-        "x": 32.448377581120944,
-        "y": 36.13569321533924,
-        "width": 35.07046869878729,
-        "height": 4.86725663716814,
+        "x": 32.44837758112081,
+        "y": 32.30088495575231,
+        "width": 35.070468698787124,
+        "height": 8.115412979350983,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.177318911832186,
+        "y": 88.79056047197642,
+        "width": 80.30154047853163,
+        "height": 8.407079646017706,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
@@ -353,13 +362,14 @@
     "transcription": [
       "exploration_to_main_city",
       "exploration_battle_retry",
-      "exploration.state.battleStatus"
+      "exploration.state.battleStatus",
+      "exploration_battle_back_area"
     ],
     "annotator": 1,
     "annotation_id": 3,
     "created_at": "2025-03-27T07:42:09.473279Z",
-    "updated_at": "2025-03-27T11:41:09.718024Z",
-    "lead_time": 149.203
+    "updated_at": "2025-04-06T21:22:10.252551Z",
+    "lead_time": 581.0930000000001
   },
   {
     "ocr": "\/data\/upload\/1\/eb562662-exploration_claim_confirmation.png",
@@ -610,8 +620,8 @@
     "annotator": 1,
     "annotation_id": 8,
     "created_at": "2025-03-28T12:22:39.512498Z",
-    "updated_at": "2025-04-06T06:07:22.063292Z",
-    "lead_time": 877.5060000000001
+    "updated_at": "2025-04-06T17:10:21.733157Z",
+    "lead_time": 29358.365999999998
   },
   {
     "ocr": "\/data\/upload\/1\/3635e25c-allience_manage.png",
@@ -1267,5 +1277,38 @@
     "created_at": "2025-04-05T03:08:17.277851Z",
     "updated_at": "2025-04-05T03:08:17.277882Z",
     "lead_time": 142.994
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a6551e38-exploration_battle_defeat.png",
+    "id": 24,
+    "bbox": [
+      {
+        "x": 32.448377581120866,
+        "y": 30.973451327433633,
+        "width": 35.07046869878722,
+        "height": 10.029498525073773,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120866,
+        "y": 30.973451327433633,
+        "width": 35.07046869878722,
+        "height": 9.734513274336312,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration.state.battleStatusWithAds",
+      "exploration.state.returnToCityWithAds"
+    ],
+    "annotator": 1,
+    "annotation_id": 24,
+    "created_at": "2025-04-06T17:31:08.884934Z",
+    "updated_at": "2025-04-06T19:53:33.699328Z",
+    "lead_time": 194.22099999999998
   }
 ]

@@ -64,20 +64,9 @@ func WaitForText(
 				continue
 			}
 
-			for _, match := range results {
-				if match.Confidence < 10 {
-					continue
-				}
-
-				text := strings.ToLower(match.Text)
-
-				for _, target := range targetTexts {
-					target = strings.ToLower(target)
-
-					if strings.Contains(text, target) || fuzzySubstringMatch(text, target, 1) {
-						return &match, nil
-					}
-				}
+			match := FindBestMatchingOCR(results, targetTexts, 10)
+			if match != nil {
+				return match, nil
 			}
 		}
 	}
@@ -114,4 +103,25 @@ func fuzzySubstringMatch(ocrText, target string, maxDistance int) bool {
 	}
 
 	return false
+}
+
+// FindBestMatchingOCR ищет наиболее подходящий OCRResult среди результатов с Confidence ≥ minConfidence.
+// Совпадение считается успешным, если содержится target или fuzzyMatch (с 1 ошибкой).
+func FindBestMatchingOCR(results domain.OCRResults, targetTexts []string, minConfidence float64) *domain.OCRResult {
+	for _, match := range results {
+		if match.Confidence < minConfidence {
+			continue
+		}
+
+		text := strings.ToLower(match.Text)
+
+		for _, target := range targetTexts {
+			target = strings.ToLower(target)
+
+			if strings.Contains(text, target) || fuzzySubstringMatch(text, target, 1) {
+				return &match
+			}
+		}
+	}
+	return nil
 }

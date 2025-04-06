@@ -172,6 +172,10 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	},
 	StateExploration: {
 		StateExplorationBattle: {{Action: "to_exploration_battle", Wait: 300 * time.Millisecond}},
+		StateMainCity:          {{Action: "exploration_back", Wait: 300 * time.Millisecond}},
+	},
+	StateExplorationBattle: {
+		StateExploration: {{Action: "to_exploration_battle_back", Wait: 300 * time.Millisecond}},
 	},
 }
 
