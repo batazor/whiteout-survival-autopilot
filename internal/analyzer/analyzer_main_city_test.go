@@ -37,15 +37,7 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 	an := analyzer.NewAnalyzer(areas, logger)
 
 	// Заготовка старого состояния
-	oldState := &domain.State{
-		Accounts: []domain.Account{
-			{
-				Characters: []domain.Gamer{
-					{},
-				},
-			},
-		},
-	}
+	oldState := &domain.Gamer{}
 
 	// Путь к картинке экрана
 	screenshotPath := "../../references/screenshots/city_main.png"
@@ -55,15 +47,13 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules[screen])
 	assert.NoError(t, err)
 
-	char := newState.Accounts[0].Characters[0]
-
 	// Логи
-	t.Logf("Power: %d", char.Power)
-	t.Logf("VIP Level: %d", char.Vip_Level)
-	t.Logf("Alliance Help: %v", char.Alliance.State.IsNeedSupport)
+	t.Logf("Power: %d", newState.Power)
+	t.Logf("VIP Level: %d", newState.Vip_Level)
+	t.Logf("Alliance Help: %v", newState.Alliance.State.IsNeedSupport)
 
 	// Ожидаемые значения
-	assert.Equal(t, 13350651, char.Power)
-	assert.Equal(t, 6, char.Vip_Level)
-	assert.True(t, char.Alliance.State.IsNeedSupport)
+	assert.Equal(t, 13350651, newState.Power)
+	assert.Equal(t, 6, newState.Vip_Level)
+	assert.True(t, newState.Alliance.State.IsNeedSupport)
 }

@@ -172,7 +172,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 			return true
 
 		case "screenshot":
-			imagePath := filepath.Join("out", fmt.Sprintf("%s_step_%d.png", strings.ReplaceAll(step.UsecaseName, " ", "_"), indent))
+			imagePath := filepath.Join("out", fmt.Sprintf("step_%d.png", indent))
 			e.logger.Info(prefix+"Taking screenshot", slog.String("path", imagePath))
 
 			if _, err := e.adb.Screenshot(imagePath); err != nil {

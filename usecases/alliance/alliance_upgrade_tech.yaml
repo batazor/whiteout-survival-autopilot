@@ -11,7 +11,7 @@ steps:
     analyze:
       - name: alliance.tech.favorite
         action: findIcon
-        threshold: 0.86
+        threshold: 0.8
         saveAsRegion: true          # 💾 Сохраняем зону найденной иконки под именем alliance.tech.favorite
 
   - click: alliance.tech.favorite   # 👉 Кликаем по найденной технологии, чтобы открыть экран с кнопкой "Contribute"

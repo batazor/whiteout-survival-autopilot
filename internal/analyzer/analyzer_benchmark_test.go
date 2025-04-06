@@ -24,15 +24,7 @@ func BenchmarkAnalyzeAndUpdateState(b *testing.B) {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelError}))
 	an := NewAnalyzer(areaConfig, logger)
 
-	state := &domain.State{
-		Accounts: []domain.Account{
-			{
-				Characters: []domain.Gamer{
-					{ID: 123},
-				},
-			},
-		},
-	}
+	state := &domain.Gamer{ID: 123}
 
 	imagePath := "../../references/screenshots/city_main.png"
 	screen := "main_city"

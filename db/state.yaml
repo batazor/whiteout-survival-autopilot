@@ -39,6 +39,7 @@ accounts:
                 isWar: 1
                 isChests: 3
                 isAllianceContributeButton: false
+                isAllianceTechButton: false
             tech:
                 favorite: false
           buildings:
@@ -88,6 +89,7 @@ accounts:
                 isWar: 1
                 isChests: 0
                 isAllianceContributeButton: false
+                isAllianceTechButton: false
             tech:
                 favorite: false
           buildings:
@@ -139,6 +141,7 @@ accounts:
                 isWar: 0
                 isChests: 0
                 isAllianceContributeButton: false
+                isAllianceTechButton: false
             tech:
                 favorite: false
           buildings:

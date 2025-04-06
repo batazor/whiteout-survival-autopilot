@@ -54,7 +54,8 @@ type IfStep struct {
 // AnalyzeRule описывает правила для анализа региона экрана (screenshot).
 type AnalyzeRule struct {
 	Name          string  `yaml:"name"`                    // Название региона (и ключ для сохранения)
-	Action        string  `yaml:"action"`                  // Действие: "text", "exist", "color_check"
+	Action        string  `yaml:"action"`                  // Действие: "text", "exist", "color_check", "findIcon", "findText"
+	Text          string  `yaml:"text,omitempty"`          // Текст для поиска (например, "Battle")
 	Type          string  `yaml:"type,omitempty"`          // Тип результата (например, "integer", если action = text)
 	Threshold     float64 `yaml:"threshold,omitempty"`     // Уровень уверенности, по умолчанию 0.9
 	ExpectedColor string  `yaml:"expectedColor,omitempty"` // Цвет для проверки (например, "green")

@@ -22,9 +22,10 @@ type AllianceState struct {
 	IsWar                      int  `yaml:"isWar"`                      // Количество текущих войн.
 	IsChests                   int  `yaml:"isChests"`                   // Количество доступных сундуков.
 	IsAllianceContributeButton bool `yaml:"isAllianceContributeButton"` // Кнопка вклада в технологию
+	IsAllianceTechButton       bool `yaml:"isAllianceTechButton"`       // Кнопка технологий альянса
 }
 
 // AllianceTech описывает технологические аспекты альянса.
 type AllianceTech struct {
-	Favorite bool `yaml:"favorite"`
+	Favorite bool `yaml:"favorite"` // Признак технологии для вклада.
 }

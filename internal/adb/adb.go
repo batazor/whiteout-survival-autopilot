@@ -36,10 +36,22 @@ type Controller struct {
 
 // NewController creates a new instance of the Controller.
 func NewController(logger *slog.Logger, name string) (*Controller, error) {
-	return &Controller{
+	c := &Controller{
 		logger:   logger,
 		deviceID: name,
-	}, nil
+	}
+
+	// Проверим доступность устройства
+	if err := verifyDeviceAvailable(name); err != nil {
+		panic(fmt.Sprintf("❌ %v", err))
+	}
+
+	// Set brightness to 70% on startup
+	if err := c.SetBrightness(70); err != nil {
+		logger.Warn("Failed to set initial brightness", slog.Any("error", err))
+	}
+
+	return c, nil
 }
 
 // ListDevices returns all connected ADB devices.
@@ -273,4 +285,43 @@ func clamp(val, min, max int) int {
 		return max
 	}
 	return val
+}
+
+// SetBrightness sets the screen brightness on the device to the given percentage (0-100).
+func (a *Controller) SetBrightness(percent int) error {
+	if percent < 0 {
+		percent = 0
+	}
+	if percent > 100 {
+		percent = 100
+	}
+	value := int(float64(percent) / 100.0 * 255.0)
+
+	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "settings", "put", "system", "screen_brightness", strconv.Itoa(value))
+	err := cmd.Run()
+	if err != nil {
+		a.logger.Error("Failed to set brightness", slog.Any("error", err), slog.Int("value", value))
+		return fmt.Errorf("failed to set brightness: %w", err)
+	}
+
+	a.logger.Info("Brightness set successfully", slog.Int("value", value))
+	return nil
+}
+
+// verifyDeviceAvailable checks if the given ADB device is connected and ready.
+func verifyDeviceAvailable(deviceID string) error {
+	output, err := exec.Command("adb", "devices").Output()
+	if err != nil {
+		return fmt.Errorf("failed to list devices: %w", err)
+	}
+
+	lines := strings.Split(string(output), "\n")
+	for _, line := range lines[1:] {
+		fields := strings.Fields(line)
+		if len(fields) >= 2 && fields[0] == deviceID && fields[1] == "device" {
+			return nil
+		}
+	}
+
+	return fmt.Errorf("ADB device '%s' not found or not in 'device' state", deviceID)
 }

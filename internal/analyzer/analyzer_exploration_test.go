@@ -57,27 +57,17 @@ func TestAnalyzeExplorationScreens(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			oldState := &domain.State{
-				Accounts: []domain.Account{
-					{
-						Characters: []domain.Gamer{
-							{},
-						},
-					},
-				},
-			}
+			oldState := &domain.Gamer{}
 
 			screen := "exploration"
 			newState, err := an.AnalyzeAndUpdateState(tt.screenshot, oldState, rules[screen])
 			assert.NoError(t, err)
 
-			char := newState.Accounts[0].Characters[0]
+			t.Logf("exploration.state.isClaimActive: %v", newState.Exploration.State.IsClaimActive)
+			t.Logf("exploration.level: %d", newState.Exploration.Level)
 
-			t.Logf("exploration.state.isClaimActive: %v", char.Exploration.State.IsClaimActive)
-			t.Logf("exploration.level: %d", char.Exploration.Level)
-
-			assert.Equal(t, tt.wantClaimActive, char.Exploration.State.IsClaimActive)
-			assert.Equal(t, tt.wantExploreLevel, char.Exploration.Level)
+			assert.Equal(t, tt.wantClaimActive, newState.Exploration.State.IsClaimActive)
+			assert.Equal(t, tt.wantExploreLevel, newState.Exploration.Level)
 		})
 	}
 }

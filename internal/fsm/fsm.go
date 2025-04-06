@@ -269,7 +269,7 @@ func (g *GameFSM) ForceTo(target string) {
 				panic(fmt.Sprintf("❌ ADB click failed for action '%s': %v", step.Action, err))
 			}
 
-			wait := step.Wait + time.Duration(rand.Intn(300)+200)*time.Millisecond
+			wait := step.Wait + time.Duration(rand.Intn(300)+500)*time.Millisecond
 			g.logger.Debug("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
 		}

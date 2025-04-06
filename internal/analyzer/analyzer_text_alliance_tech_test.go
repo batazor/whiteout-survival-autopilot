@@ -12,44 +12,32 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-func TestAnalyzeAndSaveRegion(t *testing.T) {
-	// Загружаем зоны (можно пустые для начала)
+func TestAnalyzeAndSaveRegion_FindText(t *testing.T) {
+	// Подготовка зоны
 	areas := &config.AreaLookup{}
 
-	// Создаём правило с saveAsRegion
+	// Правило поиска текста с сохранением зоны
 	rules := []domain.AnalyzeRule{
 		{
-			Name:         "alliance.tech.favorite",
-			Action:       "findIcon",
-			Threshold:    0.86,
+			Name:         "alliance.state.isAllianceTechButton",
+			Action:       "findText",
+			Text:         "Tech",
+			Threshold:    0.4,
 			SaveAsRegion: true,
 		},
 	}
 
-	// Логгер
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
-
 	an := analyzer.NewAnalyzer(areas, logger)
 
-	// Минимальное старое состояние
-	oldState := &domain.State{
-		Accounts: []domain.Account{
-			{
-				Characters: []domain.Gamer{
-					{},
-				},
-			},
-		},
-	}
-
+	oldState := &domain.Gamer{}
 	screenshotPath := "../../references/screenshots/alliance_tech.png"
 
 	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules)
 	assert.NoError(t, err)
 	assert.NotNil(t, newState)
 
-	// Проверяем, что регион сохранён
-	region, found := areas.Get("alliance.tech.favorite")
+	region, found := areas.Get("alliance.state.isAllianceTechButton")
 	assert.True(t, found, "регион должен быть сохранён в areas")
 	assert.True(t, region.Zone.Dx() > 0 && region.Zone.Dy() > 0, "размер зоны должен быть > 0")
 }

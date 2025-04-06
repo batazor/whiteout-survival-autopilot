@@ -122,6 +122,60 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 					)
 				}
 
+			case "findText":
+				ocrOnce := sync.Once{}
+				var ocrRes []domain.OCRResult
+				var ocrErr error
+
+				if rule.Text == "" {
+					a.logger.Warn("findText requires 'text' field", slog.String("rule", rule.Name))
+					return
+				}
+
+				conf := rule.Threshold
+				if conf == 0 {
+					conf = 0.4
+				}
+
+				// Выполняем OCR один раз
+				ocrOnce.Do(func() {
+					ocrRes, ocrErr = vision.ProcessImage(imagePath)
+				})
+				if ocrErr != nil {
+					a.logger.Error("OCR failed", slog.Any("error", ocrErr))
+					return
+				}
+
+				found := false
+				var bbox domain.OCRResult
+				for _, r := range ocrRes {
+					if float64(r.Confidence)/100.0 < conf {
+						continue
+					}
+
+					if strings.Contains(strings.ToLower(r.Text), strings.ToLower(rule.Text)) {
+						found = true
+						bbox = r
+						break
+					}
+				}
+				value = found
+
+				if rule.SaveAsRegion && found {
+					newRegion := config.Region{
+						Zone: image.Rect(bbox.X, bbox.Y, bbox.X+bbox.Width, bbox.Y+bbox.Height),
+					}
+					a.areas.AddTemporaryRegion(rule.Name, newRegion)
+
+					a.logger.Info("💾 Saved region from findText",
+						slog.String("name", rule.Name),
+						slog.Int("x", bbox.X),
+						slog.Int("y", bbox.Y),
+						slog.Int("w", bbox.Width),
+						slog.Int("h", bbox.Height),
+					)
+				}
+
 			case "color_check":
 				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
 				if err != nil {

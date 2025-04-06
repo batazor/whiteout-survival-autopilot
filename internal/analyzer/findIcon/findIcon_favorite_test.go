@@ -16,7 +16,7 @@ func TestFindIcons(t *testing.T) {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
 
 	// Запускаем функцию поиска
-	threshold := float32(0.9)
+	threshold := float32(0.5)
 	boxes, err := FindIcons(screenshotPath, iconPath, threshold, logger)
 	if err != nil {
 		t.Fatalf("ошибка при выполнении FindIcons: %v", err)

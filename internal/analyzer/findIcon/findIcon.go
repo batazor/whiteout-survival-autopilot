@@ -33,6 +33,10 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 	}
 	defer icon.Close()
 
+	// ── Контурное выделение для устойчивости к яркости ──
+	//gocv.Canny(screenshot, &screenshot, 50, 200)
+	//gocv.Canny(icon, &icon, 50, 200)
+
 	result := gocv.NewMat()
 	defer result.Close()
 

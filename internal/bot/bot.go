@@ -40,7 +40,7 @@ func (b *Bot) Play(ctx context.Context) {
 		// очередь пуста → выходим, чтобы переключиться на другого игрока
 		if uc == nil {
 			b.Logger.Info("📭 Очередь пуста — завершаю работу бота")
-			return
+			break
 		}
 
 		b.Logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
@@ -49,8 +49,12 @@ func (b *Bot) Play(ctx context.Context) {
 		b.Device.FSM.ForceTo(uc.Node)
 		b.Device.Executor.ExecuteUseCase(ctx, uc, b.Gamer)
 
-		time.Sleep(2 * time.Second) // лёгкая пауза между задачами
+		// Время для отрисовки экрана
+		time.Sleep(1 * time.Second)
 	}
+
+	// Время для отрисовки экрана
+	time.Sleep(2 * time.Second)
 
 	// 🔁 Возвращаемся в главный экран
 	b.Device.FSM.ForceTo(fsm.StateMainCity)

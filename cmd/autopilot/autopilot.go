@@ -5,7 +5,6 @@ import (
 	"log"
 	"log/slog"
 	"sync"
-	"time"
 
 	"github.com/redis/go-redis/v9"
 
@@ -48,7 +47,7 @@ func main() {
 	for _, devCfg := range devicesCfg.Devices {
 		wg.Add(1)
 
-		go func(dc domain.Device) { // ← корректный тип
+		go func(dc domain.Device) {
 			defer wg.Done()
 
 			devLog := appLogger.With("device", dc.Name)
@@ -75,8 +74,7 @@ func main() {
 					g := &p.Gamer[gIdx]
 					b := bot.NewBot(dev, g, rdb, devLog.With("gamer", g.Nickname))
 
-					b.Play(ctx) // ← Play ничего не возвращает
-					time.Sleep(3 * time.Second)
+					b.Play(ctx)
 				}
 			}
 		}(devCfg)
