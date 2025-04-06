@@ -58,24 +58,44 @@ func main() {
 				return
 			}
 
-			for pIdx, p := range dc.Profiles {
-				for gIdx := range p.Gamer {
-					select {
-					case <-ctx.Done():
-						return
-					default:
-					}
+			activeGamer, pIdx, gIdx, err := dev.DetectAndSetCurrentGamer(ctx)
+			if err != nil || activeGamer == nil {
+				devLog.Warn("⚠️ Не удалось определить активного игрока", slog.Any("err", err))
+				return
+			}
 
+			devLog.Info("▶️ Продолжаем с текущего игрока", slog.Int("pIdx", pIdx), slog.Int("gIdx", gIdx), slog.String("nickname", activeGamer.Nickname))
+
+			for {
+				select {
+				case <-ctx.Done():
+					devLog.Info("🛑 Остановка по контексту")
+					return
+				default:
+				}
+
+				if pIdx >= len(dc.Profiles) {
+					pIdx = 0
+				}
+				if gIdx >= len(dc.Profiles[pIdx].Gamer) {
+					pIdx++
+					gIdx = 0
+					continue
+				}
+
+				target := &dc.Profiles[pIdx].Gamer[gIdx]
+				if dev.ActiveGamer() == nil || dev.ActiveGamer().ID != target.ID {
 					if err := dev.SwitchTo(ctx, pIdx, gIdx); err != nil {
 						devLog.Warn("⚠️ Не удалось переключиться", slog.Any("err", err))
+						gIdx++
 						continue
 					}
-
-					g := &p.Gamer[gIdx]
-					b := bot.NewBot(dev, g, rdb, devLog.With("gamer", g.Nickname))
-
-					b.Play(ctx)
 				}
+
+				b := bot.NewBot(dev, target, rdb, devLog.With("gamer", target.Nickname))
+				b.Play(ctx)
+
+				gIdx++
 			}
 		}(devCfg)
 	}

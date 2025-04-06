@@ -115,3 +115,13 @@ func (d *Device) isExpectedGamerActive(ctx context.Context, profileIdx int, expe
 
 	return true
 }
+
+func (d *Device) ActiveGamer() *domain.Gamer {
+	if d.activeProfileIdx >= 0 && d.activeProfileIdx < len(d.Profiles) {
+		profile := d.Profiles[d.activeProfileIdx]
+		if d.activeGamerIdx >= 0 && d.activeGamerIdx < len(profile.Gamer) {
+			return &profile.Gamer[d.activeGamerIdx]
+		}
+	}
+	return nil
+}
