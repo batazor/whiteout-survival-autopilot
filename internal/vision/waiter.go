@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/agnivade/levenshtein"
 	"gocv.io/x/gocv"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
@@ -67,9 +68,13 @@ func WaitForText(
 				if match.Confidence < 10 {
 					continue
 				}
+
 				text := strings.ToLower(match.Text)
+
 				for _, target := range targetTexts {
-					if strings.Contains(text, strings.ToLower(target)) {
+					target = strings.ToLower(target)
+
+					if strings.Contains(text, target) || fuzzySubstringMatch(text, target, 1) {
 						return &match, nil
 					}
 				}
@@ -87,4 +92,26 @@ func ProcessImageFromMat(mat gocv.Mat) ([]domain.OCRResult, error) {
 	}
 	defer func() { _ = os.Remove(tempPath) }()
 	return ProcessImage(tempPath)
+}
+
+func fuzzySubstringMatch(ocrText, target string, maxDistance int) bool {
+	text := strings.ToLower(ocrText)
+	target = strings.ToLower(target)
+	tLen := len(target)
+
+	// Допускаем окна длиной target-1, target, target+1
+	for l := tLen - 1; l <= tLen+1 && l <= len(text); l++ {
+		if l <= 0 {
+			continue
+		}
+
+		for i := 0; i <= len(text)-l; i++ {
+			window := text[i : i+l]
+			if levenshtein.ComputeDistance(window, target) <= maxDistance {
+				return true
+			}
+		}
+	}
+
+	return false
 }
