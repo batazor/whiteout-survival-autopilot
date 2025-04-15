@@ -1,0 +1,608 @@
+heroes:
+  Jeronimo:
+    class: Infantry
+    generation: 1
+    roles:
+      - rally_leader
+      - exploration
+    skills:
+      expedition:
+        one:
+          name: "Damage Boost"
+          priority: 1
+        two:
+          name: "Natural Leader"
+          priority: 1
+    buffs:
+      troop_lethality: 10%  # Увеличивает летальность войск на 10%
+      troop_health: 10%  # Увеличивает здоровье войск на 10%
+    notes: >
+      Сильный универсальный герой, эффективен в экспедициях и исследованиях.
+      Обеспечивает значительное повышение урона для войск.
+      Рекомендуется для лидеров ралли.
+
+  Natalia:
+    class: Infantry
+    generation: 1
+    roles:
+      - rally_leader
+      - exploration
+    skills:
+      expedition:
+        one:
+          name: "Wildling Roar"
+          priority: 1
+        two:
+          name: "Ursus Strength"
+          priority: 1
+    buffs:
+      troop_attack: 10%  # Увеличивает атаку войск на 10%
+      troop_defense: 10%  # Увеличивает защиту войск на 10%
+    notes: >
+      Обладает навыком, позволяющим оглушать врагов, что полезно в экспедициях.
+      Эффективна как лидер ралли, но менее полезна при присоединении к ралли.
+
+  Molly:
+    class: Marksman
+    generation: 1
+    roles:
+      - rally_leader
+      - exploration
+    buffs:
+      area_damage: 15%  # Увеличивает урон по площади на 15%
+      crowd_control_effectiveness: 10%  # Повышает эффективность контроля толпы на 10%
+    skills:
+      expedition:
+        one:
+          name: "Stun Attack"
+          priority: 2
+        two:
+          name: "Sweeping Arc"
+          priority: 1
+    notes: >
+      Начальный герой с навыком оглушения.
+      Менее эффективна при присоединении к ралли из-за ограниченной полезности первого навыка.
+
+  Jessie:
+    class: Marksman
+    generation: 1
+    roles:
+      - rally_member
+    skills:
+      expedition:
+        one:
+          name: "Damage Increase"
+          priority: 1
+        two:
+          name: "Stand of Arms"
+          priority: 1
+    notes: >
+      При присоединении к ралли обеспечивает значительное повышение урона.
+      Предпочтительна в качестве участника ралли благодаря первому навыку.
+
+  Patrick:
+    class: Infantry
+    generation: 1
+    roles:
+      - garrison_defense
+    buffs:
+      troop_health: 15%  # Увеличивает здоровье войск на 15%
+    skills:
+      expedition:
+        one:
+          name: "Health Boost"
+          priority: 1
+        two:
+          name: "Fortification"
+          priority: 1
+    notes: >
+      Усиливает здоровье войск, что делает его полезным для обороны гарнизона.
+      Эффективен в сочетании с другими защитными героями.
+
+  Sergey:
+    class: Infantry
+    generation: 1
+    roles:
+      - garrison_defense
+    buffs:
+      troop_health: 15%  # Увеличивает здоровье войск на 15%
+    skills:
+      expedition:
+        one:
+          name: "Defense Boost"
+          priority: 1
+        two:
+          name: "Fortification"
+          priority: 1
+    notes: >
+      Повышает защиту войск, полезен для обороны гарнизона.
+      В сочетании с Патриком обеспечивает сбалансированную защиту.
+
+  Smith:
+    class: Infantry
+    generation: 1
+    roles:
+      - resource_gathering
+    buffs:
+      iron_gathering_speed: 15%  # Увеличивает скорость сбора железа на 15%
+    skills:
+      expedition:
+        one:
+          name: "Craftsmanship"
+          priority: 1
+    notes: >
+      Специализируется на увеличении скорости сбора железа, что ускоряет развитие города.
+      Рекомендуется для постоянного использования при сборе железа.
+
+  Eugene:
+    class: Infantry
+    generation: 1
+    roles:
+      - resource_gathering
+    buffs:
+      wood_gathering_speed: 20%  # Увеличивает скорость сбора древесины на 20%
+    skills:
+      expedition:
+        one:
+          name: "Logging Income"
+          priority: 1
+    notes: >
+      Обеспечивает значительное увеличение скорости сбора древесины, необходимой для строительства.
+      Эффективен на ранних этапах развития.
+
+  Charlie:
+    class: Lancer
+    generation: 1
+    roles:
+      - resource_gathering
+    buffs:
+      coal_gathering_speed: 25%  # Увеличивает скорость сбора угля на 25%
+    skills:
+      expedition:
+        one:
+          name: "Coal Extraction"
+          priority: 1
+    notes: >
+      Специалист по добыче угля, что ускоряет производство энергии для города.
+      Полезен для поддержания стабильного энергоснабжения.
+
+  Cloris:
+    class: Marksman
+    generation: 1
+    roles:
+      - resource_gathering
+    buffs:
+      meat_gathering_speed: 10%  # Увеличивает скорость сбора мяса на 10%
+    skills:
+      expedition:
+        one:
+          name: "Hunting Income"
+          priority: 1
+    notes: >
+      Улучшает эффективность охоты, обеспечивая дополнительное мясо для населения.
+      Полезна для поддержания высокого уровня довольства жителей.
+
+  Walis Bokan:
+    class: Lancer
+    generation: 1
+    roles:
+      - rally_leader
+      - exploration
+    buffs:
+      troop_attack: 10%  # Увеличивает атаку войск на 10%
+      troop_defense: 10%  # Увеличивает защиту войск на 10%
+    skills:
+      expedition:
+        one:
+          name: "Guerrilla Warfare"
+          priority: 1
+    notes: >
+      Обладает сбалансированными атакующими и защитными навыками, что делает его эффективным лидером ралли и исследователем.
+      Полезен для игроков, стремящихся к универсальности.
+
+  Ling Shuang:
+    class: Lancer
+    generation: 1
+    roles:
+      - exploration
+      - expedition
+    buffs:
+      research_speed: 10%  # Увеличивает скорость исследования на 10%
+    skills:
+      expedition:
+        one:
+          name: "Strategic Insight"
+          priority: 1
+    notes: >
+      Универсальный герой, эффективен как в исследованиях, так и в экспедициях.
+      Увеличивает скорость исследований, что способствует развитию технологий.
+
+  Gina:
+    class: Marksman
+    generation: 1
+    roles:
+      - beast_hunt
+      - polar_terror_rally
+    buffs:
+      stamina_cost_reduction: 20%  # Снижает затраты выносливости на 20%
+    skills:
+      expedition:
+        one:
+          name: "Endurance Training"
+          priority: 1
+    notes: >
+      Специализируется на снижении затрат выносливости при охоте на зверей и ралли против Полярного Ужаса.
+      Полезна для частых PvE-активностей.
+
+  Bahiti:
+    class: Marksman
+    generation: 1
+    roles:
+      - early_game_combat
+    buffs:
+      single_target_damage: 15%  # Увеличивает урон по одиночной цели на 15%
+    skills:
+      expedition:
+        one:
+          name: "Precision Shot"
+          priority: 1
+    notes: >
+      Полезен на ранних этапах игры благодаря высокому урону по одиночным целям.
+      Со временем его эффективность снижается по мере появления более сильных героев.
+
+  Jasser:
+    class: Marksman
+    generation: 1
+    roles:
+      - research_support
+    buffs:
+      research_speed: 15%  # Увеличивает скорость исследования на 15%
+    skills:
+      expedition:
+        one:
+          name: "Innovative Tactics"
+          priority: 1
+    notes: >
+      Значительно ускоряет исследования, что способствует быстрому развитию технологий.
+      Рекомендуется для игроков, ориентированных на научный прогресс.
+
+  Seo-yoon:
+    class: Marksman
+    generation: 1
+    roles:
+      - rally_leader
+      - city_growth
+    buffs:
+      troop_attack: 25%  # Увеличивает атаку войск на 25%
+      healing_speed: 10%  # Увеличивает скорость лечения на 10%
+    skills:
+      expedition:
+        one:
+          name: "Rallying Beat"
+          priority: 1
+    notes: >
+      Seo-yoon эффективна в качестве лидера ралли, увеличивая атаку войск.
+      Ее способность ускорять лечение делает ее полезной для развития города.
+
+  Zinman:
+    class: Marksman
+    generation: 1
+    roles:
+      - city_growth
+    buffs:
+      construction_speed: 15%  # Увеличивает скорость строительства на 15%
+      construction_cost_reduction: 15%  # Снижает стоимость строительства на 15%
+    skills:
+      expedition:
+        one:
+          name: "Construction Emergency"
+          priority: 1
+    notes: >
+      Zinman ускоряет строительство и снижает его стоимость.
+      Необходим для быстрого развития города.
+
+  Flint:
+    class: Infantry
+    generation: 2
+    roles:
+      - combat
+      - tank
+    buffs:
+      troop_attack: 20%  # Увеличивает атаку войск на 20%
+      troop_defense: 20%  # Увеличивает защиту войск на 20%
+    skills:
+      expedition:
+        one:
+          name: "Flaming Charge"
+          priority: 1
+    notes: >
+      Flint обладает высокими показателями атаки и защиты.
+      Эффективен в бою и может выдерживать значительный урон.
+
+  Philly:
+    class: Lancer
+    generation: 2
+    roles:
+      - healer
+      - support
+    buffs:
+      healing_effect: 70%  # Увеличивает эффективность лечения на 70%
+      defender_troop_health: 15%  # Увеличивает здоровье защитных войск на 15%
+    skills:
+      expedition:
+        one:
+          name: "Extraction"
+          priority: 1
+    notes: >
+      Philly специализируется на лечении и поддержке войск, значительно повышая их выживаемость в бою.
+      Рекомендуется для использования в защитных стратегиях и поддержке союзников.
+
+  Alonso:
+    class: Marksman
+    generation: 2
+    roles:
+      - area_damage
+      - crowd_control
+    buffs:
+      area_damage: 20%  # Увеличивает урон по площади на 20%
+      crowd_control_effectiveness: 15%  # Повышает эффективность контроля толпы на 15%
+    skills:
+      expedition:
+        one:
+          name: "Harpoon Barrage"
+          priority: 1
+    notes: >
+      Alonso обладает мощными атаками по площади и навыками контроля толпы, что делает его эффективным против больших групп противников.
+      Идеален для использования в сражениях, требующих контроля над полем боя.
+
+  Logan:
+    class: Infantry
+    generation: 2
+    roles:
+      - tank
+      - frontline
+    buffs:
+      troop_defense: 25%  # Увеличивает защиту войск на 25%
+      troop_health: 20%  # Увеличивает здоровье войск на 20%
+    skills:
+      expedition:
+        one:
+          name: "Iron Wall"
+          priority: 1
+    notes: >
+      Logan предназначен для удержания передовой линии, обладая высокой защитой и здоровьем.
+      Рекомендуется для использования в качестве танка в передовых рядах.
+
+  Mia:
+    class: Lancer
+    generation: 3
+    roles:
+      - ranged_damage
+      - debuffer
+    buffs:
+      ranged_attack: 15%  # Увеличивает дальность атаки на 15%
+      enemy_debuff_effectiveness: 10%  # Повышает эффективность наложения дебаффов на врагов на 10%
+    skills:
+      expedition:
+        one:
+          name: "Fate's Hand"
+          priority: 1
+    notes: >
+      Mia использует магические атаки на расстоянии и способна ослаблять врагов, снижая их боевые характеристики.
+      Эффективна в стратегиях, направленных на ослабление противника перед основной атакой.
+
+  Greg:
+    class: Infantry
+    generation: 2
+    roles:
+      - defense
+      - support
+    buffs:
+      troop_defense: 20%  # Увеличивает защиту войск на 20%
+      healing_received: 10%  # Увеличивает получаемое лечение на 10%
+    skills:
+      expedition:
+        one:
+          name: "Shield Wall"
+          priority: 1
+    notes: >
+      Greg усиливает защитные способности войск и повышает эффективность получаемого лечения, что делает его ценным для оборонительных операций.
+      Рекомендуется для защиты ключевых позиций и поддержки союзников.
+
+  Ahmose:
+    class: Infantry
+    generation: 4
+    roles:
+      - tank
+      - area_damage
+    buffs:
+      troop_health: 30%  # Увеличивает здоровье войск на 30%
+      area_damage: 15%  # Увеличивает урон по площади на 15%
+    skills:
+      expedition:
+        one:
+          name: "Flame Guardian"
+          priority: 1
+    notes: >
+      Ahmose сочетает в себе высокое здоровье и способности наносить урон по площади, что делает его эффективным танком с возможностью атаковать несколько целей.
+      Идеален для использования в передовых рядах против многочисленных противников.
+
+  Reina:
+    class: Marksman
+    generation: 1
+    roles:
+      - exploration
+      - support
+    buffs:
+      troop_attack: 10%  # Увеличивает атаку войск на 10%
+      exploration_speed: 15%  # Увеличивает скорость исследования на 15%
+    skills:
+      expedition:
+        one:
+          name: "Eagle Eye"
+          priority: 1
+    notes: >
+      Reina специализируется на разведке и поддержке, увеличивая скорость исследования и атаку войск.
+      Полезна для быстрого изучения новых территорий и поддержки союзников.
+
+  Lynn:
+    class: Lancer
+    generation: 1
+    roles:
+      - combat
+      - crowd_control
+    buffs:
+      troop_attack: 15%  # Увеличивает атаку войск на 15%
+      crowd_control_effectiveness: 10%  # Повышает эффективность контроля толпы на 10%
+    skills:
+      expedition:
+        one:
+          name: "Whirlwind Slash"
+          priority: 1
+    notes: >
+      Lynn обладает навыками контроля толпы и высокой атакой, что делает её эффективной в бою против групп противников.
+      Рекомендуется для использования в сражениях, требующих контроля над полем боя.
+
+  Hector:
+    class: Infantry
+    generation: 1
+    roles:
+      - tank
+      - defense
+    buffs:
+      troop_health: 20%  # Увеличивает здоровье войск на 20%
+      troop_defense: 15%  # Увеличивает защиту войск на 15%
+    skills:
+      expedition:
+        one:
+          name: "Iron Fortress"
+          priority: 1
+    notes: >
+      Hector предназначен для удержания передовой линии, обладая высокой защитой и здоровьем.
+      Идеален для защиты ключевых позиций и сдерживания атак противника.
+
+  Norah:
+    class: Marksman
+    generation: 1
+    roles:
+      - ranged_damage
+      - debuffer
+    buffs:
+      ranged_attack: 15%  # Увеличивает дальность атаки на 15%
+      enemy_debuff_effectiveness: 10%  # Повышает эффективность наложения дебаффов на врагов на 10%
+    skills:
+      expedition:
+        one:
+          name: "Shadow Shot"
+          priority: 1
+    notes: >
+      Norah специализируется на атаках с дальнего расстояния и ослаблении врагов.
+      Эффективна в стратегиях, направленных на снижение боевых характеристик противника перед основной атакой.
+
+  Gwen:
+    class: Lancer
+    generation: 1
+    roles:
+      - healer
+      - support
+    buffs:
+      healing_effect: 20%  # Увеличивает эффективность лечения на 20%
+      troop_health: 10%  # Увеличивает здоровье войск на 10%
+    skills:
+      expedition:
+        one:
+          name: "Healing Light"
+          priority: 1
+    notes: >
+      Gwen использует магические способности для лечения союзников и повышения их выживаемости.
+      Полезна в поддерживающих ролях и длительных экспедициях.
+
+  Wu Ming:
+    class: Infantry
+    generation: 1
+    roles:
+      - stealth
+      - assassin
+    buffs:
+      critical_hit_chance: 15%  # Увеличивает шанс критического удара на 15%
+      troop_attack: 10%  # Увеличивает атаку войск на 10%
+    skills:
+      expedition:
+        one:
+          name: "Silent Strike"
+          priority: 1
+    notes: >
+      Wu Ming специализируется на скрытных атаках и нанесении критического урона.
+      Эффективен против одиночных целей и в миссиях, требующих скрытности.
+
+  Renee:
+    class: Marksman
+    generation: 1
+    roles:
+      - sniper
+      - damage_dealer
+    buffs:
+      critical_hit_damage: 20%  # Увеличивает урон от критических ударов на 20%
+      troop_attack: 10%  # Увеличивает атаку войск на 10%
+    skills:
+      expedition:
+        one:
+          name: "Piercing Shot"
+          priority: 1
+    notes: >
+      Renee обладает высокой точностью и способностью наносить значительный критический урон.
+      Идеальна для устранения ключевых целей на поле боя.
+
+  Wayne:
+    class: Infantry
+    generation: 1
+    roles:
+      - defense
+      - support
+    buffs:
+      troop_defense: 20%  # Увеличивает защиту войск на 20%
+      healing_received: 10%  # Увеличивает получаемое лечение на 10%
+    skills:
+      expedition:
+        one:
+          name: "Guardian's Shield"
+          priority: 1
+    notes: >
+      Wayne усиливает защитные способности войск и повышает эффективность получаемого лечения.
+      Рекомендуется для защиты ключевых позиций и поддержки союзников.
+
+  Edith:
+    class: Lancer
+    generation: 1
+    roles:
+      - area_damage
+      - crowd_control
+    buffs:
+      area_damage: 15%  # Увеличивает урон по площади на 15%
+      crowd_control_effectiveness: 10%  # Повышает эффективность контроля толпы на 10%
+    skills:
+      expedition:
+        one:
+          name: "Flame Dance"
+          priority: 1
+    notes: >
+      Edith специализируется на атаках по площади и контроле толпы.
+      Эффективна против больших групп противников и в сражениях, требующих контроля над полем боя.
+
+  Gordon:
+    class: Infantry
+    generation: 1
+    roles:
+      - tank
+      - leader
+    buffs:
+      troop_health: 25%  # Увеличивает здоровье войск на 25%
+      troop_defense: 20%  # Увеличивает защиту войск на 20%
+    skills:
+      expedition:
+        one:
+          name: "Unbreakable Will"
+          priority: 1
+    notes: >
+      Gordon обладает выдающимися защитными характеристиками и лидерскими качествами.
+      Идеален для удержания передовой линии и повышения выживаемости союзных войск.

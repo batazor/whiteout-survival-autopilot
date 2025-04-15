@@ -1,5 +1,9 @@
 package domain
 
+import (
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/heroes"
+)
+
 type Gamers []Gamer
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
@@ -15,11 +19,11 @@ type Gamer struct {
 	Resources   Resources     `yaml:"resources"`   // Ресурсы персонажа.
 	Gems        int           `yaml:"gems"`        // Количество гемов (премиум-валюта).
 	Exploration Exploration   `yaml:"exploration"` // Исследование мира.
-	Heroes      HeroesState   `yaml:"heroes"`      // Состояние героев.
+	Heroes      heroes.Heroes `yaml:"heroes"`      // Состояние героев.
 	Messages    MessagesState `yaml:"messages"`    // Состояние сообщений.
 	Alliance    Alliance      `yaml:"alliance"`    // Данные об альянсе.
 	Buildings   Buildings     `yaml:"buildings"`   // Здания персонажа.
-	Researchs   Researchs     `yaml:"researchs"`   // Уровни исследований.
+	Researches  Researches    `yaml:"researches"`  // Уровни исследований.
 }
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {

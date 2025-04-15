@@ -33,16 +33,6 @@ type Resources struct {
 	Meat int `yaml:"meat"` // Мясо.
 }
 
-// HeroesState содержит информацию о состоянии героев.
-type HeroesState struct {
-	State HeroesStatus `yaml:"state"`
-}
-
-// HeroesStatus описывает статус героев.
-type HeroesStatus struct {
-	IsHeroes bool `yaml:"isHeroes"` // Признак активности героев.
-}
-
 // MessagesState содержит информацию о сообщениях персонажа.
 type MessagesState struct {
 	State MessageStatus `yaml:"state"`
@@ -66,8 +56,8 @@ type Building struct {
 	// Можно добавить дополнительные поля, например, время постройки, затраты ресурсов и т.д.
 }
 
-// Researchs описывает уровни исследований персонажа.
-type Researchs struct {
+// Researches описывает уровни исследований персонажа.
+type Researches struct {
 	Battle  Research `yaml:"battle"`  // Военные исследования.
 	Economy Research `yaml:"economy"` // Экономические исследования.
 	// Дополнительные исследования можно добавить здесь.

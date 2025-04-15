@@ -45,6 +45,13 @@ func main() {
 	// ── Запуск глобального рефиллера задач ───────────────────────────────
 	go redis_queue.StartGlobalUsecaseRefiller(ctx, devicesCfg, "./usecases", rdb, appLogger, 5*time.Minute)
 
+	// ─── Инициализация правил анализа экрана ───────────────────────────────────────
+	rules, err := config.LoadAnalyzeRules("references/analyze.yaml")
+	if err != nil {
+		appLogger.Error("❌ Ошибка загрузки правил анализа экрана", slog.Any("err", err))
+		return
+	}
+
 	// ─── Запуск устройств и ботов ────────────────────────────────────────────
 	var wg sync.WaitGroup
 
@@ -96,7 +103,7 @@ func main() {
 					}
 				}
 
-				b := bot.NewBot(dev, target, rdb, devLog.With("gamer", target.Nickname))
+				b := bot.NewBot(dev, target, rdb, rules, devLog.With("gamer", target.Nickname))
 				b.Play(ctx)
 
 				gIdx++

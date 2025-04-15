@@ -7,6 +7,7 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
@@ -18,14 +19,16 @@ type Bot struct {
 	Device *device.Device
 	Queue  *redis_queue.Queue
 	Logger *slog.Logger
+	Rules  config.ScreenAnalyzeRules
 }
 
-func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, log *slog.Logger) *Bot {
+func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger) *Bot {
 	return &Bot{
 		Gamer:  gamer,
 		Device: dev,
 		Queue:  redis_queue.NewGamerQueue(rdb, gamer.ID),
 		Logger: log,
+		Rules:  rules,
 	}
 }
 
@@ -55,6 +58,22 @@ func (b *Bot) Play(ctx context.Context) {
 
 		// переходим на стартовый экран юзкейса
 		b.Device.FSM.ForceTo(uc.Node)
+
+		// обновляем state из скриншота перед проверкой trigger'а
+		screenshotPath := "out/bot_" + b.Gamer.Nickname + "_before_trigger.png"
+		rulesForScreen := b.Rules[uc.Node]
+
+		if _, screenshotErr := b.Device.ADB.Screenshot(screenshotPath); screenshotErr == nil {
+			if newState, analyzeErr := b.Device.Executor.Analyzer().AnalyzeAndUpdateState(screenshotPath, b.Gamer, rulesForScreen); analyzeErr == nil {
+				*b.Gamer = *newState
+				b.Logger.Info("📥 Состояние обновлено перед выполнением usecase", "screen", uc.Node)
+			} else {
+				b.Logger.Warn("⚠️ Ошибка анализа state", "err", analyzeErr)
+			}
+		} else {
+			b.Logger.Warn("⚠️ Не удалось сделать скриншот перед trigger", "err", screenshotErr)
+		}
+
 		b.Device.Executor.ExecuteUseCase(ctx, uc, b.Gamer, b.Queue)
 
 		// Время для отрисовки экрана

@@ -46,7 +46,29 @@ type usecaseLoader struct {
 func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) {
 	var usecases []*domain.UseCase
 
-	err := filepath.Walk(l.dir, func(path string, info os.FileInfo, err error) error {
+	// Путь до папки debug
+	debugPath := filepath.Join(l.dir, "debug")
+
+	hasDebugFiles := false
+	_ = filepath.Walk(debugPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil || info.IsDir() {
+			return nil
+		}
+		ext := filepath.Ext(path)
+		if ext == ".yaml" || ext == ".yml" {
+			hasDebugFiles = true
+			return filepath.SkipDir // прекращаем после первого найденного
+		}
+		return nil
+	})
+
+	// Если есть файлы в debug, грузим только их
+	searchDir := l.dir
+	if hasDebugFiles {
+		searchDir = debugPath
+	}
+
+	err := filepath.Walk(searchDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -67,6 +89,7 @@ func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) 
 		usecases = append(usecases, uc)
 		return nil
 	})
+
 	if err != nil {
 		return nil, fmt.Errorf("failed walking usecases dir: %w", err)
 	}

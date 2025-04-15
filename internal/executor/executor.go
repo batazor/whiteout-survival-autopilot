@@ -17,6 +17,7 @@ import (
 
 type UseCaseExecutor interface {
 	ExecuteUseCase(ctx context.Context, uc *domain.UseCase, state *domain.Gamer, queue *redis_queue.Queue)
+	Analyzer() Analyzer
 }
 
 type Analyzer interface {
@@ -45,6 +46,10 @@ type executorImpl struct {
 	analyzer         Analyzer
 	adb              adb.DeviceController
 	area             *config.AreaLookup
+}
+
+func (e *executorImpl) Analyzer() Analyzer {
+	return e.analyzer
 }
 
 func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer, queue *redis_queue.Queue) {
