@@ -25,16 +25,6 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		slog.String("ожидаемый", expected.Nickname),
 	)
 
-	// ✅ Ранняя проверка: нужный игрок уже активен
-	if d.isExpectedGamerActive(ctx, profileIdx, expected) {
-		d.Logger.Info("🟢 Игрок уже активен, пропускаем переключение",
-			slog.String("nickname", expected.Nickname),
-		)
-		d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
-		d.FSM.SetCallback(expected)
-		return
-	}
-
 	// Устанавливаем колбэк (временно, уточним ниже)
 	d.FSM.SetCallback(expected)
 
@@ -93,27 +83,6 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 
 	// Успешно переключились на новый профиль
 	d.Logger.Info("✅ Успешно переключились на новый профиль", "nickname", active.Nickname)
-}
-
-// isExpectedGamerActive проверяет, активен ли нужный игрок (по ID и профилю).
-func (d *Device) isExpectedGamerActive(ctx context.Context, profileIdx int, expected *domain.Gamer) bool {
-	active, detectedIdx, _, err := d.DetectAndSetCurrentGamer(ctx)
-	if err != nil {
-		d.Logger.Warn("🔍 Не удалось определить активного игрока", slog.Any("err", err))
-		return false
-	}
-
-	if detectedIdx != profileIdx {
-		d.Logger.Debug("🔁 Активный профиль не совпадает", slog.Int("got", detectedIdx), slog.Int("want", profileIdx))
-		return false
-	}
-
-	if active.ID != expected.ID {
-		d.Logger.Debug("🔁 Активный игрок не совпадает", slog.String("got", active.Nickname), slog.String("want", expected.Nickname))
-		return false
-	}
-
-	return true
 }
 
 func (d *Device) ActiveGamer() *domain.Gamer {

@@ -4,8 +4,7 @@ node: exploration
 
 trigger: "exploration.state.isClaimActive == true"
 
-#ttl: 2h
-ttl: 0
+ttl: 2h
 
 steps:
   - click: exploration.state.isClaimActive       # Click the claim button on the exploration screen.
