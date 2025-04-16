@@ -3,8 +3,8 @@ gamers:
       nickname: aaar
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 2873924
-      vip_level: 2
+      power: 4226549
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -51,8 +51,8 @@ gamers:
       nickname: agent007
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 3859367
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -99,8 +99,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5668064
-      vip_level: 3
+      power: 2875921
+      vip_level: 2
       resources:
         wood: 0
         food: 0
@@ -108,9 +108,9 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 224
+        level: 0
         state:
-            isClaimActive: true
+            isClaimActive: false
             myPower: 0
             enemyPower: 0
             battleStatus: ""
@@ -159,8 +159,8 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 26796109
-      vip_level: 7
+      power: 0
+      vip_level: 0
       resources:
         wood: 100000
         food: 250000
@@ -168,7 +168,7 @@ gamers:
         meat: 8000
       gems: 100
       exploration:
-        level: 348
+        level: 218
         state:
             isClaimActive: true
             myPower: 0
@@ -219,8 +219,8 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4219992
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -267,7 +267,7 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
+      power: 5568866
       vip_level: 3
       resources:
         wood: 0
@@ -295,7 +295,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
