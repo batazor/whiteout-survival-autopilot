@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
+	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 )
 
 type Bot struct {
@@ -20,15 +21,17 @@ type Bot struct {
 	Queue  *redis_queue.Queue
 	Logger *slog.Logger
 	Rules  config.ScreenAnalyzeRules
+	Repo   repository.StateRepository
 }
 
-func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger) *Bot {
+func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger, repo repository.StateRepository) *Bot {
 	return &Bot{
 		Gamer:  gamer,
 		Device: dev,
 		Queue:  redis_queue.NewGamerQueue(rdb, gamer.ID),
 		Logger: log,
 		Rules:  rules,
+		Repo:   repo,
 	}
 }
 
@@ -67,6 +70,13 @@ func (b *Bot) Play(ctx context.Context) {
 			if newState, analyzeErr := b.Device.Executor.Analyzer().AnalyzeAndUpdateState(screenshotPath, b.Gamer, rulesForScreen); analyzeErr == nil {
 				*b.Gamer = *newState
 				b.Logger.Info("📥 Состояние обновлено перед выполнением usecase", "screen", uc.Node)
+
+				// 🆕 Сохраняем новое состояние в state.yaml
+				if err := b.Repo.SaveGamer(ctx, newState); err != nil {
+					b.Logger.Error("❌ Не удалось сохранить state.yaml", slog.Any("error", err))
+				} else {
+					b.Logger.Info("💾 Состояние игрока сохранено в state.yaml")
+				}
 			} else {
 				b.Logger.Warn("⚠️ Ошибка анализа state", "err", analyzeErr)
 			}

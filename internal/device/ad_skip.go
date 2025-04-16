@@ -2,6 +2,7 @@ package device
 
 import (
 	"context"
+	"fmt"
 	"image"
 	"log/slog"
 	"strings"
@@ -55,7 +56,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 					strings.Contains(text, "hero gear"),
 					strings.Contains(text, "general speedup"),
 					strings.Contains(text, "construction speedup"):
-					d.Logger.Info("🌀 Найден pop-up ('%s') — закрываем", text)
+					d.Logger.Info(fmt.Sprintf("🌀 Найден pop-up ('%s') — закрываем", text))
 					err := d.ADB.ClickRegion("ad_banner_close", d.areaLookup)
 					if err != nil {
 						d.Logger.Error("❌ Не удалось закрыть pop-up", slog.Any("err", err))
