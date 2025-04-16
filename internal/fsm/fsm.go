@@ -12,7 +12,6 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
 func buildFSMGraph() map[string][]string {
@@ -182,7 +181,7 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 
 type GameFSM struct {
 	fsm           *lpfsm.FSM
-	logger        *logger.TracedLogger
+	logger        *slog.Logger
 	onStateChange func(state string)
 	callback      StateUpdateCallback
 	getState      func() *domain.State
@@ -192,8 +191,7 @@ type GameFSM struct {
 }
 
 func NewGame(
-	ctx context.Context,
-	logger *logger.TracedLogger,
+	logger *slog.Logger,
 	adb adb.DeviceController,
 	lookup *config.AreaLookup,
 ) *GameFSM {
@@ -208,7 +206,7 @@ func NewGame(
 	callbacks := lpfsm.Callbacks{
 		"enter_state": func(ctx context.Context, e *lpfsm.Event) {
 			if g.logger != nil {
-				g.logger.Info(ctx, "FSM entered new state",
+				g.logger.Info("FSM entered new state",
 					slog.String("from", e.Src),
 					slog.String("to", e.Dst),
 					slog.String("event", e.Event),
@@ -242,11 +240,11 @@ func (g *GameFSM) Current() string {
 	return g.fsm.Current()
 }
 
-func (g *GameFSM) ForceTo(ctx context.Context, target string) {
+func (g *GameFSM) ForceTo(target string) {
 	prev := g.Current()
 
 	if prev == target {
-		g.logger.Debug(ctx, "FSM already at target state, skipping", slog.String("state", target))
+		g.logger.Debug("FSM already at target state, skipping", slog.String("state", target))
 		return
 	}
 
@@ -258,9 +256,9 @@ func (g *GameFSM) ForceTo(ctx context.Context, target string) {
 		if !found {
 			path := g.FindPath(prev, target)
 			if len(path) > 1 {
-				g.logger.Warn(ctx, "FSM path generated dynamically", slog.Any("path", path))
+				g.logger.Warn("FSM path generated dynamically", slog.Any("path", path))
 				steps = g.pathToSteps(path)
-				g.logAutoPath(ctx, path)
+				g.logAutoPath(path)
 			} else {
 				panic(fmt.Sprintf("❌ FSM: no path found from '%s' to '%s'", prev, target))
 			}
@@ -276,7 +274,7 @@ func (g *GameFSM) ForceTo(ctx context.Context, target string) {
 			}
 
 			wait := step.Wait + time.Duration(rand.Intn(300)+500)*time.Millisecond
-			g.logger.Debug(ctx, "Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
+			g.logger.Debug("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
 		}
 	}
@@ -286,7 +284,7 @@ func (g *GameFSM) ForceTo(ctx context.Context, target string) {
 	if err := g.fsm.Event(context.Background(), eventName); err != nil {
 		// If the event isn't defined, fall back to direct state change
 		g.fsm.SetState(target)
-		g.logger.Warn(ctx, "FSM forcefully moved to new state",
+		g.logger.Warn("FSM forcefully moved to new state",
 			slog.String("from", prev),
 			slog.String("to", target),
 		)
@@ -297,28 +295,28 @@ func (g *GameFSM) ForceTo(ctx context.Context, target string) {
 	}
 }
 
-func (g *GameFSM) logAutoPath(ctx context.Context, path []string) {
+func (g *GameFSM) logAutoPath(path []string) {
 	if len(path) < 2 {
 		return
 	}
 
-	g.logger.Info(ctx, "📍 Auto-generated FSM path", slog.String("timestamp", time.Now().Format(time.RFC3339)))
+	g.logger.Info("📍 Auto-generated FSM path", slog.String("timestamp", time.Now().Format(time.RFC3339)))
 
 	for i := 0; i < len(path)-1; i++ {
 		from, to := path[i], path[i+1]
-		g.logger.Info(ctx, "→ FSM step", slog.String("from", from), slog.String("to", to))
+		g.logger.Info("→ FSM step", slog.String("from", from), slog.String("to", to))
 	}
 }
 
-func (g *GameFSM) tryTransitionVia(ctx context.Context, from string, steps []TransitionStep) error {
-	g.logger.Info(ctx, "Trying indirect transition", slog.String("via", from), slog.Any("steps", steps))
+func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
+	g.logger.Info("Trying indirect transition", slog.String("via", from), slog.Any("steps", steps))
 	for _, step := range steps {
 		if _, ok := g.lookup.Get(step.Action); !ok {
 			panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
 		}
 
 		if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
-			g.logger.Error(ctx, "Indirect transition failed", slog.String("step", step.Action), slog.Any("error", err))
+			g.logger.Error("Indirect transition failed", slog.String("step", step.Action), slog.Any("error", err))
 			return err
 		}
 

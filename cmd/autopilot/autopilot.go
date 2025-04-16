@@ -36,7 +36,10 @@ func main() {
 	}
 
 	// ─── Логгер ──────────────────────────────────────────────────────────────
-	appLogger := logger.NewTracedLogger()
+	appLogger, err := logger.InitializeLogger("app")
+	if err != nil {
+		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
+	}
 
 	// ── Метрики ───────────────────────────────────────────────────────────────
 	metrics.StartExporter()
@@ -62,7 +65,7 @@ func main() {
 	// ─── Инициализация правил анализа экрана ───────────────────────────────────────
 	rules, err := config.LoadAnalyzeRules("references/analyze.yaml")
 	if err != nil {
-		appLogger.Error(ctx, "❌ Ошибка загрузки правил анализа экрана", slog.Any("err", err))
+		appLogger.Error("❌ Ошибка загрузки правил анализа экрана", slog.Any("err", err))
 		return
 	}
 
@@ -79,22 +82,22 @@ func main() {
 
 			dev, err := device.New(dc.Name, dc.Profiles, devLog, "./references/area.json", rdb)
 			if err != nil {
-				devLog.Error(ctx, "❌ Ошибка создания устройства", slog.Any("err", err))
+				devLog.Error("❌ Ошибка создания устройства", slog.Any("err", err))
 				return
 			}
 
 			activeGamer, pIdx, gIdx, err := dev.DetectAndSetCurrentGamer(ctx)
 			if err != nil || activeGamer == nil {
-				devLog.Warn(ctx, "⚠️ Не удалось определить активного игрока", slog.Any("err", err))
+				devLog.Warn("⚠️ Не удалось определить активного игрока", slog.Any("err", err))
 				return
 			}
 
-			devLog.Info(ctx, "▶️ Продолжаем с текущего игрока", slog.Int("pIdx", pIdx), slog.Int("gIdx", gIdx), slog.String("nickname", activeGamer.Nickname))
+			devLog.Info("▶️ Продолжаем с текущего игрока", slog.Int("pIdx", pIdx), slog.Int("gIdx", gIdx), slog.String("nickname", activeGamer.Nickname))
 
 			for {
 				select {
 				case <-ctx.Done():
-					devLog.Info(ctx, "🛑 Остановка по контексту")
+					devLog.Info("🛑 Остановка по контексту")
 					return
 				default:
 				}
@@ -111,7 +114,7 @@ func main() {
 				target := &dc.Profiles[pIdx].Gamer[gIdx]
 				if dev.ActiveGamer() == nil || dev.ActiveGamer().ID != target.ID {
 					if err := dev.SwitchTo(ctx, pIdx, gIdx); err != nil {
-						devLog.Warn(ctx, "⚠️ Не удалось переключиться", slog.Any("err", err))
+						devLog.Warn("⚠️ Не удалось переключиться", slog.Any("err", err))
 						gIdx++
 						continue
 					}

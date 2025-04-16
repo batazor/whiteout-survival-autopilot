@@ -13,7 +13,6 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
@@ -29,7 +28,7 @@ type Analyzer interface {
 }
 
 func NewUseCaseExecutor(
-	logger *logger.TracedLogger,
+	logger *slog.Logger,
 	triggerEvaluator config.TriggerEvaluator,
 	analyzer Analyzer,
 	adb adb.DeviceController,
@@ -47,7 +46,7 @@ func NewUseCaseExecutor(
 }
 
 type executorImpl struct {
-	logger           *logger.TracedLogger
+	logger           *slog.Logger
 	triggerEvaluator config.TriggerEvaluator
 	analyzer         Analyzer
 	adb              adb.DeviceController
@@ -68,7 +67,7 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 	if uc.Trigger != "" {
 		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, gamer)
 		if err != nil {
-			e.logger.Error(ctx, "Trigger evaluation failed",
+			e.logger.Error("Trigger evaluation failed",
 				slog.String("usecase", uc.Name),
 				slog.String("trigger", uc.Trigger),
 				slog.Any("error", err),
@@ -77,7 +76,7 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 		}
 
 		if !ok {
-			e.logger.Warn(ctx, "Trigger not met, skipping usecase",
+			e.logger.Warn("Trigger not met, skipping usecase",
 				slog.String("usecase", uc.Name),
 				slog.String("trigger", uc.Trigger),
 			)
@@ -85,16 +84,16 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 		}
 	}
 
-	e.logger.Info(ctx, "=== Start usecase ===", slog.String("name", uc.Name))
+	e.logger.Info("=== Start usecase ===", slog.String("name", uc.Name))
 	for _, step := range uc.Steps {
 		e.runStep(ctx, step, 0, gamer)
 	}
-	e.logger.Info(ctx, "=== End usecase ===", slog.String("name", uc.Name))
+	e.logger.Info("=== End usecase ===", slog.String("name", uc.Name))
 
 	// После успешного выполнения ставим TTL
 	if uc.TTL > 0 {
 		if err := queue.SetLastExecuted(ctx, gamer.ID, uc.Name, uc.TTL); err != nil {
-			e.logger.Error(ctx, "Failed to set last executed TTL", slog.Any("error", err))
+			e.logger.Error("Failed to set last executed TTL", slog.Any("error", err))
 		}
 	}
 
@@ -118,7 +117,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 
 	select {
 	case <-ctx.Done():
-		e.logger.Warn(ctx, "Step cancelled by context")
+		e.logger.Warn("Step cancelled by context")
 		return true
 	default:
 	}
@@ -126,11 +125,11 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 	prefix := strings.Repeat("  ", indent)
 
 	if step.Click != "" {
-		e.logger.Info(ctx, prefix+"Click", slog.String("target", step.Click))
+		e.logger.Info(prefix+"Click", slog.String("target", step.Click))
 
 		err := e.adb.ClickRegion(step.Click, e.area)
 		if err != nil {
-			e.logger.Error(ctx, prefix+"Failed to click region",
+			e.logger.Error(prefix+"Failed to click region",
 				slog.String("target", step.Click),
 				slog.Any("error", err),
 			)
@@ -139,12 +138,12 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 	}
 
 	if step.Action != "" {
-		e.logger.Info(ctx, prefix+"Action", slog.String("action", step.Action))
+		e.logger.Info(prefix+"Action", slog.String("action", step.Action))
 
 		switch step.Action {
 		case "reset":
 			if step.Set == "" {
-				e.logger.Warn(ctx, prefix+"Reset skipped: missing 'set' field")
+				e.logger.Warn(prefix + "Reset skipped: missing 'set' field")
 				return false
 			}
 
@@ -152,14 +151,14 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 			prevVal, _ := utils.GetStateFieldByPath(gamer, step.Set)
 
 			if err := utils.SetStateFieldByPath(gamer, step.Set, step.To); err != nil {
-				e.logger.Error(ctx, prefix+"Failed to reset state field",
+				e.logger.Error(prefix+"Failed to reset state field",
 					slog.String("path", step.Set),
 					slog.Any("from", prevVal),
 					slog.Any("to", step.To),
 					slog.Any("error", err),
 				)
 			} else {
-				e.logger.Info(ctx, prefix+"State field reset",
+				e.logger.Info(prefix+"State field reset",
 					slog.String("path", step.Set),
 					slog.Any("from", prevVal),
 					slog.Any("to", step.To),
@@ -168,57 +167,57 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 
 		case "loop":
 			if step.Trigger == "" {
-				e.logger.Warn(ctx, prefix+"Loop trigger is missing, skipping loop")
+				e.logger.Warn(prefix + "Loop trigger is missing, skipping loop")
 				return false
 			}
-			e.logger.Info(ctx, prefix+"Entering loop", slog.String("trigger", step.Trigger))
+			e.logger.Info(prefix+"Entering loop", slog.String("trigger", step.Trigger))
 
 			for {
 				select {
 				case <-ctx.Done():
-					e.logger.Warn(ctx, prefix+"Loop interrupted by context")
+					e.logger.Warn(prefix + "Loop interrupted by context")
 					return true
 				default:
 				}
 
 				shouldContinue, err := e.triggerEvaluator.EvaluateTrigger(step.Trigger, gamer)
 				if err != nil {
-					e.logger.Error(ctx, prefix+"Trigger evaluation failed", slog.Any("error", err))
+					e.logger.Error(prefix+"Trigger evaluation failed", slog.Any("error", err))
 					break
 				}
 				if !shouldContinue {
-					e.logger.Info(ctx, prefix+"Loop trigger returned false, exiting loop")
+					e.logger.Info(prefix + "Loop trigger returned false, exiting loop")
 					break
 				}
 
 				for _, s := range step.Steps {
 					if stopped := e.runStep(ctx, s, indent+1, gamer); stopped {
-						e.logger.Info(ctx, prefix+"Loop stopped manually (loop_stop)")
+						e.logger.Info(prefix + "Loop stopped manually (loop_stop)")
 						return false
 					}
 				}
 			}
 
 		case "loop_stop":
-			e.logger.Info(ctx, prefix+"Received loop_stop")
+			e.logger.Info(prefix + "Received loop_stop")
 			return true
 
 		case "screenshot":
 			imagePath := filepath.Join("out", fmt.Sprintf("step_%d.png", indent))
-			e.logger.Info(ctx, prefix+"Taking screenshot", slog.String("path", imagePath))
+			e.logger.Info(prefix+"Taking screenshot", slog.String("path", imagePath))
 
 			if _, err := e.adb.Screenshot(imagePath); err != nil {
-				e.logger.Error(ctx, prefix+"Failed to capture screenshot", slog.Any("error", err))
+				e.logger.Error(prefix+"Failed to capture screenshot", slog.Any("error", err))
 				return false
 			}
 
 			if len(step.Analyze) > 0 {
 				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, gamer, step.Analyze)
 				if err != nil {
-					e.logger.Error(ctx, prefix+"Analyze failed", slog.Any("error", err))
+					e.logger.Error(prefix+"Analyze failed", slog.Any("error", err))
 				} else {
 					*gamer = *newState
-					e.logger.Info(ctx, prefix+"Analyze completed and state updated")
+					e.logger.Info(prefix + "Analyze completed and state updated")
 				}
 			}
 		}
@@ -226,21 +225,21 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 
 	// Wait
 	if step.Wait > 0 {
-		e.logger.Info(ctx, prefix+"Wait", slog.Duration("duration", step.Wait))
+		e.logger.Info(prefix+"Wait", slog.Duration("duration", step.Wait))
 		select {
 		case <-time.After(step.Wait):
 		case <-ctx.Done():
-			e.logger.Warn(ctx, prefix+"Wait interrupted by context cancel", slog.Duration("wait", step.Wait))
+			e.logger.Warn(prefix+"Wait interrupted by context cancel", slog.Duration("wait", step.Wait))
 			return true
 		}
 	}
 
 	if step.If != nil {
-		e.logger.Info(ctx, prefix+"If Trigger", slog.String("expr", step.If.Trigger))
+		e.logger.Info(prefix+"If Trigger", slog.String("expr", step.If.Trigger))
 
 		result, err := e.triggerEvaluator.EvaluateTrigger(step.If.Trigger, gamer)
 		if err != nil {
-			e.logger.Error(ctx, prefix+"Trigger evaluation failed",
+			e.logger.Error(prefix+"Trigger evaluation failed",
 				slog.String("expr", step.If.Trigger),
 				slog.Any("error", err),
 			)
@@ -248,7 +247,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 		}
 
 		if result {
-			e.logger.Info(ctx, prefix+"Condition met: executing THEN")
+			e.logger.Info(prefix + "Condition met: executing THEN")
 			for _, s := range step.If.Then {
 				stopped := e.runStep(ctx, s, indent+1, gamer)
 				if stopped {
@@ -256,7 +255,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				}
 			}
 		} else if len(step.If.Else) > 0 {
-			e.logger.Info(ctx, prefix+"Condition NOT met: executing ELSE")
+			e.logger.Info(prefix + "Condition NOT met: executing ELSE")
 			for _, s := range step.If.Else {
 				stopped := e.runStep(ctx, s, indent+1, gamer)
 				if stopped {
@@ -267,11 +266,11 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 	}
 
 	if step.Longtap != "" {
-		e.logger.Info(ctx, prefix+"Longtap", slog.String("target", step.Longtap), slog.Duration("hold", step.Wait))
+		e.logger.Info(prefix+"Longtap", slog.String("target", step.Longtap), slog.Duration("hold", step.Wait))
 
 		bbox, err := e.area.GetRegionByName(step.Longtap)
 		if err != nil {
-			e.logger.Error(ctx, prefix+"Failed to find region for longtap",
+			e.logger.Error(prefix+"Failed to find region for longtap",
 				slog.String("target", step.Longtap),
 				slog.Any("error", err),
 			)
@@ -282,7 +281,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 
 		err = e.adb.Swipe(x, y, x, y, step.Wait) // ⬅ swipe на то же место с временем
 		if err != nil {
-			e.logger.Error(ctx, prefix+"Failed to perform longtap",
+			e.logger.Error(prefix+"Failed to perform longtap",
 				slog.String("target", step.Longtap),
 				slog.Any("error", err),
 			)

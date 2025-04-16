@@ -9,7 +9,6 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
 func StartGlobalUsecaseRefiller(
@@ -17,7 +16,7 @@ func StartGlobalUsecaseRefiller(
 	cfg *domain.Config,
 	usecasePath string,
 	rdb *redis.Client,
-	log *logger.TracedLogger,
+	log *slog.Logger,
 	interval time.Duration,
 ) {
 	ticker := time.NewTicker(interval)
@@ -27,14 +26,14 @@ func StartGlobalUsecaseRefiller(
 		for {
 			select {
 			case <-ctx.Done():
-				log.Info(ctx, "🛑 Остановка глобального рефиллера задач")
+				log.Info("🛑 Остановка глобального рефиллера задач")
 				return
 			case <-ticker.C:
-				log.Info(ctx, "🔄 Запуск глобального refill задач")
+				log.Info("🔄 Запуск глобального refill задач")
 
 				usecases, err := usecaseLoader.LoadAll(ctx)
 				if err != nil {
-					log.Error(ctx, "❌ Не удалось загрузить usecases", slog.Any("err", err))
+					log.Error("❌ Не удалось загрузить usecases", "err", err)
 					continue
 				}
 
@@ -46,7 +45,7 @@ func StartGlobalUsecaseRefiller(
 					for _, uc := range usecases {
 						shouldSkip, err := queue.ShouldSkip(ctx, gamer.ID, uc.Name)
 						if err != nil {
-							log.Warn(ctx, "⚠️ Ошибка проверки TTL", slog.Any("botID", gamer.ID), slog.Any("usecase", uc.Name), slog.Any("err", err))
+							log.Warn("⚠️ Ошибка проверки TTL", "botID", gamer.ID, "usecase", uc.Name, "err", err)
 							continue
 						}
 
@@ -55,9 +54,9 @@ func StartGlobalUsecaseRefiller(
 						}
 
 						if err := queue.Push(ctx, uc); err != nil {
-							log.Error(ctx, "❌ Не удалось добавить usecase", slog.Any("botID", gamer.ID), slog.Any("usecase", uc.Name), slog.Any("err", err))
+							log.Error("❌ Не удалось добавить usecase", "usecase", uc.Name, "botID", gamer.ID, "err", err)
 						} else {
-							log.Info(ctx, "✅ Usecase добавлен", slog.Any("usecase", uc.Name), slog.Any("botID", gamer.ID))
+							log.Info("✅ Usecase добавлен", "usecase", uc.Name, "botID", gamer.ID)
 						}
 					}
 				}
