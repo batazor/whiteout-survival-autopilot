@@ -16,6 +16,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
+	"github.com/batazor/whiteout-survival-autopilot/internal/syncer"
 )
 
 func main() {
@@ -42,6 +43,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("❌ Ошибка загрузки конфигурации: %v", err)
 	}
+
+	// 🧠 Обновляем стейт всех игроков через Century API
+	syncer.RefreshAllPlayersFromCentury(ctx, devicesCfg.AllGamers(), repo, appLogger)
 
 	// ─── Предзагрузка use‑case’ов ────────────────────────────────────────────
 	redis_queue.PreloadQueues(ctx, rdb, devicesCfg.AllProfiles(), "./usecases")
