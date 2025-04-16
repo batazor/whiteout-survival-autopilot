@@ -3,7 +3,6 @@ package device
 import (
 	"context"
 	"fmt"
-	"image"
 	"log/slog"
 	"time"
 
@@ -11,7 +10,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
-	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 func (d *Device) NextGamer(profileIdx, gamerIdx int) {
@@ -47,7 +45,8 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 	d.FSM.ForceTo(fsm.StateChiefCharacters)
 
 	// Ждём nickname
-	gamerZones, _ := vision.WaitForText(ctx, d.ADB, []string{gamer.Nickname}, time.Second, image.Rectangle{})
+	gamerZones := d.findNicknameOCR(ctx, gamer.Nickname)
+	time.Sleep(100 * time.Millisecond)
 
 	d.Logger.Info("🟢 Клик по nickname игрока",
 		slog.String("text", gamerZones.Text),

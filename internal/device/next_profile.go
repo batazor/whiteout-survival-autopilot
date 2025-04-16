@@ -3,13 +3,11 @@ package device
 import (
 	"context"
 	"fmt"
-	"image"
 	"log/slog"
 	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
-	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
@@ -39,20 +37,8 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
 
 	// 📦 Кэшированный OCR по email
-	email := profile.Email
-	var emailZones *domain.OCRResult
-	if cached, ok := d.getCachedEmailOCR(ctx, email); ok {
-		d.Logger.Debug("📦 Email OCR из Redis", slog.String("email", email))
-		emailZones = cached
-	} else {
-		zones, err := vision.WaitForText(ctx, d.ADB, []string{email}, time.Second, image.Rectangle{})
-		if err != nil {
-			d.Logger.Error("❌ Не удалось найти email на экране", slog.Any("error", err))
-			panic(fmt.Sprintf("WaitForText(%s) failed: %v", email, err))
-		}
-		d.setCachedEmailOCR(ctx, email, zones)
-		emailZones = zones
-	}
+	emailZones := d.findEmailOCR(ctx, profile.Email)
+	time.Sleep(100 * time.Millisecond)
 
 	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("text", emailZones.Text))
 	if err := d.ADB.ClickOCRResult(emailZones); err != nil {

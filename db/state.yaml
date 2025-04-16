@@ -3,8 +3,8 @@ gamers:
       nickname: aaar
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4226549
-      vip_level: 3
+      power: 2876272
+      vip_level: 2
       resources:
         wood: 0
         food: 0
@@ -51,8 +51,8 @@ gamers:
       nickname: agent007
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
+      power: 5568866
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -99,8 +99,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 2875921
-      vip_level: 2
+      power: 5674071
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -108,9 +108,9 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 0
+        level: 224
         state:
-            isClaimActive: false
+            isClaimActive: true
             myPower: 0
             enemyPower: 0
             battleStatus: ""
@@ -159,8 +159,8 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 0
-      vip_level: 0
+      power: 26796044
+      vip_level: 7
       resources:
         wood: 100000
         food: 250000
@@ -219,8 +219,8 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
+      power: 4226549
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -301,7 +301,7 @@ gamers:
             isAllianceContributeButton: false
             isAllianceTechButton: false
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 18
