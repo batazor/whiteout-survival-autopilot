@@ -24,3 +24,36 @@ prometheus.remote_write "grafana_cloud" {
     }
   }
 }
+
+tracing {
+    // Sample all traces. This value should be lower for production configs!
+  	sampling_fraction = 1
+
+    write_to = [otelcol.exporter.otlp.default.input]
+}
+
+// 🟢 Источник метрик: whiteout-bot на host.docker.internal:8080
+otelcol.receiver.otlp "otlp_receiver" {
+    grpc {
+        endpoint = "0.0.0.0:4317"
+    }
+    http {
+        endpoint = "0.0.0.0:4318"
+    }
+
+    output {
+      traces  = [otelcol.exporter.otlp.default.input,]
+    }
+}
+
+otelcol.exporter.otlp "default" {
+  client {
+    endpoint = "tempo-prod-10-prod-eu-west-2.grafana.net:443"
+    auth     = otelcol.auth.basic.creds.handler
+  }
+}
+
+otelcol.auth.basic "creds" {
+  username = "1182575"
+  password = "glc_eyJvIjoiMjMwNDc2IiwibiI6InN0YWNrLTEyMzA0NjctaHQtd3JpdGUtd2hpdGVvdXRzdXJ2aXZhbGF1dG9waWxvdCIsImsiOiJCRDgyYjFMMjhub3QzRGI4RDFmNzNCZnkiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ=="
+}

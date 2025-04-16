@@ -8,6 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"go.opentelemetry.io/otel"
+
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
@@ -58,6 +60,9 @@ func (e *executorImpl) Analyzer() Analyzer {
 
 func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer, queue *redis_queue.Queue) {
 	start := time.Now()
+	tracer := otel.Tracer("bot")
+	ctx, span := tracer.Start(ctx, uc.Name)
+	defer span.End()
 
 	if uc.Trigger != "" {
 		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, gamer)
@@ -107,6 +112,9 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 }
 
 func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int, gamer *domain.Gamer) bool {
+	ctx, span := otel.Tracer("bot").Start(ctx, "runStep: "+step.Action)
+	defer span.End()
+
 	select {
 	case <-ctx.Done():
 		e.logger.Warn("Step cancelled by context")

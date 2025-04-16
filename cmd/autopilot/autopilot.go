@@ -18,11 +18,16 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 	"github.com/batazor/whiteout-survival-autopilot/internal/syncer"
+	"github.com/batazor/whiteout-survival-autopilot/internal/trace"
 )
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
+	// ─── Инициализация OpenTelemetry ──────────────────────────────────────────
+	shutdown := trace.Init(ctx, "whiteout-bot")
+	defer shutdown()
 
 	// ─── Redis ───────────────────────────────────────────────────────────────
 	rdb := redis.NewClient(&redis.Options{Addr: "localhost:6379"})

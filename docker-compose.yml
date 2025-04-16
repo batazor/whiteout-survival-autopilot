@@ -36,15 +36,21 @@ services:
       - --server.http.listen-addr=0.0.0.0:12345
       - --storage.path=/var/lib/alloy/data
       - /etc/alloy/config.alloy
-    environment:
-      GCLOUD_HOSTED_METRICS_ID: 2385173
-      GCLOUD_HOSTED_METRICS_URL: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push
-      GCLOUD_HOSTED_LOGS_ID: 1188264
-      GCLOUD_HOSTED_LOGS_URL: https://logs-prod-012.grafana.net/loki/api/v1/push
-      GCLOUD_FM_URL: https://fleet-management-prod-011.grafana.net
-      GCLOUD_FM_POLL_FREQUENCY: 60s
-      GCLOUD_FM_HOSTED_ID: 1230467
-      ARCH: amd64
-      GCLOUD_RW_API_KEY: "glc_eyJvIjoiMjMwNDc2IiwibiI6InN0YWNrLTEyMzA0NjctYWxsb3ktd2hpdGVvdXRzdXJ2aXZhbGF1dG9waWxvdCIsImsiOiJ4YzJhUkY2Q2NodTBvN241YjE2MWU2NXMiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ=="
+#    environment:
+#      GCLOUD_HOSTED_METRICS_ID: 2385173
+#      GCLOUD_HOSTED_METRICS_URL: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push
+#      GCLOUD_HOSTED_LOGS_ID: 1188264
+#      GCLOUD_HOSTED_LOGS_URL: https://logs-prod-012.grafana.net/loki/api/v1/push
+#      GCLOUD_FM_URL: https://fleet-management-prod-011.grafana.net
+#      GCLOUD_FM_POLL_FREQUENCY: 60s
+#      GCLOUD_FM_HOSTED_ID: 1230467
+#      ARCH: amd64
+#      GCLOUD_RW_API_KEY: "glc_eyJvIjoiMjMwNDc2IiwibiI6InN0YWNrLTEyMzA0NjctYWxsb3ktd2hpdGVvdXRzdXJ2aXZhbGF1dG9waWxvdCIsImsiOiJ4YzJhUkY2Q2NodTBvN241YjE2MWU2NXMiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ=="
+#      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+#      OTEL_EXPORTER_OTLP_ENDPOINT: https://otlp-gateway-prod-eu-west-2.grafana.net/otlp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 4317:4317
     restart: unless-stopped
-    network_mode: host  # чтобы видеть localhost:2112 твоего бота
+#    network_mode: host  # чтобы видеть localhost:2112 твоего бота
