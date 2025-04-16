@@ -36,6 +36,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:
@@ -84,6 +85,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:
@@ -144,6 +146,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:
@@ -159,8 +162,8 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 26796044
-      vip_level: 7
+      power: 0
+      vip_level: 0
       resources:
         wood: 100000
         food: 250000
@@ -204,6 +207,7 @@ gamers:
             isChests: 3
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:
@@ -252,6 +256,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:
@@ -267,8 +272,8 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5568866
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -276,7 +281,7 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 218
+        level: 236
         state:
             isClaimActive: true
             myPower: 0
@@ -300,6 +305,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
+            polarTerrorCount: 11
         tech:
             favorite: true
       buildings:

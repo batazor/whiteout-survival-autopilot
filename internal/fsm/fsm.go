@@ -38,10 +38,6 @@ const (
 	InitialState           = "initial"
 	StateMainCity          = "main_city"
 	StateActivityTriumph   = "activity_triumph"
-	StateAllianceManage    = "alliance_manage"
-	StateAllianceTech      = "alliance_tech"
-	StateAllianceSettings  = "alliance_settings"
-	StateAllianceRanking   = "alliance_ranking"
 	StateEvents            = "events"
 	StateProfile           = "profile"
 	StateLeaderboard       = "leaderboard"
@@ -61,34 +57,15 @@ const (
 	StateChiefProfileAccountChangeAccount       = "chief_profile_account_change_account"
 	StateChiefProfileAccountChangeGoogle        = "chief_profile_account_change_account_google"
 	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
-)
 
-var AllStates = []string{
-	InitialState,
-	StateMainCity,
-	StateActivityTriumph,
-	StateAllianceManage,
-	StateAllianceTech,
-	StateAllianceSettings,
-	StateAllianceRanking,
-	StateEvents,
-	StateProfile,
-	StateLeaderboard,
-	StateSettings,
-	StateVIP,
-	StateChiefOrders,
-	StateMail,
-	StateDawnMarket,
-	StateExploration,
-	StateExplorationBattle,
-	StateChiefProfile,
-	StateChiefProfileSetting,
-	StateChiefCharacters,
-	StateChiefProfileAccount,
-	StateChiefProfileAccountChangeAccount,
-	StateChiefProfileAccountChangeGoogle,
-	StateChiefProfileAccountChangeGoogleConfirm,
-}
+	// Альянс
+	StateAllianceManage      = "alliance_manage"
+	StateAllianceTech        = "alliance_tech"
+	StateAllianceSettings    = "alliance_settings"
+	StateAllianceRanking     = "alliance_ranking"
+	StateAllianceWar         = "alliance_war"
+	StateAllianceWarAutoJoin = "alliance_war_auto_join"
+)
 
 type TransitionStep struct {
 	Action string
@@ -164,6 +141,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		StateMainCity: {
 			{Action: "to_alliance_back", Wait: 300 * time.Millisecond},
 		},
+		StateAllianceWar: {
+			{Action: "to_alliance_war", Wait: 300 * time.Millisecond},
+		},
 	},
 	StateAllianceTech: {
 		StateAllianceManage: {
@@ -176,6 +156,19 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	},
 	StateExplorationBattle: {
 		StateExploration: {{Action: "to_exploration_battle_back", Wait: 300 * time.Millisecond}},
+	},
+	StateAllianceWar: {
+		StateAllianceWarAutoJoin: {
+			{Action: "to_alliance_war_auto_join", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceManage: {
+			{Action: "from_war_to_alliance_manage", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateAllianceWarAutoJoin: {
+		StateAllianceWar: {
+			{Action: "alliance_war_auto_join_close", Wait: 300 * time.Millisecond},
+		},
 	},
 }
 
@@ -274,7 +267,7 @@ func (g *GameFSM) ForceTo(target string) {
 			}
 
 			wait := step.Wait + time.Duration(rand.Intn(300)+700)*time.Millisecond
-			g.logger.Debug("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
+			g.logger.Info("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
 		}
 	}

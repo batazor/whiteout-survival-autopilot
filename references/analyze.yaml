@@ -34,3 +34,9 @@ exploration_fight:
     action: text
     type: integer
     threshold: 0.5
+
+alliance_war_auto_join:
+  - name: alliance.state.polarTerrorCount
+    action: text
+    type: integer
+    threshold: 0.5

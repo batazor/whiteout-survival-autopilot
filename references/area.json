@@ -604,7 +604,7 @@
     "transcription": [
       "alliance_power",
       "allieace_member_count",
-      "to_alliance_to_war",
+      "to_alliance_war",
       "to_alliance_to_territory",
       "to_alliance_to_shop",
       "to_alliance_power_rankings",
@@ -620,8 +620,8 @@
     "annotator": 1,
     "annotation_id": 8,
     "created_at": "2025-03-28T12:22:39.512498Z",
-    "updated_at": "2025-04-06T17:10:21.733157Z",
-    "lead_time": 29358.365999999998
+    "updated_at": "2025-04-16T15:34:05.663300Z",
+    "lead_time": 29369.204999999998
   },
   {
     "ocr": "\/data\/upload\/1\/3635e25c-allience_manage.png",
@@ -1310,5 +1310,141 @@
     "created_at": "2025-04-06T17:31:08.884934Z",
     "updated_at": "2025-04-06T19:53:33.699328Z",
     "lead_time": 194.22099999999998
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f467c9d4-alliance_war_auto_join.png",
+    "id": 25,
+    "bbox": [
+      {
+        "x": 49.491969845952156,
+        "y": 78.4660766961652,
+        "width": 40.97017371353655,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.832841691248772,
+        "y": 78.4660766961652,
+        "width": 31.792854801704358,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 11.143887250081942,
+        "y": 58.25958702064897,
+        "width": 4.260898066207801,
+        "height": 2.212389380530979,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.268518518518526,
+        "y": 59.54166666666667,
+        "width": 4.537037037037038,
+        "height": 1.4166666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 20.943952802359885,
+        "width": 4.260898066207787,
+        "height": 1.4749262536873147,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_war_auto_join_enable",
+      "alliance_war_auto_join_stop",
+      "alliance_war_auto_join_enable_polar_terror",
+      "alliance.state.polarTerrorCount",
+      "alliance_war_auto_join_close"
+    ],
+    "annotator": 2,
+    "annotation_id": 26,
+    "created_at": "2025-04-16T15:29:04.466764Z",
+    "updated_at": "2025-04-16T15:44:26.601502Z",
+    "lead_time": 370.76300000000003
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a6347259-alliance_war.png",
+    "id": 26,
+    "bbox": [
+      {
+        "x": 4.260898066207801,
+        "y": 9.292035398230091,
+        "width": 28.515240904621436,
+        "height": 4.129793510324484,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.38151425762046,
+        "y": 10.176991150442479,
+        "width": 27.531956735496557,
+        "height": 3.5398230088495577,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 68.17436905932482,
+        "y": 10.32448377581121,
+        "width": 27.85971812520485,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 42.936742051786304,
+        "y": 91.74041297935105,
+        "width": 16.060308095706333,
+        "height": 1.6224188790560419,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.77613897082924,
+        "y": 94.69026548672568,
+        "width": 34.742707309078995,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.572271386430679,
+        "width": 9.832841691248772,
+        "height": 2.949852507374631,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_war_rally",
+      "alliance_war_solo",
+      "alliance_war_events",
+      "alliance_war_auto_join_ttl",
+      "to_alliance_war_auto_join",
+      "from_war_to_alliance_manage"
+    ],
+    "annotator": 2,
+    "annotation_id": 25,
+    "created_at": "2025-04-16T15:26:04.797182Z",
+    "updated_at": "2025-04-16T15:36:54.398412Z",
+    "lead_time": 388.77799999999996
   }
 ]

@@ -23,6 +23,7 @@ type AllianceState struct {
 	IsChests                   int  `yaml:"isChests"`                   // Количество доступных сундуков.
 	IsAllianceContributeButton bool `yaml:"isAllianceContributeButton"` // Кнопка вклада в технологию
 	IsAllianceTechButton       bool `yaml:"isAllianceTechButton"`       // Кнопка технологий альянса
+	PolarTerrorCount           int  `yaml:"polarTerrorCount"`           // Количество успешных присоединений на полярного медведя
 }
 
 // AllianceTech описывает технологические аспекты альянса.
