@@ -13,7 +13,7 @@ import (
 type StateRepository interface {
 	LoadState(ctx context.Context) (*domain.State, error)
 	SaveState(ctx context.Context, s *domain.State) error
-	SaveGamer(ctx context.Context, gamer *domain.Gamer, email string) error
+	SaveGamer(ctx context.Context, gamer *domain.Gamer) error
 }
 
 func NewFileStateRepository(filename string) StateRepository {
@@ -45,28 +45,24 @@ func (r *fileRepo) SaveState(ctx context.Context, s *domain.State) error {
 	return os.WriteFile(r.filename, bytes, 0o644)
 }
 
-func (r *fileRepo) SaveGamer(ctx context.Context, gamer *domain.Gamer, email string) error {
+func (r *fileRepo) SaveGamer(ctx context.Context, gamer *domain.Gamer) error {
 	state, err := r.LoadState(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to load state: %w", err)
 	}
 
-	// Пытаемся найти и заменить игрока
-	for accIdx := range state.Accounts {
-		for charIdx := range state.Accounts[accIdx].Characters {
-			if state.Accounts[accIdx].Characters[charIdx].ID == gamer.ID {
-				state.Accounts[accIdx].Characters[charIdx] = *gamer
-				return r.SaveState(ctx, state)
-			}
+	found := false
+	for i, g := range state.Gamers {
+		if g.ID == gamer.ID {
+			state.Gamers[i] = *gamer
+			found = true
+			break
 		}
 	}
 
-	// Игрок не найден — создаём новую запись с переданным email
-	newAccount := domain.Account{
-		Email:      email,
-		Characters: []domain.Gamer{*gamer},
+	if !found {
+		state.Gamers = append(state.Gamers, *gamer)
 	}
-	state.Accounts = append(state.Accounts, newAccount)
 
 	return r.SaveState(ctx, state)
 }

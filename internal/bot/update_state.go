@@ -21,7 +21,7 @@ func (b *Bot) updateStateFromScreen(ctx context.Context, screen string, filename
 	*b.Gamer = *newState
 	b.Logger.Info("📥 Состояние обновлено", slog.String("screen", screen))
 
-	if saveErr := b.Repo.SaveGamer(ctx, newState, b.Email); saveErr != nil {
+	if saveErr := b.Repo.SaveGamer(ctx, newState); saveErr != nil {
 		b.Logger.Error("❌ Не удалось сохранить state.yaml", slog.Any("error", saveErr))
 	} else {
 		b.Logger.Info("💾 Состояние игрока сохранено в state.yaml")
