@@ -1,12 +1,12 @@
 accounts:
-    - email: user1@gmail.com
+    - email: batazor111@gmail.com
       characters:
         - id: 401227964
           nickname: batazor
           state: 2558
           avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-          power: 1666736
-          vip_level: 2
+          power: 0
+          vip_level: 0
           resources:
             wood: 100000
             food: 250000
@@ -14,7 +14,7 @@ accounts:
             meat: 8000
           gems: 100
           exploration:
-            level: 161
+            level: 348
             state:
                 isClaimActive: true
                 myPower: 0
@@ -22,7 +22,17 @@ accounts:
                 battleStatus: ""
           heroes:
             state:
-                isHeroes: false
+                class: ""
+                generation: 0
+                roles: []
+                skills:
+                    expedition: {}
+                buffs: {}
+                notes: ""
+                state:
+                    level: 0
+                    isavailable: false
+                    iscamptrainer: false
           messages:
             state:
                 isNewMessage: true
@@ -46,11 +56,11 @@ accounts:
             furnace:
                 level: 24
                 power: 0
-          researchs:
+          researches:
             battle:
-                level: 5
+                level: 0
             economy:
-                level: 3
+                level: 0
         - id: 423382817
           nickname: bart
           state: 2690
@@ -72,7 +82,17 @@ accounts:
                 battleStatus: ""
           heroes:
             state:
-                isHeroes: true
+                class: ""
+                generation: 0
+                roles: []
+                skills:
+                    expedition: {}
+                buffs: {}
+                notes: ""
+                state:
+                    level: 0
+                    isavailable: false
+                    iscamptrainer: false
           messages:
             state:
                 isNewMessage: false
@@ -96,11 +116,11 @@ accounts:
             furnace:
                 level: 15
                 power: 0
-          researchs:
+          researches:
             battle:
-                level: 1
+                level: 0
             economy:
-                level: 2
+                level: 0
     - email: user2@gmail.com
       characters:
         - id: 423382817
@@ -124,7 +144,17 @@ accounts:
                 battleStatus: ""
           heroes:
             state:
-                isHeroes: false
+                class: ""
+                generation: 0
+                roles: []
+                skills:
+                    expedition: {}
+                buffs: {}
+                notes: ""
+                state:
+                    level: 0
+                    isavailable: false
+                    iscamptrainer: false
           messages:
             state:
                 isNewMessage: false
@@ -148,7 +178,157 @@ accounts:
             furnace:
                 level: 15
                 power: 0
-          researchs:
+          researches:
+            battle:
+                level: 0
+            economy:
+                level: 0
+    - email: ""
+      characters:
+        - id: 420195101
+          nickname: paradox
+          state: 0
+          avatar: ""
+          power: 0
+          vip_level: 0
+          resources:
+            wood: 0
+            food: 0
+            iron: 0
+            meat: 0
+          gems: 0
+          exploration:
+            level: 218
+            state:
+                isClaimActive: true
+                myPower: 0
+                enemyPower: 0
+                battleStatus: ""
+          heroes: {}
+          messages:
+            state:
+                isNewMessage: false
+                isNewReports: false
+          alliance:
+            name: ""
+            myLevel: 0
+            power: 0
+            members:
+                count: 0
+                max: 0
+            state:
+                isNeedSupport: false
+                isWar: 0
+                isChests: 0
+                isAllianceContributeButton: false
+                isAllianceTechButton: false
+            tech:
+                favorite: false
+          buildings:
+            furnace:
+                level: 0
+                power: 0
+          researches:
+            battle:
+                level: 0
+            economy:
+                level: 0
+    - email: ""
+      characters:
+        - id: 420902982
+          nickname: agent007
+          state: 0
+          avatar: ""
+          power: 0
+          vip_level: 0
+          resources:
+            wood: 0
+            food: 0
+            iron: 0
+            meat: 0
+          gems: 0
+          exploration:
+            level: 206
+            state:
+                isClaimActive: true
+                myPower: 0
+                enemyPower: 0
+                battleStatus: ""
+          heroes: {}
+          messages:
+            state:
+                isNewMessage: false
+                isNewReports: false
+          alliance:
+            name: ""
+            myLevel: 0
+            power: 0
+            members:
+                count: 0
+                max: 0
+            state:
+                isNeedSupport: false
+                isWar: 0
+                isChests: 0
+                isAllianceContributeButton: false
+                isAllianceTechButton: false
+            tech:
+                favorite: false
+          buildings:
+            furnace:
+                level: 0
+                power: 0
+          researches:
+            battle:
+                level: 0
+            economy:
+                level: 0
+    - email: viktor.login@emergingtravel.com
+      characters:
+        - id: 422228462
+          nickname: bravo
+          state: 0
+          avatar: ""
+          power: 0
+          vip_level: 0
+          resources:
+            wood: 0
+            food: 0
+            iron: 0
+            meat: 0
+          gems: 0
+          exploration:
+            level: 119
+            state:
+                isClaimActive: true
+                myPower: 0
+                enemyPower: 0
+                battleStatus: ""
+          heroes: {}
+          messages:
+            state:
+                isNewMessage: false
+                isNewReports: false
+          alliance:
+            name: ""
+            myLevel: 0
+            power: 0
+            members:
+                count: 0
+                max: 0
+            state:
+                isNeedSupport: false
+                isWar: 0
+                isChests: 0
+                isAllianceContributeButton: false
+                isAllianceTechButton: false
+            tech:
+                favorite: false
+          buildings:
+            furnace:
+                level: 0
+                power: 0
+          researches:
             battle:
                 level: 0
             economy:

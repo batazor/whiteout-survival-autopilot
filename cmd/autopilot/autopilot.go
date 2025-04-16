@@ -107,7 +107,7 @@ func main() {
 					}
 				}
 
-				b := bot.NewBot(dev, target, rdb, rules, devLog.With("gamer", target.Nickname), repo)
+				b := bot.NewBot(dev, target, dc.Profiles[pIdx].Email, rdb, rules, devLog.With("gamer", target.Nickname), repo)
 				b.Play(ctx)
 
 				gIdx++

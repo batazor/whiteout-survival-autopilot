@@ -17,6 +17,7 @@ import (
 
 type Bot struct {
 	Gamer  *domain.Gamer
+	Email  string
 	Device *device.Device
 	Queue  *redis_queue.Queue
 	Logger *slog.Logger
@@ -24,9 +25,10 @@ type Bot struct {
 	Repo   repository.StateRepository
 }
 
-func NewBot(dev *device.Device, gamer *domain.Gamer, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger, repo repository.StateRepository) *Bot {
+func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger, repo repository.StateRepository) *Bot {
 	return &Bot{
 		Gamer:  gamer,
+		Email:  email,
 		Device: dev,
 		Queue:  redis_queue.NewGamerQueue(rdb, gamer.ID),
 		Logger: log,
@@ -43,6 +45,9 @@ func (b *Bot) Play(ctx context.Context) {
 			return
 		default:
 		}
+
+		// 📸 Анализ состояния на главном экране
+		b.updateStateFromScreen(ctx, "main_city", "out/bot_"+b.Gamer.Nickname+"_start_main_city.png")
 
 		// получаем use‑case из очереди
 		uc, err := b.Queue.Pop(ctx)
@@ -62,27 +67,8 @@ func (b *Bot) Play(ctx context.Context) {
 		// переходим на стартовый экран юзкейса
 		b.Device.FSM.ForceTo(uc.Node)
 
-		// обновляем state из скриншота перед проверкой trigger'а
-		screenshotPath := "out/bot_" + b.Gamer.Nickname + "_before_trigger.png"
-		rulesForScreen := b.Rules[uc.Node]
-
-		if _, screenshotErr := b.Device.ADB.Screenshot(screenshotPath); screenshotErr == nil {
-			if newState, analyzeErr := b.Device.Executor.Analyzer().AnalyzeAndUpdateState(screenshotPath, b.Gamer, rulesForScreen); analyzeErr == nil {
-				*b.Gamer = *newState
-				b.Logger.Info("📥 Состояние обновлено перед выполнением usecase", "screen", uc.Node)
-
-				// 🆕 Сохраняем новое состояние в state.yaml
-				if err := b.Repo.SaveGamer(ctx, newState); err != nil {
-					b.Logger.Error("❌ Не удалось сохранить state.yaml", slog.Any("error", err))
-				} else {
-					b.Logger.Info("💾 Состояние игрока сохранено в state.yaml")
-				}
-			} else {
-				b.Logger.Warn("⚠️ Ошибка анализа state", "err", analyzeErr)
-			}
-		} else {
-			b.Logger.Warn("⚠️ Не удалось сделать скриншот перед trigger", "err", screenshotErr)
-		}
+		// 📸 Анализ состояния перед trigger'ом
+		b.updateStateFromScreen(ctx, uc.Node, "out/bot_"+b.Gamer.Nickname+"_before_trigger.png")
 
 		b.Device.Executor.ExecuteUseCase(ctx, uc, b.Gamer, b.Queue)
 

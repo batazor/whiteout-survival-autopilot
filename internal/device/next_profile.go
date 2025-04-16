@@ -35,8 +35,21 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
 	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
 
-	// ждем email
-	emailZones, _ := vision.WaitForText(ctx, d.ADB, []string{profile.Email}, time.Second, image.Rectangle{})
+	// 📦 Кэшированный OCR по email
+	email := profile.Email
+	var emailZones *domain.OCRResult
+	if cached, ok := d.getCachedEmailOCR(ctx, email); ok {
+		d.Logger.Debug("📦 Email OCR из Redis", slog.String("email", email))
+		emailZones = cached
+	} else {
+		zones, err := vision.WaitForText(ctx, d.ADB, []string{email}, time.Second, image.Rectangle{})
+		if err != nil {
+			d.Logger.Error("❌ Не удалось найти email на экране", slog.Any("error", err))
+			panic(fmt.Sprintf("WaitForText(%s) failed: %v", email, err))
+		}
+		d.setCachedEmailOCR(ctx, email, zones)
+		emailZones = zones
+	}
 
 	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("text", emailZones.Text))
 	if err := d.ADB.ClickOCRResult(emailZones); err != nil {
@@ -52,7 +65,7 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
-	// сбросим FSM
+	// ♻️ сброс FSM после входа
 	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
 
 	// Проверка стартовых баннеров
@@ -62,14 +75,14 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		panic(fmt.Sprintf("handleEntryScreens() failed: %v", err))
 	}
 
-	// Проверяем, что мы находимся на экране профиля
+	// 🔍 Проверяем, что активный профиль — тот, что ожидали
 	active, pIdx, _, err := d.DetectAndSetCurrentGamer(ctx)
 	if err != nil || pIdx != profileIdx {
 		d.Logger.Warn("⚠️ После входа активный профиль не совпадает", slog.Any("detected_profile", pIdx), slog.Any("err", err))
 		return
 	}
 
-	// Если это НЕ тот, кого мы ожидали → переключаемся
+	// 🧾 Если игрок не тот — переключаемся вручную
 	if active.ID != expected.ID {
 		d.Logger.Warn("🛑 Автоматически выбран не тот игрок — делаем переключение",
 			slog.String("ожидался", expected.Nickname),
@@ -78,10 +91,9 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		d.NextGamer(profileIdx, expectedGamerIdx)
 	}
 
-	// Устанавливаем колбэк (настоящий)
+	// ✅ Устанавливаем колбэк
 	d.FSM.SetCallback(active)
 
-	// Успешно переключились на новый профиль
 	d.Logger.Info("✅ Успешно переключились на новый профиль", "nickname", active.Nickname)
 }
 
