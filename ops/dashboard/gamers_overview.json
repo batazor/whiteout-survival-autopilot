@@ -1,0 +1,76 @@
+{
+  "id": null,
+  "title": "Whiteout Survival - Characters Overview",
+  "timezone": "browser",
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "🔢 Usecases Executed (Total)",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by (usecase) (bot_usecase_total)",
+          "legendFormat": "{{usecase}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "⏱️ Avg Usecase Duration (seconds)",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "avg_over_time(bot_usecase_duration_seconds_sum[1h]) / avg_over_time(bot_usecase_duration_seconds_count[1h])",
+          "legendFormat": "Avg",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "📈 Gamer Power Over Time",
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "expr": "bot_gamer_power",
+          "legendFormat": "{{gamer}}",
+          "refId": "C"
+        }
+      ],
+      "yaxis": {
+        "format": "short"
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "🔥 Furnace Level Over Time",
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 14 },
+      "targets": [
+        {
+          "expr": "bot_gamer_furnace_level",
+          "legendFormat": "{{gamer}}",
+          "refId": "D"
+        }
+      ],
+      "yaxis": {
+        "format": "short"
+      }
+    },
+    {
+      "type": "table",
+      "title": "📋 Current Gamer Stats",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "targets": [
+        { "expr": "bot_gamer_power", "refId": "E" },
+        { "expr": "bot_gamer_furnace_level", "refId": "F" }
+      ],
+      "options": {
+        "showHeader": true
+      }
+    }
+  ]
+}
