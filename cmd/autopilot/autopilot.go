@@ -38,7 +38,7 @@ func main() {
 	repo := repository.NewFileStateRepository("./db/state.yaml")
 
 	// ─── Конфигурация устройств / профилей ───────────────────────────────────
-	devicesCfg, err := config.LoadDeviceConfig("./db/devices.yaml", "./db/state.yaml")
+	devicesCfg, err := config.LoadDeviceConfig("./db/devices.yaml", repo)
 	if err != nil {
 		log.Fatalf("❌ Ошибка загрузки конфигурации: %v", err)
 	}
