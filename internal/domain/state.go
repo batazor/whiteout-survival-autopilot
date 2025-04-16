@@ -2,7 +2,7 @@ package domain
 
 // State содержит список аккаунтов, с которыми работает бот.
 type State struct {
-	Gamers []Gamer `yaml:"gamers"` // Игровые персонажи
+	Gamers Gamers `yaml:"gamers"` // Игровые персонажи
 }
 
 // Exploration описывает уровень исследования мира.

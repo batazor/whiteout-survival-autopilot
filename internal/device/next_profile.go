@@ -13,6 +13,9 @@ import (
 )
 
 func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
+	// 🕒 Ждём, чтобы не было конфликта с другими процессами
+	time.Sleep(500 * time.Millisecond)
+
 	ctx := context.Background()
 
 	d.activeProfileIdx = profileIdx
@@ -29,7 +32,7 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	d.FSM.SetCallback(expected)
 
 	// 🔧 Пересоздаём FSM для нового аккаунта до любых ForceTo/WaitForText
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup)
 
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
@@ -60,13 +63,13 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	time.Sleep(5 * time.Second)
 
 	d.Logger.Info("🟢 Клик по кнопке продолжения Google", slog.String("region", "to_google_continue"))
-	if err := d.ADB.ClickRegion("to_google_continue", d.areaLookup); err != nil {
+	if err := d.ADB.ClickRegion("to_google_continue", d.AreaLookup); err != nil {
 		d.Logger.Error("❌ Не удалось кликнуть по to_google_continue", slog.Any("err", err))
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
 	// ♻️ сброс FSM после входа
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.areaLookup)
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup)
 
 	// Проверка стартовых баннеров
 	err := d.handleEntryScreens(ctx)

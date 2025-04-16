@@ -1,0 +1,26 @@
+logging {
+  level  = "info"
+  format = "json"
+}
+
+// 🟢 Источник метрик: whiteout-bot на host.docker.internal:2112
+prometheus.scrape "whiteout_bot" {
+    targets = [
+      {
+        __address__ = "host.docker.internal:2112",
+      },
+    ]
+
+    forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+// ☁️ Отправка в Grafana Cloud (Prometheus)
+prometheus.remote_write "grafana_cloud" {
+  endpoint {
+    url = "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+    basic_auth {
+      username = "2385173"
+      password = "glc_eyJvIjoiMjMwNDc2IiwibiI6InN0YWNrLTEyMzA0NjctaG0td3JpdGUtd2hpdGVvdXRzdXJ2aXZhbGF1dG9waWxvdCIsImsiOiIzWDQ0cU1iODlnTjJybHhHZTJ0NWExNHciLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ=="
+    }
+  }
+}

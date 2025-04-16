@@ -14,6 +14,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
+	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 	"github.com/batazor/whiteout-survival-autopilot/internal/syncer"
@@ -34,6 +35,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
 	}
+
+	// ── Метрики ───────────────────────────────────────────────────────────────
+	metrics.StartExporter()
 
 	// ─── Хранилище состояния ─────────────────────────────────────────────────
 	repo := repository.NewFileStateRepository("./db/state.yaml")

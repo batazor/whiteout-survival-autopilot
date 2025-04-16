@@ -6,10 +6,8 @@ import (
 	"github.com/redis/go-redis/v9"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
-	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
@@ -19,9 +17,8 @@ type Device struct {
 	Logger     *slog.Logger
 	ADB        adb.DeviceController
 	FSM        *fsm.GameFSM
-	areaLookup *config.AreaLookup
+	AreaLookup *config.AreaLookup
 	rdb        *redis.Client
-	Executor   executor.UseCaseExecutor
 
 	activeProfileIdx int
 	activeGamerIdx   int
@@ -41,23 +38,14 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		return nil, err
 	}
 
-	exec := executor.NewUseCaseExecutor(
-		log,
-		config.NewTriggerEvaluator(),
-		analyzer.NewAnalyzer(areaLookup, log),
-		controller,
-		areaLookup,
-	)
-
 	device := &Device{
 		Name:       name,
 		Profiles:   profiles,
 		Logger:     log,
 		ADB:        controller,
 		FSM:        fsm.NewGame(log, controller, areaLookup),
-		areaLookup: areaLookup,
+		AreaLookup: areaLookup,
 		rdb:        rdb,
-		Executor:   exec,
 	}
 
 	return device, nil

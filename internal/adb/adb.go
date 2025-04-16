@@ -14,6 +14,7 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 )
 
 // DeviceController defines the interface for interacting with an Android device via ADB.
@@ -96,12 +97,16 @@ func (a *Controller) Screenshot(path string) (image.Image, error) {
 	out, err := cmd.Output()
 	if err != nil {
 		a.logger.Error("Failed to execute screencap", slog.Any("error", err))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "screenshot").Inc()
+
 		return nil, fmt.Errorf("failed to capture screenshot: %w", err)
 	}
 
 	if path != "" {
 		if err := os.WriteFile(path, out, 0644); err != nil {
 			a.logger.Error("Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
+			metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "screenshot").Inc()
+
 			return nil, fmt.Errorf("failed to write screenshot: %w", err)
 		}
 		a.logger.Info("Screenshot saved successfully", slog.String("path", path))
@@ -137,7 +142,15 @@ func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
 		strconv.Itoa(randX), strconv.Itoa(randY),
 	)
-	return cmd.Run()
+	err = cmd.Run()
+	if err != nil {
+		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()
+
+		return fmt.Errorf("failed to perform tap: %w", err)
+	}
+
+	return nil
 }
 
 // ClickOCRResult performs a tap action in the center of the OCR result bounding box with slight random offset,
@@ -157,7 +170,15 @@ func (a *Controller) ClickOCRResult(result *domain.OCRResult) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
 		strconv.Itoa(randX), strconv.Itoa(randY),
 	)
-	return cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()
+
+		return fmt.Errorf("failed to perform tap: %w", err)
+	}
+
+	return nil
 }
 
 // randInt returns a random int in [min, max]
@@ -195,7 +216,15 @@ func (a *Controller) Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Durat
 		strconv.Itoa(int(durationMs.Milliseconds())),
 	)
 
-	return cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		a.logger.Error("Failed to execute swipe command", slog.Any("error", err))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "swipe").Inc()
+
+		return fmt.Errorf("failed to perform swipe: %w", err)
+	}
+
+	return nil
 }
 
 // LongTapRegion performs a long press in the center of the named region with jitter using the Swipe method.
@@ -301,6 +330,8 @@ func (a *Controller) SetBrightness(percent int) error {
 	err := cmd.Run()
 	if err != nil {
 		a.logger.Error("Failed to set brightness", slog.Any("error", err), slog.Int("value", value))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "brightness").Inc()
+
 		return fmt.Errorf("failed to set brightness: %w", err)
 	}
 

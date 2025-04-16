@@ -11,6 +11,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/utils"
 )
@@ -30,6 +31,7 @@ func NewUseCaseExecutor(
 	analyzer Analyzer,
 	adb adb.DeviceController,
 	area *config.AreaLookup,
+	botName string,
 ) UseCaseExecutor {
 	return &executorImpl{
 		logger:           logger,
@@ -37,6 +39,7 @@ func NewUseCaseExecutor(
 		analyzer:         analyzer,
 		adb:              adb,
 		area:             area,
+		botName:          botName,
 	}
 }
 
@@ -46,6 +49,7 @@ type executorImpl struct {
 	analyzer         Analyzer
 	adb              adb.DeviceController
 	area             *config.AreaLookup
+	botName          string
 }
 
 func (e *executorImpl) Analyzer() Analyzer {
@@ -53,6 +57,8 @@ func (e *executorImpl) Analyzer() Analyzer {
 }
 
 func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer, queue *redis_queue.Queue) {
+	start := time.Now()
+
 	if uc.Trigger != "" {
 		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, gamer)
 		if err != nil {
@@ -83,6 +89,19 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 	if uc.TTL > 0 {
 		if err := queue.SetLastExecuted(ctx, gamer.ID, uc.Name, uc.TTL); err != nil {
 			e.logger.Error("Failed to set last executed TTL", slog.Any("error", err))
+		}
+	}
+
+	metrics.UsecaseTotal.WithLabelValues(uc.Name).Inc()
+	metrics.UsecaseDuration.WithLabelValues(uc.Name).Observe(time.Since(start).Seconds())
+
+	if gamer != nil {
+		// 🧍 Сила игрока
+		metrics.GamerPowerGauge.WithLabelValues(gamer.Nickname).Set(float64(gamer.Power))
+
+		// 🔥 Уровень печки (если доступен)
+		if gamer.Buildings.Furnace.Level > 0 {
+			metrics.GamerFurnaceLevel.WithLabelValues(gamer.Nickname).Set(float64(gamer.Buildings.Furnace.Level))
 		}
 	}
 }

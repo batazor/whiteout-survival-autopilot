@@ -33,7 +33,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	}
 
 	// 2. Определяем активного игрока через OCR
-	zones, ok := d.areaLookup.Get("chief_profile_nickname")
+	zones, ok := d.AreaLookup.Get("chief_profile_nickname")
 	if !ok {
 		return -1, -1, errors.New("❌ зона 'chief_profile_nickname' не найдена в area.json")
 	}

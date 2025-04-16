@@ -57,7 +57,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 					strings.Contains(text, "general speedup"),
 					strings.Contains(text, "construction speedup"):
 					d.Logger.Info(fmt.Sprintf("🌀 Найден pop-up ('%s') — закрываем", text))
-					err := d.ADB.ClickRegion("ad_banner_close", d.areaLookup)
+					err := d.ADB.ClickRegion("ad_banner_close", d.AreaLookup)
 					if err != nil {
 						d.Logger.Error("❌ Не удалось закрыть pop-up", slog.Any("err", err))
 						return err
@@ -70,7 +70,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 			// проверяем наличие кнопки confirm, если есть — кликаем
 			// проверяем по наличию зеленого в зоне welcome_back_continue_button, потому что OCR плохо работает
 			// на этом экране
-			isConfirm, err := imagefinder.CheckRegionColor(ctx, d.ADB, d.areaLookup, "welcome_back_continue_button", "green", 0.3, d.Logger)
+			isConfirm, err := imagefinder.CheckRegionColor(ctx, d.ADB, d.AreaLookup, "welcome_back_continue_button", "green", 0.3, d.Logger)
 			if err != nil {
 				d.Logger.Error("❌ Ошибка проверки цвета", slog.Any("err", err))
 				return err
@@ -78,7 +78,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 
 			if isConfirm {
 				d.Logger.Info("🟢 Клик по кнопке продолжения welcome_back_continue_button")
-				if err := d.ADB.ClickRegion("welcome_back_continue_button", d.areaLookup); err != nil {
+				if err := d.ADB.ClickRegion("welcome_back_continue_button", d.AreaLookup); err != nil {
 					d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
 					return err
 				}

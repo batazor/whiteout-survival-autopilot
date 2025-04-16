@@ -12,7 +12,8 @@
 *.test
 
 # other
-mydata
+mydata/*
+data/
 data/redis
 
 # Output of the go coverage tool, specifically when used with LiteIDE

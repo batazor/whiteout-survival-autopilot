@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"sort"
 
 	"gopkg.in/yaml.v3"
 
@@ -37,6 +38,8 @@ func (r *fileRepo) LoadState(ctx context.Context) (*domain.State, error) {
 }
 
 func (r *fileRepo) SaveState(ctx context.Context, s *domain.State) error {
+	sort.Sort(s.Gamers)
+
 	bytes, err := yaml.Marshal(s)
 	if err != nil {
 		return fmt.Errorf("marshal error: %w", err)
