@@ -14,13 +14,13 @@ import (
 
 func (d *Device) findEmailOCR(ctx context.Context, email string) *domain.OCRResult {
 	if cached, ok := d.getCachedEmailOCR(ctx, email); ok {
-		d.Logger.Debug("📦 Email OCR из Redis", slog.String("email", email))
+		d.Logger.Debug(ctx, "📦 Email OCR из Redis", slog.String("email", email))
 		return cached
 	}
 
 	zones, err := vision.WaitForText(ctx, d.ADB, []string{email}, time.Second, image.Rectangle{})
 	if err != nil {
-		d.Logger.Error("❌ Не удалось найти email на экране", slog.String("email", email), slog.Any("error", err))
+		d.Logger.Error(ctx, "❌ Не удалось найти email на экране", slog.String("email", email), slog.Any("error", err))
 		panic(fmt.Sprintf("WaitForText(%s) failed: %v", email, err))
 	}
 
@@ -47,7 +47,7 @@ func (d *Device) setCachedEmailOCR(ctx context.Context, email string, ocr *domai
 	key := fmt.Sprintf("bot:ocr:%s:email:%s", d.Name, email)
 	data, err := json.Marshal(ocr)
 	if err != nil {
-		d.Logger.Warn("❌ Не удалось сериализовать OCRResult", slog.Any("error", err))
+		d.Logger.Warn(ctx, "❌ Не удалось сериализовать OCRResult", slog.Any("error", err))
 		return
 	}
 

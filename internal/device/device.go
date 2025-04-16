@@ -1,6 +1,7 @@
 package device
 
 import (
+	"context"
 	"log/slog"
 
 	"github.com/redis/go-redis/v9"
@@ -9,12 +10,13 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
 type Device struct {
 	Name       string
 	Profiles   domain.Profiles
-	Logger     *slog.Logger
+	Logger     *logger.TracedLogger
 	ADB        adb.DeviceController
 	FSM        *fsm.GameFSM
 	AreaLookup *config.AreaLookup
@@ -24,17 +26,19 @@ type Device struct {
 	activeGamerIdx   int
 }
 
-func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string, rdb *redis.Client) (*Device, error) {
-	log.Info("🔧 Инициализация ADB-контроллера")
+func New(name string, profiles domain.Profiles, log *logger.TracedLogger, areaPath string, rdb *redis.Client) (*Device, error) {
+	ctx := context.Background()
+
+	log.Info(ctx, "🔧 Инициализация ADB-контроллера")
 	controller, err := adb.NewController(log, name)
 	if err != nil {
-		log.Error("❌ Не удалось создать ADB-контроллер", slog.Any("error", err))
+		log.Error(ctx, "❌ Не удалось создать ADB-контроллер", slog.Any("error", err))
 		return nil, err
 	}
 
 	areaLookup, err := config.LoadAreaReferences(areaPath)
 	if err != nil {
-		log.Error("❌ Ошибка загрузки area.json:", "error", err)
+		log.Error(ctx, "❌ Ошибка загрузки area.json:", slog.Any("error", err))
 		return nil, err
 	}
 
@@ -43,7 +47,7 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		Profiles:   profiles,
 		Logger:     log,
 		ADB:        controller,
-		FSM:        fsm.NewGame(log, controller, areaLookup),
+		FSM:        fsm.NewGame(ctx, log, controller, areaLookup),
 		AreaLookup: areaLookup,
 		rdb:        rdb,
 	}

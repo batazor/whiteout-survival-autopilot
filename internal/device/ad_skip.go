@@ -13,7 +13,7 @@ import (
 )
 
 func (d *Device) handleEntryScreens(ctx context.Context) error {
-	d.Logger.Info("🔎 Проверка экранов входа (welcome / реклама)")
+	d.Logger.Info(ctx, "🔎 Проверка экранов входа (welcome / реклама)")
 
 	allKeywords := []string{
 		"Welcome",
@@ -41,13 +41,13 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 			result, _ := vision.WaitForText(ctx, d.ADB, allKeywords, time.Second, image.Rectangle{})
 			if result != nil {
 				text := strings.ToLower(strings.TrimSpace(result.Text))
-				d.Logger.Info("🧠 Обнаружен текст: " + text)
+				d.Logger.Info(ctx, "🧠 Обнаружен текст: "+text)
 
 				switch {
 				case strings.Contains(text, "exploration"), strings.Contains(text, "alliance"):
 					// 📌 Обнаружен главный экран — запоминаем время
 					if mainScreenDetectedAt.IsZero() {
-						d.Logger.Info("🔔 Найден главный экран — контрольная пауза")
+						d.Logger.Info(ctx, "🔔 Найден главный экран — контрольная пауза")
 						mainScreenDetectedAt = time.Now()
 					}
 
@@ -56,10 +56,10 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 					strings.Contains(text, "hero gear"),
 					strings.Contains(text, "general speedup"),
 					strings.Contains(text, "construction speedup"):
-					d.Logger.Info(fmt.Sprintf("🌀 Найден pop-up ('%s') — закрываем", text))
+					d.Logger.Info(ctx, fmt.Sprintf("🌀 Найден pop-up ('%s') — закрываем", text))
 					err := d.ADB.ClickRegion("ad_banner_close", d.AreaLookup)
 					if err != nil {
-						d.Logger.Error("❌ Не удалось закрыть pop-up", slog.Any("err", err))
+						d.Logger.Error(ctx, "❌ Не удалось закрыть pop-up", slog.Any("err", err))
 						return err
 					}
 					time.Sleep(300 * time.Millisecond)
@@ -72,14 +72,14 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 			// на этом экране
 			isConfirm, err := imagefinder.CheckRegionColor(ctx, d.ADB, d.AreaLookup, "welcome_back_continue_button", "green", 0.3, d.Logger)
 			if err != nil {
-				d.Logger.Error("❌ Ошибка проверки цвета", slog.Any("err", err))
+				d.Logger.Error(ctx, "❌ Ошибка проверки цвета", slog.Any("err", err))
 				return err
 			}
 
 			if isConfirm {
-				d.Logger.Info("🟢 Клик по кнопке продолжения welcome_back_continue_button")
+				d.Logger.Info(ctx, "🟢 Клик по кнопке продолжения welcome_back_continue_button")
 				if err := d.ADB.ClickRegion("welcome_back_continue_button", d.AreaLookup); err != nil {
-					d.Logger.Error("❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
+					d.Logger.Error(ctx, "❌ Не удалось кликнуть по welcome_back_continue_button", slog.Any("err", err))
 					return err
 				}
 
@@ -88,7 +88,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 
 			// ✅ Если главный экран был замечен и прошло >2.5 секунды — считаем, что всё чисто
 			if !mainScreenDetectedAt.IsZero() && time.Since(mainScreenDetectedAt) > 2500*time.Millisecond {
-				d.Logger.Info("✅ Подтверждён основной экран — выходим из handleEntryScreens")
+				d.Logger.Info(ctx, "✅ Подтверждён основной экран — выходим из handleEntryScreens")
 				return nil
 			}
 
@@ -96,7 +96,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 		}
 	}
 
-	d.Logger.Warn("⏱ Ничего не найдено — выполняем проактивный свайп")
+	d.Logger.Warn(ctx, "⏱ Ничего не найдено — выполняем проактивный свайп")
 	return nil
 }
 

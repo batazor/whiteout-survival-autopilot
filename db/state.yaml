@@ -60,7 +60,7 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 206
+        level: 218
         state:
             isClaimActive: true
             myPower: 0
@@ -219,8 +219,8 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4219992
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -267,7 +267,7 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
+      power: 5568866
       vip_level: 3
       resources:
         wood: 0
@@ -295,13 +295,13 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 18

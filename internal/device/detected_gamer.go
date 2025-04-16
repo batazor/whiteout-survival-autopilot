@@ -15,20 +15,20 @@ import (
 )
 
 func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int, error) {
-	d.Logger.Info("🚀 Определение текущего игрока")
+	d.Logger.Info(ctx, "🚀 Определение текущего игрока")
 
 	// 0. Переходим на экран профиля
-	d.FSM.ForceTo(fsm.StateChiefProfile)
+	d.FSM.ForceTo(ctx, fsm.StateChiefProfile)
 
 	defer func() {
 		// 4. Возвращаемся на главный экран
-		d.FSM.ForceTo(fsm.StateMainCity)
+		d.FSM.ForceTo(ctx, fsm.StateMainCity)
 	}()
 
 	// 1. Делаем скриншот экрана профиля
 	_, err := d.ADB.Screenshot(imagePath)
 	if err != nil {
-		d.Logger.Error("❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
+		d.Logger.Error(ctx, "❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
 		return -1, -1, err
 	}
 
@@ -50,7 +50,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 		nicknameParsed = strings.Split(nicknameParsed, "]")[1]
 	}
 
-	d.Logger.Info("🟢 Распознан никнейм", slog.String("raw", nicknameRaw), slog.String("parsed", nicknameParsed))
+	d.Logger.Info(ctx, "🟢 Распознан никнейм", slog.String("raw", nicknameRaw), slog.String("parsed", nicknameParsed))
 
 	type matchInfo struct {
 		profileIdx int
@@ -70,7 +70,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	}
 
 	if len(matches) == 0 {
-		d.Logger.Warn("⚠️ Никнейм не найден по нечёткому совпадению", slog.String("parsed", nicknameParsed))
+		d.Logger.Warn(ctx, "⚠️ Никнейм не найден по нечёткому совпадению", slog.String("parsed", nicknameParsed))
 		return -1, -1, nil
 	}
 
@@ -80,7 +80,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	})
 	best := matches[0]
 
-	d.Logger.Info("✅ Найден игрок",
+	d.Logger.Info(ctx, "✅ Найден игрок",
 		slog.Int("profileIdx", best.profileIdx),
 		slog.Int("gamerIdx", best.gamerIdx),
 		slog.Int("score", best.score),
@@ -95,13 +95,13 @@ func (d *Device) DetectAndSetCurrentGamer(ctx context.Context) (*domain.Gamer, i
 	// 📸 Делаем скриншот и определяем активного игрока
 	_, err := d.ADB.Screenshot(tmpPath)
 	if err != nil {
-		d.Logger.Error("❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
+		d.Logger.Error(ctx, "❌ Не удалось сделать скриншот для определения игрока", slog.Any("err", err))
 		return nil, -1, -1, err
 	}
 
 	pIdx, gIdx, err := d.DetectedGamer(ctx, tmpPath)
 	if err != nil || pIdx < 0 || gIdx < 0 {
-		d.Logger.Warn("⚠️ Не удалось определить активного игрока", slog.Any("err", err))
+		d.Logger.Warn(ctx, "⚠️ Не удалось определить активного игрока", slog.Any("err", err))
 		return nil, -1, -1, err
 	}
 
@@ -110,7 +110,7 @@ func (d *Device) DetectAndSetCurrentGamer(ctx context.Context) (*domain.Gamer, i
 	d.activeGamerIdx = gIdx
 
 	active := &d.Profiles[pIdx].Gamer[gIdx]
-	d.Logger.Info("🔎 Активный игрок определён", slog.String("nickname", active.Nickname))
+	d.Logger.Info(ctx, "🔎 Активный игрок определён", slog.String("nickname", active.Nickname))
 
 	d.FSM.SetCallback(active)
 

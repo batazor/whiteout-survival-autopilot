@@ -13,6 +13,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 )
@@ -22,13 +23,13 @@ type Bot struct {
 	Email    string
 	Device   *device.Device
 	Queue    *redis_queue.Queue
-	logger   *slog.Logger
+	logger   *logger.TracedLogger
 	Rules    config.ScreenAnalyzeRules
 	Repo     repository.StateRepository
 	executor executor.UseCaseExecutor
 }
 
-func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger, repo repository.StateRepository) *Bot {
+func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *logger.TracedLogger, repo repository.StateRepository) *Bot {
 	exec := executor.NewUseCaseExecutor(
 		log,
 		config.NewTriggerEvaluator(),
@@ -54,7 +55,7 @@ func (b *Bot) Play(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			b.logger.Warn("🛑 Контекст отменён — завершаю работу бота")
+			b.logger.Warn(ctx, "🛑 Контекст отменён — завершаю работу бота")
 			return
 		default:
 		}
@@ -65,31 +66,31 @@ func (b *Bot) Play(ctx context.Context) {
 		// получаем use‑case из очереди
 		uc, err := b.Queue.Pop(ctx)
 		if err != nil {
-			b.logger.Warn("⚠️ Не удалось получить use‑case", "err", err)
+			b.logger.Warn(ctx, "⚠️ Не удалось получить use‑case", slog.Any("error", err))
 			continue
 		}
 
 		// очередь пуста → выходим, чтобы переключиться на другого игрока
 		if uc == nil {
-			b.logger.Info("📭 Очередь пуста — завершаю работу бота")
+			b.logger.Info(ctx, "📭 Очередь пуста — завершаю работу бота")
 			break
 		}
 
 		// 🕒 Проверка TTL (пропускаем usecase, если не истёк)
 		shouldSkip, err := b.Queue.ShouldSkip(ctx, b.Gamer.ID, uc.Name)
 		if err != nil {
-			b.logger.Error("❌ Не удалось проверить TTL usecase", slog.Any("err", err))
+			b.logger.Error(ctx, "❌ Не удалось проверить TTL usecase", slog.Any("err", err))
 			continue
 		}
 		if shouldSkip {
-			b.logger.Info("⏭️ UseCase пропущен по TTL", slog.String("name", uc.Name))
+			b.logger.Info(ctx, "⏭️ UseCase пропущен по TTL", slog.String("name", uc.Name))
 			continue
 		}
 
-		b.logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
+		b.logger.Info(ctx, "🚀 Выполняю use‑case", slog.String("name", uc.Name), slog.Int("priority", uc.Priority))
 
 		// переходим на стартовый экран юзкейса
-		b.Device.FSM.ForceTo(uc.Node)
+		b.Device.FSM.ForceTo(ctx, uc.Node)
 
 		// 📸 Анализ состояния перед trigger'ом
 		b.updateStateFromScreen(ctx, uc.Node, "out/bot_"+b.Gamer.Nickname+"_before_trigger.png")
@@ -104,10 +105,10 @@ func (b *Bot) Play(ctx context.Context) {
 	time.Sleep(2 * time.Second)
 
 	// 🔁 Возвращаемся в главный экран
-	b.Device.FSM.ForceTo(fsm.StateMainCity)
+	b.Device.FSM.ForceTo(ctx, fsm.StateMainCity)
 
 	// Время для отрисовки экрана
 	time.Sleep(1 * time.Second)
 
-	b.logger.Info("⏭️ Очередь завершена. Готов к переключению.")
+	b.logger.Info(ctx, "⏭️ Очередь завершена. Готов к переключению.")
 }

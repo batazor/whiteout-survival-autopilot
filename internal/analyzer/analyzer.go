@@ -1,6 +1,7 @@
 package analyzer
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"log/slog"
@@ -14,15 +15,16 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/imagefinder"
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 type Analyzer struct {
 	areas  *config.AreaLookup
-	logger *slog.Logger
+	logger *logger.TracedLogger
 }
 
-func NewAnalyzer(areas *config.AreaLookup, logger *slog.Logger) *Analyzer {
+func NewAnalyzer(areas *config.AreaLookup, logger *logger.TracedLogger) *Analyzer {
 	return &Analyzer{
 		areas:  areas,
 		logger: logger,
@@ -30,8 +32,10 @@ func NewAnalyzer(areas *config.AreaLookup, logger *slog.Logger) *Analyzer {
 }
 
 func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Gamer, rules []domain.AnalyzeRule) (*domain.Gamer, error) {
+	ctx := context.Background()
+
 	for _, rule := range rules {
-		a.logger.Info("🧪 DSL rule",
+		a.logger.Info(ctx, "🧪 DSL rule",
 			slog.String("name", rule.Name),
 			slog.String("action", rule.Action),
 			slog.String("expectedColor", rule.ExpectedColor),
@@ -49,7 +53,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 		rule := rule // capture range variable
 
 		// 🔍 Логируем содержимое правила
-		a.logger.Info("🔎 AnalyzeRule loaded",
+		a.logger.Info(ctx, "🔎 AnalyzeRule loaded",
 			slog.String("name", rule.Name),
 			slog.String("action", rule.Action),
 			slog.String("type", rule.Type),
@@ -67,7 +71,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 			bbox, err := a.areas.GetRegionByName(rule.Name)
 			if err != nil {
 				if rule.SaveAsRegion {
-					a.logger.Warn("region not found for rule (will try to detect and save)", slog.String("region", rule.Name))
+					a.logger.Warn(ctx, "region not found for rule (will try to detect and save)", slog.String("region", rule.Name))
 					region = image.Rect(0, 0, 1080, 2400) // fallback: весь экран
 				} else {
 					panic(fmt.Sprintf("❌ Region not found for rule: %s", rule.Name))
@@ -88,22 +92,22 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 				iconPath := filepath.Join("references", "icons", filepath.Base(rule.Name)+".png")
 				found, _, err := imagefinder.MatchIconInRegion(imagePath, iconPath, region, float32(threshold), a.logger)
 				if err != nil {
-					a.logger.Error("icon match failed", slog.String("region", rule.Name), slog.Any("error", err))
+					a.logger.Error(ctx, "icon match failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
 				value = found
 
 			case "findIcon":
 				iconPath := filepath.Join("references", "icons", filepath.Base(rule.Name)+".png")
-				a.logger.Info("🔎 Starting findIcon", slog.String("rule", rule.Name), slog.String("iconPath", iconPath), slog.Float64("threshold", float64(threshold)))
+				a.logger.Info(ctx, "🔎 Starting findIcon", slog.String("rule", rule.Name), slog.String("iconPath", iconPath), slog.Float64("threshold", float64(threshold)))
 
 				boxes, err := finder.FindIcons(imagePath, iconPath, float32(threshold), a.logger)
 				if err != nil {
-					a.logger.Error("❌ Icon search failed", slog.String("icon", rule.Name), slog.Any("error", err))
+					a.logger.Error(ctx, "❌ Icon search failed", slog.String("icon", rule.Name), slog.Any("error", err))
 					return
 				}
 
-				a.logger.Info("📦 Icon search result", slog.String("icon", rule.Name), slog.Int("matches", len(boxes)))
+				a.logger.Info(ctx, "📦 Icon search result", slog.String("icon", rule.Name), slog.Int("matches", len(boxes)))
 
 				value = len(boxes) > 0
 
@@ -113,7 +117,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 					newRegion := config.Region{Zone: image.Rect(x, y, x+w, y+h)}
 					a.areas.AddTemporaryRegion(rule.Name, newRegion)
 
-					a.logger.Info("💾 Saved new region from findIcon",
+					a.logger.Info(ctx, "💾 Saved new region from findIcon",
 						slog.String("name", rule.Name),
 						slog.Int("x", x),
 						slog.Int("y", y),
@@ -128,7 +132,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 				var ocrErr error
 
 				if rule.Text == "" {
-					a.logger.Warn("findText requires 'text' field", slog.String("rule", rule.Name))
+					a.logger.Warn(ctx, "findText requires 'text' field", slog.String("rule", rule.Name))
 					return
 				}
 
@@ -142,7 +146,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 					ocrRes, ocrErr = vision.ProcessImage(imagePath)
 				})
 				if ocrErr != nil {
-					a.logger.Error("OCR failed", slog.Any("error", ocrErr))
+					a.logger.Error(ctx, "OCR failed", slog.Any("error", ocrErr))
 					return
 				}
 
@@ -167,7 +171,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 					}
 					a.areas.AddTemporaryRegion(rule.Name, newRegion)
 
-					a.logger.Info("💾 Saved region from findText",
+					a.logger.Info(ctx, "💾 Saved region from findText",
 						slog.String("name", rule.Name),
 						slog.Int("x", bbox.X),
 						slog.Int("y", bbox.Y),
@@ -179,7 +183,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 			case "color_check":
 				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
 				if err != nil {
-					a.logger.Error("color check failed", slog.String("region", rule.Name), slog.Any("error", err))
+					a.logger.Error(ctx, "color check failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
 				value = found
@@ -192,21 +196,21 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 
 				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name, clane)
 				if err != nil {
-					a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
+					a.logger.Error(ctx, "OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
 				}
-				a.logger.Info("text result", slog.String("region", rule.Name), slog.String("text", text))
+				a.logger.Info(ctx, "text result", slog.String("region", rule.Name), slog.String("text", text))
 				switch rule.Type {
 				case "integer":
 					value = parseNumber(text)
 				case "string":
 					value = text
 				default:
-					a.logger.Warn("unsupported type", slog.String("type", rule.Type))
+					a.logger.Warn(ctx, "unsupported type", slog.String("type", rule.Type))
 					return
 				}
 			default:
-				a.logger.Warn("unsupported action", slog.String("action", rule.Action))
+				a.logger.Warn(ctx, "unsupported action", slog.String("action", rule.Action))
 				return
 			}
 

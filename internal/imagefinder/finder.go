@@ -1,6 +1,7 @@
 package imagefinder
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"image/color"
@@ -10,6 +11,8 @@ import (
 	"strings"
 
 	"gocv.io/x/gocv"
+
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
 // MatchIconInRegion performs template matching in a specified region of the screenshot.
@@ -20,9 +23,11 @@ func MatchIconInRegion(
 	iconPath string,
 	region image.Rectangle,
 	threshold float32,
-	logger *slog.Logger,
+	logger *logger.TracedLogger,
 ) (bool, float32, error) {
-	logger.Info("🔍 Starting icon match",
+	ctx := context.Background()
+
+	logger.Info(ctx, "🔍 Starting icon match",
 		slog.String("screenshot", screenshotPath),
 		slog.String("icon", iconPath),
 		slog.Any("region", region),
@@ -94,7 +99,7 @@ func MatchIconInRegion(
 	gocv.MatchTemplate(grayCrop, grayIcon, &result, gocv.TmCcoeffNormed, gocv.NewMat())
 	_, maxVal, _, maxLoc := gocv.MinMaxLoc(result)
 
-	logger.Info("📊 Icon match result", slog.Float64("confidence", float64(maxVal)))
+	logger.Info(ctx, "📊 Icon match result", slog.Float64("confidence", float64(maxVal)))
 	match := maxVal >= threshold
 
 	// Highlight match in original screenshot

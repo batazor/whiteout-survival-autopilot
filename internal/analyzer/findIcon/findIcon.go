@@ -1,6 +1,7 @@
 package finder
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"image/color"
@@ -11,9 +12,12 @@ import (
 	"gocv.io/x/gocv"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 )
 
-func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.Logger) ([]domain.BBox, error) {
+func FindIcons(screenshotPath, iconPath string, threshold float32, logger *logger.TracedLogger) ([]domain.BBox, error) {
+	ctx := context.Background()
+
 	screenshot := gocv.IMRead(screenshotPath, gocv.IMReadGrayScale)
 	if screenshot.Empty() {
 		return nil, fmt.Errorf("failed to load screenshot: %s", screenshotPath)
@@ -53,7 +57,7 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 	for {
 		_, maxVal, _, maxLoc := gocv.MinMaxLoc(result)
 
-		logger.Debug("🎯 MatchTemplate result",
+		logger.Debug(ctx, "🎯 MatchTemplate result",
 			slog.Float64("confidence", float64(maxVal)),
 			slog.Int("x", maxLoc.X),
 			slog.Int("y", maxLoc.Y),
@@ -86,13 +90,13 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 	if len(boxes) > 0 {
 		debugPath := generateDebugPath(screenshotPath)
 		if err := gocv.IMWrite(debugPath, colorScreenshot); err == false {
-			logger.Info("🖼️ Debug image saved", slog.String("path", debugPath))
+			logger.Info(ctx, "🖼️ Debug image saved", slog.String("path", debugPath))
 		} else {
-			logger.Warn("failed to save debug image", slog.String("path", debugPath), slog.Any("error", err))
+			logger.Warn(ctx, "failed to save debug image", slog.String("path", debugPath), slog.Any("error", err))
 		}
 	}
 
-	logger.Info("📦 Total matches found", slog.Int("count", len(boxes)))
+	logger.Info(ctx, "📦 Total matches found", slog.Int("count", len(boxes)))
 	return boxes, nil
 }
 

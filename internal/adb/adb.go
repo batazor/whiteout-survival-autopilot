@@ -2,6 +2,7 @@ package adb
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"image"
 	"log/slog"
@@ -14,6 +15,7 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 )
 
@@ -32,11 +34,13 @@ type DeviceController interface {
 // The Controller implements the DeviceController interface using the adb CLI tool.
 type Controller struct {
 	deviceID string
-	logger   *slog.Logger
+	logger   *logger.TracedLogger
 }
 
 // NewController creates a new instance of the Controller.
-func NewController(logger *slog.Logger, name string) (*Controller, error) {
+func NewController(logger *logger.TracedLogger, name string) (*Controller, error) {
+	ctx := context.Background()
+
 	c := &Controller{
 		logger:   logger,
 		deviceID: name,
@@ -49,7 +53,7 @@ func NewController(logger *slog.Logger, name string) (*Controller, error) {
 
 	// Set brightness to 70% on startup
 	if err := c.SetBrightness(70); err != nil {
-		logger.Warn("Failed to set initial brightness", slog.Any("error", err))
+		logger.Warn(ctx, "Failed to set initial brightness", slog.Any("error", err))
 	}
 
 	return c, nil
@@ -88,7 +92,9 @@ func (a *Controller) GetActiveDevice() string {
 
 // Screenshot captures a screenshot from the active device and writes it to the given file path.
 func (a *Controller) Screenshot(path string) (image.Image, error) {
-	a.logger.Info("Capturing screenshot from device",
+	ctx := context.Background()
+
+	a.logger.Info(ctx, "Capturing screenshot from device",
 		slog.String("device", a.deviceID),
 		slog.String("output", path),
 	)
@@ -96,7 +102,7 @@ func (a *Controller) Screenshot(path string) (image.Image, error) {
 	cmd := exec.Command("adb", "-s", a.deviceID, "exec-out", "screencap", "-p")
 	out, err := cmd.Output()
 	if err != nil {
-		a.logger.Error("Failed to execute screencap", slog.Any("error", err))
+		a.logger.Error(ctx, "Failed to execute screencap", slog.Any("error", err))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "screenshot").Inc()
 
 		return nil, fmt.Errorf("failed to capture screenshot: %w", err)
@@ -104,12 +110,12 @@ func (a *Controller) Screenshot(path string) (image.Image, error) {
 
 	if path != "" {
 		if err := os.WriteFile(path, out, 0644); err != nil {
-			a.logger.Error("Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
+			a.logger.Error(ctx, "Failed to write screenshot to file", slog.String("path", path), slog.Any("error", err))
 			metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "screenshot").Inc()
 
 			return nil, fmt.Errorf("failed to write screenshot: %w", err)
 		}
-		a.logger.Info("Screenshot saved successfully", slog.String("path", path))
+		a.logger.Info(ctx, "Screenshot saved successfully", slog.String("path", path))
 	}
 
 	img, _, err := image.Decode(bytes.NewReader(out))
@@ -123,6 +129,8 @@ func (a *Controller) Screenshot(path string) (image.Image, error) {
 // ClickRegion performs a tap action in the center of the named region with slight random offset,
 // clamping the result to stay inside the bounding box.
 func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
+	ctx := context.Background()
+
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
 		return fmt.Errorf("region '%s' not found: %w", name, err)
@@ -144,7 +152,7 @@ func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 	)
 	err = cmd.Run()
 	if err != nil {
-		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
+		a.logger.Error(ctx, "Failed to execute tap command", slog.Any("error", err))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()
 
 		return fmt.Errorf("failed to perform tap: %w", err)
@@ -156,6 +164,8 @@ func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 // ClickOCRResult performs a tap action in the center of the OCR result bounding box with slight random offset,
 // clamping the result to stay inside the bounding box.
 func (a *Controller) ClickOCRResult(result *domain.OCRResult) error {
+	ctx := context.Background()
+
 	x, y, w, h := result.X, result.Y, result.Width, result.Height
 
 	centerX := x + w/2
@@ -172,7 +182,7 @@ func (a *Controller) ClickOCRResult(result *domain.OCRResult) error {
 	)
 	err := cmd.Run()
 	if err != nil {
-		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
+		a.logger.Error(ctx, "Failed to execute tap command", slog.Any("error", err))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()
 
 		return fmt.Errorf("failed to perform tap: %w", err)
@@ -192,6 +202,8 @@ func randInt(min, max int) int {
 // Swipe performs a swipe gesture from (x1, y1) to (x2, y2) in the given duration (ms),
 // adding slight randomness to simulate natural finger movement.
 func (a *Controller) Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error {
+	ctx := context.Background()
+
 	// Добавим "дрожание" ±2 пикселя
 	jitter := func(v int) int {
 		return v + randInt(-2, 2)
@@ -208,17 +220,17 @@ func (a *Controller) Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Durat
 		strconv.Itoa(int(durationMs.Milliseconds())),
 	)
 
-	a.logger.Info("Swipe with jitter",
+	a.logger.Info(ctx, "Swipe with jitter",
 		slog.Int("startX", startX),
 		slog.Int("startY", startY),
 		slog.Int("endX", endX),
 		slog.Int("endY", endY),
-		strconv.Itoa(int(durationMs.Milliseconds())),
+		slog.Int64("duration", durationMs.Milliseconds()),
 	)
 
 	err := cmd.Run()
 	if err != nil {
-		a.logger.Error("Failed to execute swipe command", slog.Any("error", err))
+		a.logger.Error(ctx, "Failed to execute swipe command", slog.Any("error", err))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "swipe").Inc()
 
 		return fmt.Errorf("failed to perform swipe: %w", err)
@@ -229,6 +241,8 @@ func (a *Controller) Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Durat
 
 // LongTapRegion performs a long press in the center of the named region with jitter using the Swipe method.
 func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, durationMs time.Duration) error {
+	ctx := context.Background()
+
 	bbox, err := area.GetRegionByName(name)
 	if err != nil {
 		return fmt.Errorf("region '%s' not found: %w", name, err)
@@ -238,7 +252,7 @@ func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, duratio
 	centerX := x + w/2
 	centerY := y + h/2
 
-	a.logger.Info("Performing longtap via Swipe()",
+	a.logger.Info(ctx, "Performing longtap via Swipe()",
 		slog.String("region", name),
 		slog.Int("x", centerX),
 		slog.Int("y", centerY),
@@ -252,10 +266,12 @@ func (a *Controller) LongTapRegion(name string, area *config.AreaLookup, duratio
 // GetScreenResolution вызывает команду ADB shell "wm size",
 // парсит результат и возвращает реальное разрешение экрана (width, height).
 func (a *Controller) GetScreenResolution() (int, int, error) {
+	ctx := context.Background()
+
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "wm", "size")
 	out, err := cmd.Output()
 	if err != nil {
-		a.logger.Error("Failed to get screen resolution", slog.Any("error", err))
+		a.logger.Error(ctx, "Failed to get screen resolution", slog.Any("error", err))
 		return 0, 0, fmt.Errorf("failed to get screen resolution: %w", err)
 	}
 
@@ -265,7 +281,7 @@ func (a *Controller) GetScreenResolution() (int, int, error) {
 	// Override size: 1080x1920
 	// Нужно найти подстроку вида "<num>x<num>"
 	str := string(out)
-	a.logger.Info("Raw wm size output", slog.String("output", str))
+	a.logger.Info(ctx, "Raw wm size output", slog.String("output", str))
 
 	// Ищем что-то вроде "1080x2400"
 	var w, h int
@@ -298,7 +314,7 @@ func (a *Controller) GetScreenResolution() (int, int, error) {
 		return 0, 0, fmt.Errorf("cannot parse screen resolution from wm size: %s", str)
 	}
 
-	a.logger.Info("Screen resolution found",
+	a.logger.Info(ctx, "Screen resolution found",
 		slog.Int("width", w),
 		slog.Int("height", h),
 	)
@@ -318,6 +334,8 @@ func clamp(val, min, max int) int {
 
 // SetBrightness sets the screen brightness on the device to the given percentage (0-100).
 func (a *Controller) SetBrightness(percent int) error {
+	ctx := context.Background()
+
 	if percent < 0 {
 		percent = 0
 	}
@@ -329,13 +347,13 @@ func (a *Controller) SetBrightness(percent int) error {
 	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "settings", "put", "system", "screen_brightness", strconv.Itoa(value))
 	err := cmd.Run()
 	if err != nil {
-		a.logger.Error("Failed to set brightness", slog.Any("error", err), slog.Int("value", value))
+		a.logger.Error(ctx, "Failed to set brightness", slog.Any("error", err), slog.Int("value", value))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "brightness").Inc()
 
 		return fmt.Errorf("failed to set brightness: %w", err)
 	}
 
-	a.logger.Info("Brightness set successfully", slog.Int("value", value))
+	a.logger.Info(ctx, "Brightness set successfully", slog.Int("value", value))
 	return nil
 }
 
