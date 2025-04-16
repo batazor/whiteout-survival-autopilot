@@ -1,6 +1,7 @@
 package config
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,10 +10,14 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 )
 
 // LoadDeviceConfig читает YAML-файл конфигурации устройств и десериализует его в структуру domain.Config.
-func LoadDeviceConfig(devicesFile string, stateFile string) (*domain.Config, error) {
+func LoadDeviceConfig(devicesFile string, repo repository.StateRepository) (*domain.Config, error) {
+	ctx := context.Background()
+
+	// Загружаем devices.yaml
 	devicesData, err := os.ReadFile(filepath.Clean(devicesFile))
 	if err != nil {
 		return nil, fmt.Errorf("failed to read devices.yaml: %w", err)
@@ -23,10 +28,18 @@ func LoadDeviceConfig(devicesFile string, stateFile string) (*domain.Config, err
 		return nil, fmt.Errorf("failed to unmarshal devices.yaml: %w", err)
 	}
 
-	// Загрузка state.yaml
-	stateMap, err := LoadStateSnapshot(stateFile)
+	// Загружаем state из репозитория
+	state, err := repo.LoadState(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("failed to load state.yaml: %w", err)
+		return nil, fmt.Errorf("failed to load state.yaml from repo: %w", err)
+	}
+
+	// Индексируем state по ID
+	stateMap := make(map[int]domain.Gamer)
+	for _, acc := range state.Accounts {
+		for _, g := range acc.Characters {
+			stateMap[g.ID] = g
+		}
 	}
 
 	// Мержим по ID и сортируем профили и игроков для стабильного порядка

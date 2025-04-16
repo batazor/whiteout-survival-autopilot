@@ -15,6 +15,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
+	"github.com/batazor/whiteout-survival-autopilot/internal/repository"
 )
 
 func main() {
@@ -32,6 +33,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
 	}
+
+	// ─── Хранилище состояния ─────────────────────────────────────────────────
+	repo := repository.NewFileStateRepository("./db/state.yaml")
 
 	// ─── Конфигурация устройств / профилей ───────────────────────────────────
 	devicesCfg, err := config.LoadDeviceConfig("./db/devices.yaml", "./db/state.yaml")
@@ -103,7 +107,7 @@ func main() {
 					}
 				}
 
-				b := bot.NewBot(dev, target, rdb, rules, devLog.With("gamer", target.Nickname))
+				b := bot.NewBot(dev, target, rdb, rules, devLog.With("gamer", target.Nickname), repo)
 				b.Play(ctx)
 
 				gIdx++
