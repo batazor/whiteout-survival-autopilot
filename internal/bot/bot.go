@@ -62,6 +62,17 @@ func (b *Bot) Play(ctx context.Context) {
 			break
 		}
 
+		// 🕒 Проверка TTL (пропускаем usecase, если не истёк)
+		shouldSkip, err := b.Queue.ShouldSkip(ctx, b.Gamer.ID, uc.Name)
+		if err != nil {
+			b.Logger.Error("❌ Не удалось проверить TTL usecase", slog.Any("err", err))
+			continue
+		}
+		if shouldSkip {
+			b.Logger.Info("⏭️ UseCase пропущен по TTL", slog.String("name", uc.Name))
+			continue
+		}
+
 		b.Logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
 
 		// переходим на стартовый экран юзкейса

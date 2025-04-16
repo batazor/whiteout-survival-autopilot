@@ -1,148 +1,4 @@
 gamers:
-    - id: 420902982
-      nickname: agent007
-      state: 2690
-      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
-      resources:
-        wood: 0
-        food: 0
-        iron: 0
-        meat: 0
-      gems: 0
-      exploration:
-        level: 206
-        state:
-            isClaimActive: true
-            myPower: 0
-            enemyPower: 0
-            battleStatus: ""
-      heroes: {}
-      messages:
-        state:
-            isNewMessage: false
-            isNewReports: false
-      alliance:
-        name: ""
-        myLevel: 0
-        power: 0
-        members:
-            count: 0
-            max: 0
-        state:
-            isNeedSupport: false
-            isWar: 0
-            isChests: 0
-            isAllianceContributeButton: false
-            isAllianceTechButton: false
-        tech:
-            favorite: false
-      buildings:
-        furnace:
-            level: 17
-            power: 0
-      researches:
-        battle:
-            level: 0
-        economy:
-            level: 0
-    - id: 422228462
-      nickname: bravo
-      state: 2690
-      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
-      resources:
-        wood: 0
-        food: 0
-        iron: 0
-        meat: 0
-      gems: 0
-      exploration:
-        level: 0
-        state:
-            isClaimActive: true
-            myPower: 0
-            enemyPower: 0
-            battleStatus: ""
-      heroes: {}
-      messages:
-        state:
-            isNewMessage: false
-            isNewReports: false
-      alliance:
-        name: ""
-        myLevel: 0
-        power: 0
-        members:
-            count: 0
-            max: 0
-        state:
-            isNeedSupport: false
-            isWar: 0
-            isChests: 0
-            isAllianceContributeButton: false
-            isAllianceTechButton: false
-        tech:
-            favorite: false
-      buildings:
-        furnace:
-            level: 18
-            power: 0
-      researches:
-        battle:
-            level: 0
-        economy:
-            level: 0
-    - id: 424639700
-      nickname: aaar
-      state: 2690
-      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
-      resources:
-        wood: 0
-        food: 0
-        iron: 0
-        meat: 0
-      gems: 0
-      exploration:
-        level: 0
-        state:
-            isClaimActive: false
-            myPower: 0
-            enemyPower: 0
-            battleStatus: ""
-      heroes: {}
-      messages:
-        state:
-            isNewMessage: false
-            isNewReports: false
-      alliance:
-        name: ""
-        myLevel: 0
-        power: 0
-        members:
-            count: 0
-            max: 0
-        state:
-            isNeedSupport: false
-            isWar: 0
-            isChests: 0
-            isAllianceContributeButton: false
-            isAllianceTechButton: false
-        tech:
-            favorite: false
-      buildings:
-        furnace:
-            level: 16
-            power: 0
-      researches:
-        battle:
-            level: 0
-        economy:
-            level: 0
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -203,6 +59,54 @@ gamers:
             level: 0
         economy:
             level: 0
+    - id: 422228462
+      nickname: bravo
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      power: 0
+      vip_level: 0
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      gems: 0
+      exploration:
+        level: 0
+        state:
+            isClaimActive: true
+            myPower: 0
+            enemyPower: 0
+            battleStatus: ""
+      heroes: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+        tech:
+            favorite: false
+      buildings:
+        furnace:
+            level: 18
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
     - id: 423382817
       nickname: bart
       state: 2690
@@ -257,6 +161,102 @@ gamers:
       buildings:
         furnace:
             level: 19
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
+    - id: 420902982
+      nickname: agent007
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      power: 0
+      vip_level: 0
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      gems: 0
+      exploration:
+        level: 206
+        state:
+            isClaimActive: true
+            myPower: 0
+            enemyPower: 0
+            battleStatus: ""
+      heroes: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+        tech:
+            favorite: false
+      buildings:
+        furnace:
+            level: 17
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
+    - id: 424639700
+      nickname: aaar
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      power: 2843656
+      vip_level: 2
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      gems: 0
+      exploration:
+        level: 0
+        state:
+            isClaimActive: true
+            myPower: 0
+            enemyPower: 0
+            battleStatus: ""
+      heroes: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+        tech:
+            favorite: true
+      buildings:
+        furnace:
+            level: 16
             power: 0
       researches:
         battle:

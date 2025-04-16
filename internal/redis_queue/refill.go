@@ -2,7 +2,6 @@ package redis_queue
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"time"
 
@@ -42,12 +41,11 @@ func StartGlobalUsecaseRefiller(
 
 				for _, gamer := range allGamers {
 					queue := NewGamerQueue(rdb, gamer.ID)
-					botID := fmt.Sprintf("%d", gamer.ID)
 
 					for _, uc := range usecases {
-						shouldSkip, err := queue.ShouldSkip(ctx, botID, uc.Name)
+						shouldSkip, err := queue.ShouldSkip(ctx, gamer.ID, uc.Name)
 						if err != nil {
-							log.Warn("⚠️ Ошибка проверки TTL", "botID", botID, "usecase", uc.Name, "err", err)
+							log.Warn("⚠️ Ошибка проверки TTL", "botID", gamer.ID, "usecase", uc.Name, "err", err)
 							continue
 						}
 
@@ -56,9 +54,9 @@ func StartGlobalUsecaseRefiller(
 						}
 
 						if err := queue.Push(ctx, uc); err != nil {
-							log.Error("❌ Не удалось добавить usecase", "usecase", uc.Name, "botID", botID, "err", err)
+							log.Error("❌ Не удалось добавить usecase", "usecase", uc.Name, "botID", gamer.ID, "err", err)
 						} else {
-							log.Info("✅ Usecase добавлен", "usecase", uc.Name, "botID", botID)
+							log.Info("✅ Usecase добавлен", "usecase", uc.Name, "botID", gamer.ID)
 						}
 					}
 				}

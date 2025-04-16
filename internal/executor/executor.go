@@ -53,20 +53,6 @@ func (e *executorImpl) Analyzer() Analyzer {
 }
 
 func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, gamer *domain.Gamer, queue *redis_queue.Queue) {
-	botID := fmt.Sprintf("%d", gamer.ID)
-
-	shouldSkip, err := queue.ShouldSkip(ctx, botID, uc.Name)
-	if err != nil {
-		// Ошибка Redis → логируем и скипаем
-		e.logger.Error("Failed to check TTL skip", slog.Any("error", err))
-		return
-	}
-	if shouldSkip {
-		// TTL не истёк → скипаем
-		e.logger.Info("⏭️ UseCase skipped due to TTL", slog.String("usecase", uc.Name), slog.String("botID", botID))
-		return
-	}
-
 	if uc.Trigger != "" {
 		ok, err := e.triggerEvaluator.EvaluateTrigger(uc.Trigger, gamer)
 		if err != nil {
@@ -95,7 +81,7 @@ func (e *executorImpl) ExecuteUseCase(ctx context.Context, uc *domain.UseCase, g
 
 	// После успешного выполнения ставим TTL
 	if uc.TTL > 0 {
-		if err := queue.SetLastExecuted(ctx, botID, uc.Name, uc.TTL); err != nil {
+		if err := queue.SetLastExecuted(ctx, gamer.ID, uc.Name, uc.TTL); err != nil {
 			e.logger.Error("Failed to set last executed TTL", slog.Any("error", err))
 		}
 	}
