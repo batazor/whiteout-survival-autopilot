@@ -24,7 +24,7 @@ exploration:
     type: integer
     threshold: 0.5
 
-exploration_fight:
+exploration_battle:
   - name: exploration.state.myPower
     action: text
     type: integer

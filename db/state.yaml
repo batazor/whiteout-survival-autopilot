@@ -171,11 +171,11 @@ gamers:
         meat: 8000
       gems: 100
       exploration:
-        level: 218
+        level: 348
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 3495548
+            enemyPower: 4232159
             battleStatus: ""
       heroes:
         state:
@@ -305,7 +305,7 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 11
+            polarTerrorCount: 0
         tech:
             favorite: true
       buildings:

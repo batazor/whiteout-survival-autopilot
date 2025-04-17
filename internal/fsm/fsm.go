@@ -35,17 +35,19 @@ type StateUpdateCallback interface {
 // State Definitions: Each constant represents a game screen (state)
 // --------------------------------------------------------------------
 const (
-	InitialState           = "initial"
-	StateMainCity          = "main_city"
-	StateActivityTriumph   = "activity_triumph"
-	StateEvents            = "events"
-	StateProfile           = "profile"
-	StateLeaderboard       = "leaderboard"
-	StateSettings          = "settings"
-	StateVIP               = "vip"
-	StateChiefOrders       = "chief_orders"
-	StateMail              = "mail"
-	StateDawnMarket        = "dawn_market"
+	InitialState         = "initial"
+	StateMainCity        = "main_city"
+	StateActivityTriumph = "activity_triumph"
+	StateEvents          = "events"
+	StateProfile         = "profile"
+	StateLeaderboard     = "leaderboard"
+	StateSettings        = "settings"
+	StateVIP             = "vip"
+	StateChiefOrders     = "chief_orders"
+	StateMail            = "mail"
+	StateDawnMarket      = "dawn_market"
+
+	// Исследование
 	StateExploration       = "exploration"
 	StateExplorationBattle = "exploration_battle"
 
