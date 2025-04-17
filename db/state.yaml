@@ -15,8 +15,8 @@ gamers:
         level: 0
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 779839
+            enemyPower: 863619
             battleStatus: ""
       heroes: {}
       messages:
@@ -38,7 +38,7 @@ gamers:
             isAllianceTechButton: false
             polarTerrorCount: 0
         tech:
-            favorite: true
+            favorite: false
       buildings:
         furnace:
             level: 16
@@ -52,7 +52,7 @@ gamers:
       nickname: agent007
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5568866
+      power: 3859367
       vip_level: 3
       resources:
         wood: 0
@@ -64,8 +64,8 @@ gamers:
         level: 206
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 1091119
+            enemyPower: 1006221
             battleStatus: ""
       heroes: {}
       messages:
@@ -101,7 +101,7 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5674071
+      power: 5722366
       vip_level: 3
       resources:
         wood: 0
@@ -113,8 +113,8 @@ gamers:
         level: 224
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 1310089
+            enemyPower: 1183752
             battleStatus: ""
       heroes:
         state:
@@ -141,14 +141,14 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
             polarTerrorCount: 0
         tech:
-            favorite: true
+            favorite: false
       buildings:
         furnace:
             level: 19
@@ -223,7 +223,7 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5674071
+      power: 4226549
       vip_level: 3
       resources:
         wood: 0
@@ -235,8 +235,8 @@ gamers:
         level: 0
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 1058669
+            enemyPower: 996854
             battleStatus: ""
       heroes: {}
       messages:
@@ -258,7 +258,7 @@ gamers:
             isAllianceTechButton: false
             polarTerrorCount: 0
         tech:
-            favorite: true
+            favorite: false
       buildings:
         furnace:
             level: 18
@@ -284,8 +284,8 @@ gamers:
         level: 236
         state:
             isClaimActive: true
-            myPower: 0
-            enemyPower: 0
+            myPower: 1264285
+            enemyPower: 1337180
             battleStatus: ""
       heroes: {}
       messages:

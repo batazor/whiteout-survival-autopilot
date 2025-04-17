@@ -11,4 +11,5 @@ steps:
     log: "💰 Claiming exploration rewards"
   - wait: 500ms
   - click: exploration_claim_confirmation_button
+  - wait: 500ms
   - click: tap_anywhere_to_exit

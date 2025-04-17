@@ -264,6 +264,8 @@ func (g *GameFSM) ForceTo(target string) {
 				panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
 			}
 
+			g.logger.Info("Clicking region", slog.String("action", step.Action))
+
 			if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
 				panic(fmt.Sprintf("❌ ADB click failed for action '%s': %v", step.Action, err))
 			}
@@ -301,25 +303,6 @@ func (g *GameFSM) logAutoPath(path []string) {
 		from, to := path[i], path[i+1]
 		g.logger.Info("→ FSM step", slog.String("from", from), slog.String("to", to))
 	}
-}
-
-func (g *GameFSM) tryTransitionVia(from string, steps []TransitionStep) error {
-	g.logger.Info("Trying indirect transition", slog.String("via", from), slog.Any("steps", steps))
-	for _, step := range steps {
-		if _, ok := g.lookup.Get(step.Action); !ok {
-			panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
-		}
-
-		if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
-			g.logger.Error("Indirect transition failed", slog.String("step", step.Action), slog.Any("error", err))
-			return err
-		}
-
-		wait := step.Wait + time.Duration(rand.Intn(300)+500)*time.Millisecond
-		time.Sleep(wait)
-	}
-
-	return nil
 }
 
 func (g *GameFSM) ValidateTransitionActions() {

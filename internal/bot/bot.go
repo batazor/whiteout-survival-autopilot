@@ -51,6 +51,9 @@ func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Cl
 }
 
 func (b *Bot) Play(ctx context.Context) {
+	// 📸 Анализ состояния на главном экране
+	b.updateStateFromScreen(ctx, "main_city", "out/bot_"+b.Gamer.Nickname+"_start_main_city.png")
+
 	for {
 		select {
 		case <-ctx.Done():
@@ -58,9 +61,6 @@ func (b *Bot) Play(ctx context.Context) {
 			return
 		default:
 		}
-
-		// 📸 Анализ состояния на главном экране
-		b.updateStateFromScreen(ctx, "main_city", "out/bot_"+b.Gamer.Nickname+"_start_main_city.png")
 
 		// получаем use‑case из очереди
 		uc, err := b.Queue.Pop(ctx)
