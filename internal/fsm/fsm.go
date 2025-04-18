@@ -79,6 +79,11 @@ const (
 	StateAllianceWar         = "alliance_war"
 	StateAllianceWarAutoJoin = "alliance_war_auto_join"
 
+	// Альянс - сундуки
+	StateAllianceChests    = "alliance_chests"
+	StateAllianceChestLoot = "alliance_chest_loot"
+	StateAllianceChestGift = "alliance_chest_gift"
+
 	// Глобальная карта
 	StateWorld          = "world"
 	StateWorldSearch    = "world_search_resources"
@@ -209,6 +214,30 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 		StateAllianceWar: {
 			{Action: "to_alliance_war", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceChests: {
+			{Action: "to_alliance_chests", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateAllianceChests: {
+		StateAllianceChestLoot: {
+			{Action: "to_alliance_chest_loot", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceChestGift: {
+			{Action: "to_alliance_chest_gift", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceManage: {
+			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateAllianceChestLoot: {
+		StateAllianceManage: {
+			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateAllianceChestGift: {
+		StateAllianceManage: {
+			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateAllianceTech: {

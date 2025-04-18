@@ -21,6 +21,7 @@ data/redis
 out/
 logs/
 screenshots/*.png
+screenshots/**/*.png
 *.log
 
 # Dependency directories (remove the comment below to include it)

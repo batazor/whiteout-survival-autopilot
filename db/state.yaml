@@ -162,7 +162,7 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 27580688
+      power: 27613046
       vip_level: 7
       resources:
         wood: 100000
@@ -202,7 +202,7 @@ gamers:
             count: 15
             max: 30
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 1
             isChests: 3
             isAllianceContributeButton: false
