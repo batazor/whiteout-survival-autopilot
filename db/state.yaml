@@ -3,7 +3,7 @@ gamers:
       nickname: aaar
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 2876272
+      power: 2876269
       vip_level: 2
       resources:
         wood: 0
@@ -31,14 +31,14 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
             polarTerrorCount: 0
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 16
@@ -52,7 +52,7 @@ gamers:
       nickname: agent007
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 3859367
+      power: 3859364
       vip_level: 3
       resources:
         wood: 0
@@ -101,8 +101,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5722366
-      vip_level: 3
+      power: 27580636
+      vip_level: 7
       resources:
         wood: 0
         food: 0
@@ -110,11 +110,11 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 224
+        level: 348
         state:
             isClaimActive: true
-            myPower: 1310089
-            enemyPower: 1183752
+            myPower: 3548153
+            enemyPower: 4232159
             battleStatus: ""
       heroes:
         state:
@@ -141,14 +141,14 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 0
+            polarTerrorCount: 21
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 19
@@ -223,7 +223,7 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4226549
+      power: 4226546
       vip_level: 3
       resources:
         wood: 0
@@ -235,8 +235,8 @@ gamers:
         level: 0
         state:
             isClaimActive: true
-            myPower: 1058669
-            enemyPower: 996854
+            myPower: 1063864
+            enemyPower: 10020723
             battleStatus: ""
       heroes: {}
       messages:
@@ -251,14 +251,14 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
             polarTerrorCount: 0
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 18

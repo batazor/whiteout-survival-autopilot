@@ -1705,5 +1705,38 @@
     "created_at": "2025-04-18T03:42:43.493161Z",
     "updated_at": "2025-04-18T03:42:43.493328Z",
     "lead_time": 142.822
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4dd3946f-reconnect.png",
+    "id": 30,
+    "bbox": [
+      {
+        "x": 53.75286791215995,
+        "y": 60.029498525073755,
+        "width": 38.34808259587022,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.866273352999017,
+        "y": 44.54277286135694,
+        "width": 83.90691576532286,
+        "height": 11.356932153392329,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "reconnect_button",
+      "reconnect_error_message"
+    ],
+    "annotator": 2,
+    "annotation_id": 30,
+    "created_at": "2025-04-18T04:05:22.990080Z",
+    "updated_at": "2025-04-18T04:05:22.990109Z",
+    "lead_time": 50.224
   }
 ]

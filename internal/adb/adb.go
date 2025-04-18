@@ -22,6 +22,7 @@ type DeviceController interface {
 	ListDevices() ([]string, error)
 	SetActiveDevice(serial string)
 	GetActiveDevice() string
+	RestartApplication() error
 
 	Screenshot(path string) (image.Image, error)
 	ClickRegion(name string, area *config.AreaLookup) error

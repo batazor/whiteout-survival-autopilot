@@ -83,7 +83,7 @@ func ProcessImageFromMat(mat gocv.Mat) ([]domain.OCRResult, error) {
 	return ProcessImage(tempPath)
 }
 
-func fuzzySubstringMatch(ocrText, target string, maxDistance int) bool {
+func FuzzySubstringMatch(ocrText, target string, maxDistance int) bool {
 	text := strings.ToLower(ocrText)
 	target = strings.ToLower(target)
 	tLen := len(target)
@@ -118,7 +118,7 @@ func FindBestMatchingOCR(results domain.OCRResults, targetTexts []string, minCon
 		for _, target := range targetTexts {
 			target = strings.ToLower(target)
 
-			if strings.Contains(text, target) || fuzzySubstringMatch(text, target, 1) {
+			if strings.Contains(text, target) || FuzzySubstringMatch(text, target, 1) {
 				return &match
 			}
 		}

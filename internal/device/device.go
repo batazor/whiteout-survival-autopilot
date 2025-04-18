@@ -1,6 +1,7 @@
 package device
 
 import (
+	"context"
 	"log/slog"
 
 	"github.com/redis/go-redis/v9"
@@ -25,6 +26,8 @@ type Device struct {
 }
 
 func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string, rdb *redis.Client) (*Device, error) {
+	ctx := context.Background()
+
 	log.Info("🔧 Инициализация ADB-контроллера")
 	controller, err := adb.NewController(log, name)
 	if err != nil {
@@ -47,6 +50,12 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 		AreaLookup: areaLookup,
 		rdb:        rdb,
 	}
+
+	// Однократная проверка reconnect при запуске устройства
+	device.CheckReconnectOnce(ctx)
+
+	// Автоматический запуск reconnect-чекера при создании устройства
+	go device.StartReconnectChecker(ctx)
 
 	return device, nil
 }
