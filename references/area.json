@@ -191,16 +191,16 @@
       "chat_short",
       "missions_button",
       "next_mission",
-      "to_messages",
+      "to_mail",
       "to_chief_order",
-      "main_menu",
+      "to_main_menu_city",
       "alliance.state.isNeedSupport"
     ],
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-03-31T08:52:42.545284Z",
-    "lead_time": 6275.473
+    "updated_at": "2025-04-18T03:39:52.793566Z",
+    "lead_time": 6643.758
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -1446,5 +1446,264 @@
     "created_at": "2025-04-16T15:26:04.797182Z",
     "updated_at": "2025-04-16T15:36:54.398412Z",
     "lead_time": 388.77799999999996
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9dc09327-main_menu.png",
+    "id": 27,
+    "bbox": [
+      {
+        "x": 1.9665683382497543,
+        "y": 27.433628318584073,
+        "width": 28.843002294329732,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 33.10390036053753,
+        "y": 28.023598820059004,
+        "width": 27.20419534578827,
+        "height": 1.7699115044247762,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.2943297279580466,
+        "y": 33.48082595870207,
+        "width": 57.68600458865947,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.622091117666339,
+        "y": 38.34808259587022,
+        "width": 57.35824319895118,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 45.57522123893806,
+        "width": 58.01376597836776,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.9665683382497543,
+        "y": 49.85250737463128,
+        "width": 56.702720419534586,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 54.277286135693224,
+        "width": 58.01376597836776,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 61.50442477876107,
+        "width": 58.66928875778434,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 88.16781383153065,
+        "y": 72.41887905604722,
+        "width": 9.177318911832188,
+        "height": 3.244837758112098,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_main_menu_city",
+      "to_main_menu_wilderness",
+      "to_main_menu_building_1",
+      "to_main_menu_building_2",
+      "to_main_menu_infantry",
+      "to_main_menu_lancer",
+      "to_main_menu_marksman",
+      "to_main_menu_tech_research",
+      "to_pets"
+    ],
+    "annotator": 2,
+    "annotation_id": 27,
+    "created_at": "2025-04-17T17:44:08.191110Z",
+    "updated_at": "2025-04-18T03:18:53.583746Z",
+    "lead_time": 264.484
+  },
+  {
+    "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
+    "id": 28,
+    "bbox": [
+      {
+        "x": 27.592592592592585,
+        "y": 16.416666666666654,
+        "width": 2.592592592592588,
+        "height": 1.375,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 31.1111111111111,
+        "y": 16.416666666666654,
+        "width": 2.592592592592588,
+        "height": 1.375,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.94963061851857,
+        "y": 93.56923357,
+        "width": 12.107307167592595,
+        "height": 5.9841854279166995,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.1908826722222228,
+        "y": 72.6692426725,
+        "width": 9.92402226851852,
+        "height": 4.197861419583333,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.389363117592593,
+        "y": 78.38547949916668,
+        "width": 9.72554182314815,
+        "height": 4.108545219166672,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marching_used",
+      "marching_have",
+      "to_main_city",
+      "to_search_resources",
+      "to_global_map"
+    ],
+    "annotator": 2,
+    "annotation_id": 28,
+    "created_at": "2025-04-18T03:32:02.473781Z",
+    "updated_at": "2025-04-18T03:32:02.473807Z",
+    "lead_time": 187.198
+  },
+  {
+    "ocr": "\/data\/upload\/1\/331ebf97-mail.png",
+    "id": 29,
+    "bbox": [
+      {
+        "x": 90.46214355948871,
+        "y": 4.719764011799411,
+        "width": 8.194034742707302,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.260898066207801,
+        "y": 9.587020648967554,
+        "width": 15.404785316289743,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 23.598820058997052,
+        "y": 9.734513274336285,
+        "width": 15.732546705998036,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 42.60898066207801,
+        "y": 9.587020648967554,
+        "width": 15.077023926581454,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.29137987545068,
+        "y": 9.882005899705018,
+        "width": 15.732546705998026,
+        "height": 2.654867256637168,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 79.97377908882335,
+        "y": 9.734513274336285,
+        "width": 15.732546705998033,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 3.277613897082924,
+        "y": 96.01769911504427,
+        "width": 45.231071779744354,
+        "height": 3.244837758112098,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 56.70272041953458,
+        "y": 96.31268436578173,
+        "width": 38.02032120616192,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "mail_close",
+      "to_mail_wars",
+      "to_mail_alliance",
+      "to_mail_system",
+      "to_mail_reports",
+      "to_mail_starred",
+      "mail_delete_all_read",
+      "mail_read_and_claim_all"
+    ],
+    "annotator": 2,
+    "annotation_id": 29,
+    "created_at": "2025-04-18T03:42:43.493161Z",
+    "updated_at": "2025-04-18T03:42:43.493328Z",
+    "lead_time": 142.822
   }
 ]

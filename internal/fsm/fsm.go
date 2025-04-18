@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
-	"math/rand"
 	"time"
 
 	lpfsm "github.com/looplab/fsm"
@@ -44,8 +43,20 @@ const (
 	StateSettings        = "settings"
 	StateVIP             = "vip"
 	StateChiefOrders     = "chief_orders"
-	StateMail            = "mail"
 	StateDawnMarket      = "dawn_market"
+
+	// Питомцы
+	StatePets = "pets"
+
+	// Главное меню
+	StateMainMenuCity         = "main_menu_city"
+	StateMainMenuWilderness   = "main_menu_wilderness"
+	StateMainMenuBuilding1    = "main_menu_building_1"
+	StateMainMenuBuilding2    = "main_menu_building_2"
+	StateMainMenuInfantry     = "main_menu_infantry"
+	StateMainMenuLancer       = "main_menu_lancer"
+	StateMainMenuMarksman     = "main_menu_marksman"
+	StateMainMenuTechResearch = "main_menu_tech_research"
 
 	// Исследование
 	StateExploration       = "exploration"
@@ -67,6 +78,20 @@ const (
 	StateAllianceRanking     = "alliance_ranking"
 	StateAllianceWar         = "alliance_war"
 	StateAllianceWarAutoJoin = "alliance_war_auto_join"
+
+	// Глобальная карта
+	StateWorld          = "world"
+	StateWorldSearch    = "world_search_resources"
+	StateWorldGlobalMap = "world_global_map"
+
+	// Сообщения
+	StateMail         = "mail"
+	StateMailWars     = "mail_wars"
+	StateMailAlliance = "mail_alliance"
+	StateMailSystem   = "mail_system"
+	StateMailReports  = "mail_reports"
+	StateMailStarred  = "mail_starred"
+	StateMailBack     = "mail_back"
 )
 
 type TransitionStep struct {
@@ -85,7 +110,6 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		//StateSettings:       {{Action: "to_settings", Wait: 300 * time.Millisecond}},
 		//StateVIP:            {{Action: "to_vip", Wait: 300 * time.Millisecond}},
 		//StateChiefOrders:    {{Action: "to_chief_orders", Wait: 300 * time.Millisecond}},
-		//StateMail:           {{Action: "to_mail", Wait: 300 * time.Millisecond}},
 		//StateDawnMarket:     {{Action: "to_dawn_market", Wait: 300 * time.Millisecond}},
 		StateAllianceManage: {
 			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
@@ -96,6 +120,46 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		//},
 		StateChiefProfile: {
 			{Action: "to_chief_profile", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuCity: {
+			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
+		},
+		StatePets: {
+			{Action: "to_pets", Wait: 300 * time.Millisecond},
+		},
+		StateWorld: {
+			{Action: "to_world", Wait: 300 * time.Millisecond},
+		},
+		StateMail: {
+			{Action: "to_mail", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMainMenuCity: {
+		StateMainMenuWilderness: {
+			{Action: "to_main_menu_wilderness", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuBuilding1: {
+			{Action: "to_main_menu_building_1", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuBuilding2: {
+			{Action: "to_main_menu_building_2", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuInfantry: {
+			{Action: "to_main_menu_infantry", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuLancer: {
+			{Action: "to_main_menu_lancer", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuMarksman: {
+			{Action: "to_main_menu_marksman", Wait: 300 * time.Millisecond},
+		},
+		StateMainMenuTechResearch: {
+			{Action: "to_main_menu_tech_research", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMainMenuWilderness: {
+		StateMainMenuCity: {
+			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateChiefProfile: {
@@ -172,6 +236,40 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "alliance_war_auto_join_close", Wait: 300 * time.Millisecond},
 		},
 	},
+	StateWorld: {
+		StateMainCity: {
+			{Action: "to_main_city", Wait: 300 * time.Millisecond},
+		},
+		StateWorldSearch: {
+			{Action: "to_search_resources", Wait: 300 * time.Millisecond},
+		},
+		StateWorldGlobalMap: {
+			{Action: "to_global_map", Wait: 300 * time.Millisecond},
+		},
+		StateMail: {
+			{Action: "to_mail", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMail: {
+		StateMailBack: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
 }
 
 type GameFSM struct {
@@ -183,6 +281,9 @@ type GameFSM struct {
 	adb           adb.DeviceController
 	lookup        *config.AreaLookup
 	fsmGraph      map[string][]string
+
+	// previousState хранит предыдущее состояние FSM
+	previousState string
 }
 
 func NewGame(
@@ -233,63 +334,6 @@ func (g *GameFSM) SetOnStateChange(f func(state string)) {
 
 func (g *GameFSM) Current() string {
 	return g.fsm.Current()
-}
-
-func (g *GameFSM) ForceTo(target string) {
-	prev := g.Current()
-
-	if prev == target {
-		g.logger.Debug("FSM already at target state, skipping", slog.String("state", target))
-		return
-	}
-
-	var steps []TransitionStep
-	found := false
-
-	if g.adb != nil {
-		steps, found = transitionPaths[prev][target]
-		if !found {
-			path := g.FindPath(prev, target)
-			if len(path) > 1 {
-				g.logger.Warn("FSM path generated dynamically", slog.Any("path", path))
-				steps = g.pathToSteps(path)
-				g.logAutoPath(path)
-			} else {
-				panic(fmt.Sprintf("❌ FSM: no path found from '%s' to '%s'", prev, target))
-			}
-		}
-
-		for _, step := range steps {
-			if _, ok := g.lookup.Get(step.Action); !ok {
-				panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
-			}
-
-			g.logger.Info("Clicking region", slog.String("action", step.Action))
-
-			if err := g.adb.ClickRegion(step.Action, g.lookup); err != nil {
-				panic(fmt.Sprintf("❌ ADB click failed for action '%s': %v", step.Action, err))
-			}
-
-			wait := step.Wait + time.Duration(rand.Intn(300)+700)*time.Millisecond
-			g.logger.Info("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
-			time.Sleep(wait)
-		}
-	}
-
-	// Try using the FSM event system first if possible
-	eventName := fmt.Sprintf("%s_to_%s", prev, target)
-	if err := g.fsm.Event(context.Background(), eventName); err != nil {
-		// If the event isn't defined, fall back to direct state change
-		g.fsm.SetState(target)
-		g.logger.Warn("FSM forcefully moved to new state",
-			slog.String("from", prev),
-			slog.String("to", target),
-		)
-	}
-
-	if g.callback != nil {
-		g.callback.UpdateStateFromScreenshot(target)
-	}
 }
 
 func (g *GameFSM) logAutoPath(path []string) {
