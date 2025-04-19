@@ -40,3 +40,29 @@ alliance_war_auto_join:
     action: text
     type: integer
     threshold: 0.5
+
+alliance_chest_gift:
+  - name: alliance.state.isClaimButton
+    action: exist
+    threshold: 0.3
+
+  - name: alliance.state.isGiftClaimAllButton
+    action: color_check
+    expectedColor: green
+    threshold: 0.5
+
+alliance_chest_loot:
+  - name: alliance.state.isCanClaimAllChests
+    action: color_check
+    expectedColor: green
+    threshold: 0.5
+
+  - name: alliance.state.isMainChest
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: alliance.state.lootCountLimit
+    action: text
+    type: integer
+    threshold: 0.5

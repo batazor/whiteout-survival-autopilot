@@ -1,0 +1,34 @@
+name: Alliance Chest Gifts
+
+node: alliance_chest_gift
+
+trigger: alliance.state.isGiftClaimAllButton || alliance.state.isClaimButton
+
+priority: 20
+
+ttl: 6h
+
+steps:
+  - if: # Если доступна кнопка "Claim All", то просто нажимаем ее
+      trigger: alliance.state.isGiftClaimAllButton
+      then:
+        - click: alliance.state.isGiftClaimAllButton
+        - wait: 200ms
+        - click: exploration_claim_confirmation_button
+        - wait: 500ms
+        - click: tap_anywhere_to_exit
+        - wait: 200ms
+  - if: # Если кнопка "Claim All" недоступна, то ищем и нажимаем каждую кнопку "Claim"
+      trigger: "!alliance.state.isGiftClaimAllButton && alliance.state.isClaimButton"
+      then:
+        - action: loop
+          trigger: alliance.state.isClaimButton
+          steps:
+            - click: alliance.state.isClaimButton
+            - action: screenshot
+              analyze:
+                - name: alliance.state.isClaimButton
+                  action: findIcon
+                  threshold: 0.7
+                  saveAsRegion: true
+

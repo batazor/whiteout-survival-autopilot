@@ -36,11 +36,13 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
 	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
 
+	// 🕒 Ждём, чтобы не было конфликта с другими процессами
+	time.Sleep(500 * time.Millisecond)
+
 	// 📦 Кэшированный OCR по email
 	emailZones := d.findEmailOCR(ctx, profile.Email)
-	time.Sleep(100 * time.Millisecond)
 
-	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("text", emailZones.Text))
+	d.Logger.Info("🟢 Клик по email аккаунту", slog.String("text", emailZones.Text), slog.String("region", emailZones.String()))
 	if err := d.ADB.ClickOCRResult(emailZones); err != nil {
 		d.Logger.Error("❌ Не удалось кликнуть по email аккаунту", slog.Any("err", err))
 		panic(fmt.Sprintf("ClickRegion(email:gamer1) failed: %v", err))

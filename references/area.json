@@ -1787,19 +1787,62 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 76.04064241232383,
+        "y": 42.77286135693216,
+        "width": 16.71583087512292,
+        "height": 2.5073746312684335,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "to_alliance_chest_loot",
       "to_alliance_chest_gift",
-      "alliance_chest_claim_all",
-      "alliance_chest_loot_count_limit",
-      "to_alliance_manager_from_alliance_chest"
+      "alliance.state.isCanClaimAllChests",
+      "alliance.state.lootCountLimit",
+      "to_alliance_manager_from_alliance_chest",
+      "alliance.state.isClaimButton"
     ],
     "annotator": 2,
     "annotation_id": 31,
     "created_at": "2025-04-18T05:58:06.695063Z",
-    "updated_at": "2025-04-18T06:00:51.948931Z",
-    "lead_time": 266.861
+    "updated_at": "2025-04-18T11:30:19.362982Z",
+    "lead_time": 552.559
+  },
+  {
+    "ocr": "\/data\/upload\/1\/0c38971e-alliance_chest_gift.png",
+    "id": 32,
+    "bbox": [
+      {
+        "x": 74.40183546378238,
+        "y": 92.9203539823009,
+        "width": 18.354637823664376,
+        "height": 2.9498525073746436,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.972222222222214,
+        "y": 13.208333333333325,
+        "width": 1.1111111111111214,
+        "height": 0.7083333333333321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.state.isGiftClaimAllButton",
+      "alliance.state.isMainChest"
+    ],
+    "annotator": 2,
+    "annotation_id": 32,
+    "created_at": "2025-04-18T10:58:18.346896Z",
+    "updated_at": "2025-04-18T16:00:03.634496Z",
+    "lead_time": 231.856
   }
 ]

@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.Logger) ([]domain.BBox, error) {
+func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.Logger) (domain.BBoxes, error) {
 	screenshot := gocv.IMRead(screenshotPath, gocv.IMReadGrayScale)
 	if screenshot.Empty() {
 		return nil, fmt.Errorf("failed to load screenshot: %s", screenshotPath)
@@ -71,6 +71,7 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 			Rotation:       0,
 			OriginalWidth:  sWidth,
 			OriginalHeight: sHeight,
+			Confidence:     maxVal,
 		}
 		boxes = append(boxes, bbox)
 

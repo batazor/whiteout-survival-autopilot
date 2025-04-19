@@ -1,0 +1,22 @@
+name: Alliance Chest Loot
+
+node: alliance_chest_loot
+
+trigger: alliance.state.isCanClaimAllChests
+
+priority: 21
+
+ttl: 2h
+
+steps:
+  - click: alliance.state.isCanClaimAllChests
+  - wait: 500ms
+  - click: tap_anywhere_to_exit
+  - wait: 200ms
+  - if:
+      trigger: alliance.state.isMainChest
+      then:
+        - click: alliance.state.isMainChest
+        - wait: 100ms
+        - click: tap_anywhere_to_exit
+        - wait: 200ms

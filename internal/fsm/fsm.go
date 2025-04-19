@@ -234,10 +234,16 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		StateAllianceManage: {
 			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
 		},
+		StateAllianceChestGift: {
+			{Action: "to_alliance_chest_gift", Wait: 100 * time.Millisecond},
+		},
 	},
 	StateAllianceChestGift: {
 		StateAllianceManage: {
 			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceChestLoot: {
+			{Action: "to_alliance_chest_loot", Wait: 100 * time.Millisecond},
 		},
 	},
 	StateAllianceTech: {

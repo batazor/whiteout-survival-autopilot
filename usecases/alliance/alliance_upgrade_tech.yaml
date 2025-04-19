@@ -44,7 +44,7 @@ steps:
             threshold: 0.5
 
       - if:
-          trigger: "alliance.state.isAllianceContributeButton == false"
+          trigger: "!alliance.state.isAllianceContributeButton"
           then:
             - click: alliance_tech_contribute_back
             - action: loop_stop      # 🛑 Если кнопка стала серой (нельзя жать), выходим из цикла

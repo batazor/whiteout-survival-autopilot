@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"gocv.io/x/gocv"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 )
@@ -36,6 +37,38 @@ func TestIsColorDominant_Table(t *testing.T) {
 			threshold:     0.7,
 			wantDominant:  false,
 		},
+		{
+			name:          "Gift button is available (red)",
+			imagePath:     "../../references/screenshots/alliance_chest_gift.png",
+			regionKey:     "alliance.state.isMainChest",
+			expectedColor: "red",
+			threshold:     0.7,
+			wantDominant:  true,
+		},
+		{
+			name:          "Gift button is not available (no red)",
+			imagePath:     "../../references/screenshots/alliance_chest_loot.png",
+			regionKey:     "alliance.state.isMainChest",
+			expectedColor: "red",
+			threshold:     0.7,
+			wantDominant:  false,
+		},
+		{
+			name:          "Contribute button is visible (blue)",
+			imagePath:     "../../references/screenshots/alliance_tech_contribute.png",
+			regionKey:     "alliance.state.isAllianceContributeButton",
+			expectedColor: "blue",
+			threshold:     0.5,
+			wantDominant:  true,
+		},
+		{
+			name:          "Contribute button is no visible (gray)",
+			imagePath:     "../../references/screenshots/alliance_tech_contribute_disabled.png",
+			regionKey:     "alliance.state.isAllianceContributeButton",
+			expectedColor: "blue",
+			threshold:     0.5,
+			wantDominant:  false,
+		},
 	}
 
 	// Загружаем конфиг с областями один раз
@@ -59,8 +92,19 @@ func TestIsColorDominant_Table(t *testing.T) {
 			regionDef, ok := areaConfig.Get(tt.regionKey)
 			assert.True(t, ok, "region %s should be present", tt.regionKey)
 
-			dominant, err := IsColorDominant(tt.imagePath, regionDef.Zone, tt.expectedColor, tt.threshold, logger)
-			assert.NoError(t, err)
+			// Обрезаем изображение
+			img := gocv.IMRead(tt.imagePath, gocv.IMReadColor)
+			assert.False(t, img.Empty(), "failed to load image: %s", tt.imagePath)
+			defer img.Close()
+
+			crop := img.Region(regionDef.Zone)
+			defer crop.Close()
+
+			cropPath := filepath.Join("./out", "crop_"+tt.name+".png")
+			gocv.IMWrite(cropPath, crop)
+
+			// Проверяем цвет
+			dominant, _ := IsColorDominant(tt.imagePath, regionDef.Zone, tt.expectedColor, tt.threshold, logger)
 			assert.Equal(t, tt.wantDominant, dominant)
 		})
 	}

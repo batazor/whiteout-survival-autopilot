@@ -108,7 +108,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 				value = len(boxes) > 0
 
 				if rule.SaveAsRegion && len(boxes) > 0 {
-					bbox := boxes[0]
+					bbox, _ := boxes.GetBest()
 					x, y, w, h := bbox.ToPixels()
 					newRegion := config.Region{Zone: image.Rect(x, y, x+w, y+h)}
 					a.areas.AddTemporaryRegion(rule.Name, newRegion)

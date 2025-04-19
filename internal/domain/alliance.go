@@ -24,6 +24,13 @@ type AllianceState struct {
 	IsAllianceContributeButton bool `yaml:"isAllianceContributeButton"` // Кнопка вклада в технологию
 	IsAllianceTechButton       bool `yaml:"isAllianceTechButton"`       // Кнопка технологий альянса
 	PolarTerrorCount           int  `yaml:"polarTerrorCount"`           // Количество успешных присоединений на полярного медведя
+
+	// chests
+	IsClaimButton        bool `yaml:"isClaimButton"`        // Кнопка на получение награды альянса
+	IsCanClaimAllChests  bool `yaml:"isCanClaimAllChests"`  // Кнопка на получение всех сундуков
+	LootCountLimit       int  `yaml:"lootCountLimit"`       // Лимит сундуков
+	IsGiftClaimAllButton bool `yaml:"isGiftClaimAllButton"` // Кнопка на получение всех подарков
+	IsMainChest          bool `yaml:"isMainChest"`          // Кнопка на получение главного сундука
 }
 
 // AllianceTech описывает технологические аспекты альянса.
