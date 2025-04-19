@@ -3,7 +3,7 @@ gamers:
       nickname: aaar
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 2876152
+      power: 2963002
       vip_level: 2
       resources:
         wood: 0
@@ -31,7 +31,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -53,11 +53,20 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 0
+                isExist: true
+                isPlay: true
+        frostyFortune:
+            state:
+                isExist: false
     - id: 420902982
       nickname: agent007
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 3859295
+      power: 3885734
       vip_level: 3
       resources:
         wood: 0
@@ -107,12 +116,21 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 2
+                isExist: true
+                isPlay: false
+        frostyFortune:
+            state:
+                isExist: false
     - id: 423382817
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5866713
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -151,7 +169,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -173,6 +191,15 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 0
+                isExist: true
+                isPlay: false
+        frostyFortune:
+            state:
+                isExist: false
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -239,11 +266,20 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 0
+                isExist: false
+                isPlay: false
+        frostyFortune:
+            state:
+                isExist: false
     - id: 422228462
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4226540
+      power: 4296805
       vip_level: 3
       resources:
         wood: 0
@@ -271,7 +307,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -293,11 +329,20 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 2
+                isExist: true
+                isPlay: false
+        frostyFortune:
+            state:
+                isExist: false
     - id: 420195101
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5862690
+      power: 5924938
       vip_level: 3
       resources:
         wood: 0
@@ -325,7 +370,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -347,3 +392,12 @@ gamers:
             level: 0
         economy:
             level: 0
+      events:
+        tundraAdventure:
+            state:
+                count: 5
+                isExist: true
+                isPlay: false
+        frostyFortune:
+            state:
+                isExist: false

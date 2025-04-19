@@ -24,6 +24,7 @@ type Gamer struct {
 	Alliance    Alliance      `yaml:"alliance"`    // Данные об альянсе.
 	Buildings   Buildings     `yaml:"buildings"`   // Здания персонажа.
 	Researches  Researches    `yaml:"researches"`  // Уровни исследований.
+	Events      Events        `yaml:"events"`      // События персонажа.
 }
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {

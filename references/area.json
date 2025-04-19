@@ -166,10 +166,10 @@
         "original_height": 2400
       },
       {
-        "x": 68.7962962962963,
-        "y": 88.375,
-        "width": 11.296296296296276,
-        "height": 5.083333333333329,
+        "x": 67.81301212717143,
+        "y": 87.93252212389375,
+        "width": 12.935103244837705,
+        "height": 5.820796460176999,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-04-18T03:39:52.793566Z",
-    "lead_time": 6643.758
+    "updated_at": "2025-04-19T13:25:26.173885Z",
+    "lead_time": 6656.773999999999
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -1789,10 +1789,10 @@
         "original_height": 2400
       },
       {
-        "x": 76.04064241232383,
-        "y": 42.77286135693216,
-        "width": 16.71583087512292,
-        "height": 2.5073746312684335,
+        "x": 70.79646017699116,
+        "y": 38.49557522123889,
+        "width": 26.220911176663414,
+        "height": 51.327433628318644,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
@@ -1809,8 +1809,8 @@
     "annotator": 2,
     "annotation_id": 31,
     "created_at": "2025-04-18T05:58:06.695063Z",
-    "updated_at": "2025-04-18T11:30:19.362982Z",
-    "lead_time": 552.559
+    "updated_at": "2025-04-19T13:32:58.951396Z",
+    "lead_time": 577.756
   },
   {
     "ocr": "\/data\/upload\/1\/0c38971e-alliance_chest_gift.png",
@@ -1844,5 +1844,186 @@
     "created_at": "2025-04-18T10:58:18.346896Z",
     "updated_at": "2025-04-18T16:00:03.634496Z",
     "lead_time": 231.856
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8c7e8070-tundra_adventure_caravan.png",
+    "id": 33,
+    "annotator": 2,
+    "annotation_id": 35,
+    "created_at": "2025-04-19T11:20:31.872567Z",
+    "updated_at": "2025-04-19T11:20:31.872596Z",
+    "lead_time": 101.466
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9a266866-tundra_adventure_drill.png",
+    "id": 34,
+    "bbox": [
+      {
+        "x": 11.143887250081942,
+        "y": 35.98820058997051,
+        "width": 36.70927564732875,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 50.80301540478532,
+        "y": 35.840707964601776,
+        "width": 39.0036053752868,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_tundra_adventurer_drill",
+      "to_tundra_adventurer_daily_missions"
+    ],
+    "annotator": 2,
+    "annotation_id": 34,
+    "created_at": "2025-04-19T11:18:20.275640Z",
+    "updated_at": "2025-04-19T13:13:35.619581Z",
+    "lead_time": 15836.618
+  },
+  {
+    "ocr": "\/data\/upload\/1\/fa3bf7a0-tundra_adventure_main.png",
+    "id": 35,
+    "bbox": [
+      {
+        "x": 10.488364470665356,
+        "y": 92.18289085545725,
+        "width": 36.053752867912166,
+        "height": 3.0973451327433565,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 30.38348082595871,
+        "width": 11.799410029498524,
+        "height": 6.342182890855458,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.210750573582439,
+        "y": 10.324483775811185,
+        "width": 21.304490331039002,
+        "height": 4.277286135693215,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.07046869878729,
+        "y": 10.914454277286136,
+        "width": 23.271058669288763,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.946902654867266,
+        "y": 10.766961651917406,
+        "width": 25.5653883972468,
+        "height": 4.277286135693215,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 79.53703703703702,
+        "y": 21.16666666666666,
+        "width": 10.555555555555571,
+        "height": 1.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isPlay",
+      "to_tundra_adventure_caravan",
+      "to_tundra_adventure_main",
+      "to_tundra_adventure_drill",
+      "to_tundra_adventure_odessey",
+      "events.tundraAdventure.state.count"
+    ],
+    "annotator": 2,
+    "annotation_id": 33,
+    "created_at": "2025-04-19T06:54:01.148955Z",
+    "updated_at": "2025-04-19T15:55:05.774126Z",
+    "lead_time": 2641.135
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ce54e916-tundra_adventure_odyssey.png",
+    "id": 36,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 4.572271386430679,
+        "width": 9.177318911832188,
+        "height": 3.2448377581120953,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 13.110455588331696,
+        "y": 20.353982300884958,
+        "width": 16.388069485414622,
+        "height": 2.2123893805309756,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_tundra_adventure_back",
+      "tundra_adventure_odessey_timer"
+    ],
+    "annotator": 2,
+    "annotation_id": 36,
+    "created_at": "2025-04-19T11:30:06.888227Z",
+    "updated_at": "2025-04-19T11:30:06.888254Z",
+    "lead_time": 90.015
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8d9f43a3-main_city.png",
+    "id": 37,
+    "bbox": [
+      {
+        "x": 68.1047197640116,
+        "y": 9.796828908554565,
+        "width": 31.89528023598837,
+        "height": 24.941371681415944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 68.50213044903312,
+        "y": 37.168141592920364,
+        "width": 31.497869550966882,
+        "height": 3.0973451327433565,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isExist",
+      "second"
+    ],
+    "annotator": 2,
+    "annotation_id": 37,
+    "created_at": "2025-04-19T11:53:34.226101Z",
+    "updated_at": "2025-04-19T12:03:56.347535Z",
+    "lead_time": 708.488
   }
 ]

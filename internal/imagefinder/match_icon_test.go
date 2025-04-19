@@ -64,10 +64,19 @@ func TestMatchIconInRegion(t *testing.T) {
 		},
 		{
 			name:          "ClaimButton – есть зелёная кнопка",
-			screenshot:    "../../references/screenshots/alliance_chest_gift.png",
+			screenshot:    "../../references/screenshots/alliance/alliance_chest_gift.png",
 			icon:          "../../references/icons/alliance.state.isClaimButton.png",
 			regionKey:     "alliance.state.isClaimButton",
 			threshold:     0.3,
+			wantMatch:     true,
+			minConfidence: 0.1,
+		},
+		{
+			name:          "TundraAdventure – есть иконка",
+			screenshot:    "../../references/screenshots/events/tundra_adventure/main_city.png",
+			icon:          "../../references/icons/events.tundraAdventure.state.isExist.png",
+			regionKey:     "events.tundraAdventure.state.isExist",
+			threshold:     0.7,
 			wantMatch:     true,
 			minConfidence: 0.1,
 		},
@@ -107,6 +116,7 @@ func TestMatchIconInRegion(t *testing.T) {
 // saveMatchDebugImage выполняет MatchTemplate и сохраняет PNG с подсветкой:
 // - зелёным — если score ≥ threshold
 // - красным  — если 0 < score < threshold
+// - жёлтым   — зона поиска (region)
 func saveMatchDebugImage(screenshotPath, iconPath string, region image.Rectangle, threshold float32, debugPath string) error {
 	screenshotMat := gocv.IMRead(screenshotPath, gocv.IMReadColor)
 	if screenshotMat.Empty() {
@@ -131,8 +141,11 @@ func saveMatchDebugImage(screenshotPath, iconPath string, region image.Rectangle
 
 	gocv.MatchTemplate(crop, iconMat, &result, gocv.TmCcoeffNormed, gocv.NewMat())
 
-	overlay := crop.Clone()
+	overlay := screenshotMat.Clone() // ← рисуем поверх всей картинки
 	defer overlay.Close()
+
+	// 🟨 Жёлтая рамка вокруг области поиска
+	gocv.Rectangle(&overlay, region, color.RGBA{R: 255, G: 255, A: 255}, 2)
 
 	rows, cols := result.Rows(), result.Cols()
 	for y := 0; y < rows; y++ {
@@ -142,12 +155,12 @@ func saveMatchDebugImage(screenshotPath, iconPath string, region image.Rectangle
 				continue
 			}
 
-			rect := image.Rect(x, y, x+iconMat.Cols(), y+iconMat.Rows())
+			rect := image.Rect(region.Min.X+x, region.Min.Y+y, region.Min.X+x+iconMat.Cols(), region.Min.Y+y+iconMat.Rows())
 			var col color.RGBA
 			if score >= threshold {
-				col = color.RGBA{G: 255, A: 255} // зелёный
+				col = color.RGBA{G: 255, A: 255} // 🟢 зелёный
 			} else {
-				col = color.RGBA{R: 255, A: 255} // красный
+				col = color.RGBA{R: 255, A: 255} // 🔴 красный
 			}
 			gocv.Rectangle(&overlay, rect, col, 2)
 		}

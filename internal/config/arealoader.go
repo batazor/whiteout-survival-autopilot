@@ -66,6 +66,27 @@ func (a *AreaLookup) Get(name string) (Region, bool) {
 func (a *AreaLookup) AddTemporaryRegion(name string, region Region) {
 	bbox := domain.NewBBoxFromRect(region.Zone, 1080, 2400)
 
+	// Попробуем найти и обновить существующий регион
+	for i := range a.Areas {
+		for j, label := range a.Areas[i].Transcription {
+			if label == name {
+				if j < len(a.Areas[i].BBox) {
+					a.Areas[i].BBox[j] = bbox
+
+					slog.Info("🛠️ Обновлён временный регион",
+						slog.String("name", name),
+						slog.Float64("x", bbox.X),
+						slog.Float64("y", bbox.Y),
+						slog.Float64("width", bbox.Width),
+						slog.Float64("height", bbox.Height),
+					)
+					return
+				}
+			}
+		}
+	}
+
+	// Если регион не найден — добавляем как новый
 	a.Areas = append(a.Areas, domain.AreaReference{
 		OCR:           "generated",
 		ID:            -1,

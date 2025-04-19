@@ -13,6 +13,10 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
+func init() {
+	mergeTransitions(transitionPaths, tundraAdventureTransitionPaths)
+}
+
 func buildFSMGraph() map[string][]string {
 	// 🧼 Полный сброс, чтобы избежать остатков от других FSM
 	fsmGraph := map[string][]string{}
@@ -136,6 +140,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 		StateMail: {
 			{Action: "to_mail", Wait: 300 * time.Millisecond},
+		},
+		StateTundraAdventure: {
+			{Action: "events.tundraAdventure.state.isExist", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateMainMenuCity: {
@@ -599,4 +606,15 @@ func (g *GameFSM) pathToSteps(path []string) []TransitionStep {
 		}
 	}
 	return steps
+}
+
+func mergeTransitions(dst, src map[string]map[string][]TransitionStep) {
+	for from, targets := range src {
+		if _, ok := dst[from]; !ok {
+			dst[from] = make(map[string][]TransitionStep)
+		}
+		for to, steps := range targets {
+			dst[from][to] = steps
+		}
+	}
 }

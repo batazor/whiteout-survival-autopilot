@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -63,6 +64,16 @@ type AnalyzeRule struct {
 	Log           string            `yaml:"log,omitempty"`           // Сообщение для логирования (опционально)
 	SaveAsRegion  bool              `yaml:"saveAsRegion,omitempty"`  // если true — сохранить зону как новую временную область с именем .Name
 	Options       *AnalyzeImageRule `yaml:"options,omitempty"`       // Опции для анализа изображения
+}
+
+// Validate проверяет допустимость значения action в правиле анализа.
+func (r AnalyzeRule) Validate() error {
+	switch r.Action {
+	case "text", "exist", "color_check", "findIcon", "findText":
+		return nil
+	default:
+		return fmt.Errorf("invalid action '%s' in rule '%s'", r.Action, r.Name)
+	}
 }
 
 type AnalyzeImageRule struct {

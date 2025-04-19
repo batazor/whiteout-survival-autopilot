@@ -52,41 +52,17 @@ func MatchIconInRegion(
 	cropped := screenshot.Region(region)
 	defer cropped.Close()
 
-	// Resize icon to fit cropped region while maintaining aspect ratio
-	cropW := cropped.Cols()
-	cropH := cropped.Rows()
-	iconW := icon.Cols()
-	iconH := icon.Rows()
-
-	scaleX := float64(cropW) / float64(iconW)
-	scaleY := float64(cropH) / float64(iconH)
-	scale := scaleX
-	if scaleY < scaleX {
-		scale = scaleY
-	}
-
-	newW := int(float64(iconW) * scale)
-	newH := int(float64(iconH) * scale)
-
-	if newW < 1 || newH < 1 {
-		return false, 0, fmt.Errorf("scaled icon size too small")
-	}
-
-	resizedIcon := gocv.NewMat()
-	defer resizedIcon.Close()
-	gocv.Resize(icon, &resizedIcon, image.Pt(newW, newH), 0, 0, gocv.InterpolationArea)
-
 	// Convert both to grayscale
 	grayCrop := gocv.NewMat()
 	grayIcon := gocv.NewMat()
 	defer grayCrop.Close()
 	defer grayIcon.Close()
-	gocv.CvtColor(cropped, &grayCrop, gocv.ColorBGRToGray)
-	gocv.CvtColor(resizedIcon, &grayIcon, gocv.ColorBGRToGray)
+	gocv.CvtColor(cropped, &grayCrop, gocv.ColorBGRToRGB)
+	gocv.CvtColor(icon, &grayIcon, gocv.ColorBGRToRGB)
 
 	// Apply Gaussian Blur
-	gocv.GaussianBlur(grayCrop, &grayCrop, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
-	gocv.GaussianBlur(grayIcon, &grayIcon, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
+	//gocv.GaussianBlur(grayCrop, &grayCrop, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
+	//gocv.GaussianBlur(grayIcon, &grayIcon, image.Pt(3, 3), 0, 0, gocv.BorderDefault)
 
 	// Template Matching
 	result := gocv.NewMat()
@@ -100,7 +76,7 @@ func MatchIconInRegion(
 	// Highlight match in original screenshot
 	if match {
 		topLeft := image.Pt(region.Min.X+maxLoc.X, region.Min.Y+maxLoc.Y)
-		bottomRight := image.Pt(topLeft.X+resizedIcon.Cols(), topLeft.Y+resizedIcon.Rows())
+		bottomRight := image.Pt(topLeft.X+icon.Cols(), topLeft.Y+icon.Rows())
 		highlightColor := color.RGBA{G: 255, A: 255}
 		gocv.Rectangle(&screenshot, image.Rect(topLeft.X, topLeft.Y, bottomRight.X, bottomRight.Y), highlightColor, 2)
 	}

@@ -22,13 +22,11 @@ func LoadAnalyzeRules(path string) (ScreenAnalyzeRules, error) {
 		return nil, fmt.Errorf("failed to parse analyze config: %w", err)
 	}
 
-	// Optional: Validate actions
+	// Validate actions
 	for screen, ruleList := range rules {
-		for i, rule := range ruleList {
-			if rule.Action != "text" &&
-				rule.Action != "exist" &&
-				rule.Action != "color_check" {
-				return nil, fmt.Errorf("invalid action '%s' in rule[%d] for screen '%s'", rule.Action, i, screen)
+		for _, rule := range ruleList {
+			if err := rule.Validate(); err != nil {
+				return nil, fmt.Errorf("screen '%s': %w", screen, err)
 			}
 		}
 	}

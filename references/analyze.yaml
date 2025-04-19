@@ -11,7 +11,12 @@ main_city:
 
   - name: alliance.state.isNeedSupport
     action: exist
-    threshold: 0.4
+    threshold: 0.7
+
+  - name: events.tundraAdventure.state.isExist
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
 
 exploration:
   - name: exploration.state.isClaimActive
@@ -66,3 +71,9 @@ alliance_chest_loot:
     action: text
     type: integer
     threshold: 0.5
+
+tundra_adventure_main:
+  - name: events.tundraAdventure.state.count
+    action: text
+    type: integer
+    threshold: 0.7
