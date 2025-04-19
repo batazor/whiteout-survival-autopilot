@@ -20,6 +20,9 @@ type TundraAdventureState struct {
 	// Adventurer Drill ------
 	IsAdventurerDrillClaimIsExist bool `yaml:"isAdventurerDrillClaimIsExist"` // Признак существования обновления данных
 	IsAdventurerDrillClaim        bool `yaml:"isAdventurerDrillClaim"`        // Признак наличия квеста на получение добычи
+
+	// Daily Missions Rewards ------
+	IsAdventureDailyClaim bool `yaml:"isAdventureDailyClaim"` // Признак существования обновления данных
 }
 
 type FrostyFortune struct {

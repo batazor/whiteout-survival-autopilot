@@ -31,7 +31,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -61,6 +61,7 @@ gamers:
                 isPlay: true
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: true
         frostyFortune:
             state:
                 isExist: false
@@ -126,6 +127,7 @@ gamers:
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -133,8 +135,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6050055
-      vip_level: 3
+      power: 28367318
+      vip_level: 7
       resources:
         wood: 0
         food: 0
@@ -173,7 +175,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -203,6 +205,7 @@ gamers:
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -210,7 +213,7 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 28367407
+      power: 28367318
       vip_level: 7
       resources:
         wood: 100000
@@ -255,12 +258,12 @@ gamers:
             isChests: 3
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 19
+            polarTerrorCount: 0
             isClaimButton: false
-            isCanClaimAllChests: true
-            lootCountLimit: 162
+            isCanClaimAllChests: false
+            lootCountLimit: 405
             isGiftClaimAllButton: false
-            isMainChest: true
+            isMainChest: false
         tech:
             favorite: true
       buildings:
@@ -280,6 +283,7 @@ gamers:
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -345,6 +349,7 @@ gamers:
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: true
         frostyFortune:
             state:
                 isExist: false
@@ -410,6 +415,7 @@ gamers:
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false
+                isAdventureDailyClaim: false
         frostyFortune:
             state:
                 isExist: false

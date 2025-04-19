@@ -1,0 +1,21 @@
+name: Claim Tundra Daily Missions Rewards
+
+node: tundra_adventurer_daily_missions
+
+priority: 17
+ttl: 4h
+
+trigger: events.tundraAdventure.state.isAdventureDailyClaim
+
+steps:
+  - action: loop
+    trigger: events.tundraAdventure.state.isAdventureDailyClaim
+    steps:
+      - click: events.tundraAdventure.state.isAdventureDailyClaim
+      - wait: 200ms
+      - action: screenshot
+        analyze:
+          - name: events.tundraAdventure.state.isAdventureDailyClaim
+            action: findIcon
+            threshold: 0.93
+            saveAsRegion: true

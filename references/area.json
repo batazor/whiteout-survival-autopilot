@@ -1875,17 +1875,27 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 66.20780072107506,
+        "y": 50.14749262536874,
+        "width": 23.92658144870535,
+        "height": 48.5250737463127,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "to_tundra_adventurer_drill",
-      "to_tundra_adventurer_daily_missions"
+      "to_tundra_adventurer_daily_missions",
+      "events.tundraAdventure.state.isAdventureDailyClaim"
     ],
     "annotator": 2,
     "annotation_id": 34,
     "created_at": "2025-04-19T11:18:20.275640Z",
-    "updated_at": "2025-04-19T13:13:35.619581Z",
-    "lead_time": 15836.618
+    "updated_at": "2025-04-19T17:53:02.667014Z",
+    "lead_time": 15875.096000000001
   },
   {
     "ocr": "\/data\/upload\/1\/fa3bf7a0-tundra_adventure_main.png",

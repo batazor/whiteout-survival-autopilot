@@ -78,6 +78,23 @@ var tundraAdventureTransitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
 		},
 	},
+	StateTundraAdventurerDailyMissions: {
+		StateMainCity: {
+			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
+		},
+		StateTundraAdventurerDrill: {
+			{Action: "to_tundra_adventurer_drill", Wait: 300 * time.Millisecond},
+		},
+		StateTundraAdventureMain: {
+			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
+		},
+		StateTundraAdventureOdessey: {
+			{Action: "to_tundra_adventure_odessey", Wait: 300 * time.Millisecond},
+		},
+		StateTundraAdventureCaravan: {
+			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
+		},
+	},
 	StateTundraAdventureOdessey: {
 		StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},

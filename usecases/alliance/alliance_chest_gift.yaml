@@ -25,6 +25,7 @@ steps:
           trigger: alliance.state.isClaimButton
           steps:
             - click: alliance.state.isClaimButton
+            - wait: 400ms
             - action: screenshot
               analyze:
                 - name: alliance.state.isClaimButton

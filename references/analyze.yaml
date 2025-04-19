@@ -88,3 +88,9 @@ tundra_adventurer_drill:
     action: color_check
     expectedColor: red
     threshold: 0.5
+
+tundra_adventurer_daily_missions:
+  - name: events.tundraAdventure.state.isAdventureDailyClaim
+    action: findIcon
+    threshold: 0.93
+    saveAsRegion: true
