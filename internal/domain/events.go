@@ -10,9 +10,16 @@ type TundraAdventure struct {
 }
 
 type TundraAdventureState struct {
-	Count   int  `yaml:"count"`   // Количество доступных бросков
+	// Main City ------------
 	IsExist bool `yaml:"isExist"` // Признак существования события
-	IsPlay  bool `yaml:"isPlay"`  // Признак доступности броска игральной кости
+
+	// Play screen -----------
+	Count  int  `yaml:"count"`  // Количество доступных бросков
+	IsPlay bool `yaml:"isPlay"` // Признак доступности броска игральной кости
+
+	// Adventurer Drill ------
+	IsAdventurerDrillClaimIsExist bool `yaml:"isAdventurerDrillClaimIsExist"` // Признак существования обновления данных
+	IsAdventurerDrillClaim        bool `yaml:"isAdventurerDrillClaim"`        // Признак наличия квеста на получение добычи
 }
 
 type FrostyFortune struct {

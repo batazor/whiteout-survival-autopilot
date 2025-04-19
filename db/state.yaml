@@ -56,9 +56,11 @@ gamers:
       events:
         tundraAdventure:
             state:
-                count: 0
                 isExist: true
+                count: 0
                 isPlay: true
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -94,7 +96,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -119,9 +121,11 @@ gamers:
       events:
         tundraAdventure:
             state:
-                count: 2
                 isExist: true
+                count: 2
                 isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -129,8 +133,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
+      power: 6050055
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -194,9 +198,11 @@ gamers:
       events:
         tundraAdventure:
             state:
-                count: 0
                 isExist: true
+                count: 0
                 isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -204,7 +210,7 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 28186273
+      power: 28367407
       vip_level: 7
       resources:
         wood: 100000
@@ -244,7 +250,7 @@ gamers:
             count: 15
             max: 30
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 1
             isChests: 3
             isAllianceContributeButton: false
@@ -269,9 +275,11 @@ gamers:
       events:
         tundraAdventure:
             state:
+                isExist: true
                 count: 0
-                isExist: false
                 isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -332,9 +340,11 @@ gamers:
       events:
         tundraAdventure:
             state:
-                count: 2
                 isExist: true
+                count: 2
                 isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false
@@ -395,9 +405,11 @@ gamers:
       events:
         tundraAdventure:
             state:
-                count: 5
                 isExist: true
+                count: 5
                 isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
         frostyFortune:
             state:
                 isExist: false

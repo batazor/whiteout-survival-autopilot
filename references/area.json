@@ -2025,5 +2025,38 @@
     "created_at": "2025-04-19T11:53:34.226101Z",
     "updated_at": "2025-04-19T12:03:56.347535Z",
     "lead_time": 708.488
+  },
+  {
+    "ocr": "\/data\/upload\/1\/59e55648-tundra_adventurer_drill.png",
+    "id": 38,
+    "bbox": [
+      {
+        "x": 70.46869878728288,
+        "y": 42.62536873156343,
+        "width": 20.976728941330705,
+        "height": 56.34218289085547,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.101851851851855,
+        "y": 35.916666666666664,
+        "width": 1.2037037037036953,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isAdventurerDrillClaim",
+      "events.tundraAdventure.state.isAdventurerDrillClaimIsExist"
+    ],
+    "annotator": 2,
+    "annotation_id": 38,
+    "created_at": "2025-04-19T16:16:25.413045Z",
+    "updated_at": "2025-04-19T16:16:25.413076Z",
+    "lead_time": 95.524
   }
 ]

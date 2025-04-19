@@ -80,6 +80,15 @@ func TestMatchIconInRegion(t *testing.T) {
 			wantMatch:     true,
 			minConfidence: 0.1,
 		},
+		{
+			name:          "TundraAdventurer drill – есть иконка",
+			screenshot:    "../../references/screenshots/events/tundra_adventure/tundra_adventurer_drill.png",
+			icon:          "../../references/icons/events.tundraAdventure.state.isAdventurerDrillClaim.png",
+			regionKey:     "events.tundraAdventure.state.isAdventurerDrillClaim",
+			threshold:     0.7,
+			wantMatch:     true,
+			minConfidence: 0.1,
+		},
 		// добавляйте новые случаи сюда …
 	}
 

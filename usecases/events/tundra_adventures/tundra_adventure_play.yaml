@@ -4,7 +4,7 @@ node: tundra_adventure_main
 
 priority: 15
 
-#ttl: 6h
+ttl: 4h
 
 trigger: events.tundraAdventure.state.count > 0
 
