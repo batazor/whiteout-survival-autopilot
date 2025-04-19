@@ -96,7 +96,6 @@ const (
 	StateMailSystem   = "mail_system"
 	StateMailReports  = "mail_reports"
 	StateMailStarred  = "mail_starred"
-	StateMailBack     = "mail_back"
 )
 
 type TransitionStep struct {
@@ -286,7 +285,107 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 	},
 	StateMail: {
-		StateMailBack: {
+		StateMainCity: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMailWars: {
+		StateMainCity: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMailAlliance: {
+		StateMainCity: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMailSystem: {
+		StateMainCity: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMailReports: {
+		StateMainCity: {
+			{Action: "mail_close", Wait: 300 * time.Millisecond},
+		},
+		StateMailWars: {
+			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
+		},
+		StateMailAlliance: {
+			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
+		},
+		StateMailSystem: {
+			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
+		},
+		StateMailReports: {
+			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
+		},
+		StateMailStarred: {
+			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateMailStarred: {
+		StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
 		StateMailWars: {

@@ -1,0 +1,11 @@
+name: Mail Read Wars
+
+node: mail_wars
+
+priority: 25
+
+ttl: 12h
+
+steps:
+  - click: mail_read_and_claim_all
+  - click: mail_read_and_claim_all # второй клик, что бы скипнуть reward сообщение (если будет)

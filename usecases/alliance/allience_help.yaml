@@ -4,7 +4,7 @@ node: main_city
 
 trigger: "alliance.state.isNeedSupport == true"
 
-priority: 20
+priority: 40
 
 ttl: 30s
 

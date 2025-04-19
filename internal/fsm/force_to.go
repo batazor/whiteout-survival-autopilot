@@ -11,14 +11,6 @@ import (
 func (g *GameFSM) ForceTo(target string) {
 	prev := g.Current()
 
-	// Special case: exit from mail back to previous state
-	if prev == StateMail && target == StateMailBack && g.previousState != "" {
-		g.logger.Info("Returning from mail to previous state",
-			slog.String("from", prev),
-			slog.String("to", g.previousState))
-		target = g.previousState
-	}
-
 	// Save the previous state (before changing it)
 	g.previousState = prev
 
