@@ -14,28 +14,48 @@ import (
 )
 
 func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.Logger) (domain.BBoxes, error) {
-	screenshot := gocv.IMRead(screenshotPath, gocv.IMReadGrayScale)
-	if screenshot.Empty() {
+	// Загружаем изображение один раз, чтобы получить размер
+	img := gocv.IMRead(screenshotPath, gocv.IMReadGrayScale)
+	if img.Empty() {
 		return nil, fmt.Errorf("failed to load screenshot: %s", screenshotPath)
 	}
-	defer screenshot.Close()
+	defer img.Close()
 
-	// Цветная версия для отрисовки
+	fullRegion := image.Rect(0, 0, img.Cols(), img.Rows())
+
+	return FindIconsInRegion(screenshotPath, iconPath, fullRegion, threshold, logger)
+}
+
+// FindIconsInRegion ищет иконки только в заданной области searchRegion (в координатах всего изображения).
+func FindIconsInRegion(
+	screenshotPath, iconPath string,
+	searchRegion image.Rectangle,
+	threshold float32,
+	logger *slog.Logger,
+) (domain.BBoxes, error) {
+	// Загружаем скриншот полностью
+	fullScreenshot := gocv.IMRead(screenshotPath, gocv.IMReadGrayScale)
+	if fullScreenshot.Empty() {
+		return nil, fmt.Errorf("failed to load screenshot: %s", screenshotPath)
+	}
+	defer fullScreenshot.Close()
+
 	colorScreenshot := gocv.IMRead(screenshotPath, gocv.IMReadColor)
 	if colorScreenshot.Empty() {
 		return nil, fmt.Errorf("failed to load color screenshot: %s", screenshotPath)
 	}
 	defer colorScreenshot.Close()
 
+	// Обрезаем регион
+	screenshot := fullScreenshot.Region(searchRegion)
+	defer screenshot.Close()
+
+	// Загружаем иконку
 	icon := gocv.IMRead(iconPath, gocv.IMReadGrayScale)
 	if icon.Empty() {
 		return nil, fmt.Errorf("failed to load icon: %s", iconPath)
 	}
 	defer icon.Close()
-
-	// ── Контурное выделение для устойчивости к яркости ──
-	//gocv.Canny(screenshot, &screenshot, 50, 200)
-	//gocv.Canny(icon, &icon, 50, 200)
 
 	result := gocv.NewMat()
 	defer result.Close()
@@ -44,8 +64,8 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 
 	var boxes []domain.BBox
 
-	sWidth := screenshot.Cols()
-	sHeight := screenshot.Rows()
+	screenW := fullScreenshot.Cols()
+	screenH := fullScreenshot.Rows()
 
 	iconW := icon.Cols()
 	iconH := icon.Rows()
@@ -63,34 +83,29 @@ func FindIcons(screenshotPath, iconPath string, threshold float32, logger *slog.
 			break
 		}
 
+		// Смещение от полной картинки
+		absX := searchRegion.Min.X + maxLoc.X
+		absY := searchRegion.Min.Y + maxLoc.Y
+
 		bbox := domain.BBox{
-			X:              float64(maxLoc.X) / float64(sWidth) * 100,
-			Y:              float64(maxLoc.Y) / float64(sHeight) * 100,
-			Width:          float64(iconW) / float64(sWidth) * 100,
-			Height:         float64(iconH) / float64(sHeight) * 100,
+			X:              float64(absX) / float64(screenW) * 100,
+			Y:              float64(absY) / float64(screenH) * 100,
+			Width:          float64(iconW) / float64(screenW) * 100,
+			Height:         float64(iconH) / float64(screenH) * 100,
 			Rotation:       0,
-			OriginalWidth:  sWidth,
-			OriginalHeight: sHeight,
+			OriginalWidth:  screenW,
+			OriginalHeight: screenH,
 			Confidence:     maxVal,
 		}
 		boxes = append(boxes, bbox)
 
-		// Отрисовка прямоугольника на цветной версии
-		matchRect := image.Rect(maxLoc.X, maxLoc.Y, maxLoc.X+iconW, maxLoc.Y+iconH)
+		// Отрисовка на цветном скриншоте
+		matchRect := image.Rect(absX, absY, absX+iconW, absY+iconH)
 		gocv.Rectangle(&colorScreenshot, matchRect, color.RGBA{0, 255, 0, 255}, 2)
 
-		// "Затираем" найденную область
-		gocv.Rectangle(&result, matchRect, color.RGBA{0, 0, 0, 0}, -1)
-	}
-
-	// Сохраняем debug-изображение
-	if len(boxes) > 0 {
-		debugPath := generateDebugPath(screenshotPath)
-		if err := gocv.IMWrite(debugPath, colorScreenshot); err == false {
-			logger.Info("🖼️ Debug image saved", slog.String("path", debugPath))
-		} else {
-			logger.Warn("failed to save debug image", slog.String("path", debugPath), slog.Any("error", err))
-		}
+		// Затираем найденную область
+		resultRect := image.Rect(maxLoc.X, maxLoc.Y, maxLoc.X+iconW, maxLoc.Y+iconH)
+		gocv.Rectangle(&result, resultRect, color.RGBA{0, 0, 0, 0}, -1)
 	}
 
 	logger.Info("📦 Total matches found", slog.Int("count", len(boxes)))

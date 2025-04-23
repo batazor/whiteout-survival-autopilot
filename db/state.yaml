@@ -46,7 +46,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 16
+            level: 17
             power: 0
       researches:
         battle:
@@ -112,7 +112,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 17
+            level: 18
             power: 0
       researches:
         battle:
@@ -135,8 +135,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 28367318
-      vip_level: 7
+      power: 6192992
+      vip_level: 3
       resources:
         wood: 0
         food: 0
@@ -144,11 +144,11 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 0
+        level: 234
         state:
             isClaimActive: true
-            myPower: 1332009
-            enemyPower: 1203741
+            myPower: 1391689
+            enemyPower: 1331487
             battleStatus: ""
       heroes:
         state:
@@ -182,7 +182,7 @@ gamers:
             isAllianceTechButton: false
             polarTerrorCount: 0
             isClaimButton: false
-            isCanClaimAllChests: true
+            isCanClaimAllChests: false
             lootCountLimit: 0
             isGiftClaimAllButton: false
             isMainChest: false
@@ -213,7 +213,7 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 28367318
+      power: 28606202
       vip_level: 7
       resources:
         wood: 100000
@@ -225,7 +225,7 @@ gamers:
         level: 348
         state:
             isClaimActive: true
-            myPower: 3564276
+            myPower: 3645959
             enemyPower: 4232159
             battleStatus: ""
       heroes:
@@ -253,19 +253,19 @@ gamers:
             count: 15
             max: 30
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 1
             isChests: 3
             isAllianceContributeButton: false
             isAllianceTechButton: false
             polarTerrorCount: 0
             isClaimButton: false
-            isCanClaimAllChests: false
-            lootCountLimit: 405
+            isCanClaimAllChests: true
+            lootCountLimit: 124
             isGiftClaimAllButton: false
             isMainChest: false
         tech:
-            favorite: true
+            favorite: false
       buildings:
         furnace:
             level: 27
@@ -357,7 +357,7 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 5924938
+      power: 6104877
       vip_level: 3
       resources:
         wood: 0
@@ -369,7 +369,7 @@ gamers:
         level: 236
         state:
             isClaimActive: true
-            myPower: 1293445
+            myPower: 1342765
             enemyPower: 1337180
             battleStatus: ""
       heroes: {}
@@ -385,19 +385,19 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
             polarTerrorCount: 0
             isClaimButton: false
-            isCanClaimAllChests: true
-            lootCountLimit: 3
+            isCanClaimAllChests: false
+            lootCountLimit: 0
             isGiftClaimAllButton: false
             isMainChest: false
         tech:
-            favorite: true
+            favorite: false
       buildings:
         furnace:
             level: 19
@@ -411,7 +411,7 @@ gamers:
         tundraAdventure:
             state:
                 isExist: true
-                count: 5
+                count: 0
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
                 isAdventurerDrillClaim: false

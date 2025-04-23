@@ -26,6 +26,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 		"Resource",
 		"Mastery Material",
 		"Purchase limit",
+		"Agility",
 	}
 
 	timeout := 20 * time.Second
@@ -61,6 +62,7 @@ func (d *Device) handleEntryScreens(ctx context.Context) error {
 					strings.Contains(text, "resource"),
 					strings.Contains(text, "mastery material"),
 					strings.Contains(text, "purchase limit"),
+					strings.Contains(text, "agility"),
 					strings.Contains(text, "construction speedup"):
 					d.Logger.Info(fmt.Sprintf("🌀 Найден pop-up ('%s') — закрываем", text))
 					err := d.ADB.ClickRegion("ad_banner_close", d.AreaLookup)

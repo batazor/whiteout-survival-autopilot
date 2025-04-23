@@ -2068,5 +2068,254 @@
     "created_at": "2025-04-19T16:16:25.413045Z",
     "updated_at": "2025-04-19T16:16:25.413076Z",
     "lead_time": 95.524
+  },
+  {
+    "ocr": "\/data\/upload\/1\/46441552-marvelous_fantasia_main.png",
+    "id": 39,
+    "bbox": [
+      {
+        "x": 11.143887250081942,
+        "y": 10.029498525073748,
+        "width": 15.404785316289743,
+        "height": 5.162241887905607,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 33.759423139954116,
+        "y": 92.62536873156344,
+        "width": 33.10390036053753,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.972222222222214,
+        "y": 45.87500000000001,
+        "width": 8.240740740740748,
+        "height": 3.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80.60185185185185,
+        "y": 52.79166666666667,
+        "width": 8.333333333333343,
+        "height": 3.5416666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 51.43518518518518,
+        "y": 41.458333333333336,
+        "width": 7.592592592592595,
+        "height": 3.4583333333333357,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 21.527777777777782,
+        "y": 48.541666666666664,
+        "width": 8.425925925925924,
+        "height": 3.833333333333343,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.064814814814795,
+        "y": 61.95833333333353,
+        "width": 8.425925925925922,
+        "height": 2.2499999999998157,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.49074074074073,
+        "y": 66.62500000000028,
+        "width": 4.999999999999913,
+        "height": 3.4999999999999996,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.60185185185184,
+        "y": 50.041666666666664,
+        "width": 8.796296296296287,
+        "height": 2.20833333333341,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 55.601851851851805,
+        "y": 50.12500000000001,
+        "width": 8.703703703703702,
+        "height": 2.208333333333467,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.69444444444444,
+        "y": 50.12500000000001,
+        "width": 9.074074074074064,
+        "height": 2.2500000000001505,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 16.06481481481482,
+        "y": 48.708333333333506,
+        "width": 5.092592592592586,
+        "height": 3.583333333333333,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.58333333333333,
+        "y": 44.250000000000234,
+        "width": 4.537037037036995,
+        "height": 3.750000000000005,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_logo",
+      "marvelous_fantasia_play",
+      "marvelous_fantasia_icon_francia_level_1",
+      "marvelous_fantasia_icon_time_level_1",
+      "marvelous_fantasia_icon_pan_level_1",
+      "marvelous_fantasia_icon_icestar_level_1",
+      "marvelous_fantasia_icon_setting_level_2_top",
+      "marvelous_fantasia_icon_bear_level_2_right",
+      "marvelous_fantasia_icon_setting_level_2_down",
+      "marvelous_fantasia_icon_francia_level_2_down",
+      "marvelous_fantasia_icon_beer_level_2_down",
+      "marvelous_fantasia_icon_love_level_2_left",
+      "marvelous_fantasia_icon_sapog_level_2_right"
+    ],
+    "annotator": 2,
+    "annotation_id": 39,
+    "created_at": "2025-04-20T10:49:18.821862Z",
+    "updated_at": "2025-04-20T13:55:05.206478Z",
+    "lead_time": 1230.11
+  },
+  {
+    "ocr": "\/data\/upload\/1\/7f0a99ba-marvelous_fantasia_level_1.png",
+    "id": 40,
+    "bbox": [
+      {
+        "x": 22.63888888888889,
+        "y": 44.75,
+        "width": 8.888888888888893,
+        "height": 4.125,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.25,
+        "y": 44.625,
+        "width": 8.981481481481481,
+        "height": 4.166666666666664,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.195099967223875,
+        "y": 52.78613569321558,
+        "width": 9.537037037037036,
+        "height": 2.7083333333331017,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.13888888888893,
+        "y": 41.91666666666678,
+        "width": 9.351851851851846,
+        "height": 2.7916666666665573,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.972222222222214,
+        "y": 31.500000000000007,
+        "width": 9.722222222222205,
+        "height": 2.4999999999999907,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.157407407407405,
+        "y": 34.291666666666664,
+        "width": 9.44444444444445,
+        "height": 3.749999999999993,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_icon_star_level_1",
+      "marvelous_fantasia_icon_wrench_level_1",
+      "marvelous_fantasia_icon_bear_level_2_top",
+      "marvelous_fantasia_icon_wrench_level_2_top",
+      "marvelous_fantasia_icon_star_level_2_top",
+      "marvelous_fantasia_icon_bear_level_1"
+    ],
+    "annotator": 2,
+    "annotation_id": 40,
+    "created_at": "2025-04-20T12:09:09.730659Z",
+    "updated_at": "2025-04-20T13:57:23.504573Z",
+    "lead_time": 367.67999999999995
+  },
+  {
+    "ocr": "\/data\/upload\/1\/12bae43a-marvelous_fantasia_level_2.png",
+    "id": 41,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 13.864306784660767,
+        "width": 97.34513274336284,
+        "height": 62.97935103244839,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.47222222222222,
+        "y": 5.291666666666668,
+        "width": 6.481481481481488,
+        "height": 2.124999999999999,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_game_area",
+      "marvelous_fantasia_level"
+    ],
+    "annotator": 2,
+    "annotation_id": 41,
+    "created_at": "2025-04-20T12:35:40.323825Z",
+    "updated_at": "2025-04-20T12:35:40.323857Z",
+    "lead_time": 56.325
   }
 ]
