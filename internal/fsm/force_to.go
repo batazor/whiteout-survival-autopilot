@@ -8,7 +8,11 @@ import (
 	"time"
 )
 
-func (g *GameFSM) ForceTo(target string) {
+var (
+	EventNotActive = fmt.Errorf("event not active")
+)
+
+func (g *GameFSM) ForceTo(target string) error {
 	prev := g.Current()
 
 	// Save the previous state (before changing it)
@@ -16,7 +20,7 @@ func (g *GameFSM) ForceTo(target string) {
 
 	if prev == target {
 		g.logger.Debug("FSM already at target state, skipping", slog.String("state", target))
-		return
+		return nil
 	}
 
 	var steps []TransitionStep
@@ -36,6 +40,27 @@ func (g *GameFSM) ForceTo(target string) {
 		}
 
 		for _, step := range steps {
+			// Проверка Trigger (CEL)
+			if step.Trigger != "" {
+				ok, err := g.triggerEvaluator.EvaluateTrigger(step.Trigger, g.gamerState)
+				if err != nil {
+					g.logger.Error("Trigger evaluation failed",
+						slog.String("action", step.Action),
+						slog.String("trigger", step.Trigger),
+						slog.Any("error", err),
+					)
+					panic("Trigger evaluation failed")
+				}
+				if !ok {
+					g.logger.Info("Trigger condition not met, skipping step",
+						slog.String("action", step.Action),
+						slog.String("trigger", step.Trigger),
+					)
+
+					return EventNotActive
+				}
+			}
+
 			if _, ok := g.lookup.Get(step.Action); !ok {
 				panic(fmt.Sprintf("❌ Region '%s' not found in area.json", step.Action))
 			}
@@ -66,4 +91,6 @@ func (g *GameFSM) ForceTo(target string) {
 	if g.callback != nil {
 		g.callback.UpdateStateFromScreenshot(target)
 	}
+
+	return nil
 }

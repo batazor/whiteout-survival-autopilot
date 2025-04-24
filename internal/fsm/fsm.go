@@ -103,8 +103,9 @@ const (
 )
 
 type TransitionStep struct {
-	Action string
-	Wait   time.Duration
+	Action  string
+	Wait    time.Duration
+	Trigger string // Опциональный CEL-триггер
 }
 
 var transitionPaths = map[string]map[string][]TransitionStep{
@@ -142,7 +143,11 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "to_mail", Wait: 300 * time.Millisecond},
 		},
 		StateTundraAdventure: {
-			{Action: "events.tundraAdventure.state.isExist", Wait: 300 * time.Millisecond},
+			{
+				Action:  "events.tundraAdventure.state.isExist",
+				Wait:    300 * time.Millisecond,
+				Trigger: "events.tundraAdventure.state.isExist",
+			},
 		},
 	},
 	StateMainMenuCity: {
@@ -414,14 +419,15 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 }
 
 type GameFSM struct {
-	fsm           *lpfsm.FSM
-	logger        *slog.Logger
-	onStateChange func(state string)
-	callback      StateUpdateCallback
-	getState      func() *domain.State
-	adb           adb.DeviceController
-	lookup        *config.AreaLookup
-	fsmGraph      map[string][]string
+	fsm              *lpfsm.FSM
+	logger           *slog.Logger
+	onStateChange    func(state string)
+	callback         StateUpdateCallback
+	gamerState       *domain.Gamer
+	adb              adb.DeviceController
+	lookup           *config.AreaLookup
+	fsmGraph         map[string][]string
+	triggerEvaluator config.TriggerEvaluator
 
 	// previousState хранит предыдущее состояние FSM
 	previousState string
@@ -431,12 +437,16 @@ func NewGame(
 	logger *slog.Logger,
 	adb adb.DeviceController,
 	lookup *config.AreaLookup,
+	triggerEvaluator config.TriggerEvaluator,
+	gamerState *domain.Gamer,
 ) *GameFSM {
 	g := &GameFSM{
-		logger:   logger,
-		adb:      adb,
-		lookup:   lookup,
-		fsmGraph: buildFSMGraph(),
+		logger:           logger,
+		adb:              adb,
+		lookup:           lookup,
+		fsmGraph:         buildFSMGraph(),
+		triggerEvaluator: triggerEvaluator,
+		gamerState:       gamerState,
 	}
 
 	transitions := lpfsm.Events{}
@@ -463,10 +473,6 @@ func NewGame(
 
 func (g *GameFSM) SetCallback(cb StateUpdateCallback) {
 	g.callback = cb
-}
-
-func (g *GameFSM) SetStateGetter(getter func() *domain.State) {
-	g.getState = getter
 }
 
 func (g *GameFSM) SetOnStateChange(f func(state string)) {

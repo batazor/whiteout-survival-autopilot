@@ -30,7 +30,7 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	d.FSM.SetCallback(expected)
 
 	// 🔧 Пересоздаём FSM для нового аккаунта до любых ForceTo/WaitForText
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup)
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup, d.triggerEvaluator, d.ActiveGamer())
 
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
@@ -57,7 +57,7 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	}
 
 	// ♻️ сброс FSM после входа
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup)
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup, d.triggerEvaluator, d.ActiveGamer())
 
 	// Проверка стартовых баннеров
 	err := d.handleEntryScreens(ctx)

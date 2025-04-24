@@ -13,19 +13,21 @@ import (
 )
 
 type Device struct {
-	Name       string
-	Profiles   domain.Profiles
-	Logger     *slog.Logger
-	ADB        adb.DeviceController
-	FSM        *fsm.GameFSM
-	AreaLookup *config.AreaLookup
-	rdb        *redis.Client
+	Name             string
+	Profiles         domain.Profiles
+	Logger           *slog.Logger
+	ADB              adb.DeviceController
+	FSM              *fsm.GameFSM
+	AreaLookup       *config.AreaLookup
+	rdb              *redis.Client
+	triggerEvaluator config.TriggerEvaluator
 
 	activeProfileIdx int
 	activeGamerIdx   int
 }
 
-func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string, rdb *redis.Client) (*Device, error) {
+func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath string, rdb *redis.Client,
+	triggerEvaluator config.TriggerEvaluator) (*Device, error) {
 	ctx := context.Background()
 
 	log.Info("🔧 Инициализация ADB-контроллера")
@@ -42,14 +44,17 @@ func New(name string, profiles domain.Profiles, log *slog.Logger, areaPath strin
 	}
 
 	device := &Device{
-		Name:       name,
-		Profiles:   profiles,
-		Logger:     log,
-		ADB:        controller,
-		FSM:        fsm.NewGame(log, controller, areaLookup),
-		AreaLookup: areaLookup,
-		rdb:        rdb,
+		Name:             name,
+		Profiles:         profiles,
+		Logger:           log,
+		ADB:              controller,
+		AreaLookup:       areaLookup,
+		rdb:              rdb,
+		triggerEvaluator: triggerEvaluator,
 	}
+
+	// Инициализация FSM
+	device.FSM = fsm.NewGame(log, controller, areaLookup, triggerEvaluator, device.ActiveGamer())
 
 	// Однократная проверка reconnect при запуске устройства
 	device.CheckReconnectOnce(ctx)

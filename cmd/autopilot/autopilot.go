@@ -69,6 +69,9 @@ func main() {
 		return
 	}
 
+	// 🌟 Инициализация TriggerEvaluator 🌟
+	triggerEvaluator := config.NewTriggerEvaluator()
+
 	// ─── Запуск устройств и ботов ────────────────────────────────────────────
 	var wg sync.WaitGroup
 
@@ -80,7 +83,7 @@ func main() {
 
 			devLog := appLogger.With("device", dc.Name)
 
-			dev, err := device.New(dc.Name, dc.Profiles, devLog, "./references/area.json", rdb)
+			dev, err := device.New(dc.Name, dc.Profiles, devLog, "./references/area.json", rdb, triggerEvaluator)
 			if err != nil {
 				devLog.Error("❌ Ошибка создания устройства", slog.Any("err", err))
 				return

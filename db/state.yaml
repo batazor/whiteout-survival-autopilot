@@ -46,7 +46,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 17
+            level: 18
             power: 0
       researches:
         battle:
@@ -135,7 +135,7 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6192992
+      power: 6705238
       vip_level: 3
       resources:
         wood: 0
@@ -175,7 +175,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -200,10 +200,10 @@ gamers:
       events:
         tundraAdventure:
             state:
-                isExist: true
+                isExist: false
                 count: 0
                 isPlay: false
-                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaimIsExist: true
                 isAdventurerDrillClaim: false
                 isAdventureDailyClaim: false
         frostyFortune:
@@ -334,7 +334,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 18
+            level: 19
             power: 0
       researches:
         battle:
@@ -357,7 +357,7 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6104877
+      power: 6771918
       vip_level: 3
       resources:
         wood: 0
@@ -385,7 +385,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -410,7 +410,7 @@ gamers:
       events:
         tundraAdventure:
             state:
-                isExist: true
+                isExist: false
                 count: 0
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false

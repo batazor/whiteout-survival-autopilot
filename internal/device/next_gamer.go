@@ -90,5 +90,5 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 	d.Logger.Info("🔧 Инициализация FSM",
 		slog.String("trace_id", traceID),
 	)
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup)
+	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup, d.triggerEvaluator, d.ActiveGamer())
 }

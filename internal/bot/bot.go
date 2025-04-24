@@ -2,6 +2,7 @@ package bot
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"time"
 
@@ -89,7 +90,22 @@ func (b *Bot) Play(ctx context.Context) {
 		b.logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
 
 		// переходим на стартовый экран юзкейса
-		b.Device.FSM.ForceTo(uc.Node)
+		errForceTo := b.Device.FSM.ForceTo(uc.Node)
+		if errForceTo != nil {
+			if errors.Is(errForceTo, fsm.EventNotActive) {
+				b.logger.Info("⏭️ UseCase пропущен, так как событие не активно", slog.String("name", uc.Name))
+
+				// Устанавливает TTL для usecase в очереди
+				errSetLastExecuted := b.Queue.SetLastExecuted(ctx, b.Gamer.ID, uc.Name, uc.TTL)
+				if errSetLastExecuted != nil {
+					b.logger.Error("❌ Не удалось установить TTL usecase", slog.Any("err", err))
+				}
+
+				continue
+			}
+
+			b.logger.Error("❌ Не удалось переключиться на экран usecase", slog.Any("err", errForceTo))
+		}
 
 		// 📸 Анализ состояния перед trigger'ом
 		b.updateStateFromScreen(ctx, uc.Node, "out/bot_"+b.Gamer.Nickname+"_before_trigger.png")
