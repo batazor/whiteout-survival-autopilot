@@ -1,0 +1,23 @@
+name: Train Lancer
+
+node: lancer
+
+priority: 10
+
+trigger: troops.lancer.state.isAvailable
+
+ttl: 2h
+
+steps:
+  - if:
+      trigger: troops.lancer.state.textStatus == "completed"
+      then:
+        - click: troops_get_button
+        - wait: 500ms
+
+  - if:
+      trigger: troops.lancer.state.textStatus == "idle"
+      then:
+        - click: troops_get_button
+        - wait: 500ms
+        - click: troops_train_start_button

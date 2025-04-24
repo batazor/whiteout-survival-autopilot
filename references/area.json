@@ -2317,5 +2317,220 @@
     "created_at": "2025-04-20T12:35:40.323825Z",
     "updated_at": "2025-04-20T12:35:40.323857Z",
     "lead_time": 56.325
+  },
+  {
+    "ocr": "\/data\/upload\/1\/525455f2-troops_train.png",
+    "id": 42,
+    "bbox": [
+      {
+        "x": 7.866273352998997,
+        "y": 58.70206489675519,
+        "width": 85.54572271386434,
+        "height": 15.191740412979321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 29.82628646345461,
+        "y": 45.280235988200594,
+        "width": 7.866273352999013,
+        "height": 3.0973451327433708,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_command_area",
+      "troops_level"
+    ],
+    "annotator": 1,
+    "annotation_id": 42,
+    "created_at": "2025-04-24T11:41:20.154699Z",
+    "updated_at": "2025-04-24T11:41:20.154729Z",
+    "lead_time": 610.199
+  },
+  {
+    "ocr": "\/data\/upload\/1\/60a12d43-main_menu_done.png",
+    "id": 43,
+    "bbox": [
+      {
+        "x": 57.45370370370371,
+        "y": 45.5,
+        "width": 1.2037037037037024,
+        "height": 0.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.45370370370371,
+        "y": 50.12500000000001,
+        "width": 1.1111111111111072,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.45370370370371,
+        "y": 54.666666666666664,
+        "width": 1.0185185185185262,
+        "height": 0.4166666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops.infantry.state.isAvailable",
+      "troops.lancer.state.isAvailable",
+      "troops.marksman.state.isAvailable"
+    ],
+    "annotator": 1,
+    "annotation_id": 43,
+    "created_at": "2025-04-24T11:56:03.303725Z",
+    "updated_at": "2025-04-24T15:10:56.090230Z",
+    "lead_time": 11850.812
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f06b4022-main_menu_done_en.png",
+    "id": 44,
+    "bbox": [
+      {
+        "x": 18.564814814814817,
+        "y": 46.833333333333336,
+        "width": 29.074074074074076,
+        "height": 1.9166666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 17.91666666666667,
+        "y": 51.541666666666664,
+        "width": 28.796296296296305,
+        "height": 1.8333333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 17.63888888888889,
+        "y": 56.166666666666664,
+        "width": 31.2962962962963,
+        "height": 1.5833333333333357,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.148148148148145,
+        "y": 62.95833333333333,
+        "width": 31.018518518518526,
+        "height": 1.8333333333333428,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.407407407407405,
+        "y": 61.66666666666666,
+        "width": 1.2037037037037095,
+        "height": 0.5416666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops.infantry.state.isTextStatus",
+      "troops.lancer.state.isTextStatus",
+      "troops.marksman.state.isTextStatus",
+      "tech.state.isTextStatus",
+      "tech.state.isAvailable"
+    ],
+    "annotator": 1,
+    "annotation_id": 44,
+    "created_at": "2025-04-24T15:21:47.940099Z",
+    "updated_at": "2025-04-24T15:21:47.940135Z",
+    "lead_time": 497.066
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8f3267aa-troops_get.png",
+    "id": 45,
+    "bbox": [
+      {
+        "x": 40.64241232382826,
+        "y": 44.69026548672567,
+        "width": 18.354637823664376,
+        "height": 6.342182890855462,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.39823008849558,
+        "y": 65.19174041297936,
+        "width": 4.588659455916094,
+        "height": 2.212389380530979,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_get_button",
+      "troops_level"
+    ],
+    "annotator": 1,
+    "annotation_id": 45,
+    "created_at": "2025-04-24T16:36:42.954441Z",
+    "updated_at": "2025-04-24T16:36:49.450169Z",
+    "lead_time": 51.98
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f7283097-troops_start_train.png",
+    "id": 46,
+    "bbox": [
+      {
+        "x": 53.09734513274337,
+        "y": 93.36283185840709,
+        "width": 41.29793510324484,
+        "height": 4.12979351032449,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.899705014749263,
+        "y": 93.21533923303836,
+        "width": 41.29793510324484,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.257292690920991,
+        "y": 62.95353982300919,
+        "width": 1.6625696492953308,
+        "height": 0.8982300884953168,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_train_start_button",
+      "troops_train_finished_button",
+      "troops_update_button"
+    ],
+    "annotator": 1,
+    "annotation_id": 46,
+    "created_at": "2025-04-24T16:53:40.860701Z",
+    "updated_at": "2025-04-24T16:53:40.860735Z",
+    "lead_time": 847.133
   }
 ]

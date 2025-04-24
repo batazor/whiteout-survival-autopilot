@@ -94,3 +94,24 @@ tundra_adventurer_daily_missions:
     action: findIcon
     threshold: 0.93
     saveAsRegion: true
+
+main_menu_city:
+  - name: troops.infantry.state.isAvailable
+    action: color_check
+    expectedColor: red
+    threshold: 0.7
+
+  - name: troops.lancer.state.isAvailable
+    action: color_check
+    expectedColor: red
+    threshold: 0.7
+
+  - name: troops.marksman.state.isAvailable
+    action: color_check
+    expectedColor: red
+    threshold: 0.7
+
+  - name: tech.state.isAvailable
+    action: color_check
+    expectedColor: red
+    threshold: 0.7

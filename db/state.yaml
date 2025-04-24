@@ -65,6 +65,23 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -131,6 +148,23 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
     - id: 423382817
       nickname: bart
       state: 2690
@@ -209,6 +243,23 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -287,6 +338,23 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
     - id: 422228462
       nickname: bravo
       state: 2690
@@ -353,6 +421,23 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
     - id: 420195101
       nickname: paradox
       state: 2690
@@ -419,3 +504,20 @@ gamers:
         frostyFortune:
             state:
                 isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        lancer:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+        marksman:
+            state:
+                isAvailable: false
+                isTextStatus: "false"
+      tech:
+        state:
+            is_available: false
+            isTextStatus: "false"
