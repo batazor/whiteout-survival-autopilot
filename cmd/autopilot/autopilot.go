@@ -5,7 +5,6 @@ import (
 	"log"
 	"log/slog"
 	"sync"
-	"time"
 
 	"github.com/redis/go-redis/v9"
 
@@ -62,11 +61,14 @@ func main() {
 	// 🧠 Обновляем стейт всех игроков через Century API
 	syncer.RefreshAllPlayersFromCentury(ctx, devicesCfg.AllGamers(), repo, appLogger)
 
+	// ─── Инициализация use‑case’ов ─────────────────────────────────────────────
+	usecaseLoader := config.NewUseCaseLoader("./usecases")
+
 	// ─── Предзагрузка use‑case’ов ────────────────────────────────────────────
-	redis_queue.PreloadQueues(ctx, rdb, devicesCfg.AllProfiles(), "./usecases")
+	redis_queue.PreloadQueues(ctx, rdb, devicesCfg.AllProfiles(), usecaseLoader)
 
 	// ── Запуск глобального рефиллера задач ───────────────────────────────
-	go redis_queue.StartGlobalUsecaseRefiller(ctx, devicesCfg, "./usecases", rdb, appLogger, 5*time.Minute)
+	go redis_queue.StartGlobalUsecaseRefiller(ctx, devicesCfg, usecaseLoader, rdb, appLogger)
 
 	// ─── Инициализация правил анализа экрана ───────────────────────────────────────
 	rules, err := config.LoadAnalyzeRules("references/analyze.yaml")

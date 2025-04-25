@@ -15,6 +15,12 @@ import (
 // UseCaseLoader knows how to scan a directory and load all YAML usecases.
 type UseCaseLoader interface {
 	LoadAll(ctx context.Context) ([]*domain.UseCase, error)
+	GetByName(name string) *domain.UseCase
+}
+
+type usecaseLoader struct {
+	dir     string
+	indexed map[string]*domain.UseCase
 }
 
 // NewUseCaseLoader returns a loader that reads all .yaml/.yml files under dir.
@@ -37,10 +43,6 @@ func LoadUseCase(ctx context.Context, configFile string) (*domain.UseCase, error
 	}
 
 	return &uc, nil
-}
-
-type usecaseLoader struct {
-	dir string
 }
 
 func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) {
@@ -99,5 +101,18 @@ func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) 
 		return nil, fmt.Errorf("failed walking usecases dir: %w", err)
 	}
 
+	// Индексируем usecases по имени
+	l.indexed = make(map[string]*domain.UseCase)
+	for _, uc := range usecases {
+		l.indexed[uc.Name] = uc
+	}
+
 	return usecases, nil
+}
+
+func (l *usecaseLoader) GetByName(name string) *domain.UseCase {
+	if l.indexed == nil {
+		return nil
+	}
+	return l.indexed[name]
 }

@@ -12,7 +12,8 @@ type UseCase struct {
 	Node     string        `yaml:"node"`     // Начальный экран/состояние, с которого начинается usecase
 	Trigger  string        `yaml:"trigger"`  // CEL-выражение, которое определяет, запускать ли usecase
 	Steps    Steps         `yaml:"steps"`    // Последовательность шагов
-	TTL      time.Duration `json:"ttl"`      // Время жизни usecase (например, "24h")
+	TTL      time.Duration `yaml:"ttl"`      // Время жизни usecase (например, "24h")
+	Cron     string        `yaml:"cron"`     // Cron-выражение для периодического запуска usecase (например, "0 0 * * *")
 }
 
 // Steps — это просто срез Step
@@ -64,6 +65,12 @@ type AnalyzeRule struct {
 	Log           string            `yaml:"log,omitempty"`           // Сообщение для логирования (опционально)
 	SaveAsRegion  bool              `yaml:"saveAsRegion,omitempty"`  // если true — сохранить зону как новую временную область с именем .Name
 	Options       *AnalyzeImageRule `yaml:"options,omitempty"`       // Опции для анализа изображения
+	PushUseCase   []PushUsecase     `yaml:"pushUsecase,omitempty"`   // Список usecase, которые нужно запустить при выполнении этого правила
+}
+
+type PushUsecase struct {
+	Trigger string    `yaml:"trigger"` // CEL-выражение
+	List    []UseCase `yaml:"list"`    // Юзкейсы, которые нужно отправить в очередь
 }
 
 // Validate проверяет допустимость значения action в правиле анализа.

@@ -30,6 +30,8 @@ type Bot struct {
 }
 
 func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Client, rules config.ScreenAnalyzeRules, log *slog.Logger, repo repository.StateRepository) *Bot {
+	queue := redis_queue.NewGamerQueue(rdb, gamer.ID)
+
 	exec := executor.NewUseCaseExecutor(
 		log,
 		config.NewTriggerEvaluator(),
@@ -37,13 +39,14 @@ func NewBot(dev *device.Device, gamer *domain.Gamer, email string, rdb *redis.Cl
 		dev.ADB,
 		dev.AreaLookup,
 		gamer.Nickname,
+		queue,
 	)
 
 	return &Bot{
 		Gamer:    gamer,
 		Email:    email,
 		Device:   dev,
-		Queue:    redis_queue.NewGamerQueue(rdb, gamer.ID),
+		Queue:    queue,
 		logger:   log,
 		Rules:    rules,
 		Repo:     repo,

@@ -11,9 +11,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-func PreloadQueues(ctx context.Context, rdb *redis.Client, profiles domain.Profiles, usecasePath string) {
-	usecaseLoader := config.NewUseCaseLoader(usecasePath)
-
+func PreloadQueues(ctx context.Context, rdb *redis.Client, profiles domain.Profiles, usecaseLoader config.UseCaseLoader) {
 	for _, profile := range profiles {
 		for _, gamer := range profile.Gamer {
 			queue := NewGamerQueue(rdb, gamer.ID)

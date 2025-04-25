@@ -27,7 +27,7 @@ type UseCaseExecutor interface {
 
 // Analyzer описывает интерфейс для анализа скриншота и обновления состояния игрока
 type Analyzer interface {
-	AnalyzeAndUpdateState(imagePath string, state *domain.Gamer, rules []domain.AnalyzeRule) (*domain.Gamer, error)
+	AnalyzeAndUpdateState(imagePath string, state *domain.Gamer, rules []domain.AnalyzeRule, queue *redis_queue.Queue) (*domain.Gamer, error)
 }
 
 // NewUseCaseExecutor возвращает реализацию UseCaseExecutor
@@ -38,6 +38,7 @@ func NewUseCaseExecutor(
 	adb adb.DeviceController,
 	area *config.AreaLookup,
 	botName string,
+	queue *redis_queue.Queue,
 ) UseCaseExecutor {
 	return &executorImpl{
 		logger:           logger,
@@ -46,6 +47,7 @@ func NewUseCaseExecutor(
 		adb:              adb,
 		area:             area,
 		botName:          botName,
+		queue:            queue,
 	}
 }
 
@@ -56,6 +58,7 @@ type executorImpl struct {
 	adb              adb.DeviceController
 	area             *config.AreaLookup
 	botName          string
+	queue            *redis_queue.Queue
 }
 
 func (e *executorImpl) Analyzer() Analyzer {
@@ -253,7 +256,7 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				_, analyzeSpan := otel.Tracer("bot").Start(ctx, prefix+"AnalyzeAndUpdateState")
 				defer analyzeSpan.End()
 
-				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, gamer, step.Analyze)
+				newState, err := e.analyzer.AnalyzeAndUpdateState(imagePath, gamer, step.Analyze, e.queue)
 				if err != nil {
 					e.logger.Error(prefix+"Analyze failed", slog.Any("error", err))
 				} else {

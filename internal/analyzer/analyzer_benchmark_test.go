@@ -32,7 +32,7 @@ func BenchmarkAnalyzeAndUpdateState(b *testing.B) {
 	// --- Reset timer and benchmark ---
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_, err := an.AnalyzeAndUpdateState(imagePath, state, rules[screen])
+		_, err := an.AnalyzeAndUpdateState(imagePath, state, rules[screen], nil)
 		if err != nil {
 			b.Errorf("analysis failed: %v", err)
 		}

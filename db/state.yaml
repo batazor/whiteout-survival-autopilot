@@ -264,7 +264,7 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 28606202
+      power: 31436602
       vip_level: 7
       resources:
         wood: 100000
@@ -304,19 +304,19 @@ gamers:
             count: 15
             max: 30
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 1
             isChests: 3
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 0
+            polarTerrorCount: 39
             isClaimButton: false
             isCanClaimAllChests: true
-            lootCountLimit: 124
+            lootCountLimit: 270
             isGiftClaimAllButton: false
             isMainChest: false
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 27
@@ -329,7 +329,7 @@ gamers:
       events:
         tundraAdventure:
             state:
-                isExist: true
+                isExist: false
                 count: 0
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
@@ -342,15 +342,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: ""
+                TextStatus: SO50007
         lancer:
             state:
                 isAvailable: false
-                TextStatus: ""
+                TextStatus: SEO50012
         marksman:
             state:
                 isAvailable: false
-                TextStatus: ""
+                TextStatus: SO50015
       tech:
         state:
             is_available: false
@@ -485,7 +485,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 19
+            level: 20
             power: 0
       researches:
         battle:

@@ -12,7 +12,7 @@ func (b *Bot) updateStateFromScreen(ctx context.Context, screen string, filename
 	}
 
 	rules := b.Rules[screen]
-	newState, err := b.executor.Analyzer().AnalyzeAndUpdateState(filename, b.Gamer, rules)
+	newState, err := b.executor.Analyzer().AnalyzeAndUpdateState(filename, b.Gamer, rules, b.Queue)
 	if err != nil {
 		b.logger.Warn("⚠️ Ошибка анализа экрана", slog.String("screen", screen), slog.Any("error", err))
 		return

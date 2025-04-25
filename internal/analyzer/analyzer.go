@@ -1,6 +1,7 @@
 package analyzer
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"log/slog"
@@ -14,22 +15,27 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 	"github.com/batazor/whiteout-survival-autopilot/internal/imagefinder"
+	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 type Analyzer struct {
-	areas  *config.AreaLookup
-	logger *slog.Logger
+	areas            *config.AreaLookup
+	logger           *slog.Logger
+	triggerEvaluator config.TriggerEvaluator
+	usecaseLoader    config.UseCaseLoader
 }
 
 func NewAnalyzer(areas *config.AreaLookup, logger *slog.Logger) *Analyzer {
 	return &Analyzer{
-		areas:  areas,
-		logger: logger,
+		areas:            areas,
+		logger:           logger,
+		triggerEvaluator: config.NewTriggerEvaluator(),
+		usecaseLoader:    config.NewUseCaseLoader("./usecases"),
 	}
 }
 
-func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Gamer, rules []domain.AnalyzeRule) (*domain.Gamer, error) {
+func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Gamer, rules []domain.AnalyzeRule, queue *redis_queue.Queue) (*domain.Gamer, error) {
 	for _, rule := range rules {
 		a.logger.Info("🧪 DSL rule",
 			slog.String("name", rule.Name),
@@ -221,6 +227,42 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 
 	wg.Wait()
 	newGamer = *charPtr
+
+	// Проверка pushUsecase'ов после установки значений
+	if queue == nil {
+		a.logger.Warn("❌ Queue is nil, skipping pushUsecase evaluation")
+		return &newGamer, nil
+	}
+
+	for _, rule := range rules {
+		for _, push := range rule.PushUseCase {
+			// Проверяем что триггер выполняется
+			if push.Trigger != "" {
+				ok, err := a.triggerEvaluator.EvaluateTrigger(push.Trigger, charPtr)
+				if err != nil {
+					a.logger.Error("❌ Trigger evaluation failed for pushUsecase",
+						slog.String("trigger", push.Trigger),
+						slog.Any("error", err),
+					)
+					continue
+				}
+				if !ok {
+					a.logger.Info("📭 Trigger not satisfied for pushUsecase", slog.String("trigger", push.Trigger))
+					continue
+				}
+			}
+
+			// Если триггер выполнен, добавляем usecase в очередь
+			for _, uc := range push.List {
+				ucOriginal := a.usecaseLoader.GetByName(uc.Name)
+
+				a.logger.Info("📥 Push usecase from analysis", slog.String("usecase", uc.Name))
+				if err := queue.Push(context.Background(), ucOriginal); err != nil {
+					a.logger.Error("❌ Failed to push usecase", slog.String("usecase", uc.Name), slog.Any("error", err))
+				}
+			}
+		}
+	}
 
 	return &newGamer, nil
 }
