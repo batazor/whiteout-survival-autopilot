@@ -86,6 +86,11 @@ func (l *usecaseLoader) LoadAll(ctx context.Context) ([]*domain.UseCase, error) 
 			log.Printf("error loading usecase %s: %v", path, err)
 			return nil
 		}
+
+		if filepath.Base(filepath.Dir(path)) == "debug" || uc.TTL == 0 {
+			uc.TTL = 1 // Устанавливаем TTL в 1, чтобы usecase не попал в очередь
+		}
+
 		usecases = append(usecases, uc)
 		return nil
 	})

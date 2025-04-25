@@ -2323,15 +2323,6 @@
     "id": 42,
     "bbox": [
       {
-        "x": 7.866273352998997,
-        "y": 58.70206489675519,
-        "width": 85.54572271386434,
-        "height": 15.191740412979321,
-        "rotation": 0,
-        "original_width": 1080,
-        "original_height": 2400
-      },
-      {
         "x": 29.82628646345461,
         "y": 45.280235988200594,
         "width": 7.866273352999013,
@@ -2339,17 +2330,46 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 62.60242543428384,
+        "y": 64.30678466076694,
+        "width": 9.83284169124872,
+        "height": 4.424778761061977,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.54211733857752,
+        "y": 66.51917404129794,
+        "width": 7.866273352999016,
+        "height": 3.9823008849557624,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 28.515240904621436,
+        "y": 64.74926253687316,
+        "width": 8.521796132415602,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
-      "troops_command_area",
-      "troops_level"
+      "troops_level",
+      "troops.train",
+      "troops.upgrade",
+      "troops.details"
     ],
     "annotator": 1,
     "annotation_id": 42,
     "created_at": "2025-04-24T11:41:20.154699Z",
-    "updated_at": "2025-04-24T11:41:20.154729Z",
-    "lead_time": 610.199
+    "updated_at": "2025-04-25T09:19:42.866844Z",
+    "lead_time": 706.301
   },
   {
     "ocr": "\/data\/upload\/1\/60a12d43-main_menu_done.png",
@@ -2445,17 +2465,17 @@
       }
     ],
     "transcription": [
-      "troops.infantry.state.isTextStatus",
-      "troops.lancer.state.isTextStatus",
-      "troops.marksman.state.isTextStatus",
-      "tech.state.isTextStatus",
+      "troops.infantry.state.TextStatus",
+      "troops.lancer.state.TextStatus",
+      "troops.marksman.state.TextStatus",
+      "tech.state.TextStatus",
       "tech.state.isAvailable"
     ],
     "annotator": 1,
     "annotation_id": 44,
     "created_at": "2025-04-24T15:21:47.940099Z",
-    "updated_at": "2025-04-24T15:21:47.940135Z",
-    "lead_time": 497.066
+    "updated_at": "2025-04-25T07:01:40.797589Z",
+    "lead_time": 522.321
   },
   {
     "ocr": "\/data\/upload\/1\/8f3267aa-troops_get.png",
@@ -2520,17 +2540,27 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 3.9823008849557526,
+        "width": 9.177318911832188,
+        "height": 3.9823008849557526,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "troops_train_start_button",
       "troops_train_finished_button",
-      "troops_update_button"
+      "troops_update_button",
+      "from_troops_to_main_city"
     ],
     "annotator": 1,
     "annotation_id": 46,
     "created_at": "2025-04-24T16:53:40.860701Z",
-    "updated_at": "2025-04-24T16:53:40.860735Z",
-    "lead_time": 847.133
+    "updated_at": "2025-04-25T07:08:54.544104Z",
+    "lead_time": 878.7370000000001
   }
 ]

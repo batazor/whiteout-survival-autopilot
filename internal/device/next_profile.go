@@ -34,7 +34,7 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
-	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle)
+	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle, nil)
 
 	// 🕒 Ждём, чтобы не было конфликта с другими процессами
 	time.Sleep(500 * time.Millisecond)

@@ -5,6 +5,6 @@ type Tech struct {
 }
 
 type TechState struct {
-	IsAvailable  bool   `yaml:"is_available"` // Доступность технологий.
-	IsTextStatus string `yaml:"isTextStatus"` // Текстовый статус.
+	IsAvailable bool   `yaml:"is_available"` // Доступность технологий.
+	TextStatus  string `yaml:"TextStatus"`   // Текстовый статус.
 }

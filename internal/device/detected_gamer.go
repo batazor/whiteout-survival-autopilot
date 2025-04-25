@@ -18,11 +18,11 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	d.Logger.Info("🚀 Определение текущего игрока")
 
 	// 0. Переходим на экран профиля
-	d.FSM.ForceTo(fsm.StateChiefProfile)
+	d.FSM.ForceTo(fsm.StateChiefProfile, nil)
 
 	defer func() {
 		// 4. Возвращаемся на главный экран
-		d.FSM.ForceTo(fsm.StateMainCity)
+		d.FSM.ForceTo(fsm.StateMainCity, nil)
 	}()
 
 	// 1. Делаем скриншот экрана профиля

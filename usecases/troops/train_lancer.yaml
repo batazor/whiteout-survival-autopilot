@@ -1,6 +1,6 @@
 name: Train Lancer
 
-node: lancer
+node: lancer_city_view
 
 priority: 10
 
@@ -10,14 +10,19 @@ ttl: 2h
 
 steps:
   - if:
-      trigger: troops.lancer.state.textStatus == "completed"
+      trigger: troops.lancer.state.TextStatus == "Completed"
       then:
         - click: troops_get_button
         - wait: 500ms
 
   - if:
-      trigger: troops.lancer.state.textStatus == "idle"
+      trigger: troops.marksman.state.TextStatus == "Idle"
       then:
         - click: troops_get_button
+        - wait: 400ms
+        - click: troops.train
         - wait: 500ms
         - click: troops_train_start_button
+        - wait: 500ms
+        - click: from_troops_to_main_city
+        - wait: 500ms

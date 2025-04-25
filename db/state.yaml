@@ -69,19 +69,19 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         lancer:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         marksman:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
       tech:
         state:
             is_available: false
-            isTextStatus: "false"
+            TextStatus: ""
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -129,7 +129,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 18
+            level: 19
             power: 0
       researches:
         battle:
@@ -152,24 +152,24 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         lancer:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         marksman:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
       tech:
         state:
             is_available: false
-            isTextStatus: "false"
+            TextStatus: ""
     - id: 423382817
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6705238
+      power: 6246169
       vip_level: 3
       resources:
         wood: 0
@@ -209,7 +209,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -246,20 +246,20 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: false
-                isTextStatus: "false"
+                isAvailable: true
+                TextStatus: Idle
         lancer:
             state:
-                isAvailable: false
-                isTextStatus: "false"
+                isAvailable: true
+                TextStatus: ""
         marksman:
             state:
-                isAvailable: false
-                isTextStatus: "false"
+                isAvailable: true
+                TextStatus: Idle
       tech:
         state:
-            is_available: false
-            isTextStatus: "false"
+            is_available: true
+            TextStatus: ""
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -342,19 +342,19 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         lancer:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         marksman:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
       tech:
         state:
             is_available: false
-            isTextStatus: "false"
+            TextStatus: ""
     - id: 422228462
       nickname: bravo
       state: 2690
@@ -425,25 +425,25 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         lancer:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
         marksman:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: ""
       tech:
         state:
             is_available: false
-            isTextStatus: "false"
+            TextStatus: ""
     - id: 420195101
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6771918
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -451,11 +451,11 @@ gamers:
         meat: 0
       gems: 0
       exploration:
-        level: 236
+        level: 237
         state:
             isClaimActive: true
-            myPower: 1342765
-            enemyPower: 1337180
+            myPower: 1471528
+            enemyPower: 1327747
             battleStatus: ""
       heroes: {}
       messages:
@@ -477,12 +477,12 @@ gamers:
             isAllianceTechButton: false
             polarTerrorCount: 0
             isClaimButton: false
-            isCanClaimAllChests: false
+            isCanClaimAllChests: true
             lootCountLimit: 0
             isGiftClaimAllButton: false
             isMainChest: false
         tech:
-            favorite: false
+            favorite: true
       buildings:
         furnace:
             level: 19
@@ -508,16 +508,16 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: "043537"
         lancer:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: "031815"
         marksman:
             state:
                 isAvailable: false
-                isTextStatus: "false"
+                TextStatus: "031827"
       tech:
         state:
-            is_available: false
-            isTextStatus: "false"
+            is_available: true
+            TextStatus: ""

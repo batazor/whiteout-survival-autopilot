@@ -10,9 +10,6 @@ const (
 	StateMainMenuWilderness   = "main_menu_wilderness"
 	StateMainMenuBuilding1    = "main_menu_building_1"
 	StateMainMenuBuilding2    = "main_menu_building_2"
-	StateMainMenuInfantry     = "main_menu_infantry"
-	StateMainMenuLancer       = "main_menu_lancer"
-	StateMainMenuMarksman     = "main_menu_marksman"
 	StateMainMenuTechResearch = "main_menu_tech_research"
 )
 
@@ -27,21 +24,21 @@ var mainMenuTransitionPaths = map[string]map[string][]TransitionStep{
 		StateMainMenuBuilding2: {
 			{Action: "to_main_menu_building_2", Wait: 300 * time.Millisecond},
 		},
-		StateMainMenuInfantry: {
+		StateInfantryCityView: {
 			{
 				Action:  "to_main_menu_infantry",
 				Wait:    300 * time.Millisecond,
 				Trigger: "troops.infantry.state.isAvailable",
 			},
 		},
-		StateMainMenuLancer: {
+		StateLancerCityView: {
 			{
 				Action:  "to_main_menu_lancer",
 				Wait:    300 * time.Millisecond,
 				Trigger: "troops.lancer.state.isAvailable",
 			},
 		},
-		StateMainMenuMarksman: {
+		StateMarksmanCityView: {
 			{
 				Action:  "to_main_menu_marksman",
 				Wait:    300 * time.Millisecond,

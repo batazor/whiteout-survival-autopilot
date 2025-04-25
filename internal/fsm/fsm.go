@@ -9,6 +9,7 @@ import (
 	lpfsm "github.com/looplab/fsm"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
+	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
@@ -16,6 +17,7 @@ import (
 func init() {
 	mergeTransitions(transitionPaths, tundraAdventureTransitionPaths)
 	mergeTransitions(transitionPaths, mainMenuTransitionPaths)
+	mergeTransitions(transitionPaths, troopsTransitionPaths)
 }
 
 func buildFSMGraph() map[string][]string {
@@ -388,6 +390,7 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 
 type GameFSM struct {
 	fsm              *lpfsm.FSM
+	analyzer         *analyzer.Analyzer
 	logger           *slog.Logger
 	onStateChange    func(state string)
 	callback         StateUpdateCallback
@@ -415,6 +418,7 @@ func NewGame(
 		fsmGraph:         buildFSMGraph(),
 		triggerEvaluator: triggerEvaluator,
 		gamerState:       gamerState,
+		analyzer:         analyzer.NewAnalyzer(lookup, logger),
 	}
 
 	transitions := lpfsm.Events{}

@@ -42,7 +42,7 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 	d.Logger.Info("➡️ Переход в экран выбора игрока",
 		slog.String("trace_id", traceID),
 	)
-	d.FSM.ForceTo(fsm.StateChiefCharacters)
+	d.FSM.ForceTo(fsm.StateChiefCharacters, nil)
 
 	// Ждём nickname
 	gamerZones := d.findNicknameOCR(ctx, gamer.Nickname)

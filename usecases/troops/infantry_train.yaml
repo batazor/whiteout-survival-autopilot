@@ -1,0 +1,27 @@
+name: Train Infantry
+
+node: infantry_city_view
+
+priority: 10
+
+trigger: troops.infantry.state.isAvailable
+
+ttl: 2h
+
+steps:
+  - if:
+      trigger: troops.infantry.state.TextStatus == "Completed"
+      then:
+        - click: troops_get_button
+        - wait: 500ms
+
+  - if:
+      trigger: troops.marksman.state.TextStatus == "Idle"
+      then:
+        - click: troops_get_button
+        - wait: 400ms
+        - click: troops.train
+        - click: troops_train_start_button
+        - wait: 200ms
+        - click: from_troops_to_main_city
+        - wait: 200ms

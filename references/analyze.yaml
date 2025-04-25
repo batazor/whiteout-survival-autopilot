@@ -100,16 +100,43 @@ main_menu_city:
     action: color_check
     expectedColor: red
     threshold: 0.7
+    pushUsecase:
+      - name: Train Infantry
+        ttl: 2h
+        priority: 50
+
+  - name: troops.infantry.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
 
   - name: troops.lancer.state.isAvailable
     action: color_check
     expectedColor: red
     threshold: 0.7
+    pushUsecase:
+      - name: Train Lancer
+        ttl: 2h
+        priority: 50
+
+  - name: troops.lancer.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
 
   - name: troops.marksman.state.isAvailable
     action: color_check
     expectedColor: red
     threshold: 0.7
+    pushUsecase:
+      - name: Train Marksman
+        ttl: 2h
+        priority: 50
+
+  - name: troops.marksman.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
 
   - name: tech.state.isAvailable
     action: color_check

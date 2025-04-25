@@ -90,7 +90,7 @@ func (b *Bot) Play(ctx context.Context) {
 		b.logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
 
 		// переходим на стартовый экран юзкейса
-		errForceTo := b.Device.FSM.ForceTo(uc.Node)
+		errForceTo := b.Device.FSM.ForceTo(uc.Node, b.updateStateFromScreen)
 		if errForceTo != nil {
 			if errors.Is(errForceTo, fsm.EventNotActive) {
 				b.logger.Info("⏭️ UseCase пропущен, так как событие не активно", slog.String("name", uc.Name))
@@ -120,7 +120,7 @@ func (b *Bot) Play(ctx context.Context) {
 	time.Sleep(2 * time.Second)
 
 	// 🔁 Возвращаемся в главный экран
-	b.Device.FSM.ForceTo(fsm.StateMainCity)
+	b.Device.FSM.ForceTo(fsm.StateMainCity, nil)
 
 	// Время для отрисовки экрана
 	time.Sleep(1 * time.Second)

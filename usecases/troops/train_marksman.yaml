@@ -1,0 +1,28 @@
+name: Train Marksman
+
+node: marksman_city_view
+
+priority: 10
+
+trigger: troops.marksman.state.isAvailable
+
+ttl: 2h
+
+steps:
+  - if:
+      trigger: troops.marksman.state.TextStatus == "Completed"
+      then:
+        - click: troops_get_button
+        - wait: 1s
+
+  - if:
+      trigger: troops.marksman.state.TextStatus == "Idle"
+      then:
+        - click: troops_get_button
+        - wait: 400ms
+        - click: troops.train
+        - wait: 500ms
+        - click: troops_train_start_button
+        - wait: 500ms
+        - click: from_troops_to_main_city
+        - wait: 500ms

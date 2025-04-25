@@ -12,7 +12,7 @@ var (
 	EventNotActive = fmt.Errorf("event not active")
 )
 
-func (g *GameFSM) ForceTo(target string) error {
+func (g *GameFSM) ForceTo(target string, updateStateFromScreen func(ctx context.Context, screen string, filename string)) error {
 	prev := g.Current()
 
 	// Save the previous state (before changing it)
@@ -24,12 +24,13 @@ func (g *GameFSM) ForceTo(target string) error {
 	}
 
 	var steps []TransitionStep
+	var path = []string{prev, target}
 	found := false
 
 	if g.adb != nil {
 		steps, found = transitionPaths[prev][target]
 		if !found {
-			path := g.FindPath(prev, target)
+			path = g.FindPath(prev, target)
 			if len(path) > 1 {
 				g.logger.Warn("FSM path generated dynamically", slog.Any("path", path))
 				steps = g.pathToSteps(path)
@@ -39,7 +40,7 @@ func (g *GameFSM) ForceTo(target string) error {
 			}
 		}
 
-		for _, step := range steps {
+		for i, step := range steps {
 			// Проверка Trigger (CEL)
 			if step.Trigger != "" {
 				ok, err := g.triggerEvaluator.EvaluateTrigger(step.Trigger, g.gamerState)
@@ -74,6 +75,20 @@ func (g *GameFSM) ForceTo(target string) error {
 			wait := step.Wait + time.Duration(rand.Intn(300)+700)*time.Millisecond
 			g.logger.Info("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
+
+			if g.callback != nil && len(path) > 0 && i+1 < len(path) {
+				state := path[i+1]
+				g.fsm.SetState(state)
+				g.logger.Info("FSM intermediate state updated",
+					slog.String("state", state),
+					slog.String("step", step.Action),
+				)
+				g.callback.UpdateStateFromScreenshot(state)
+
+				if updateStateFromScreen != nil {
+					updateStateFromScreen(context.Background(), state, fmt.Sprintf("out/bot_%s_%s.png", g.gamerState.Nickname, target))
+				}
+			}
 		}
 	}
 
@@ -86,10 +101,6 @@ func (g *GameFSM) ForceTo(target string) error {
 			slog.String("from", prev),
 			slog.String("to", target),
 		)
-	}
-
-	if g.callback != nil {
-		g.callback.UpdateStateFromScreenshot(target)
 	}
 
 	return nil

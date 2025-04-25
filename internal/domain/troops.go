@@ -12,8 +12,8 @@ type Infantry struct {
 }
 
 type InfantryState struct {
-	IsAvailable  bool   `yaml:"isAvailable"`  // Признак доступности пехоты.
-	IsTextStatus string `yaml:"isTextStatus"` // Текстовый статус.
+	IsAvailable bool   `yaml:"isAvailable"` // Признак доступности пехоты.
+	TextStatus  string `yaml:"TextStatus"`  // Текстовый статус.
 }
 
 // Lancer represents the lancer troop type ------------
@@ -22,8 +22,8 @@ type Lancer struct {
 }
 
 type LancerState struct {
-	IsAvailable  bool   `yaml:"isAvailable"`  // Признак доступности копейщика.
-	IsTextStatus string `yaml:"isTextStatus"` // Текстовый статус.
+	IsAvailable bool   `yaml:"isAvailable"` // Признак доступности копейщика.
+	TextStatus  string `yaml:"TextStatus"`  // Текстовый статус.
 }
 
 // Marksman represents the marksman troop type ------------
@@ -32,6 +32,6 @@ type Marksman struct {
 }
 
 type MarksmanState struct {
-	IsAvailable  bool   `yaml:"isAvailable"`  // Признак доступности стрелка.
-	IsTextStatus string `yaml:"isTextStatus"` // Текстовый статус.
+	IsAvailable bool   `yaml:"isAvailable"` // Признак доступности стрелка.
+	TextStatus  string `yaml:"TextStatus"`  // Текстовый статус.
 }
