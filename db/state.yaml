@@ -85,10 +85,12 @@ gamers:
       screenState:
         isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -175,10 +177,12 @@ gamers:
       screenState:
         isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false
     - id: 423382817
       nickname: bart
       state: 2690
@@ -277,10 +281,12 @@ gamers:
       screenState:
         isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -379,16 +385,18 @@ gamers:
       screenState:
         isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false
     - id: 422228462
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6340552
-      vip_level: 3
+      power: 0
+      vip_level: 0
       resources:
         wood: 0
         food: 0
@@ -452,27 +460,29 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: true
-                TextStatus: Idle
+                isAvailable: false
+                TextStatus: "220250501164"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: O21211
+                TextStatus: Defiineaerees
         marksman:
             state:
                 isAvailable: false
-                TextStatus: O21215
+                TextStatus: "20250501163"
       tech:
         state:
-            is_available: true
+            is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: true
+            isSystem: false
+            isReports: true
     - id: 420195101
       nickname: paradox
       state: 2690
@@ -559,7 +569,9 @@ gamers:
       screenState:
         isMainMenu: false
       mail:
-        is_wars: false
-        is_alliance: false
-        is_system: false
-        is_reports: false
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false

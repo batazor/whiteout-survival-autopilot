@@ -1,10 +1,14 @@
 package domain
 
 type Mail struct {
-	IsHasMail bool `yaml:"is_has_mail"` // Флаг, указывающий, что есть непрочтенные письма.
+	IsHasMail bool `yaml:"isHasMail"` // Флаг, указывающий, что есть непрочтенные письма.
 
-	IsWars     bool `yaml:"is_wars"`     // Флаг, указывающий, что почта содержит информацию о войне.
-	IsAlliance bool `yaml:"is_alliance"` // Флаг, указывающий, что почта содержит информацию об альянсе.
-	IsSystem   bool `yaml:"is_system"`   // Флаг, указывающий, что почта содержит системные сообщения.
-	IsReports  bool `yaml:"is_reports"`  // Флаг, указывающий, что почта содержит отчеты.
+	State MailState `yaml:"state"` // Состояние почты.
+}
+
+type MailState struct {
+	IsWars     bool `yaml:"isWars"`     // Флаг, указывающий, что почта содержит информацию о войне.
+	IsAlliance bool `yaml:"isAlliance"` // Флаг, указывающий, что почта содержит информацию об альянсе.
+	IsSystem   bool `yaml:"isSystem"`   // Флаг, указывающий, что почта содержит системные сообщения.
+	IsReports  bool `yaml:"isReports"`  // Флаг, указывающий, что почта содержит отчеты.
 }

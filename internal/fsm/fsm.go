@@ -18,6 +18,7 @@ func init() {
 	mergeTransitions(transitionPaths, tundraAdventureTransitionPaths)
 	mergeTransitions(transitionPaths, mainMenuTransitionPaths)
 	mergeTransitions(transitionPaths, troopsTransitionPaths)
+	mergeTransitions(transitionPaths, troopsTransitionPaths)
 }
 
 func buildFSMGraph() map[string][]string {

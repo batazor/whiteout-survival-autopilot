@@ -8,4 +8,6 @@ ttl: 6h
 
 steps:
   - click: mail_read_and_claim_all
+  - wait: 1s
   - click: mail_read_and_claim_all # второй клик, что бы скипнуть reward сообщение (если будет)
+  - wait: 1s

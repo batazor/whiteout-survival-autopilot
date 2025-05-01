@@ -1531,6 +1531,15 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 97.18285696019457,
+        "y": 83.41100024215932,
+        "width": 0.4024490056864778,
+        "height": 0.36220410511782575,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
@@ -1542,13 +1551,14 @@
       "to_main_menu_lancer",
       "to_main_menu_marksman",
       "to_main_menu_tech_research",
-      "to_pets"
+      "to_pets",
+      "mail.isHasMail"
     ],
     "annotator": 2,
     "annotation_id": 27,
     "created_at": "2025-04-17T17:44:08.191110Z",
-    "updated_at": "2025-04-18T03:18:53.583746Z",
-    "lead_time": 264.484
+    "updated_at": "2025-05-01T11:28:19.850227Z",
+    "lead_time": 376.25199999999995
   },
   {
     "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
@@ -2638,15 +2648,15 @@
       }
     ],
     "transcription": [
-      "mail.is_warrs",
-      "mail.is_alliance",
-      "mail.isSystem",
-      "mail.is_reports"
+      "mail.state.isWars",
+      "mail.state.isAlliance",
+      "mail.state.isSystem",
+      "mail.state.isReports"
     ],
     "annotator": 2,
     "annotation_id": 48,
     "created_at": "2025-05-01T10:52:56.682661Z",
-    "updated_at": "2025-05-01T10:52:56.682690Z",
-    "lead_time": 117.968
+    "updated_at": "2025-05-01T11:32:07.941870Z",
+    "lead_time": 166.316
   }
 ]

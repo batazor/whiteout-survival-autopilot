@@ -26,12 +26,12 @@ main_city:
         list:
           - name: Check Main Menu Events
 
-  - name: mail.is_has_mail
+  - name: mail.isHasMail
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - trigger: mail.is_has_mail
+      - trigger: mail.isHasMail
         list:
           - name: Check Mail
 
@@ -172,38 +172,38 @@ main_menu_city:
     threshold: 0.7
 
 mail:
-  - name: mail.is_wars
+  - name: mail.state.isWars
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - trigger: mail.is_wars
+      - trigger: mail.state.isWars
         list:
           - name: Mail Read Wars
 
-  - name: mail.is_alliance
+  - name: mail.state.isAlliance
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - trigger: mail.is_alliance
+      - trigger: mail.state.isAlliance
         list:
           - name: Mail Read Alliance
 
-  - name: mail.is_system
+  - name: mail.state.isSystem
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - trigger: mail.is_system
+      - trigger: mail.state.isSystem
         list:
           - name: Mail Read System
 
-  - name: mail.is_reports
+  - name: mail.state.isReports
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - trigger: mail.is_reports
+      - trigger: mail.state.isReports
         list:
           - name: Mail Read Reports
