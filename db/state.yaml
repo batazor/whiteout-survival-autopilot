@@ -82,6 +82,13 @@ gamers:
         state:
             is_available: false
             TextStatus: ""
+      screenState:
+        isMainMenu: false
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -129,7 +136,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 19
+            level: 20
             power: 0
       researches:
         battle:
@@ -165,6 +172,13 @@ gamers:
         state:
             is_available: false
             TextStatus: ""
+      screenState:
+        isMainMenu: false
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false
     - id: 423382817
       nickname: bart
       state: 2690
@@ -260,6 +274,13 @@ gamers:
         state:
             is_available: true
             TextStatus: ""
+      screenState:
+        isMainMenu: false
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false
     - id: 401227964
       nickname: batazor
       state: 2558
@@ -355,11 +376,18 @@ gamers:
         state:
             is_available: false
             TextStatus: ""
+      screenState:
+        isMainMenu: false
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false
     - id: 422228462
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6289700
+      power: 6340552
       vip_level: 3
       resources:
         wood: 0
@@ -424,20 +452,27 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: false
-                TextStatus: ucie]
+                isAvailable: true
+                TextStatus: Idle
         lancer:
             state:
-                isAvailable: true
-                TextStatus: Completed i
+                isAvailable: false
+                TextStatus: O21211
         marksman:
             state:
-                isAvailable: true
-                TextStatus: Completed
+                isAvailable: false
+                TextStatus: O21215
       tech:
         state:
-            is_available: false
+            is_available: true
             TextStatus: ""
+      screenState:
+        isMainMenu: true
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false
     - id: 420195101
       nickname: paradox
       state: 2690
@@ -521,3 +556,10 @@ gamers:
         state:
             is_available: true
             TextStatus: ""
+      screenState:
+        isMainMenu: false
+      mail:
+        is_wars: false
+        is_alliance: false
+        is_system: false
+        is_reports: false

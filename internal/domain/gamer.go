@@ -8,8 +8,7 @@ type Gamers []Gamer
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
-	CurrentScreen string      `yaml:"-"`            // FSM состояние — обновляется во время игры
-	ScreenState   ScreenState `yaml:"screen_state"` // Состояние экрана (например, "main", "battle", "exploration").
+	CurrentScreen string `yaml:"-"` // FSM состояние — обновляется во время игры
 
 	ID          int           `yaml:"id"`          // Уникальный идентификатор персонажа (fid).
 	Nickname    string        `yaml:"nickname"`    // Псевдоним персонажа.
@@ -28,6 +27,8 @@ type Gamer struct {
 	Events      Events        `yaml:"events"`      // События персонажа.
 	Troops      Troops        `yaml:"troops"`      // Состояние войск.
 	Tech        Tech          `yaml:"tech"`        // Технологии персонажа.
+	ScreenState ScreenState   `yaml:"screenState"` // Состояние экрана (например, "main", "battle", "exploration").
+	Mail        Mail          `yaml:"mail"`        // Состояние почты персонажа.
 }
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {

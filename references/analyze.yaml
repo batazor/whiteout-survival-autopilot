@@ -13,23 +13,29 @@ main_city:
     action: exist
     threshold: 0.7
     pushUsecase:
-      - name: Click to alliance help button
+      - trigger: alliance.state.isNeedSupport
+        list:
+          - name: Click to alliance help button
 
-  - name: screen_state.is_main_menu
+  - name: screenState.isMainMenu
     action: color_check
     expectedColor: red
     threshold: 0.5
     pushUsecase:
-      - name: Check Main Menu Events
+      - trigger: screenState.isMainMenu
+        list:
+          - name: Check Main Menu Events
 
   - name: events.tundraAdventure.state.isExist
     action: findIcon
     threshold: 0.7
     saveAsRegion: true
     pushUsecase:
-      - name: Enter Tundra Adventure
-      - name: Claim Tundra Drill Rewards
-      - name: Claim Tundra Daily Missions Rewards
+      - trigger: events.tundraAdventure.state.isExist
+        list:
+          - name: Enter Tundra Adventure
+          - name: Claim Tundra Drill Rewards
+          - name: Claim Tundra Daily Missions Rewards
 
 exploration:
   - name: exploration.state.isClaimActive
@@ -114,7 +120,9 @@ main_menu_city:
     expectedColor: red
     threshold: 0.7
     pushUsecase:
-      - name: Train Infantry
+      - trigger: troops.infantry.state.isAvailable
+        list:
+          - name: Train Infantry
 
   - name: troops.infantry.state.TextStatus
     action: text
@@ -126,7 +134,9 @@ main_menu_city:
     expectedColor: red
     threshold: 0.7
     pushUsecase:
-      - name: Train Lancer
+      - trigger: troops.lancer.state.isAvailable
+        list:
+          - name: Train Lancer
 
   - name: troops.lancer.state.TextStatus
     action: text
@@ -151,3 +161,40 @@ main_menu_city:
     action: color_check
     expectedColor: red
     threshold: 0.7
+
+mail:
+  - name: mail.is_wars
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: mail.is_wars
+        list:
+          - name: Mail Read Wars
+
+  - name: mail.is_alliance
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: mail.is_alliance
+        list:
+          - name: Mail Read Alliance
+
+  - name: mail.is_system
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: mail.is_system
+        list:
+          - name: Mail Read System
+
+  - name: mail.is_reports
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: mail.is_reports
+        list:
+          - name: Mail Read Reports

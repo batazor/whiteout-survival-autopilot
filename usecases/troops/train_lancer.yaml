@@ -16,7 +16,7 @@ steps:
         - wait: 500ms
 
   - if:
-      trigger: troops.marksman.state.TextStatus == "Idle"
+      trigger: troops.lancer.state.TextStatus == "Idle"
       then:
         - click: troops_get_button
         - wait: 400ms

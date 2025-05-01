@@ -1574,14 +1574,14 @@
       }
     ],
     "transcription": [
-      "screen_state.is_main_menu",
+      "screenState.isMainMenu",
       "world_search_resource_button"
     ],
     "annotator": 2,
     "annotation_id": 47,
     "created_at": "2025-05-01T10:27:01.984723Z",
-    "updated_at": "2025-05-01T10:28:03.254694Z",
-    "lead_time": 314.207
+    "updated_at": "2025-05-01T11:08:52.329192Z",
+    "lead_time": 327.236
   },
   {
     "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
@@ -2595,5 +2595,58 @@
     "created_at": "2025-04-24T16:53:40.860701Z",
     "updated_at": "2025-04-25T07:08:54.544104Z",
     "lead_time": 878.7370000000001
+  },
+  {
+    "ocr": "\/data\/upload\/1\/183fb6d2-mail_notify.png",
+    "id": 47,
+    "bbox": [
+      {
+        "x": 18.08388144228661,
+        "y": 9.587678339284524,
+        "width": 0.31414638397961525,
+        "height": 0.30040247968050693,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 39.249494062913385,
+        "y": 9.499324668790253,
+        "width": 0.2356097879847141,
+        "height": 0.38875615017477827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 58.530228379662454,
+        "y": 9.499324668790253,
+        "width": 0.35341468197707115,
+        "height": 0.31807321377936404,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 77.02559673646246,
+        "y": 9.516995402889107,
+        "width": 0.43195127797197586,
+        "height": 0.3534146819770694,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "mail.is_warrs",
+      "mail.is_alliance",
+      "mail.isSystem",
+      "mail.is_reports"
+    ],
+    "annotator": 2,
+    "annotation_id": 48,
+    "created_at": "2025-05-01T10:52:56.682661Z",
+    "updated_at": "2025-05-01T10:52:56.682690Z",
+    "lead_time": 117.968
   }
 ]
