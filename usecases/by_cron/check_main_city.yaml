@@ -1,0 +1,9 @@
+name: Check Main City
+
+cron: "*/5 * * * *"
+
+priority: 10
+
+node: main_city
+
+steps: []

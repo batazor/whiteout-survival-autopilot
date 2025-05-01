@@ -46,7 +46,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 18
+            level: 19
             power: 0
       researches:
         battle:
@@ -169,8 +169,8 @@ gamers:
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 6246169
-      vip_level: 3
+      power: 8463456
+      vip_level: 4
       resources:
         wood: 0
         food: 0
@@ -209,12 +209,12 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 0
+            polarTerrorCount: 11
             isClaimButton: false
             isCanClaimAllChests: false
             lootCountLimit: 0
@@ -224,7 +224,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 20
+            level: 21
             power: 0
       researches:
         battle:
@@ -359,7 +359,7 @@ gamers:
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 4296805
+      power: 6289700
       vip_level: 3
       resources:
         wood: 0
@@ -402,7 +402,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 19
+            level: 21
             power: 0
       researches:
         battle:
@@ -412,7 +412,7 @@ gamers:
       events:
         tundraAdventure:
             state:
-                isExist: true
+                isExist: false
                 count: 2
                 isPlay: false
                 isAdventurerDrillClaimIsExist: false
@@ -425,15 +425,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: ""
+                TextStatus: ucie]
         lancer:
             state:
-                isAvailable: false
-                TextStatus: ""
+                isAvailable: true
+                TextStatus: Completed i
         marksman:
             state:
-                isAvailable: false
-                TextStatus: ""
+                isAvailable: true
+                TextStatus: Completed
       tech:
         state:
             is_available: false
@@ -442,8 +442,8 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 0
-      vip_level: 0
+      power: 8477595
+      vip_level: 4
       resources:
         wood: 0
         food: 0
@@ -470,7 +470,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -485,7 +485,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 20
+            level: 21
             power: 0
       researches:
         battle:

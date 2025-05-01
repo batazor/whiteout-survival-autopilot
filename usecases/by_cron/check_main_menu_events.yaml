@@ -1,0 +1,9 @@
+name: Check Main Menu Events
+
+cron: "*/10 * * * *"  # каждые 10 минут
+
+priority: 10
+
+node: main_menu_city
+
+steps: []

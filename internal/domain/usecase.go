@@ -14,6 +14,8 @@ type UseCase struct {
 	Steps    Steps         `yaml:"steps"`    // Последовательность шагов
 	TTL      time.Duration `yaml:"ttl"`      // Время жизни usecase (например, "24h")
 	Cron     string        `yaml:"cron"`     // Cron-выражение для периодического запуска usecase (например, "0 0 * * *")
+
+	SourcePath string `json:"-"` // Путь к файлу, из которого был загружен usecase
 }
 
 // Steps — это просто срез Step
