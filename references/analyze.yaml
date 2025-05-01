@@ -26,6 +26,15 @@ main_city:
         list:
           - name: Check Main Menu Events
 
+  - name: mail.is_has_mail
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: mail.is_has_mail
+        list:
+          - name: Check Mail
+
   - name: events.tundraAdventure.state.isExist
     action: findIcon
     threshold: 0.7

@@ -1,0 +1,9 @@
+name: Check Mail
+
+priority: 10
+
+node: mail
+
+ttl: 0
+
+steps: []
