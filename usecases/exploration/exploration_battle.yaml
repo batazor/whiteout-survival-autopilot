@@ -4,7 +4,7 @@ node: exploration_battle
 
 ttl: 12h
 
-trigger: "exploration.state.myPower >= exploration.state.enemyPower"
+trigger: "exploration.state.myPower * 1.2 >= exploration.state.enemyPower"
 
 steps:
   - click: quick_deploy_button

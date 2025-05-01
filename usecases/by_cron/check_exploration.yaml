@@ -1,0 +1,9 @@
+name: Check Main City
+
+cron: "0 */2 * * *"
+
+priority: 10
+
+node: exploration
+
+steps: []
