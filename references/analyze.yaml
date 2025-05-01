@@ -15,6 +15,13 @@ main_city:
     pushUsecase:
       - name: Click to alliance help button
 
+  - name: screen_state.is_main_menu
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - name: Check Main Menu Events
+
   - name: events.tundraAdventure.state.isExist
     action: findIcon
     threshold: 0.7

@@ -1555,6 +1555,39 @@
     "id": 28,
     "bbox": [
       {
+        "x": 3.3920701907861237,
+        "y": 43.367274445155054,
+        "width": 1.264839732157537,
+        "height": 0.41394754870609773,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.5925925925925926,
+        "y": 73.54166666666666,
+        "width": 7.592592592592593,
+        "height": 2.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "screen_state.is_main_menu",
+      "world_search_resource_button"
+    ],
+    "annotator": 2,
+    "annotation_id": 47,
+    "created_at": "2025-05-01T10:27:01.984723Z",
+    "updated_at": "2025-05-01T10:28:03.254694Z",
+    "lead_time": 314.207
+  },
+  {
+    "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
+    "id": 28,
+    "bbox": [
+      {
         "x": 27.592592592592585,
         "y": 16.416666666666654,
         "width": 2.592592592592588,

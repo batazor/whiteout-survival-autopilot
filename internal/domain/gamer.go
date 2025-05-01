@@ -8,7 +8,8 @@ type Gamers []Gamer
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
-	CurrentScreen string `yaml:"-"` // FSM состояние — обновляется во время игры
+	CurrentScreen string      `yaml:"-"`            // FSM состояние — обновляется во время игры
+	ScreenState   ScreenState `yaml:"screen_state"` // Состояние экрана (например, "main", "battle", "exploration").
 
 	ID          int           `yaml:"id"`          // Уникальный идентификатор персонажа (fid).
 	Nickname    string        `yaml:"nickname"`    // Псевдоним персонажа.

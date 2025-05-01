@@ -6,7 +6,7 @@ priority: 10
 
 trigger: troops.infantry.state.isAvailable
 
-ttl: 2h
+ttl: 0
 
 steps:
   - if:
