@@ -1,7 +1,25 @@
 codes:
     - name: HappyMay
-      userFor: {}
+      userFor:
+        "401227964": ALREADY_RECEIVED
+        "420195101": ALREADY_RECEIVED
+        "420902982": ALREADY_RECEIVED
+        "422228462": ALREADY_RECEIVED
+        "423382817": ALREADY_RECEIVED
+        "424639700": ALREADY_RECEIVED
     - name: GW2025JP
-      userFor: {}
+      userFor:
+        "401227964": ALREADY_RECEIVED
+        "420195101": ALREADY_RECEIVED
+        "420902982": ALREADY_RECEIVED
+        "422228462": ALREADY_RECEIVED
+        "423382817": ALREADY_RECEIVED
+        "424639700": ALREADY_RECEIVED
     - name: mK6DNry4w
-      userFor: {}
+      userFor:
+        "401227964": CDK_EXPIRED
+        "420195101": CDK_EXPIRED
+        "420902982": CDK_EXPIRED
+        "422228462": CDK_EXPIRED
+        "423382817": CDK_EXPIRED
+        "424639700": CDK_EXPIRED

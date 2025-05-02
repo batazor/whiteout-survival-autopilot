@@ -1,3 +1,4 @@
+// cmd/redeemer/main.go
 package main
 
 import (
@@ -20,7 +21,7 @@ import (
 const (
 	devicesRel = "db/devices.yaml"
 	codesRel   = "db/giftCodes.yaml"
-	scriptRel  = "cmd/giftCode" // dir с redeem_code.py
+	scriptRel  = "cmd/giftCode" // redeem_code.py lives here
 )
 
 /*───────── структура giftCodes.yaml ─────────*/
@@ -37,13 +38,13 @@ type giftCodes struct {
 func main() {
 	cwd, _ := os.Getwd()
 	scriptDir := filepath.Join(cwd, scriptRel)
+	codesPath := filepath.Join(cwd, codesRel)
 
 	players := loadPlayers(filepath.Join(cwd, devicesRel))
-	codes := loadCodes(filepath.Join(cwd, codesRel))
+	codes := loadCodes(codesPath)
 
 	for ci := range codes.Codes {
 		code := &codes.Codes[ci]
-
 		if code.UserFor == nil {
 			code.UserFor = make(map[string]string)
 		}
@@ -55,26 +56,30 @@ func main() {
 			uid := int64(g.ID)
 			uidStr := strconv.FormatInt(uid, 10)
 
-			if _, done := code.UserFor[uidStr]; done {
+			// пропускаем, если прошлый статус не ERROR
+			if prev, ok := code.UserFor[uidStr]; ok &&
+				!strings.HasPrefix(prev, "ERROR REDEEM") &&
+				!strings.HasPrefix(prev, "ERROR CAPTCHA_REQUEST") {
 				continue
 			}
 
 			status := runPython(scriptDir, uid, code.Name)
 
-			switch status {
-			case "SUCCESS":
+			switch {
+			case status == "SUCCESS":
 				fmt.Printf("✅ %s (%d) SUCCESS\n", g.Nickname, uid)
-				code.UserFor[uidStr] = "SUCCESS"
-			case "ALREADY_RECEIVED":
+			case status == "ALREADY_RECEIVED":
 				fmt.Printf("ℹ️  %s (%d) ALREADY_RECEIVED\n", g.Nickname, uid)
-				code.UserFor[uidStr] = "ALREADY_RECEIVED"
-			case "CDK_NOT_FOUND":
+			case status == "CDK_NOT_FOUND":
 				fmt.Printf("🚫 Код %s не существует – прекращаю обработку этого кода\n", code.Name)
 				stop = true
-			default:
-				fmt.Printf("❌ %s (%d) ERROR\n", g.Nickname, uid)
-				code.UserFor[uidStr] = "ERROR"
+			default: // любой ERROR
+				fmt.Printf("❌ %s (%d) %s\n", g.Nickname, uid, status)
 			}
+
+			// обновляем YAML в любом случае
+			code.UserFor[uidStr] = status
+			saveCodes(codesPath, codes)
 
 			if stop {
 				break
@@ -83,25 +88,23 @@ func main() {
 		}
 	}
 
-	saveCodes(filepath.Join(cwd, codesRel), codes)
+	// дополнительная «страховка»
+	saveCodes(codesPath, codes)
 	fmt.Println("\n💾 giftCodes.yaml сохранён")
 }
 
 /*──────── helpers ────────*/
 
-// cd cmd/giftCode && uv run redeem_code.py -c CODE --fid UID
 func runPython(dir string, uid int64, code string) string {
 	cmd := exec.Command("uv", "run", "redeem_code.py",
 		"-c", code,
 		"--fid", fmt.Sprint(uid),
 	)
 	cmd.Dir = dir
-
 	var out bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &out, &out
-
 	if err := cmd.Run(); err != nil {
-		return "ERROR"
+		return "ERROR UV_RUN"
 	}
 	return strings.TrimSpace(out.String())
 }
