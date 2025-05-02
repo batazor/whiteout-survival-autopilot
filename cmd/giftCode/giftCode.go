@@ -1,4 +1,3 @@
-// cmd/redeemer/main.go
 package main
 
 import (
@@ -7,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -15,20 +15,20 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
-/*───────────── файлы ─────────────*/
+/*───────── файлы ─────────*/
 
 const (
-	devicesRel = "db/devices.yaml"   // список игроков
-	codesRel   = "db/giftCodes.yaml" // коды + userFor
-	scriptRel  = "cmd/giftCode"      // <─ новый путь к redeem_code.py
+	devicesRel = "db/devices.yaml"
+	codesRel   = "db/giftCodes.yaml"
+	scriptRel  = "cmd/giftCode" // dir с redeem_code.py
 )
 
-/*───────────── структура codes.yaml ─────────────*/
+/*───────── структура giftCodes.yaml ─────────*/
 
 type giftCodes struct {
 	Codes []struct {
-		Name    string  `yaml:"name"`
-		UserFor []int64 `yaml:"userFor"`
+		Name    string            `yaml:"name"`
+		UserFor map[string]string `yaml:"userFor"` // uid -> status
 	} `yaml:"codes"`
 }
 
@@ -41,10 +41,11 @@ func main() {
 	players := loadPlayers(filepath.Join(cwd, devicesRel))
 	codes := loadCodes(filepath.Join(cwd, codesRel))
 
-	for ci, code := range codes.Codes {
-		claimed := make(map[int64]struct{}, len(code.UserFor))
-		for _, id := range code.UserFor {
-			claimed[id] = struct{}{}
+	for ci := range codes.Codes {
+		code := &codes.Codes[ci]
+
+		if code.UserFor == nil {
+			code.UserFor = make(map[string]string)
 		}
 
 		fmt.Printf("\n=== Code: %s ===\n", code.Name)
@@ -52,7 +53,9 @@ func main() {
 
 		for _, g := range players.AllGamers() {
 			uid := int64(g.ID)
-			if _, done := claimed[uid]; done {
+			uidStr := strconv.FormatInt(uid, 10)
+
+			if _, done := code.UserFor[uidStr]; done {
 				continue
 			}
 
@@ -61,15 +64,16 @@ func main() {
 			switch status {
 			case "SUCCESS":
 				fmt.Printf("✅ %s (%d) SUCCESS\n", g.Nickname, uid)
-				codes.Codes[ci].UserFor = append(codes.Codes[ci].UserFor, uid)
+				code.UserFor[uidStr] = "SUCCESS"
 			case "ALREADY_RECEIVED":
 				fmt.Printf("ℹ️  %s (%d) ALREADY_RECEIVED\n", g.Nickname, uid)
-				codes.Codes[ci].UserFor = append(codes.Codes[ci].UserFor, uid)
+				code.UserFor[uidStr] = "ALREADY_RECEIVED"
 			case "CDK_NOT_FOUND":
 				fmt.Printf("🚫 Код %s не существует – прекращаю обработку этого кода\n", code.Name)
 				stop = true
 			default:
 				fmt.Printf("❌ %s (%d) ERROR\n", g.Nickname, uid)
+				code.UserFor[uidStr] = "ERROR"
 			}
 
 			if stop {
@@ -83,17 +87,19 @@ func main() {
 	fmt.Println("\n💾 giftCodes.yaml сохранён")
 }
 
-/*───────────── helpers ─────────────*/
+/*──────── helpers ────────*/
 
-// runPython → cd cmd/giftCode && uv run redeem_code.py -c CODE --fid UID
+// cd cmd/giftCode && uv run redeem_code.py -c CODE --fid UID
 func runPython(dir string, uid int64, code string) string {
 	cmd := exec.Command("uv", "run", "redeem_code.py",
 		"-c", code,
 		"--fid", fmt.Sprint(uid),
 	)
 	cmd.Dir = dir
+
 	var out bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &out, &out
+
 	if err := cmd.Run(); err != nil {
 		return "ERROR"
 	}
@@ -107,6 +113,7 @@ func loadPlayers(path string) *domain.Config {
 	chk(yaml.Unmarshal(b, &cfg))
 	return &cfg
 }
+
 func loadCodes(path string) giftCodes {
 	b, err := os.ReadFile(path)
 	chk(err)
@@ -114,11 +121,13 @@ func loadCodes(path string) giftCodes {
 	chk(yaml.Unmarshal(b, &gc))
 	return gc
 }
+
 func saveCodes(path string, gc giftCodes) {
 	b, err := yaml.Marshal(&gc)
 	chk(err)
 	chk(os.WriteFile(path, b, 0644))
 }
+
 func chk(err error) {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
