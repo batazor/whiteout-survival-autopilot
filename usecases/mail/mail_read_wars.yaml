@@ -4,8 +4,6 @@ node: mail_wars
 
 priority: 25
 
-ttl: 12h
-
 steps:
   - click: mail_read_and_claim_all
   - wait: 1s

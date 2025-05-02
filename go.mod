@@ -4,13 +4,14 @@ go 1.24.1
 
 require (
 	github.com/agnivade/levenshtein v1.2.1
+	github.com/g8rswimmer/go-twitter/v2 v2.1.5
 	github.com/go-co-op/gocron/v2 v2.16.1
-	github.com/google/cel-go v0.24.1
+	github.com/google/cel-go v0.25.0
 	github.com/lithammer/fuzzysearch v1.1.8
 	github.com/looplab/fsm v1.0.2
 	github.com/otiai10/gosseract/v2 v2.4.2-0.20250324235626-52db940d5195
 	github.com/prometheus/client_golang v1.22.0
-	github.com/redis/go-redis/v9 v9.7.3
+	github.com/redis/go-redis/v9 v9.8.0
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel v1.35.0
@@ -23,7 +24,7 @@ require (
 )
 
 require (
-	cel.dev/expr v0.19.1 // indirect
+	cel.dev/expr v0.23.1 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect

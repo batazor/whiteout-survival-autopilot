@@ -46,7 +46,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 19
+            level: 20
             power: 0
       researches:
         battle:
@@ -91,6 +91,10 @@ gamers:
             isAlliance: false
             isSystem: false
             isReports: false
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -183,6 +187,10 @@ gamers:
             isAlliance: false
             isSystem: false
             isReports: false
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false
     - id: 423382817
       nickname: bart
       state: 2690
@@ -242,7 +250,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 21
+            level: 22
             power: 0
       researches:
         battle:
@@ -287,11 +295,15 @@ gamers:
             isAlliance: false
             isSystem: false
             isReports: false
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false
     - id: 401227964
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      power: 31436602
+      power: 35396266
       vip_level: 7
       resources:
         wood: 100000
@@ -346,7 +358,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 27
+            level: 28
             power: 0
       researches:
         battle:
@@ -369,28 +381,32 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: SO50007
+                TextStatus: "051513"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: SEO50012
+                TextStatus: SEO51426
         marksman:
             state:
                 isAvailable: false
-                TextStatus: SO50015
+                TextStatus: O51438
       tech:
         state:
             is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
       mail:
         isHasMail: false
         state:
             isWars: false
             isAlliance: false
             isSystem: false
-            isReports: false
+            isReports: true
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false
     - id: 422228462
       nickname: bravo
       state: 2690
@@ -483,6 +499,10 @@ gamers:
             isAlliance: true
             isSystem: false
             isReports: true
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false
     - id: 420195101
       nickname: paradox
       state: 2690
@@ -530,7 +550,7 @@ gamers:
             favorite: true
       buildings:
         furnace:
-            level: 21
+            level: 22
             power: 0
       researches:
         battle:
@@ -575,3 +595,7 @@ gamers:
             isAlliance: false
             isSystem: false
             isReports: false
+      dailyMissions:
+        isRewardAvailable: false
+        isReseachOneTechnologies: false
+        isGatherMeat: false

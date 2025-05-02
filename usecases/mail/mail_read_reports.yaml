@@ -4,8 +4,6 @@ node: mail_reports
 
 priority: 25
 
-ttl: 6h
-
 steps:
   - click: mail_read_and_claim_all
   - wait: 1s

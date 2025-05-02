@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/gift"
 	"github.com/batazor/whiteout-survival-autopilot/internal/logger"
 	"github.com/batazor/whiteout-survival-autopilot/internal/metrics"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
@@ -45,6 +46,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
 	}
+
+	// ─── Discord listener ───────────────────────────
+	gift.AutoStart(gift.Config{
+		UserID:      "1634091876319117312",
+		DevicesYAML: "db/devices.yaml",
+		CodesYAML:   "db/giftCodes.yaml",
+		// PythonDir: "",          // скрипт из пакета
+		// PollEvery: 0,           // 0 ⇒ 5 min
+		// HistoryDepth: 0,        // 0 ⇒ 10
+		Logger: appLogger,
+	})
 
 	// ── Метрики ───────────────────────────────────────────────────────────────
 	metrics.StartExporter()
