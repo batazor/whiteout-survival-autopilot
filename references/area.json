@@ -192,15 +192,15 @@
       "missions_button",
       "next_mission",
       "to_mail",
-      "to_chief_order",
+      "to_chief_orders",
       "to_main_menu_city",
       "alliance.state.isNeedSupport"
     ],
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-05-04T10:48:21.456615Z",
-    "lead_time": 6665.2029999999995
+    "updated_at": "2025-05-04T15:57:06.426864Z",
+    "lead_time": 6724.512
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -1549,6 +1549,15 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 95.64814814814817,
+        "y": 77.58333333333334,
+        "width": 1.1111111111111,
+        "height": 0.3750000000000142,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
@@ -1562,13 +1571,14 @@
       "to_main_menu_tech_research",
       "to_pets",
       "mail.isHasMail",
-      "to_vip"
+      "to_vip",
+      "chief.state.isNotify"
     ],
     "annotator": 2,
     "annotation_id": 27,
     "created_at": "2025-04-17T17:44:08.191110Z",
-    "updated_at": "2025-05-04T10:32:43.447528Z",
-    "lead_time": 407.256
+    "updated_at": "2025-05-04T15:33:12.604671Z",
+    "lead_time": 481.405
   },
   {
     "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
@@ -2472,37 +2482,37 @@
     "id": 44,
     "bbox": [
       {
-        "x": 18.564814814814817,
-        "y": 46.833333333333336,
-        "width": 29.074074074074076,
-        "height": 1.9166666666666714,
+        "x": 22.175925925925927,
+        "y": 46.833333333334,
+        "width": 19.166666666666654,
+        "height": 1.9166666666666703,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
       },
       {
-        "x": 17.91666666666667,
-        "y": 51.541666666666664,
-        "width": 28.796296296296305,
-        "height": 1.8333333333333286,
+        "x": 22.175925925925956,
+        "y": 51.4166666666673,
+        "width": 19.16666666666661,
+        "height": 1.8333333333333228,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
       },
       {
-        "x": 17.63888888888889,
-        "y": 56.166666666666664,
-        "width": 31.2962962962963,
-        "height": 1.5833333333333357,
+        "x": 22.175925925925938,
+        "y": 56.166666666666984,
+        "width": 19.44444444444439,
+        "height": 1.5833333333333321,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
       },
       {
-        "x": 18.148148148148145,
-        "y": 62.95833333333333,
-        "width": 31.018518518518526,
-        "height": 1.8333333333333428,
+        "x": 22.037037037037063,
+        "y": 62.95833333333404,
+        "width": 19.629629629629562,
+        "height": 1.8333333333333381,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
@@ -2527,8 +2537,8 @@
     "annotator": 1,
     "annotation_id": 44,
     "created_at": "2025-04-24T15:21:47.940099Z",
-    "updated_at": "2025-04-25T07:01:40.797589Z",
-    "lead_time": 522.321
+    "updated_at": "2025-05-04T17:01:13.517841Z",
+    "lead_time": 583.2560000000001
   },
   {
     "ocr": "\/data\/upload\/1\/8f3267aa-troops_get.png",
@@ -2976,5 +2986,131 @@
     "created_at": "2025-05-04T12:03:43.993267Z",
     "updated_at": "2025-05-04T12:31:46.242576Z",
     "lead_time": 304.272
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d6f5fd06-chief_order_notify.png",
+    "id": 54,
+    "bbox": [
+      {
+        "x": 40.54943373125191,
+        "y": 26.37741046831956,
+        "width": 0.994796449341905,
+        "height": 0.378787878787886,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.96388123660849,
+        "y": 26.411845730027554,
+        "width": 1.071319253137446,
+        "height": 0.3787878787878789,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 40.47291092745638,
+        "y": 46.5564738292011,
+        "width": 1.2243648607284996,
+        "height": 0.30991735537190124,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.9638812366085,
+        "y": 46.590909090909086,
+        "width": 1.1478420569329586,
+        "height": 0.37878787878788245,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 40.549433731251916,
+        "y": 66.76997245179062,
+        "width": 1.0713192531374318,
+        "height": 0.37878787878788955,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.9638812366085,
+        "y": 66.73553719008265,
+        "width": 1.0713192531374318,
+        "height": 0.30991735537189413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80.18518518518519,
+        "y": 5.291666666666676,
+        "width": 13.981481481481502,
+        "height": 1.5833333333333317,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.2943297279580466,
+        "y": 4.129793510324484,
+        "width": 9.177318911832188,
+        "height": 3.0973451327433628,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "chief.state.isUrgentMobilization",
+      "chief.state.isRushJob",
+      "chief.state.isComprehensiveCare",
+      "chief.state.isDoubleTime",
+      "chief.state.isProductivityDay",
+      "chief.state.isFestivities",
+      "chief.contentment",
+      "from_chief_orders_to_main_city"
+    ],
+    "annotator": 1,
+    "annotation_id": 55,
+    "created_at": "2025-05-04T15:27:31.939792Z",
+    "updated_at": "2025-05-04T15:35:30.469632Z",
+    "lead_time": 203.851
+  },
+  {
+    "ocr": "\/data\/upload\/1\/af2672c0-chief_order_enact.png",
+    "id": 55,
+    "bbox": [
+      {
+        "x": 33.10390036053753,
+        "y": 67.99410029498526,
+        "width": 34.0871845296624,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 10.488364470665356,
+        "height": 3.392330383480826,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "chief_orders_enact",
+      "from_chief_orders_enact_to_chief_orders"
+    ],
+    "annotator": 1,
+    "annotation_id": 56,
+    "created_at": "2025-05-04T15:48:32.707890Z",
+    "updated_at": "2025-05-04T15:48:32.708004Z",
+    "lead_time": 78.107
   }
 ]

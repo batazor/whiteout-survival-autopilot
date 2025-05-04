@@ -4,6 +4,11 @@ main_city:
     type: integer
     threshold: 0.9
 
+  - name: gems
+    action: text
+    type: integer
+    threshold: 0.9
+
   - name: vip.level
     action: text
     type: integer
@@ -87,6 +92,15 @@ main_city:
     expectedColor: yellow
     threshold: 0.5
 
+  - name: chief.state.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: chief.state.isNotify
+        list:
+          - name: Check Chief
+
 exploration:
   - name: exploration.state.isClaimActive
     action: color_check
@@ -111,7 +125,7 @@ exploration_battle:
   - name: exploration.state.enemyPower
     action: text
     type: integer
-    threshold: 0.5
+    threshold: 0.7
 
 alliance_war_auto_join:
   - name: alliance.state.polarTerrorCount
@@ -326,4 +340,44 @@ vip_add:
   - name: vip.state.isVIPAddAvailableX
     action: color_check
     expectedColor: green
+    threshold: 0.5
+
+chief_orders:
+  - name: chief.contentment
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: chief.state.isUrgentMobilization
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: chief.state.isComprehensiveCare
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: chief.state.isProductivityDay
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: chief.state.isRushJob
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: chief.state.isRushJob
+        list:
+          - name: Chief Resource Claim
+
+  - name: chief.state.isDoubleTime
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: chief.state.isFestivities
+    action: color_check
+    expectedColor: red
     threshold: 0.5

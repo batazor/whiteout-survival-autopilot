@@ -1,0 +1,42 @@
+# TODO: проверять что хватает ресурсов и докупать если не хватает
+# TODO: научиться парсить 4.5M как 4500000 для корректной работы триггеров
+
+name: Chief Resource Claim
+
+node: chief_orders
+
+trigger: chief.state.isUrgentMobilization && chief.state.isProductivityDay && chief.state.isRushJob
+
+priority: 40
+
+# Для получения максимального количества ресурсов нам нужно выполнить последовательное комбо из трех приказов губернатора
+steps:
+  # Клик на кнопку "Мобилизация"
+  - click: chief.state.isUrgentMobilization
+  - wait: 3s
+  - click: chief_orders_enact # Подтверждение приказа
+  - wait: 3s
+  - click: to_chief_orders # После выполнения приказа нас перекидывает на страницу города, следовательно, нужно вернуться на страницу губернатора
+  - wait: 200ms # для отрисовки анимации
+
+  # Клик на кнопку "Универсальная помощь"
+  - click: chief.state.isProductivityDay
+  - wait: 3s
+  - click: chief_orders_enact
+  - wait: 3s
+  - click: to_chief_orders # После выполнения приказа нас перекидывает на страницу города, следовательно, нужно вернуться на страницу губернатора
+  - wait: 200ms # для отрисовки анимации
+
+  # Клик на кнопку "Специальный заказ"
+  - click: chief.state.isRushJob
+  - wait: 3s
+  - click: chief_orders_enact
+  - wait: 5s
+  - click: to_chief_orders # скипаем уведомление о награде
+  - wait: 500ms
+  - click: to_chief_orders # После выполнения приказа нас перекидывает на страницу города, следовательно, нужно вернуться на страницу губернатора
+
+  - pushUsecase:
+      - trigger: true # Always trigger
+        list:
+          - name: Check Chief # Обновим информацию о приказах губернатора

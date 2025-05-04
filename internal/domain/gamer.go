@@ -10,14 +10,15 @@ type Gamers []Gamer
 type Gamer struct {
 	CurrentScreen string `yaml:"-"` // FSM состояние — обновляется во время игры
 
-	ID            int           `yaml:"id"`            // Уникальный идентификатор персонажа (fid).
-	Nickname      string        `yaml:"nickname"`      // Псевдоним персонажа.
-	State         int           `yaml:"state"`         // Государство персонажа.
-	Avatar        string        `yaml:"avatar"`        // URL аватара персонажа.
+	ID       int    `yaml:"id"`       // Уникальный идентификатор персонажа (fid).
+	Nickname string `yaml:"nickname"` // Псевдоним персонажа.
+	State    int    `yaml:"state"`    // Государство персонажа.
+	Avatar   string `yaml:"avatar"`   // URL аватара персонажа.
+	Gems     int    `yaml:"gems"`     // Количество гемов (премиум-валюта).
+
 	Power         int           `yaml:"power"`         // Мощь персонажа.
 	VIP           VIP           `yaml:"vip"`           // VIP-статус персонажа.
 	Resources     Resources     `yaml:"resources"`     // Ресурсы персонажа.
-	Gems          int           `yaml:"gems"`          // Количество гемов (премиум-валюта).
 	Exploration   Exploration   `yaml:"exploration"`   // Исследование мира.
 	Heroes        heroes.Heroes `yaml:"heroes"`        // Состояние героев.
 	Messages      MessagesState `yaml:"messages"`      // Состояние сообщений.
@@ -31,6 +32,7 @@ type Gamer struct {
 	Mail          Mail          `yaml:"mail"`          // Состояние почты персонажа.
 	Shop          Shop          `yaml:"shop"`          // Состояние магазина.
 	DailyMissions DailyMissions `yaml:"dailyMissions"` // Состояние ежедневных миссий.
+	Chief         Chief         `yaml:"chief"`         // Данные о губернаторе
 }
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {

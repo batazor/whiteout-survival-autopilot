@@ -1,6 +1,6 @@
-name: Check Main City
+name: Check Exploration
 
-cron: "0 */2 * * *"
+cron: "0 */5 * * *" # every 5 hours
 
 priority: 10
 

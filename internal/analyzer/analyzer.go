@@ -196,12 +196,7 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 				value = found
 
 			case "text":
-				clane := false
-				if rule.Options != nil && rule.Options.Clane {
-					clane = rule.Options.Clane
-				}
-
-				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name, clane)
+				text, err := vision.ExtractTextFromRegion(imagePath, region, rule.Name)
 				if err != nil {
 					a.logger.Error("OCR failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return

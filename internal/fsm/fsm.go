@@ -49,7 +49,6 @@ const (
 	StateProfile         = "profile"
 	StateLeaderboard     = "leaderboard"
 	StateSettings        = "settings"
-	StateChiefOrders     = "chief_orders"
 	StateDawnMarket      = "dawn_market"
 
 	// Питомцы
@@ -97,6 +96,9 @@ const (
 	// VIP
 	StateVIP    = "vip"
 	StateVIPAdd = "vip_add"
+
+	// Губернатор
+	StateChiefOrders = "chief_orders"
 )
 
 type TransitionStep struct {
@@ -148,6 +150,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 		StateVIP: {
 			{Action: "to_vip", Wait: 300 * time.Millisecond},
+		},
+		StateChiefOrders: {
+			{Action: "to_chief_orders", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateMainMenuWilderness: {
@@ -404,6 +409,11 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	StateVIPAdd: {
 		StateVIP: {
 			{Action: "from_vip_add_to_vip", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateChiefOrders: {
+		StateMainCity: {
+			{Action: "from_chief_orders_to_main_city", Wait: 300 * time.Millisecond},
 		},
 	},
 }

@@ -9,7 +9,7 @@ steps:
       trigger: vip.state.isAward
       then:
         - click: vip_award_button
-        - wait: 500ms
+        - wait: 2s
         - click: tap_anywhere_to_exit
 
   - if:

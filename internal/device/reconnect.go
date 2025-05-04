@@ -145,7 +145,6 @@ func (h *ReconnectHandler) checkReconnectWindow(screenshotPath string) (bool, er
 		screenshotPath,
 		region.ToRectangle(),
 		"reconnect_check",
-		true, // использование CLAHE для улучшения OCR
 	)
 	if err != nil {
 		h.logger.Error("❌ Ошибка OCR при проверке reconnect", slog.Any("error", err))
