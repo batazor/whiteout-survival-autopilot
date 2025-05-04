@@ -71,7 +71,7 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 
 	if len(matches) == 0 {
 		d.Logger.Warn("⚠️ Никнейм не найден по нечёткому совпадению", slog.String("parsed", nicknameParsed))
-		return -1, -1, nil
+		return -1, -1, errors.New("не найдено совпадений с никнеймом")
 	}
 
 	// Находим наилучшее совпадение (с самым низким score)

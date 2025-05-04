@@ -618,16 +618,16 @@ gamers:
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 8940507
+      power: 8966435
       vip:
-        level: 0
-        time: 0s
+        level: 4
+        time: 655h6m10s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: false
-            isAward: false
-            isClaim: false
+            isAward: true
+            isClaim: true
             isVIPAddAvailable: false
             isVIPAddAvailableX: false
       resources:
@@ -680,7 +680,7 @@ gamers:
         battle:
             isNotify: false
         tech:
-            isNotify: true
+            isNotify: false
             favorite: true
         help:
             isNotify: false
@@ -709,15 +709,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: SE025609
+                TextStatus: "045746"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: H030418
+                TextStatus: "045832"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: ED032404
+                TextStatus: "000221"
       tech:
         state:
             is_available: true
@@ -734,6 +734,6 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isNotify: false
+        isNotify: true
         isReseachOneTechnologies: false
         isGatherMeat: false
