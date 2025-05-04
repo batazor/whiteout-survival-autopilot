@@ -47,7 +47,7 @@ func main() {
 		log.Fatalf("❌ Не удалось инициализировать логгер: %v", err)
 	}
 
-	// ─── Discord listener ───────────────────────────
+	// ─── Gift listener ───────────────────────────
 	gift.AutoStart(gift.Config{
 		UserID:      "1634091876319117312",
 		DevicesYAML: "db/devices.yaml",

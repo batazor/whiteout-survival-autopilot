@@ -47,6 +47,8 @@ type Step struct {
 
 	Set string      `yaml:"set,omitempty"` // ← сюда попадёт path вроде "exploration.state.battleStatus"
 	To  interface{} `yaml:"to,omitempty"`  // ← новое значение (в твоём случае — "")
+
+	PushUsecase []PushUsecase `yaml:"pushUsecase,omitempty"` // Список usecase, которые нужно запустить при выполнении этого шага
 }
 
 // IfStep описывает условную конструкцию вида if { then {} else {} }

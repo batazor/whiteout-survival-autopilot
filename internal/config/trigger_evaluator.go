@@ -11,6 +11,10 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
+// -----------------------------------------------------------------------------
+// Public API
+// -----------------------------------------------------------------------------
+
 type TriggerEvaluator interface {
 	EvaluateTrigger(expr string, st *domain.Gamer) (bool, error)
 }
@@ -19,16 +23,20 @@ func NewTriggerEvaluator() TriggerEvaluator {
 	return &triggerEvaluator{}
 }
 
+// -----------------------------------------------------------------------------
+// Implementation
+// -----------------------------------------------------------------------------
+
 type triggerEvaluator struct{}
 
-// EvaluateTrigger compiles the CEL expression (expr) and then evaluates it
-// against the data we extract from *domain.Gamer.
+// EvaluateTrigger compiles the CEL expression (expr) and evaluates it against
+// the flattened *domain.Gamer.
 func (t *triggerEvaluator) EvaluateTrigger(expr string, char *domain.Gamer) (bool, error) {
-	// Flatten nested Gamer struct into map[string]interface{}
+	// 1. Flatten struct -> map[string]interface{}
 	flat := make(map[string]interface{})
 	flattenStruct("", char, flat)
 
-	// Build a list of declarations for every known field
+	// 2. Declarations for every known field
 	var declsList []*exprpb.Decl
 	for k, v := range flat {
 		switch v.(type) {
@@ -41,17 +49,17 @@ func (t *triggerEvaluator) EvaluateTrigger(expr string, char *domain.Gamer) (boo
 		}
 	}
 
-	// Создаём окружение CEL с нашими переменными + библиотекой ext.Strings()
-	// ext.Strings() автоматически добавляет метод: string.lowerAscii()
+	// 3. CEL environment
 	env, err := cel.NewEnv(
 		cel.Declarations(declsList...),
-		ext.Strings(),
+		ext.Strings(), // adds string.lowerAscii()
+		CompareTextLib,
 	)
 	if err != nil {
 		return false, fmt.Errorf("creating CEL env: %w", err)
 	}
 
-	// Компилируем выражение
+	// 4. Compile & run
 	ast, issues := env.Compile(expr)
 	if issues != nil && issues.Err() != nil {
 		return false, fmt.Errorf("compile error: %w", issues.Err())
@@ -62,16 +70,16 @@ func (t *triggerEvaluator) EvaluateTrigger(expr string, char *domain.Gamer) (boo
 		return false, fmt.Errorf("program creation error: %w", err)
 	}
 
-	// Выполняем
 	out, _, err := prg.Eval(flat)
 	if err != nil {
 		return false, fmt.Errorf("eval error: %w", err)
 	}
 
-	// Ожидаем bool
-	result, ok := out.Value().(bool)
+	// 5. Expecting bool
+	res, ok := out.Value().(bool)
 	if !ok {
 		return false, fmt.Errorf("trigger result is not bool: %v", out)
 	}
-	return result, nil
+
+	return res, nil
 }

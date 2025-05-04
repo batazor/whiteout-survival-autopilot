@@ -48,6 +48,7 @@ func NewUseCaseExecutor(
 		area:             area,
 		botName:          botName,
 		queue:            queue,
+		usecaseLoader:    config.NewUseCaseLoader("./usecases"),
 	}
 }
 
@@ -59,6 +60,7 @@ type executorImpl struct {
 	area             *config.AreaLookup
 	botName          string
 	queue            *redis_queue.Queue
+	usecaseLoader    config.UseCaseLoader
 }
 
 func (e *executorImpl) Analyzer() Analyzer {
@@ -343,6 +345,36 @@ func (e *executorImpl) runStep(ctx context.Context, step domain.Step, indent int
 				slog.Any("error", err),
 			)
 			return true
+		}
+	}
+
+	// --- PUSH-USECASE --------------------------------------------
+	if len(step.PushUsecase) > 0 && e.queue != nil {
+		for _, push := range step.PushUsecase {
+			// 1) проверяем триггер (если есть)
+			if push.Trigger != "" {
+				ok, err := e.triggerEvaluator.EvaluateTrigger(push.Trigger, gamer)
+				if err != nil {
+					e.logger.Error("Trigger evaluation failed for pushUsecase",
+						slog.String("trigger", push.Trigger), slog.Any("error", err))
+					continue
+				}
+				if !ok {
+					e.logger.Debug("pushUsecase trigger not satisfied",
+						slog.String("trigger", push.Trigger))
+					continue
+				}
+			}
+
+			// Если триггер выполнен, добавляем usecase в очередь
+			for _, uc := range push.List {
+				ucOriginal := e.usecaseLoader.GetByName(uc.Name)
+
+				e.logger.Info("📥 Push usecase from analysis", slog.String("usecase", uc.Name))
+				if err := e.queue.Push(context.Background(), ucOriginal); err != nil {
+					e.logger.Error("❌ Failed to push usecase", slog.String("usecase", uc.Name), slog.Any("error", err))
+				}
+			}
 		}
 	}
 

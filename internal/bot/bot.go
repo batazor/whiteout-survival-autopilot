@@ -126,7 +126,7 @@ func (b *Bot) Play(ctx context.Context) {
 	b.Device.FSM.ForceTo(fsm.StateMainCity, nil)
 
 	// Время для отрисовки экрана
-	time.Sleep(1 * time.Second)
+	time.Sleep(2 * time.Second)
 
 	b.logger.Info("⏭️ Очередь завершена. Готов к переключению.")
 }
