@@ -10,7 +10,7 @@ gamers:
         time: 1019h53m3s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: true
             isAward: false
             isClaim: true
@@ -28,9 +28,9 @@ gamers:
             myPower: 1215987
             enemyPower: 1015036
             battleStatus: ""
-        isNotify: false
+        isNotify: true
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -44,7 +44,7 @@ gamers:
             count: 0
             max: 0
         state:
-            isNeedSupport: false
+            isNeedSupport: true
             isWar: 0
             isChests: 0
             isAllianceContributeButton: false
@@ -108,7 +108,7 @@ gamers:
             is_available: true
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
       mail:
         isHasMail: false
         state:
@@ -117,21 +117,21 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
-        isNotify: false
+        isNotify: true
         isReseachOneTechnologies: false
         isGatherMeat: false
       chief:
         contentment: 0
         state:
-            isNotify: false
+            isNotify: true
             isUrgentMobilization: false
             isComprehensiveCare: false
             isProductivityDay: false
             isRushJob: false
             isDoubleTime: false
-            isFestivities: false
+            isFestivities: true
     - id: 420902982
       nickname: agent007
       state: 2690
