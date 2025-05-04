@@ -1,0 +1,34 @@
+name: VIP Add
+
+trigger: vip.state.isVIPAddAvailable
+
+node: vip_add
+
+steps:
+  - action: loop
+    trigger: vip.state.isVIPAddAvailable
+    steps:
+      - if: # Если доступна кнопка с мультипликатором, то нажимаем на неё
+          trigger: vip.state.isVIPAddAvailableX
+          then:
+            - click: vip.state.isVIPAddAvailableX
+      - if: # Если не доступна кнопка с мультипликатором, то нажимаем на кнопку с обычным VIP
+          trigger: "!vip.state.isVIPAddAvailableX"
+          then:
+            - click: vip.state.isVIPAddAvailable
+      - action: screenshot           # 📸 После нажатия снова делаем скриншот и обновляем состояние
+        analyze:
+          - name: vip.state.isVIPAddAvailable
+            action: color_check
+            expectedColor: green
+            threshold: 0.5
+          - name: vip.state.isVIPAddAvailableX
+            action: color_check
+            expectedColor: green
+            threshold: 0.5
+      - click: vip_add_any_click # Нажимаем на любое место экрана, на всякий случай
+
+  - pushUsecase:
+      - trigger: vip.state.isAdd
+        list:
+          - name: Check VIP

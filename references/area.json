@@ -177,7 +177,7 @@
     ],
     "transcription": [
       "power",
-      "vip_level",
+      "vip.level",
       "gems",
       "to_chief_profile",
       "events_area",
@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-04-19T13:25:26.173885Z",
-    "lead_time": 6656.773999999999
+    "updated_at": "2025-05-04T10:48:21.456615Z",
+    "lead_time": 6665.2029999999995
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -1540,6 +1540,15 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 60.231481481481495,
+        "y": 6.833333333333334,
+        "width": 15.277777777777757,
+        "height": 2.166666666666668,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
@@ -1552,13 +1561,14 @@
       "to_main_menu_marksman",
       "to_main_menu_tech_research",
       "to_pets",
-      "mail.isHasMail"
+      "mail.isHasMail",
+      "to_vip"
     ],
     "annotator": 2,
     "annotation_id": 27,
     "created_at": "2025-04-17T17:44:08.191110Z",
-    "updated_at": "2025-05-01T11:28:19.850227Z",
-    "lead_time": 376.25199999999995
+    "updated_at": "2025-05-04T10:32:43.447528Z",
+    "lead_time": 407.256
   },
   {
     "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
@@ -2764,5 +2774,207 @@
     "created_at": "2025-05-02T18:27:13.393872Z",
     "updated_at": "2025-05-02T18:27:13.393901Z",
     "lead_time": 125.78
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ee512ea8-main_city_vip.png",
+    "id": 50,
+    "bbox": [
+      {
+        "x": 78.09190388735844,
+        "y": 6.9183571249686935,
+        "width": 1.1130589642986308,
+        "height": 0.4695717505634853,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.887430335768267,
+        "y": 84.18132163077956,
+        "width": 0.28508784346150406,
+        "height": 0.27796064737496806,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 62.13929932938197,
+        "y": 7.231404958677685,
+        "width": 0.4173971116119972,
+        "height": 0.21913348359629303,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isNotify",
+      "dailyMissions.isNotify",
+      "vip.state.isActive"
+    ],
+    "annotator": 1,
+    "annotation_id": 51,
+    "created_at": "2025-05-04T10:48:07.446278Z",
+    "updated_at": "2025-05-04T11:02:50.024058Z",
+    "lead_time": 390.152
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a639eacb-vip_page.png",
+    "id": 51,
+    "bbox": [
+      {
+        "x": 76.01851851851852,
+        "y": 19.749999999999996,
+        "width": 0.9259259259259238,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.55555555555556,
+        "y": 19.374999999999993,
+        "width": 0.925925925925938,
+        "height": 0.37500000000000355,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 71.11111111111111,
+        "y": 71,
+        "width": 2.4074074074074048,
+        "height": 1.0833333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120944,
+        "y": 93.21533923303836,
+        "width": 35.07046869878729,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.424778761061948,
+        "width": 9.50508030154048,
+        "height": 3.2448377581120953,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 81.9403474270731,
+        "y": 19.6165191740413,
+        "width": 9.177318911832188,
+        "height": 3.3923303834808287,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.46869878728288,
+        "y": 20.206489675516227,
+        "width": 6.2274664044575445,
+        "height": 2.507374631268437,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isAdd",
+      "vip.state.isAward",
+      "vip.state.isClaim",
+      "vip.time",
+      "from_vip_to_main_city",
+      "vip_award_button",
+      "to_vip_add"
+    ],
+    "annotator": 1,
+    "annotation_id": 52,
+    "created_at": "2025-05-04T10:53:39.549379Z",
+    "updated_at": "2025-05-04T11:54:21.389453Z",
+    "lead_time": 315.635
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8ff690a7-vip_add_with_use.png",
+    "id": 52,
+    "bbox": [
+      {
+        "x": 70.46869878728288,
+        "y": 36.13569321533924,
+        "width": 5.571943625040959,
+        "height": 1.032448377581126,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 19.6165191740413,
+        "width": 4.260898066207787,
+        "height": 1.6224188790560454,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isVIPAddAvailable",
+      "from_vip_add_to_vip"
+    ],
+    "annotator": 1,
+    "annotation_id": 53,
+    "created_at": "2025-05-04T11:51:33.821191Z",
+    "updated_at": "2025-05-04T11:54:53.368812Z",
+    "lead_time": 62.661
+  },
+  {
+    "ocr": "\/data\/upload\/1\/02ff892a-vip_add_with_use_x.png",
+    "id": 53,
+    "bbox": [
+      {
+        "x": 43.59226483120289,
+        "y": 34.80825958702066,
+        "width": 5.571943625040966,
+        "height": 1.622418879056049,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 18.879056047197643,
+        "width": 3.933136676499501,
+        "height": 2.507374631268437,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 16.71583087512291,
+        "y": 84.80825958702066,
+        "width": 72.10750573582433,
+        "height": 1.3274336283185875,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isVIPAddAvailableX",
+      "from_vip_add_to_vip",
+      "vip_add_any_click"
+    ],
+    "annotator": 1,
+    "annotation_id": 54,
+    "created_at": "2025-05-04T12:03:43.993267Z",
+    "updated_at": "2025-05-04T12:31:46.242576Z",
+    "lead_time": 304.272
   }
 ]

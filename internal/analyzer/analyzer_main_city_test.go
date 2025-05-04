@@ -44,16 +44,16 @@ func TestAnalyzeMainCityScreen(t *testing.T) {
 
 	// Анализируем
 	screen := "main_city"
-	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules[screen])
+	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules[screen], nil)
 	assert.NoError(t, err)
 
 	// Логи
 	t.Logf("Power: %d", newState.Power)
-	t.Logf("VIP Level: %d", newState.Vip_Level)
+	t.Logf("VIP Level: %d", newState.VIP.Level)
 	t.Logf("Alliance Help: %v", newState.Alliance.State.IsNeedSupport)
 
 	// Ожидаемые значения
 	assert.Equal(t, 13350651, newState.Power)
-	assert.Equal(t, 6, newState.Vip_Level)
+	assert.Equal(t, 6, newState.VIP.Level)
 	assert.True(t, newState.Alliance.State.IsNeedSupport)
 }

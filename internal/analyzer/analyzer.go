@@ -183,7 +183,12 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 				}
 
 			case "color_check":
-				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), a.logger)
+				// Добавляем информацию о регионе в логгер
+				newLogger := a.logger.With(
+					slog.String("region", rule.Name),
+				)
+
+				found, err := imagefinder.IsColorDominant(imagePath, region, rule.ExpectedColor, float32(threshold), newLogger)
 				if err != nil {
 					a.logger.Error("color check failed", slog.String("region", rule.Name), slog.Any("error", err))
 					return
@@ -207,6 +212,8 @@ func (a *Analyzer) AnalyzeAndUpdateState(imagePath string, oldState *domain.Game
 					value = parseNumber(text)
 				case "string":
 					value = text
+				case "time_duration":
+					value = parseTimeDuration(text)
 				default:
 					a.logger.Warn("unsupported type", slog.String("type", rule.Type))
 					return

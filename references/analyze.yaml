@@ -4,7 +4,7 @@ main_city:
     type: integer
     threshold: 0.9
 
-  - name: vip_level
+  - name: vip.level
     action: text
     type: integer
     threshold: 0.9
@@ -63,6 +63,28 @@ main_city:
   - name: shop.isNotify
     action: color_check
     expectedColor: red
+    threshold: 0.5
+
+  - name: dailyMissions.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: vip.state.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: vip.state.isNotify
+        list:
+          - name: VIP Awards
+      - trigger: vip.state.isAdd
+        list:
+          - name: VIP Add
+
+  - name: vip.state.isActive
+    action: color_check
+    expectedColor: yellow
     threshold: 0.5
 
 exploration:
@@ -269,3 +291,39 @@ alliance_manage:
       - trigger: alliance.help.isNotify
         list:
           - name: Click to alliance help button
+
+vip:
+  - name: vip.state.isAdd
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: vip.state.isAdd
+        list:
+          - name: VIP Add
+
+  - name: vip.state.isAward
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: vip.state.isClaim
+    action: color_check
+    expectedColor: green
+    threshold: 0.5
+
+  - name: vip.time
+    action: text
+    type: time_duration
+    threshold: 0.9
+
+vip_add:
+  - name: vip.state.isVIPAddAvailable
+    action: color_check
+    expectedColor: green
+    threshold: 0.5
+
+  - name: vip.state.isVIPAddAvailableX
+    action: color_check
+    expectedColor: green
+    threshold: 0.5

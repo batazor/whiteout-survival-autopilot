@@ -31,7 +31,7 @@ steps:
         - click: alliance_tech_contribute_back
 
   - action: loop                     # 🔁 Запускаем цикл, пока кнопка "Contribute" остаётся синей
-    trigger: "alliance.state.isAllianceContributeButton == true"
+    trigger: alliance.state.isAllianceContributeButton
     steps:
       - longtap: alliance.state.isAllianceContributeButton
         wait: 3s                     # 🧷 Удерживаем кнопку (longtap) 3 секунды — это усиливает вклад

@@ -4,7 +4,17 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       power: 6056735
-      vip_level: 3
+      vip:
+        level: 3
+        time: 1024h19m9s
+        state:
+            isNotify: true
+            isActive: true
+            isAdd: true
+            isAward: true
+            isClaim: true
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 0
         food: 0
@@ -84,15 +94,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "030613"
+                TextStatus: EO121518
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "043018"
+                TextStatus: SE024523
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "043033"
+                TextStatus: EO24538
       tech:
         state:
             is_available: true
@@ -109,7 +119,7 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: true
         isReseachOneTechnologies: false
         isGatherMeat: false
     - id: 420902982
@@ -117,7 +127,17 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       power: 6493389
-      vip_level: 3
+      vip:
+        level: 0
+        time: 0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: false
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 0
         food: 0
@@ -222,15 +242,25 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false
     - id: 423382817
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      power: 8917362
-      vip_level: 4
+      power: 8943626
+      vip:
+        level: 4
+        time: 659h34m3s
+        state:
+            isNotify: false
+            isActive: true
+            isAdd: false
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 0
         food: 0
@@ -309,16 +339,16 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: true
-                TextStatus: Completed
+                isAvailable: false
+                TextStatus: "045134"
         lancer:
             state:
-                isAvailable: true
-                TextStatus: Completed
+                isAvailable: false
+                TextStatus: "045455"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: 044S48
+                TextStatus: SEO203133
       tech:
         state:
             is_available: true
@@ -335,7 +365,7 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: true
         isReseachOneTechnologies: false
         isGatherMeat: false
     - id: 401227964
@@ -343,7 +373,17 @@ gamers:
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
       power: 36039498
-      vip_level: 7
+      vip:
+        level: 0
+        time: 0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: true
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 100000
         food: 250000
@@ -448,7 +488,7 @@ gamers:
       shop:
         isnotify: false
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false
     - id: 422228462
@@ -456,7 +496,17 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       power: 6523633
-      vip_level: 3
+      vip:
+        level: 0
+        time: 0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: false
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 0
         food: 0
@@ -561,7 +611,7 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false
     - id: 420195101
@@ -569,7 +619,17 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       power: 8940507
-      vip_level: 4
+      vip:
+        level: 0
+        time: 0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: false
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
       resources:
         wood: 0
         food: 0
@@ -674,6 +734,6 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isRewardAvailable: false
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false

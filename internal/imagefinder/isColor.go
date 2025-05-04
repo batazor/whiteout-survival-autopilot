@@ -70,7 +70,12 @@ func CheckRegionColor(
 		return false, fmt.Errorf("region '%s' not found in area definitions", regionName)
 	}
 
-	result, err := IsColorDominant(imagePath, region.Zone, expectedColor, threshold, logger)
+	// Добавляем информацию о регионе в логгер
+	newLogger := logger.With(
+		slog.String("region", regionName),
+	)
+
+	result, err := IsColorDominant(imagePath, region.Zone, expectedColor, threshold, newLogger)
 	if err != nil {
 		return false, err
 	}

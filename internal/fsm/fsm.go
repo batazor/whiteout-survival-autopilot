@@ -49,7 +49,6 @@ const (
 	StateProfile         = "profile"
 	StateLeaderboard     = "leaderboard"
 	StateSettings        = "settings"
-	StateVIP             = "vip"
 	StateChiefOrders     = "chief_orders"
 	StateDawnMarket      = "dawn_market"
 
@@ -94,6 +93,10 @@ const (
 	StateMailSystem   = "mail_system"
 	StateMailReports  = "mail_reports"
 	StateMailStarred  = "mail_starred"
+
+	// VIP
+	StateVIP    = "vip"
+	StateVIPAdd = "vip_add"
 )
 
 type TransitionStep struct {
@@ -142,6 +145,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 				Wait:    300 * time.Millisecond,
 				Trigger: "events.tundraAdventure.state.isExist",
 			},
+		},
+		StateVIP: {
+			{Action: "to_vip", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateMainMenuWilderness: {
@@ -385,6 +391,19 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 		StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateVIP: {
+		StateMainCity: {
+			{Action: "from_vip_to_main_city", Wait: 300 * time.Millisecond},
+		},
+		StateVIPAdd: {
+			{Action: "to_vip_add", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateVIPAdd: {
+		StateVIP: {
+			{Action: "from_vip_add_to_vip", Wait: 300 * time.Millisecond},
 		},
 	},
 }

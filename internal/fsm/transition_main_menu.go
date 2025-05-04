@@ -48,5 +48,14 @@ var mainMenuTransitionPaths = map[string]map[string][]TransitionStep{
 		StateMainMenuTechResearch: {
 			{Action: "to_main_menu_tech_research", Wait: 300 * time.Millisecond},
 		},
+		StateVIP: {
+			{Action: "to_vip", Wait: 300 * time.Millisecond},
+		},
+		StateExploration: {
+			{Action: "to_exploration", Wait: 300 * time.Millisecond},
+		},
+		StateAllianceManage: {
+			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
+		},
 	},
 }
