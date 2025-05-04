@@ -1,0 +1,9 @@
+name: Check Alliance
+
+cron: "0 * * * *"
+
+priority: 10
+
+node: alliance_manage
+
+steps: []

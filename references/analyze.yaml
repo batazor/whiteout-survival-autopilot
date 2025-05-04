@@ -46,11 +46,34 @@ main_city:
           - name: Claim Tundra Drill Rewards
           - name: Claim Tundra Daily Missions Rewards
 
+  - name: exploration.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: exploration.isNotify
+        list:
+          - name: Claim Exploration Rewards
+
+  - name: heroes.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: shop.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
 exploration:
   - name: exploration.state.isClaimActive
     action: color_check
     expectedColor: green
     threshold: 0.5
+    pushUsecase:
+      - trigger: exploration.state.isClaimActive
+        list:
+          - name: Claim Exploration Rewards
 
   - name: exploration.level
     action: text
@@ -207,3 +230,42 @@ mail:
       - trigger: mail.state.isReports
         list:
           - name: Mail Read Reports
+
+alliance_manage:
+  - name: alliance.war.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: alliance.territory.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+
+  - name: alliance.chests.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.chests.isNotify
+        list:
+          - name: Alliance Chest Gifts
+          - name: Alliance Chest Loot
+
+  - name: alliance.tech.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.tech.isNotify
+        list:
+          - name: Upgrade Alliance Tech
+
+  - name: alliance.help.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.help.isNotify
+        list:
+          - name: Click to alliance help button

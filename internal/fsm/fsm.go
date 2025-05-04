@@ -446,6 +446,10 @@ func NewGame(
 
 func (g *GameFSM) SetCallback(cb StateUpdateCallback) {
 	g.callback = cb
+
+	if gs, ok := cb.(*domain.Gamer); ok {
+		g.gamerState = gs
+	}
 }
 
 func (g *GameFSM) SetOnStateChange(f func(state string)) {

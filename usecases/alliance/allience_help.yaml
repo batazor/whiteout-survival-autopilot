@@ -6,7 +6,5 @@ trigger: "alliance.state.isNeedSupport == true"
 
 priority: 40
 
-ttl: 30s
-
 steps:
   - click: alliance.state.isNeedSupport

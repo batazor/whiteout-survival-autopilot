@@ -6,8 +6,6 @@ trigger: alliance.state.isGiftClaimAllButton || alliance.state.isClaimButton
 
 priority: 20
 
-ttl: 6h
-
 steps:
   - if: # Если доступна кнопка "Claim All", то просто нажимаем ее
       trigger: alliance.state.isGiftClaimAllButton

@@ -9,3 +9,9 @@ steps:
   - wait: 1s
   - click: mail_read_and_claim_all # второй клик, что бы скипнуть reward сообщение (если будет)
   - wait: 1s
+  - action: screenshot # делаем скриншот, что бы проверить, что все письма прочитаны
+    analyze:
+      - name: mail.state.isSystem
+        action: color_check
+        expectedColor: red
+        threshold: 0.5

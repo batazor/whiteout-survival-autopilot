@@ -5,20 +5,6 @@ type State struct {
 	Gamers Gamers `yaml:"gamers"` // Игровые персонажи
 }
 
-// Exploration описывает уровень исследования мира.
-type Exploration struct {
-	Level int              `yaml:"level"`
-	State ExplorationState `yaml:"state"`
-}
-
-// ExplorationState описывает состояние исследования мира.
-type ExplorationState struct {
-	IsClaimActive bool   `yaml:"isClaimActive"` // Признак доступности кнопки "Забрать".
-	MyPower       int    `yaml:"myPower"`
-	EnemyPower    int    `yaml:"enemyPower"`
-	BattleStatus  string `yaml:"battleStatus"`
-}
-
 // Resources описывает ресурсы, которыми владеет персонаж.
 type Resources struct {
 	Wood int `yaml:"wood"` // Дерево.

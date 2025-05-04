@@ -2,9 +2,9 @@ name: Claim Exploration Rewards
 
 node: exploration
 
-trigger: "exploration.state.isClaimActive == true"
+trigger: exploration.state.isClaimActive
 
-ttl: 0
+priority: 25
 
 steps:
   - click: exploration.state.isClaimActive       # Click the claim button on the exploration screen.

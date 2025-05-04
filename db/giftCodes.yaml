@@ -1,6 +1,6 @@
 codes:
     - name: HappyMay
-      expires: "2025-05-03T23:59:00Z"
+      expires: "2026-05-03T23:59:00Z"
       userFor:
         "401227964": ALREADY_RECEIVED
         "420195101": ALREADY_RECEIVED

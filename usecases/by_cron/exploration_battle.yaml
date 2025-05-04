@@ -1,10 +1,17 @@
+# TODO:
+# 1. Проверять что x2 и auto активированы (кнопки желтого цвета), если нет - включить
+
 name: Exploration Battle
 
 node: exploration_battle
 
-ttl: 12h
+trigger: "double(exploration.state.myPower) * 1.2 >= double(exploration.state.enemyPower)"
 
-trigger: "exploration.state.myPower * 1.2 >= exploration.state.enemyPower"
+ttl: 10h
+
+priority: 20
+
+cron: "0 */12 * * *" # каждые 12 часов
 
 steps:
   - click: quick_deploy_button

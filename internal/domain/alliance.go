@@ -7,7 +7,17 @@ type Alliance struct {
 	Power   int           `yaml:"power"`   // Мощь альянса.
 	Members MembersInfo   `yaml:"members"` // Информация о членах альянса.
 	State   AllianceState `yaml:"state"`   // Дополнительное состояние альянса.
-	Tech    AllianceTech  `yaml:"tech"`    // Технологии альянса (например, вклад).
+
+	// Left menu
+	War       AllianceWar       `yaml:"war"`       // Война альянса (например, текущая война).
+	Territory AllianceTerritory `yaml:"territory"` // Территория альянса (например, захваченные территории).
+	Shop      AllianceShop      `yaml:"shop"`      // Магазин альянса (например, покупки).
+
+	// Right menu
+	Chests AllianceChests `yaml:"chests"` // Сундуки альянса (например, награды).
+	Battle AllianceBattle `yaml:"battle"` // Битва альянса (например, битвы с другими альянсами).
+	Tech   AllianceTech   `yaml:"tech"`   // Технологии альянса (например, вклад).
+	Help   AllianceHelp   `yaml:"help"`   // Помощь альянса (например, помощь другим игрокам).
 }
 
 // MembersInfo содержит сведения о количестве участников альянса.
@@ -33,7 +43,37 @@ type AllianceState struct {
 	IsMainChest          bool `yaml:"isMainChest"`          // Кнопка на получение главного сундука
 }
 
+// AllianceWar описывает войну альянса. --------------------------------------
+type AllianceWar struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о войне.
+}
+
+// AllianceTerritory описывает территорию альянса.
+type AllianceTerritory struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о территории.
+}
+
+// AllianceShop описывает магазин альянса.
+type AllianceShop struct{}
+
+// AllianceChests описывает сундуки альянса. -----------------------------
+type AllianceChests struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о сундуках.
+}
+
+// AllianceBattle описывает битвы альянса.
+type AllianceBattle struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о битвах.
+}
+
 // AllianceTech описывает технологические аспекты альянса.
 type AllianceTech struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о технологии.
+
 	Favorite bool `yaml:"favorite"` // Признак технологии для вклада.
+}
+
+// AllianceHelp описывает помощь альянса.
+type AllianceHelp struct {
+	IsNotify bool `yaml:"isNotify"` // Признак уведомления о помощи.
 }

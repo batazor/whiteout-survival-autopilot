@@ -2658,5 +2658,111 @@
     "created_at": "2025-05-01T10:52:56.682661Z",
     "updated_at": "2025-05-02T17:46:05.328106Z",
     "lead_time": 222.281
+  },
+  {
+    "ocr": "\/data\/upload\/1\/c39c01e7-alliance.png",
+    "id": 48,
+    "bbox": [
+      {
+        "x": 48.56670712309299,
+        "y": 42.50760874208612,
+        "width": 0.3141463839796188,
+        "height": 0.17670734098853558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.44890222910063,
+        "y": 50.90120743904154,
+        "width": 0.35341468197707826,
+        "height": 0.19437807508738558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 92.65682827447642,
+        "y": 42.52527947618497,
+        "width": 0.3141463839796188,
+        "height": 0.15903660688968557,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 92.61755997647897,
+        "y": 59.25946466779926,
+        "width": 0.3141463839796046,
+        "height": 0.14136587279082846,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 93.52073083042036,
+        "y": 67.65306336475469,
+        "width": 0.35341468197707115,
+        "height": 0.19437807508738558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.war.isNotify",
+      "alliance.territory.isNotify",
+      "alliance.chests.isNotify",
+      "alliance.tech.isNotify",
+      "alliance.help.isNotify"
+    ],
+    "annotator": 1,
+    "annotation_id": 49,
+    "created_at": "2025-05-02T18:13:30.613482Z",
+    "updated_at": "2025-05-02T18:13:30.613512Z",
+    "lead_time": 127.967
+  },
+  {
+    "ocr": "\/data\/upload\/1\/bcdc68a0-main_city.png",
+    "id": 49,
+    "bbox": [
+      {
+        "x": 13.06652615865225,
+        "y": 94.12006322860648,
+        "width": 1.045322092692178,
+        "height": 0.3998357004547728,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 29.530349118554085,
+        "y": 94.12006322860648,
+        "width": 1.149854301961394,
+        "height": 0.3998357004547728,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.62173736420401,
+        "y": 94.14358297569206,
+        "width": 1.097588197326786,
+        "height": 0.376315953369172,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration.isNotify",
+      "heroes.isNotify",
+      "shop.isNotify"
+    ],
+    "annotator": 1,
+    "annotation_id": 50,
+    "created_at": "2025-05-02T18:27:13.393872Z",
+    "updated_at": "2025-05-02T18:27:13.393901Z",
+    "lead_time": 125.78
   }
 ]

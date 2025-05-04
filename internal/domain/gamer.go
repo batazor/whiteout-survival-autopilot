@@ -29,6 +29,7 @@ type Gamer struct {
 	Tech          Tech          `yaml:"tech"`          // Технологии персонажа.
 	ScreenState   ScreenState   `yaml:"screenState"`   // Состояние экрана (например, "main", "battle", "exploration").
 	Mail          Mail          `yaml:"mail"`          // Состояние почты персонажа.
+	Shop          Shop          `yaml:"shop"`          // Состояние магазина.
 	DailyMissions DailyMissions `yaml:"dailyMissions"` // Состояние ежедневных миссий.
 }
 

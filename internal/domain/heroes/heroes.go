@@ -1,7 +1,11 @@
 package heroes
 
 // Heroes содержит информацию о состоянии всех героев.
-type Heroes map[string]Hero
+type Heroes struct {
+	IsNotify bool `json:"isNotify"` // Признак необходимости уведомления о состоянии героев.
+
+	List map[string]Hero
+}
 
 // Hero представляет одного героя с его характеристиками и состоянием.
 type Hero struct {

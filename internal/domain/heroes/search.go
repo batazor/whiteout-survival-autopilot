@@ -5,7 +5,7 @@ func (h Heroes) BestForResource(resource string) []Hero {
 	var result []Hero
 	key := resource + "_gathering_speed"
 
-	for _, hero := range h {
+	for _, hero := range h.List {
 		if !hero.State.IsAvailable {
 			continue
 		}
@@ -19,7 +19,7 @@ func (h Heroes) BestForResource(resource string) []Hero {
 // BestForDefense возвращает доступных героев с ролью обороны.
 func (h Heroes) BestForDefense() []Hero {
 	var result []Hero
-	for _, hero := range h {
+	for _, hero := range h.List {
 		if !hero.State.IsAvailable {
 			continue
 		}
@@ -36,7 +36,8 @@ func (h Heroes) BestForDefense() []Hero {
 // BestForAttack возвращает доступных героев с боевой ролью.
 func (h Heroes) BestForAttack() []Hero {
 	var result []Hero
-	for _, hero := range h {
+
+	for _, hero := range h.List {
 		if !hero.State.IsAvailable {
 			continue
 		}
@@ -47,15 +48,22 @@ func (h Heroes) BestForAttack() []Hero {
 			}
 		}
 	}
+
 	return result
 }
 
+// Available возвращает структуру Heroes с только доступными героями.
 func (h Heroes) Available() Heroes {
-	out := Heroes{}
-	for name, hero := range h {
+	out := Heroes{
+		IsNotify: h.IsNotify,
+		List:     make(map[string]Hero),
+	}
+
+	for name, hero := range h.List {
 		if hero.State.IsAvailable {
-			out[name] = hero
+			out.List[name] = hero
 		}
 	}
+
 	return out
 }

@@ -6,8 +6,6 @@ trigger: alliance.state.isCanClaimAllChests
 
 priority: 21
 
-ttl: 2h
-
 steps:
   - click: alliance.state.isCanClaimAllChests
   - wait: 500ms
