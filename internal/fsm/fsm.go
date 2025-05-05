@@ -99,6 +99,11 @@ const (
 
 	// Губернатор
 	StateChiefOrders = "chief_orders"
+
+	// Ежедневные задания
+	StateDailyMissions = "daily_missions"
+	// Миссии роста
+	StateGrowthMissions = "growth_missions"
 )
 
 type TransitionStep struct {
@@ -153,6 +158,9 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		},
 		StateChiefOrders: {
 			{Action: "to_chief_orders", Wait: 300 * time.Millisecond},
+		},
+		StateDailyMissions: {
+			{Action: "to_daily_missions", Wait: 300 * time.Millisecond},
 		},
 	},
 	StateMainMenuWilderness: {
@@ -414,6 +422,22 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	StateChiefOrders: {
 		StateMainCity: {
 			{Action: "from_chief_orders_to_main_city", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateDailyMissions: {
+		StateMainCity: {
+			{Action: "from_daily_missions_to_main_city", Wait: 300 * time.Millisecond},
+		},
+		StateGrowthMissions: {
+			{Action: "to_growth_missions", Wait: 300 * time.Millisecond},
+		},
+	},
+	StateGrowthMissions: {
+		StateMainCity: {
+			{Action: "from_growth_missions_to_main_city", Wait: 300 * time.Millisecond},
+		},
+		StateDailyMissions: {
+			{Action: "from_growth_missions_to_daily_missions", Wait: 300 * time.Millisecond},
 		},
 	},
 }

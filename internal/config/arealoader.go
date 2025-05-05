@@ -44,6 +44,7 @@ func (a *AreaLookup) GetRegionByName(name string) (*domain.BBox, error) {
 			}
 		}
 	}
+
 	return nil, fmt.Errorf("region with name '%s' not found", name)
 }
 

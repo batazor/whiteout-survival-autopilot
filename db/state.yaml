@@ -120,8 +120,13 @@ gamers:
         isnotify: true
       dailyMissions:
         isNotify: true
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        state:
+            isClaimAll: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
@@ -140,10 +145,10 @@ gamers:
       power: 0
       vip:
         level: 0
-        time: 238h57m53s
+        time: 216h0m0s
         state:
-            isNotify: true
-            isActive: false
+            isNotify: false
+            isActive: true
             isAdd: false
             isAward: true
             isClaim: true
@@ -158,10 +163,10 @@ gamers:
         level: 238
         state:
             isClaimActive: false
-            myPower: 1448671
-            enemyPower: 1183752
+            myPower: 0
+            enemyPower: 0
             battleStatus: ""
-        isNotify: true
+        isNotify: false
       heroes:
         isnotify: true
         list: {}
@@ -198,7 +203,7 @@ gamers:
         battle:
             isNotify: false
         tech:
-            isNotify: true
+            isNotify: false
             favorite: true
         help:
             isNotify: false
@@ -227,15 +232,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "031745"
+                TextStatus: "03:13:17"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "031759"
+                TextStatus: "03:13:29"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "031818"
+                TextStatus: "02:39:36"
       tech:
         state:
             is_available: true
@@ -243,7 +248,7 @@ gamers:
       screenState:
         isMainMenu: true
       mail:
-        isHasMail: true
+        isHasMail: false
         state:
             isWars: false
             isAlliance: false
@@ -252,9 +257,14 @@ gamers:
       shop:
         isnotify: true
       dailyMissions:
-        isNotify: true
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        isNotify: false
+        state:
+            isClaimAll: true
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
@@ -264,7 +274,7 @@ gamers:
             isProductivityDay: true
             isRushJob: false
             isDoubleTime: true
-            isFestivities: false
+            isFestivities: true
     - id: 423382817
       nickname: bart
       state: 2690
@@ -276,7 +286,7 @@ gamers:
         time: 624h0m0s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: false
             isAward: true
             isClaim: true
@@ -288,7 +298,7 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 0
+        level: 254
         state:
             isClaimActive: false
             myPower: 0
@@ -296,7 +306,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -360,21 +370,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "04:36:15"
+                TextStatus: 03:05:17 —
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "04:36:04"
+                TextStatus: "03:05:06"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "04:36:36"
+                TextStatus: "03:05:38"
       tech:
         state:
-            is_available: true
+            is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
       mail:
         isHasMail: false
         state:
@@ -383,15 +393,20 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
         isNotify: false
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        state:
+            isClaimAll: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
-            isNotify: false
+            isNotify: true
             isUrgentMobilization: true
             isComprehensiveCare: false
             isProductivityDay: true
@@ -455,7 +470,7 @@ gamers:
             isGiftClaimAllButton: false
             isMainChest: true
         war:
-            isNotify: false
+            isNotify: true
         territory:
             isNotify: false
         shop: {}
@@ -493,21 +508,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "09:00:52"
+                TextStatus: "07:53:02"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "09:00:57"
+                TextStatus: "07:53:07"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "09:01:03"
+                TextStatus: "07:53:13"
       tech:
         state:
             is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
       mail:
         isHasMail: false
         state:
@@ -519,15 +534,20 @@ gamers:
         isnotify: false
       dailyMissions:
         isNotify: false
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        state:
+            isClaimAll: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
             isNotify: true
-            isUrgentMobilization: true
+            isUrgentMobilization: false
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
             isDoubleTime: true
             isFestivities: false
@@ -562,7 +582,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -626,21 +646,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "04:40:28"
+                TextStatus: "02:50:04"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "03:22:24"
+                TextStatus: ag 01:32:00
         marksman:
             state:
-                isAvailable: true
-                TextStatus: InProgress
+                isAvailable: false
+                TextStatus: 8 01:32:38
       tech:
         state:
             is_available: true
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
       mail:
         isHasMail: false
         state:
@@ -649,18 +669,23 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
         isNotify: false
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        state:
+            isClaimAll: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
-            isNotify: false
-            isUrgentMobilization: true
+            isNotify: true
+            isUrgentMobilization: false
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
             isDoubleTime: true
             isFestivities: false
@@ -674,8 +699,8 @@ gamers:
         level: 0
         time: 624h0m0s
         state:
-            isNotify: true
-            isActive: true
+            isNotify: false
+            isActive: false
             isAdd: false
             isAward: true
             isClaim: true
@@ -687,15 +712,15 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 254
+        level: 0
         state:
             isClaimActive: false
             myPower: 0
             enemyPower: 0
             battleStatus: ""
-        isNotify: true
+        isNotify: false
       heroes:
-        isnotify: true
+        isnotify: false
         list: {}
       messages:
         state:
@@ -721,7 +746,7 @@ gamers:
             isGiftClaimAllButton: false
             isMainChest: false
         war:
-            isNotify: false
+            isNotify: true
         territory:
             isNotify: true
         shop: {}
@@ -730,7 +755,7 @@ gamers:
         battle:
             isNotify: false
         tech:
-            isNotify: true
+            isNotify: false
             favorite: true
         help:
             isNotify: false
@@ -758,22 +783,22 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: true
+                isAvailable: false
                 TextStatus: InProgress
         lancer:
             state:
-                isAvailable: true
-                TextStatus: InProgress
+                isAvailable: false
+                TextStatus: 'a:'
         marksman:
             state:
-                isAvailable: true
-                TextStatus: InProgress
+                isAvailable: false
+                TextStatus: I} Thess
       tech:
         state:
-            is_available: true
+            is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
       mail:
         isHasMail: false
         state:
@@ -782,15 +807,20 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
-        isNotify: true
-        isReseachOneTechnologies: false
-        isGatherMeat: false
+        isNotify: false
+        state:
+            isClaimAll: true
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
       chief:
         contentment: 0
         state:
-            isNotify: true
+            isNotify: false
             isUrgentMobilization: true
             isComprehensiveCare: false
             isProductivityDay: true

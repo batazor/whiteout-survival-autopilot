@@ -74,6 +74,10 @@ main_city:
     action: color_check
     expectedColor: red
     threshold: 0.5
+    pushUsecase:
+      - trigger: dailyMissions.isNotify && buildings.furnace.level >= 7
+        list:
+          - name: Daily Missions Rewards
 
   - name: vip.state.isNotify
     action: color_check
@@ -381,3 +385,24 @@ chief_orders:
     action: color_check
     expectedColor: red
     threshold: 0.5
+
+daily_missions:
+  - name: dailyMissions.state.isClaimAll
+    action: color_check
+    expectedColor: green
+    threshold: 0.5
+
+  - name: growthMissions.isNotify
+    action: color_check
+    expectedColor: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: growthMissions.isNotify
+        list:
+          - name: Growth Missions Rewards
+
+growth_missions:
+  - name: dailyMissions.state.isClaimButton
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true

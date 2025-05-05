@@ -1,0 +1,18 @@
+name: Growth Missions Rewards
+
+node: growth_missions
+
+priority: 20
+
+steps:
+  - action: loop
+    trigger: growthMissions.state.isClaimButton
+    steps:
+      - click: growthMissions.state.isClaimButton
+      - wait: 400ms
+      - action: screenshot
+        analyze:
+          - name: growthMissions.state.isClaimButton
+            action: findIcon
+            threshold: 0.7
+            saveAsRegion: true

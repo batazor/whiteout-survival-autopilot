@@ -15,24 +15,25 @@ type Gamer struct {
 	State    int    `yaml:"state"`    // Государство персонажа.
 	Avatar   string `yaml:"avatar"`   // URL аватара персонажа.
 	Gems     int    `yaml:"gems"`     // Количество гемов (премиум-валюта).
+	Power    int    `yaml:"power"`    // Мощь персонажа.
 
-	Power         int           `yaml:"power"`         // Мощь персонажа.
-	VIP           VIP           `yaml:"vip"`           // VIP-статус персонажа.
-	Resources     Resources     `yaml:"resources"`     // Ресурсы персонажа.
-	Exploration   Exploration   `yaml:"exploration"`   // Исследование мира.
-	Heroes        heroes.Heroes `yaml:"heroes"`        // Состояние героев.
-	Messages      MessagesState `yaml:"messages"`      // Состояние сообщений.
-	Alliance      Alliance      `yaml:"alliance"`      // Данные об альянсе.
-	Buildings     Buildings     `yaml:"buildings"`     // Здания персонажа.
-	Researches    Researches    `yaml:"researches"`    // Уровни исследований.
-	Events        Events        `yaml:"events"`        // События персонажа.
-	Troops        Troops        `yaml:"troops"`        // Состояние войск.
-	Tech          Tech          `yaml:"tech"`          // Технологии персонажа.
-	ScreenState   ScreenState   `yaml:"screenState"`   // Состояние экрана (например, "main", "battle", "exploration").
-	Mail          Mail          `yaml:"mail"`          // Состояние почты персонажа.
-	Shop          Shop          `yaml:"shop"`          // Состояние магазина.
-	DailyMissions DailyMissions `yaml:"dailyMissions"` // Состояние ежедневных миссий.
-	Chief         Chief         `yaml:"chief"`         // Данные о губернаторе
+	VIP            VIP            `yaml:"vip"`            // VIP-статус персонажа.
+	Resources      Resources      `yaml:"resources"`      // Ресурсы персонажа.
+	Exploration    Exploration    `yaml:"exploration"`    // Исследование мира.
+	Heroes         heroes.Heroes  `yaml:"heroes"`         // Состояние героев.
+	Messages       MessagesState  `yaml:"messages"`       // Состояние сообщений.
+	Alliance       Alliance       `yaml:"alliance"`       // Данные об альянсе.
+	Buildings      Buildings      `yaml:"buildings"`      // Здания персонажа.
+	Researches     Researches     `yaml:"researches"`     // Уровни исследований.
+	Events         Events         `yaml:"events"`         // События персонажа.
+	Troops         Troops         `yaml:"troops"`         // Состояние войск.
+	Tech           Tech           `yaml:"tech"`           // Технологии персонажа.
+	ScreenState    ScreenState    `yaml:"screenState"`    // Состояние экрана (например, "main", "battle", "exploration").
+	Mail           Mail           `yaml:"mail"`           // Состояние почты персонажа.
+	Shop           Shop           `yaml:"shop"`           // Состояние магазина.
+	DailyMissions  DailyMissions  `yaml:"dailyMissions"`  // Состояние ежедневных миссий.
+	GrowthMissions GrowthMissions `yaml:"growthMissions"` // Состояние роста персонажа.
+	Chief          Chief          `yaml:"chief"`          // Данные о губернаторе
 }
 
 func (g *Gamer) UpdateStateFromScreenshot(screen string) {

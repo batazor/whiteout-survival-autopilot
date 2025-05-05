@@ -3,6 +3,7 @@ package device
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"sort"
 	"strings"
@@ -39,18 +40,17 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	}
 
 	// 3. Распознаём никнейм игрока
-	nicknameRaw, err := vision.ExtractTextFromRegion(imagePath, zones.Zone, "gamer_detected")
+	nicknameParsed, err := vision.ExtractNicknameFromImage(imagePath, zones.Zone)
 	if err != nil {
-		return -1, -1, err
+		return -1, -1, fmt.Errorf("nickname OCR failed: %w", err)
 	}
-	nicknameParsed := strings.ToLower(strings.TrimSpace(nicknameRaw))
 
 	// drop aliance [RLX]batazor -> batazor
 	if strings.Contains(nicknameParsed, "]") {
 		nicknameParsed = strings.Split(nicknameParsed, "]")[1]
 	}
 
-	d.Logger.Info("🟢 Распознан никнейм", slog.String("raw", nicknameRaw), slog.String("parsed", nicknameParsed))
+	d.Logger.Info("🟢 Распознан никнейм", slog.String("parsed", nicknameParsed))
 
 	type matchInfo struct {
 		profileIdx int

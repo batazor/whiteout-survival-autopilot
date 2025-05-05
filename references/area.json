@@ -189,7 +189,7 @@
       "to_alliance_manage",
       "to_world",
       "chat_short",
-      "missions_button",
+      "to_daily_missions",
       "next_mission",
       "to_mail",
       "to_chief_orders",
@@ -199,8 +199,8 @@
     "annotator": 1,
     "annotation_id": 1,
     "created_at": "2025-03-23T18:47:11.165017Z",
-    "updated_at": "2025-05-04T15:57:06.426864Z",
-    "lead_time": 6724.512
+    "updated_at": "2025-05-05T10:31:29.828792Z",
+    "lead_time": 6737.652999999999
   },
   {
     "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
@@ -2464,18 +2464,28 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 64.2412323828253,
+        "y": 43.657817109144545,
+        "width": 1.9665683382497576,
+        "height": 5.752212389380539,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "troops.infantry.state.isAvailable",
       "troops.lancer.state.isAvailable",
-      "troops.marksman.state.isAvailable"
+      "troops.marksman.state.isAvailable",
+      "from_main_menu_city_to_main_city"
     ],
     "annotator": 1,
     "annotation_id": 43,
     "created_at": "2025-04-24T11:56:03.303725Z",
-    "updated_at": "2025-04-24T15:10:56.090230Z",
-    "lead_time": 11850.812
+    "updated_at": "2025-05-05T11:58:50.118390Z",
+    "lead_time": 11860.742
   },
   {
     "ocr": "\/data\/upload\/1\/f06b4022-main_menu_done_en.png",
@@ -3112,5 +3122,111 @@
     "created_at": "2025-05-04T15:48:32.707890Z",
     "updated_at": "2025-05-04T15:48:32.708004Z",
     "lead_time": 78.107
+  },
+  {
+    "ocr": "\/data\/upload\/1\/b0c91f8f-daily_missions.png",
+    "id": 56,
+    "bbox": [
+      {
+        "x": 35.07046869878729,
+        "y": 75.07374631268438,
+        "width": 5.899705014749266,
+        "height": 2.3598820058997063,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 93.41199606686334,
+        "y": 18.731563421828913,
+        "width": 4.588659455916087,
+        "height": 1.917404129793507,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.1644180377268,
+        "y": 83.95373138905934,
+        "width": 0.20906441853842495,
+        "height": 0.3292764591980273,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.665683382497544,
+        "y": 81.2684365781711,
+        "width": 26.220911176663396,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.79646017699116,
+        "y": 42.18289085545723,
+        "width": 25.565388397246807,
+        "height": 29.941002949852518,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "dailyMissions.state.isClaimAll",
+      "from_daily_missions_to_main_city",
+      "growthMissions.isNotify",
+      "to_growth_missions",
+      "dailyMissions.state.isClaimButton"
+    ],
+    "annotator": 1,
+    "annotation_id": 57,
+    "created_at": "2025-05-05T10:36:28.011993Z",
+    "updated_at": "2025-05-05T10:45:03.167457Z",
+    "lead_time": 231.153
+  },
+  {
+    "ocr": "\/data\/upload\/1\/91c71cf9-growth_missions.png",
+    "id": 57,
+    "bbox": [
+      {
+        "x": 93.08423467715504,
+        "y": 18.731563421828913,
+        "width": 4.916420845624387,
+        "height": 1.917404129793507,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.76958374303508,
+        "y": 81.12094395280238,
+        "width": 23.271058669288756,
+        "height": 2.949852507374615,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.81317600786626,
+        "y": 27.138643067846584,
+        "width": 26.876433956079943,
+        "height": 51.917404129793546,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "from_growth_missions_to_main_city",
+      "from_growth_missions_to_daily_missions",
+      "growthMissions.state.isClaimButton"
+    ],
+    "annotator": 1,
+    "annotation_id": 58,
+    "created_at": "2025-05-05T10:37:56.280259Z",
+    "updated_at": "2025-05-05T10:47:58.415193Z",
+    "lead_time": 106.37300000000002
   }
 ]

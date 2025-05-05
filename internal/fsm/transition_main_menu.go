@@ -15,6 +15,9 @@ const (
 
 var mainMenuTransitionPaths = map[string]map[string][]TransitionStep{
 	StateMainMenuCity: {
+		StateMainCity: {
+			{Action: "from_main_menu_city_to_main_city", Wait: 300 * time.Millisecond},
+		},
 		StateMainMenuWilderness: {
 			{Action: "to_main_menu_wilderness", Wait: 300 * time.Millisecond},
 		},
