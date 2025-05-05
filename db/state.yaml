@@ -473,7 +473,7 @@ gamers:
             isGiftClaimAllButton: false
             isMainChest: true
         war:
-            isNotify: true
+            isNotify: false
         territory:
             isNotify: false
         shop: {}
@@ -525,7 +525,7 @@ gamers:
             is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
         isWelcome: false
       mail:
         isHasMail: false
@@ -705,7 +705,7 @@ gamers:
         time: 624h0m0s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: false
             isAward: true
             isClaim: true
@@ -717,15 +717,15 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 0
+        level: 254
         state:
-            isClaimActive: false
+            isClaimActive: true
             myPower: 0
             enemyPower: 0
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -751,7 +751,7 @@ gamers:
             isGiftClaimAllButton: false
             isMainChest: false
         war:
-            isNotify: true
+            isNotify: false
         territory:
             isNotify: true
         shop: {}
@@ -763,7 +763,7 @@ gamers:
             isNotify: false
             favorite: true
         help:
-            isNotify: false
+            isNotify: true
       buildings:
         furnace:
             level: 22
@@ -803,17 +803,17 @@ gamers:
             is_available: false
             TextStatus: ""
       screenState:
-        isMainMenu: false
+        isMainMenu: true
         isWelcome: false
       mail:
-        isHasMail: false
+        isHasMail: true
         state:
             isWars: false
             isAlliance: false
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
         isNotify: false
         state:
@@ -827,9 +827,9 @@ gamers:
         contentment: 0
         state:
             isNotify: false
-            isUrgentMobilization: true
+            isUrgentMobilization: false
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
-            isDoubleTime: true
+            isDoubleTime: false
             isFestivities: false
