@@ -10,6 +10,26 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
+const (
+	// screenBoost – сколько «виртуальных» очков получает UseCase, чей Node
+	// совпадает с текущим экраном. Больше — агрессивнее обрабатываем задачи
+	// текущего экрана прежде, чем переходить на другие.
+	screenBoost = 5
+
+	// scanWindow – сколько верхних элементов ZSET мы смотрим, прежде чем выбрать
+	// лучший. 10–50 достаточно, чтобы почти всегда «видеть» все UC текущего
+	// экрана и при этом не перегружать Redis.
+	scanWindow = 20
+)
+
+// Queue хранит задачи конкретного бота (или геймера) в
+// приоритетной очереди Redis (sorted‑set).
+//   - Чем выше uc.Priority (0–100), тем ниже score, тем левее элемент в ZSET.
+//   - PopBest дополнительно сдвигает score «своего» экрана на screenBoost.
+//
+// Формат value = json.Marshal(domain.UseCase).
+// Score вычисляется при Push: score = 100 - uc.Priority.
+// -----------------------------------------------------------------------------
 type Queue struct {
 	rdb   *redis.Client
 	botID string
@@ -51,6 +71,75 @@ func (q *Queue) Pop(ctx context.Context) (*domain.UseCase, error) {
 	}
 
 	return &uc, nil
+}
+
+// -----------------------------------------------------------------------------
+// PopBest – извлекает UC c учётом "бустa" текущего экрана.
+// -----------------------------------------------------------------------------
+
+// currentNode – FSM‑узел, на котором сейчас находится UI (например, "alliance").
+//
+// Алгоритм:
+//  1. Берём первые scanWindow элементов из ZSET (они уже грубо отсортированы
+//     по приоритету).
+//  2. Для каждого декодируем UseCase, считаем adjustedScore = score - screenBoost,
+//     если uc.Node == currentNode.
+//  3. Выбираем минимальный adjustedScore.
+//  4. Удаляем этот элемент из ZSET (ZREM) и возвращаем.
+func (q *Queue) PopBest(ctx context.Context, currentNode string) (*domain.UseCase, error) {
+	items, err := q.rdb.ZRangeWithScores(ctx, q.key(), 0, scanWindow-1).Result()
+	if err != nil {
+		return nil, err
+	}
+	if len(items) == 0 {
+		return nil, nil // очередь пуста – не считаем это ошибкой
+	}
+
+	bestIdx, bestScore := -1, 1e9
+	var bestUC domain.UseCase
+
+	for i, it := range items {
+		raw, ok := it.Member.(string)
+		if !ok {
+			continue // пропускаем повреждённый элемент
+		}
+		var uc domain.UseCase
+		if err := json.Unmarshal([]byte(raw), &uc); err != nil {
+			continue // тоже повреждённый – игнорируем
+		}
+
+		score := it.Score
+		if uc.Node == currentNode {
+			score -= screenBoost
+		}
+
+		if score < bestScore {
+			bestIdx, bestScore, bestUC = i, score, uc
+		}
+	}
+
+	if bestIdx == -1 {
+		// Все элементы были битые – очищаем окно на всякий случай.
+		_ = q.rdb.ZRem(ctx, q.key(), extractMembers(items)...)
+		return nil, fmt.Errorf("no decodable use cases in queue window")
+	}
+
+	// Удаляем выбранный элемент по оригинальному Member.
+	if err := q.rdb.ZRem(ctx, q.key(), items[bestIdx].Member).Err(); err != nil {
+		return nil, err
+	}
+
+	return &bestUC, nil
+}
+
+// extractMembers собирает значения Member из массива redis.Z для служебного
+// удаления битых записей.
+func extractMembers(zs []redis.Z) []interface{} {
+	out := make([]interface{}, 0, len(zs))
+	for _, z := range zs {
+		out = append(out, z.Member)
+	}
+	return out
 }
 
 // Peek возвращает самый приоритетный UseCase без удаления (полезно для анализа)

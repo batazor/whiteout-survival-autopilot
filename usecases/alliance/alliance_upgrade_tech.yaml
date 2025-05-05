@@ -2,7 +2,7 @@ name: Upgrade Alliance Tech # Название usecase — улучшение т
 
 node: alliance_tech         # Стартовый экран — "технологии альянса"
 
-priority: 15
+priority: 20
 
 ttl: 90m                    # Таймаут: повторное выполнение возможно через 90 минут
 

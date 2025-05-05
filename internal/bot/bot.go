@@ -67,7 +67,7 @@ func (b *Bot) Play(ctx context.Context) {
 		}
 
 		// получаем use‑case из очереди
-		uc, err := b.Queue.Pop(ctx)
+		uc, err := b.Queue.PopBest(ctx, b.Gamer.CurrentScreen)
 		if err != nil {
 			b.logger.Warn("⚠️ Не удалось получить use‑case", "err", err)
 			continue

@@ -4,7 +4,7 @@ node: alliance_chest_loot
 
 trigger: alliance.state.isCanClaimAllChests
 
-priority: 21
+priority: 20
 
 steps:
   - click: alliance.state.isCanClaimAllChests

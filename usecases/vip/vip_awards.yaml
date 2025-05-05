@@ -1,8 +1,8 @@
 name: VIP Awards
 
-priority: 10
-
 node: vip
+
+priority: 10
 
 steps:
   - if:
@@ -16,4 +16,5 @@ steps:
       trigger: vip.state.isClaim
       then:
         - click: vip.state.isClaim
-        - wait: 500ms
+        - wait: 2s
+        - click: tap_anywhere_to_exit

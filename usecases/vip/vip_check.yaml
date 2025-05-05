@@ -1,7 +1,7 @@
 name: Check VIP
 
-priority: 10
-
 node: vip
+
+priority: 10
 
 steps: []

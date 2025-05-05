@@ -7,7 +7,7 @@ node: chief_orders
 
 trigger: chief.state.isUrgentMobilization && chief.state.isProductivityDay && chief.state.isRushJob
 
-priority: 40
+priority: 30
 
 # Для получения максимального количества ресурсов нам нужно выполнить последовательное комбо из трех приказов губернатора
 steps:

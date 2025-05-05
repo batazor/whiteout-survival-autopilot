@@ -7,142 +7,9 @@ gamers:
       power: 0
       vip:
         level: 0
-        time: 1019h53m3s
+        time: 0s
         state:
             isNotify: false
-            isActive: true
-            isAdd: true
-            isAward: false
-            isClaim: true
-            isVIPAddAvailable: false
-            isVIPAddAvailableX: false
-      resources:
-        wood: 0
-        food: 0
-        iron: 0
-        meat: 0
-      exploration:
-        level: 219
-        state:
-            isClaimActive: false
-            myPower: 1215987
-            enemyPower: 1015036
-            battleStatus: ""
-        isNotify: true
-      heroes:
-        isnotify: true
-        list: {}
-      messages:
-        state:
-            isNewMessage: false
-            isNewReports: false
-      alliance:
-        name: ""
-        myLevel: 0
-        power: 0
-        members:
-            count: 0
-            max: 0
-        state:
-            isNeedSupport: true
-            isWar: 0
-            isChests: 0
-            isAllianceContributeButton: false
-            isAllianceTechButton: false
-            polarTerrorCount: 0
-            isClaimButton: false
-            isCanClaimAllChests: true
-            lootCountLimit: 0
-            isGiftClaimAllButton: false
-            isMainChest: false
-        war:
-            isNotify: false
-        territory:
-            isNotify: true
-        shop: {}
-        chests:
-            isNotify: false
-        battle:
-            isNotify: false
-        tech:
-            isNotify: false
-            favorite: true
-        help:
-            isNotify: false
-      buildings:
-        furnace:
-            level: 20
-            power: 0
-      researches:
-        battle:
-            level: 0
-        economy:
-            level: 0
-      events:
-        tundraAdventure:
-            state:
-                isExist: false
-                count: 0
-                isPlay: true
-                isAdventurerDrillClaimIsExist: false
-                isAdventurerDrillClaim: false
-                isAdventureDailyClaim: true
-        frostyFortune:
-            state:
-                isExist: false
-      troops:
-        infantry:
-            state:
-                isAvailable: false
-                TextStatus: "033842"
-        lancer:
-            state:
-                isAvailable: false
-                TextStatus: "050221"
-        marksman:
-            state:
-                isAvailable: true
-                TextStatus: InProgress
-      tech:
-        state:
-            is_available: true
-            TextStatus: ""
-      screenState:
-        isMainMenu: true
-      mail:
-        isHasMail: false
-        state:
-            isWars: false
-            isAlliance: false
-            isSystem: false
-            isReports: false
-      shop:
-        isnotify: true
-      dailyMissions:
-        isNotify: true
-        isReseachOneTechnologies: false
-        isGatherMeat: false
-      chief:
-        contentment: 0
-        state:
-            isNotify: true
-            isUrgentMobilization: false
-            isComprehensiveCare: false
-            isProductivityDay: false
-            isRushJob: false
-            isDoubleTime: false
-            isFestivities: true
-    - id: 420902982
-      nickname: agent007
-      state: 2690
-      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      gems: 16501
-      power: 6493389
-      vip:
-        level: 3
-        time: 238h57m53s
-        state:
-            isNotify: true
             isActive: true
             isAdd: false
             isAward: true
@@ -155,11 +22,11 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 238
+        level: 219
         state:
             isClaimActive: false
-            myPower: 1448671
-            enemyPower: 1183752
+            myPower: 0
+            enemyPower: 0
             battleStatus: ""
         isNotify: false
       heroes:
@@ -199,6 +66,139 @@ gamers:
             isNotify: false
         tech:
             isNotify: false
+            favorite: true
+        help:
+            isNotify: false
+      buildings:
+        furnace:
+            level: 20
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
+      events:
+        tundraAdventure:
+            state:
+                isExist: false
+                count: 0
+                isPlay: true
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
+                isAdventureDailyClaim: true
+        frostyFortune:
+            state:
+                isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                TextStatus: "03:36:06"
+        lancer:
+            state:
+                isAvailable: false
+                TextStatus: "05:00:52"
+        marksman:
+            state:
+                isAvailable: false
+                TextStatus: "05:00:33"
+      tech:
+        state:
+            is_available: true
+            TextStatus: ""
+      screenState:
+        isMainMenu: true
+      mail:
+        isHasMail: false
+        state:
+            isWars: false
+            isAlliance: false
+            isSystem: false
+            isReports: false
+      shop:
+        isnotify: true
+      dailyMissions:
+        isNotify: true
+        isReseachOneTechnologies: false
+        isGatherMeat: false
+      chief:
+        contentment: 0
+        state:
+            isNotify: false
+            isUrgentMobilization: true
+            isComprehensiveCare: false
+            isProductivityDay: true
+            isRushJob: false
+            isDoubleTime: true
+            isFestivities: false
+    - id: 420902982
+      nickname: agent007
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      gems: 0
+      power: 0
+      vip:
+        level: 0
+        time: 238h57m53s
+        state:
+            isNotify: true
+            isActive: false
+            isAdd: false
+            isAward: true
+            isClaim: true
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      exploration:
+        level: 238
+        state:
+            isClaimActive: false
+            myPower: 1448671
+            enemyPower: 1183752
+            battleStatus: ""
+        isNotify: true
+      heroes:
+        isnotify: true
+        list: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+            polarTerrorCount: 0
+            isClaimButton: false
+            isCanClaimAllChests: true
+            lootCountLimit: 0
+            isGiftClaimAllButton: false
+            isMainChest: false
+        war:
+            isNotify: false
+        territory:
+            isNotify: false
+        shop: {}
+        chests:
+            isNotify: false
+        battle:
+            isNotify: false
+        tech:
+            isNotify: true
             favorite: true
         help:
             isNotify: false
@@ -243,7 +243,7 @@ gamers:
       screenState:
         isMainMenu: true
       mail:
-        isHasMail: false
+        isHasMail: true
         state:
             isWars: false
             isAlliance: false
@@ -259,27 +259,27 @@ gamers:
         contentment: 0
         state:
             isNotify: true
-            isUrgentMobilization: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
             isDoubleTime: true
-            isFestivities: true
+            isFestivities: false
     - id: 423382817
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      gems: 5707
-      power: 8967098
+      gems: 0
+      power: 0
       vip:
-        level: 4
-        time: 659h34m3s
+        level: 0
+        time: 624h0m0s
         state:
             isNotify: false
-            isActive: true
+            isActive: false
             isAdd: false
-            isAward: false
-            isClaim: false
+            isAward: true
+            isClaim: true
             isVIPAddAvailable: false
             isVIPAddAvailableX: false
       resources:
@@ -288,15 +288,15 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 238
+        level: 0
         state:
             isClaimActive: false
-            myPower: 1700165
-            enemyPower: 1339860
+            myPower: 0
+            enemyPower: 0
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: true
+        isnotify: false
         list: {}
       messages:
         state:
@@ -331,8 +331,8 @@ gamers:
         battle:
             isNotify: false
         tech:
-            isNotify: true
-            favorite: false
+            isNotify: false
+            favorite: true
         help:
             isNotify: false
       buildings:
@@ -360,21 +360,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: O76
+                TextStatus: "04:36:15"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "012047"
+                TextStatus: "04:36:04"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "0431712"
+                TextStatus: "04:36:36"
       tech:
         state:
             is_available: true
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
       mail:
         isHasMail: false
         state:
@@ -383,18 +383,18 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
-        isNotify: true
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false
       chief:
         contentment: 0
         state:
-            isNotify: true
-            isUrgentMobilization: false
+            isNotify: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
             isDoubleTime: true
             isFestivities: false
@@ -402,17 +402,17 @@ gamers:
       nickname: batazor
       state: 2558
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
-      gems: 95250
-      power: 36339922
+      gems: 0
+      power: 0
       vip:
-        level: 7
-        time: 925h3m55s
+        level: 74
+        time: 888h0m0s
         state:
             isNotify: false
             isActive: true
             isAdd: false
-            isAward: false
-            isClaim: false
+            isAward: true
+            isClaim: true
             isVIPAddAvailable: false
             isVIPAddAvailableX: false
       resources:
@@ -424,8 +424,8 @@ gamers:
         level: 353
         state:
             isClaimActive: false
-            myPower: 4177122
-            enemyPower: 4720291
+            myPower: 0
+            enemyPower: 0
             battleStatus: ""
         isNotify: false
       heroes:
@@ -443,21 +443,21 @@ gamers:
             count: 15
             max: 30
         state:
-            isNeedSupport: true
+            isNeedSupport: false
             isWar: 1
             isChests: 3
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 18
+            polarTerrorCount: 0
             isClaimButton: false
             isCanClaimAllChests: true
-            lootCountLimit: 248
+            lootCountLimit: 0
             isGiftClaimAllButton: false
             isMainChest: true
         war:
             isNotify: false
         territory:
-            isNotify: true
+            isNotify: false
         shop: {}
         chests:
             isNotify: false
@@ -493,15 +493,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: O20814ED
+                TextStatus: "09:00:52"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "0221812"
+                TextStatus: "09:00:57"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: SEO22029D
+                TextStatus: "09:01:03"
       tech:
         state:
             is_available: false
@@ -524,12 +524,12 @@ gamers:
       chief:
         contentment: 0
         state:
-            isNotify: false
-            isUrgentMobilization: false
+            isNotify: true
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
-            isDoubleTime: false
+            isDoubleTime: true
             isFestivities: false
     - id: 422228462
       nickname: bravo
@@ -562,7 +562,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: true
+        isnotify: false
         list: {}
       messages:
         state:
@@ -626,55 +626,55 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "04:40:29"
+                TextStatus: "04:40:28"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: — 03:22:32 —
+                TextStatus: "03:22:24"
         marksman:
             state:
                 isAvailable: true
-                TextStatus: Completed
+                TextStatus: InProgress
       tech:
         state:
-            is_available: false
+            is_available: true
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
       mail:
         isHasMail: false
         state:
             isWars: false
             isAlliance: false
             isSystem: false
-            isReports: true
+            isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
-        isNotify: true
+        isNotify: false
         isReseachOneTechnologies: false
         isGatherMeat: false
       chief:
         contentment: 0
         state:
-            isNotify: true
-            isUrgentMobilization: false
+            isNotify: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
             isDoubleTime: true
-            isFestivities: true
+            isFestivities: false
     - id: 420195101
       nickname: paradox
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
-      gems: 9260
-      power: 8985377
+      gems: 0
+      power: 0
       vip:
-        level: 4
-        time: 655h6m10s
+        level: 0
+        time: 624h0m0s
         state:
-            isNotify: false
+            isNotify: true
             isActive: true
             isAdd: false
             isAward: true
@@ -690,8 +690,8 @@ gamers:
         level: 254
         state:
             isClaimActive: false
-            myPower: 1704543
-            enemyPower: 1517543
+            myPower: 0
+            enemyPower: 0
             battleStatus: ""
         isNotify: true
       heroes:
@@ -758,16 +758,16 @@ gamers:
       troops:
         infantry:
             state:
-                isAvailable: false
-                TextStatus: BEO134149
+                isAvailable: true
+                TextStatus: InProgress
         lancer:
             state:
-                isAvailable: false
-                TextStatus: ""
+                isAvailable: true
+                TextStatus: InProgress
         marksman:
             state:
                 isAvailable: true
-                TextStatus: Completed
+                TextStatus: InProgress
       tech:
         state:
             is_available: true
@@ -791,9 +791,9 @@ gamers:
         contentment: 0
         state:
             isNotify: true
-            isUrgentMobilization: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
-            isDoubleTime: false
+            isDoubleTime: true
             isFestivities: false

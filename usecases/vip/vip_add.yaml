@@ -4,6 +4,8 @@ trigger: vip.state.isVIPAddAvailable
 
 node: vip_add
 
+priority: 10
+
 steps:
   - action: loop
     trigger: vip.state.isVIPAddAvailable

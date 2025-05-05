@@ -1,4 +1,12 @@
 codes:
+    - name: Happyday505
+      userFor:
+        "401227964": SUCCESS
+        "420195101": SUCCESS
+        "420902982": SUCCESS
+        "422228462": SUCCESS
+        "423382817": SUCCESS
+        "424639700": ALREADY_RECEIVED
     - name: HappyMay
       expires: "2026-05-03T23:59:00Z"
       userFor:
