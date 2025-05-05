@@ -109,6 +109,7 @@ gamers:
             TextStatus: ""
       screenState:
         isMainMenu: true
+        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -148,7 +149,7 @@ gamers:
         time: 216h0m0s
         state:
             isNotify: false
-            isActive: true
+            isActive: false
             isAdd: false
             isAward: true
             isClaim: true
@@ -160,7 +161,7 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 238
+        level: 0
         state:
             isClaimActive: false
             myPower: 0
@@ -168,7 +169,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: true
+        isnotify: false
         list: {}
       messages:
         state:
@@ -246,7 +247,8 @@ gamers:
             is_available: true
             TextStatus: ""
       screenState:
-        isMainMenu: true
+        isMainMenu: false
+        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -255,11 +257,11 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
         isNotify: false
         state:
-            isClaimAll: true
+            isClaimAll: false
         tasks:
             isReseachOneTechnologies: false
             isGatherMeat: false
@@ -268,7 +270,7 @@ gamers:
       chief:
         contentment: 0
         state:
-            isNotify: true
+            isNotify: false
             isUrgentMobilization: true
             isComprehensiveCare: false
             isProductivityDay: true
@@ -385,6 +387,7 @@ gamers:
             TextStatus: ""
       screenState:
         isMainMenu: true
+        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -523,6 +526,7 @@ gamers:
             TextStatus: ""
       screenState:
         isMainMenu: true
+        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -661,6 +665,7 @@ gamers:
             TextStatus: ""
       screenState:
         isMainMenu: true
+        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -799,6 +804,7 @@ gamers:
             TextStatus: ""
       screenState:
         isMainMenu: false
+        isWelcome: false
       mail:
         isHasMail: false
         state:

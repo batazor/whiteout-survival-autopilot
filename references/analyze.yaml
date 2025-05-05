@@ -105,6 +105,15 @@ main_city:
         list:
           - name: Check Chief
 
+  - name: screenState.isWelcome
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+    pushUsecase:
+      - trigger: screenState.isWelcome
+        list:
+          - name: Main City Welcome
+
 exploration:
   - name: exploration.state.isClaimActive
     action: color_check
