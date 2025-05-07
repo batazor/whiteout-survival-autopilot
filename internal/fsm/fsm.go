@@ -378,6 +378,79 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 			{Action: "from_growth_missions_to_daily_missions", Wait: 300 * time.Millisecond},
 		},
 	},
+	state.StateBackpack: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateBackpackResources: {
+		state.StateBackpack: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateBackpackSpeedups: {
+		state.StateBackpack: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateBackpackBonus: {
+		state.StateBackpack: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateBackpackGear: {
+		state.StateBackpack: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateBackpackOther: {
+		state.StateBackpack: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateChat: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateChatAlliance: {
+		state.StateChat: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateChatWorld: {
+		state.StateChat: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateChatPersonal: {
+		state.StateChat: {},
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateHeroes: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateEvents: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateDeals: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
 }
 
 type GameFSM struct {

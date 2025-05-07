@@ -7,7 +7,6 @@ const (
 	InitialState         = "initial"
 	StateMainCity        = "main_city"
 	StateActivityTriumph = "activity_triumph"
-	StateEvents          = "events"
 	StateProfile         = "profile"
 	StateLeaderboard     = "leaderboard"
 	StateSettings        = "settings"
@@ -36,11 +35,6 @@ const (
 	StateAllianceRanking     = "alliance_ranking"
 	StateAllianceWar         = "alliance_war"
 	StateAllianceWarAutoJoin = "alliance_war_auto_join"
-
-	// Альянс - сундуки
-	StateAllianceChests    = "alliance_chests"
-	StateAllianceChestLoot = "alliance_chest_loot"
-	StateAllianceChestGift = "alliance_chest_gift"
 
 	// Глобальная карта
 	StateWorld          = "world"
@@ -80,6 +74,13 @@ const (
 )
 
 const (
+	// Альянс - сундуки
+	StateAllianceChests    = "alliance_chests"
+	StateAllianceChestLoot = "alliance_chest_loot"
+	StateAllianceChestGift = "alliance_chest_gift"
+)
+
+const (
 	StateInfantryCityView = "infantry_city_view"
 	StateLancerCityView   = "lancer_city_view"
 	StateMarksmanCityView = "marksman_city_view"
@@ -92,4 +93,36 @@ const (
 	StateMainMenuBuilding1    = "main_menu_building_1"
 	StateMainMenuBuilding2    = "main_menu_building_2"
 	StateMainMenuTechResearch = "main_menu_tech_research"
+)
+
+const (
+	// Рюкзак
+	StateBackpack          = "backpack"
+	StateBackpackResources = "backpack_resources"
+	StateBackpackSpeedups  = "backpack_speedups"
+	StateBackpackBonus     = "backpack_bonus"
+	StateBackpackGear      = "backpack_gear"
+	StateBackpackOther     = "backpack_other"
+)
+
+const (
+	// Чат
+	StateChat         = "chat"
+	StateChatAlliance = "chat_alliance"
+	StateChatWorld    = "chat_world"
+	StateChatPersonal = "chat_personal"
+)
+
+const (
+	// Герои
+	StateHeroes = "heroes"
+)
+
+const (
+	// События
+	StateEvents = "events"
+)
+
+const (
+	StateDeals = "deals"
 )

@@ -6,7 +6,7 @@ gamers:
       gems: 0
       power: 0
       screenState:
-        isMainMenu: false
+        isMainMenu: true
         isWelcome: false
         currentState: main_menu_city
         titleFact: ""
@@ -15,7 +15,7 @@ gamers:
         time: 936h0m0s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: false
             isAward: true
             isClaim: true
@@ -35,7 +35,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -99,15 +99,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "04:33:56"
+                TextStatus: "04:17:00"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "04:34:22"
+                TextStatus: "04:17:26"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "04:34:44"
+                TextStatus: "04:17:48"
       tech:
         state:
             is_available: false
@@ -120,7 +120,7 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
         isNotify: false
         state:
@@ -133,13 +133,13 @@ gamers:
       chief:
         contentment: 0
         state:
-            isNotify: false
+            isNotify: true
             isUrgentMobilization: false
             isComprehensiveCare: false
             isProductivityDay: false
             isRushJob: false
             isDoubleTime: true
-            isFestivities: false
+            isFestivities: true
     - id: 420902982
       nickname: agent007
       state: 2690
@@ -288,12 +288,12 @@ gamers:
       gems: 0
       power: 0
       screenState:
-        isMainMenu: true
+        isMainMenu: false
         isWelcome: false
-        currentState: ""
+        currentState: main_city
         titleFact: ""
       vip:
-        level: 0
+        level: 74
         time: 624h0m0s
         state:
             isNotify: false
@@ -309,7 +309,7 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 254
+        level: 353
         state:
             isClaimActive: false
             myPower: 0
@@ -336,10 +336,10 @@ gamers:
             isChests: 0
             isAllianceContributeButton: false
             isAllianceTechButton: false
-            polarTerrorCount: 0
+            polarTerrorCount: 21
             isClaimButton: false
-            isCanClaimAllChests: false
-            lootCountLimit: 0
+            isCanClaimAllChests: true
+            lootCountLimit: 435
             isGiftClaimAllButton: false
             isMainChest: false
         war:
@@ -355,7 +355,7 @@ gamers:
             isNotify: false
             favorite: true
         help:
-            isNotify: false
+            isNotify: true
       buildings:
         furnace:
             level: 22
@@ -381,15 +381,15 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: 03:05:17 —
+                TextStatus: "00:12:19"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "03:05:06"
+                TextStatus: ding
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "03:05:38"
+                TextStatus: "00:26:17"
       tech:
         state:
             is_available: false
@@ -402,7 +402,7 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
         isNotify: false
         state:
@@ -418,10 +418,10 @@ gamers:
             isNotify: true
             isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
-            isDoubleTime: true
-            isFestivities: false
+            isDoubleTime: false
+            isFestivities: true
     - id: 401227964
       nickname: batazor
       state: 2558

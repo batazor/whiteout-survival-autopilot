@@ -34,6 +34,12 @@ func (f *FakeADB) ClickRegion(name string, lookup *config.AreaLookup) error {
 func (f *FakeADB) ListDevices() ([]string, error) { return []string{"fake"}, nil }
 func (f *FakeADB) SetActiveDevice(serial string)  {}
 func (f *FakeADB) GetActiveDevice() string        { return "fake" }
+func (f *FakeADB) RestartApplication() error {
+	return nil
+}
+func (f *FakeADB) Click(region image.Rectangle) error {
+	return nil
+}
 
 func TestForceTo(t *testing.T) {
 	lookup, err := config.LoadAreaReferences("../../references/area.json")
@@ -63,11 +69,11 @@ func TestForceTo(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			// Создаем FSM; начальное состояние – StateMainCity.
-			gameFSM := fsm.NewGame(logger, fakeADB, lookup)
+			gameFSM := fsm.NewGame(logger, fakeADB, lookup, nil, nil)
 
 			// Сбросим накопленные клики перед каждым тестом.
 			fakeADB.Clicks = nil
-			gameFSM.ForceTo(tc.target)
+			gameFSM.ForceTo(tc.target, nil)
 
 			if len(fakeADB.Clicks) != len(tc.expectedClicks) {
 				t.Errorf("expected %d clicks, got %d: %v", len(tc.expectedClicks), len(fakeADB.Clicks), fakeADB.Clicks)
