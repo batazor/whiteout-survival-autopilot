@@ -7,7 +7,9 @@ import (
 	"time"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
 func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
@@ -15,8 +17,6 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 	time.Sleep(500 * time.Millisecond)
 
 	ctx := context.Background()
-
-	d.activeProfileIdx = profileIdx
 
 	profile := d.Profiles[profileIdx]
 	expected := &profile.Gamer[expectedGamerIdx]
@@ -26,18 +26,12 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		slog.String("ожидаемый", expected.Nickname),
 	)
 
-	// Устанавливаем колбэк (временно, уточним ниже)
-	d.FSM.SetCallback(expected)
-
-	// 🔧 Пересоздаём FSM для нового аккаунта до любых ForceTo/WaitForText
-	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup, d.triggerEvaluator, d.ActiveGamer())
-
 	// 🔁 Навигация: переходим к экрану выбора аккаунта Google
 	d.Logger.Info("➡️ Переход в экран выбора аккаунта")
-	d.FSM.ForceTo(fsm.StateChiefProfileAccountChangeGoogle, nil)
+	d.FSM.ForceTo(state.StateChiefProfileAccountChangeGoogle, nil)
 
 	// 🕒 Ждём, чтобы не было конфликта с другими процессами
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(2 * time.Second)
 
 	// 📦 Кэшированный OCR по email
 	emailZones := d.findEmailOCR(ctx, profile.Email)
@@ -48,19 +42,33 @@ func (d *Device) NextProfile(profileIdx, expectedGamerIdx int) {
 		panic(fmt.Sprintf("ClickRegion(email:gamer1) failed: %v", err))
 	}
 
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
+
+	googleContinueArea, ok := d.AreaLookup.Get("to_google_continue")
+	if !ok {
+		d.Logger.Error("❌ Не удалось найти область to_google_continue")
+		panic("AreaLookup(to_google_continue) failed")
+	}
+
+	_, err := vision.WaitForText(ctx, d.ADB, []string{"Continue"}, time.Second, googleContinueArea.Zone)
+	if err != nil {
+		d.Logger.Error("❌ Не удалось дождаться текста 'continue'", slog.Any("err", err))
+		panic(fmt.Sprintf("WaitForText(continue) failed: %v", err))
+	}
 
 	d.Logger.Info("🟢 Клик по кнопке продолжения Google", slog.String("region", "to_google_continue"))
-	if err := d.ADB.ClickRegion("to_google_continue", d.AreaLookup); err != nil {
+
+	if err := d.ADB.Click(googleContinueArea.Zone); err != nil {
 		d.Logger.Error("❌ Не удалось кликнуть по to_google_continue", slog.Any("err", err))
 		panic(fmt.Sprintf("ClickRegion(to_google_continue) failed: %v", err))
 	}
 
 	// ♻️ сброс FSM после входа
+	d.activeProfileIdx = profileIdx
 	d.FSM = fsm.NewGame(d.Logger, d.ADB, d.AreaLookup, d.triggerEvaluator, d.ActiveGamer())
 
 	// Проверка стартовых баннеров
-	err := d.handleEntryScreens(ctx)
+	err = d.handleEntryScreens(ctx)
 	if err != nil {
 		d.Logger.Error("❌ Не удалось обработать стартовые баннеры", slog.Any("err", err))
 		panic(fmt.Sprintf("handleEntryScreens() failed: %v", err))

@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/device"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 	"github.com/batazor/whiteout-survival-autopilot/internal/executor"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 	"github.com/batazor/whiteout-survival-autopilot/internal/redis_queue"
@@ -67,7 +68,7 @@ func (b *Bot) Play(ctx context.Context) {
 		}
 
 		// получаем use‑case из очереди
-		uc, err := b.Queue.PopBest(ctx, b.Gamer.CurrentScreen)
+		uc, err := b.Queue.PopBest(ctx, b.Gamer.ScreenState.CurrentState)
 		if err != nil {
 			b.logger.Warn("⚠️ Не удалось получить use‑case", "err", err)
 			continue
@@ -93,25 +94,35 @@ func (b *Bot) Play(ctx context.Context) {
 		b.logger.Info("🚀 Выполняю use‑case", "name", uc.Name, "priority", uc.Priority)
 
 		// переходим на стартовый экран юзкейса
-		errForceTo := b.Device.FSM.ForceTo(uc.Node, b.updateStateFromScreen)
-		if errForceTo != nil {
-			if errors.Is(errForceTo, fsm.EventNotActive) {
-				b.logger.Info("⏭️ UseCase пропущен, так как событие не активно", slog.String("name", uc.Name))
+		switchedScreen := false
+		if b.Gamer.ScreenState.CurrentState != uc.Node {
+			b.logger.Info("🔁 Переключаюсь на экран usecase", slog.String("name", uc.Name), slog.String("screen", uc.Node))
+			errForceTo := b.Device.FSM.ForceTo(uc.Node, b.updateStateFromScreen)
+			if errForceTo != nil {
+				if errors.Is(errForceTo, fsm.EventNotActive) {
+					b.logger.Info("⏭️ UseCase пропущен, так как событие не активно", slog.String("name", uc.Name))
 
-				// Устанавливает TTL для usecase в очереди
-				errSetLastExecuted := b.Queue.SetLastExecuted(ctx, b.Gamer.ID, uc.Name, uc.TTL)
-				if errSetLastExecuted != nil {
-					b.logger.Error("❌ Не удалось установить TTL usecase", slog.Any("err", err))
+					// Устанавливает TTL для usecase в очереди
+					errSetLastExecuted := b.Queue.SetLastExecuted(ctx, b.Gamer.ID, uc.Name, uc.TTL)
+					if errSetLastExecuted != nil {
+						b.logger.Error("❌ Не удалось установить TTL usecase", slog.Any("err", err))
+					}
+
+					continue
 				}
 
-				continue
+				b.logger.Error("❌ Не удалось переключиться на экран usecase", slog.Any("err", errForceTo))
+			} else {
+				switchedScreen = true
 			}
-
-			b.logger.Error("❌ Не удалось переключиться на экран usecase", slog.Any("err", errForceTo))
+		} else {
+			b.logger.Info("🔁 Находится на экране usecase", slog.String("name", uc.Name), slog.String("screen", uc.Node))
 		}
 
-		// 📸 Анализ состояния перед trigger'ом
-		b.updateStateFromScreen(ctx, uc.Node, "out/bot_"+b.Gamer.Nickname+"_before_trigger.png")
+		// Вызываем updateStateFromScreen только если FSM не делал этого в ForceTo, или если не было перехода
+		if !switchedScreen {
+			b.updateStateFromScreen(ctx, uc.Node, "out/bot_"+b.Gamer.Nickname+"_before_trigger.png")
+		}
 
 		b.executor.ExecuteUseCase(ctx, uc, b.Gamer, b.Queue)
 
@@ -123,7 +134,7 @@ func (b *Bot) Play(ctx context.Context) {
 	time.Sleep(2 * time.Second)
 
 	// 🔁 Возвращаемся в главный экран
-	b.Device.FSM.ForceTo(fsm.StateMainCity, nil)
+	b.Device.FSM.ForceTo(state.StateMainCity, nil)
 
 	// Время для отрисовки экрана
 	time.Sleep(2 * time.Second)

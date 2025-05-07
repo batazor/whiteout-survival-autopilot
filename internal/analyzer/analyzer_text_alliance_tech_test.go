@@ -33,7 +33,7 @@ func TestAnalyzeAndSaveRegion_FindText(t *testing.T) {
 	oldState := &domain.Gamer{}
 	screenshotPath := "../../references/screenshots/alliance_tech.png"
 
-	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules)
+	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, newState)
 

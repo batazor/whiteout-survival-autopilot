@@ -5,12 +5,17 @@ gamers:
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
       power: 0
+      screenState:
+        isMainMenu: false
+        isWelcome: false
+        currentState: main_menu_city
+        titleFact: ""
       vip:
         level: 0
-        time: 0s
+        time: 936h0m0s
         state:
             isNotify: false
-            isActive: true
+            isActive: false
             isAdd: false
             isAward: true
             isClaim: true
@@ -30,7 +35,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: true
+        isnotify: false
         list: {}
       messages:
         state:
@@ -71,7 +76,7 @@ gamers:
             isNotify: false
       buildings:
         furnace:
-            level: 20
+            level: 21
             power: 0
       researches:
         battle:
@@ -94,22 +99,19 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "03:36:06"
+                TextStatus: "04:33:56"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "05:00:52"
+                TextStatus: "04:34:22"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "05:00:33"
+                TextStatus: "04:34:44"
       tech:
         state:
-            is_available: true
+            is_available: false
             TextStatus: ""
-      screenState:
-        isMainMenu: true
-        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -118,9 +120,9 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: true
+        isnotify: false
       dailyMissions:
-        isNotify: true
+        isNotify: false
         state:
             isClaimAll: false
         tasks:
@@ -132,9 +134,9 @@ gamers:
         contentment: 0
         state:
             isNotify: false
-            isUrgentMobilization: true
+            isUrgentMobilization: false
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
             isDoubleTime: true
             isFestivities: false
@@ -144,12 +146,17 @@ gamers:
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
       power: 0
+      screenState:
+        isMainMenu: true
+        isWelcome: false
+        currentState: ""
+        titleFact: ""
       vip:
         level: 0
         time: 216h0m0s
         state:
             isNotify: false
-            isActive: false
+            isActive: true
             isAdd: false
             isAward: true
             isClaim: true
@@ -161,7 +168,7 @@ gamers:
         iron: 0
         meat: 0
       exploration:
-        level: 0
+        level: 238
         state:
             isClaimActive: false
             myPower: 0
@@ -169,7 +176,7 @@ gamers:
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -233,22 +240,19 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "03:13:17"
+                TextStatus: "03:18:07"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "03:13:29"
+                TextStatus: "03:18:19"
         marksman:
             state:
-                isAvailable: false
-                TextStatus: "02:39:36"
+                isAvailable: true
+                TextStatus: InProgress
       tech:
         state:
             is_available: true
             TextStatus: ""
-      screenState:
-        isMainMenu: false
-        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -257,7 +261,7 @@ gamers:
             isSystem: false
             isReports: false
       shop:
-        isnotify: false
+        isnotify: true
       dailyMissions:
         isNotify: false
         state:
@@ -270,19 +274,24 @@ gamers:
       chief:
         contentment: 0
         state:
-            isNotify: false
-            isUrgentMobilization: true
+            isNotify: true
+            isUrgentMobilization: false
             isComprehensiveCare: false
-            isProductivityDay: true
+            isProductivityDay: false
             isRushJob: false
             isDoubleTime: true
-            isFestivities: true
+            isFestivities: false
     - id: 423382817
       nickname: bart
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
       power: 0
+      screenState:
+        isMainMenu: true
+        isWelcome: false
+        currentState: ""
+        titleFact: ""
       vip:
         level: 0
         time: 624h0m0s
@@ -385,9 +394,6 @@ gamers:
         state:
             is_available: false
             TextStatus: ""
-      screenState:
-        isMainMenu: true
-        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -422,6 +428,11 @@ gamers:
       avatar: https://gof-formal-avatar.akamaized.net/avatar/2025/03/11/rGWl2p_1741681537.png
       gems: 0
       power: 0
+      screenState:
+        isMainMenu: false
+        isWelcome: false
+        currentState: mail
+        titleFact: ""
       vip:
         level: 74
         time: 888h0m0s
@@ -442,12 +453,12 @@ gamers:
         level: 353
         state:
             isClaimActive: false
-            myPower: 0
+            myPower: 4192962
             enemyPower: 0
             battleStatus: ""
         isNotify: false
       heroes:
-        isnotify: false
+        isnotify: true
         list: {}
       messages:
         state:
@@ -469,13 +480,13 @@ gamers:
             polarTerrorCount: 0
             isClaimButton: false
             isCanClaimAllChests: true
-            lootCountLimit: 0
+            lootCountLimit: 345
             isGiftClaimAllButton: false
-            isMainChest: true
+            isMainChest: false
         war:
             isNotify: false
         territory:
-            isNotify: false
+            isNotify: true
         shop: {}
         chests:
             isNotify: false
@@ -511,24 +522,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "07:53:02"
+                TextStatus: "03:39:22"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: "07:53:07"
+                TextStatus: Upgrading
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "07:53:13"
+                TextStatus: 8 03:53:20
       tech:
         state:
             is_available: false
             TextStatus: ""
-      screenState:
-        isMainMenu: false
-        isWelcome: false
       mail:
-        isHasMail: false
+        isHasMail: true
         state:
             isWars: false
             isAlliance: false
@@ -553,14 +561,19 @@ gamers:
             isComprehensiveCare: false
             isProductivityDay: false
             isRushJob: false
-            isDoubleTime: true
-            isFestivities: false
+            isDoubleTime: false
+            isFestivities: true
     - id: 422228462
       nickname: bravo
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
       power: 0
+      screenState:
+        isMainMenu: true
+        isWelcome: false
+        currentState: ""
+        titleFact: ""
       vip:
         level: 0
         time: 0s
@@ -650,22 +663,19 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "02:50:04"
+                TextStatus: "04:40:06"
         lancer:
             state:
-                isAvailable: false
-                TextStatus: ag 01:32:00
+                isAvailable: true
+                TextStatus: InProgress
         marksman:
             state:
                 isAvailable: false
-                TextStatus: 8 01:32:38
+                TextStatus: "03:22:44"
       tech:
         state:
             is_available: true
             TextStatus: ""
-      screenState:
-        isMainMenu: true
-        isWelcome: false
       mail:
         isHasMail: false
         state:
@@ -699,10 +709,15 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
-      power: 0
+      power: 3143700
+      screenState:
+        isMainMenu: true
+        isWelcome: false
+        currentState: main_menu_city
+        titleFact: ""
       vip:
         level: 0
-        time: 624h0m0s
+        time: 576h0m0s
         state:
             isNotify: false
             isActive: true
@@ -719,7 +734,7 @@ gamers:
       exploration:
         level: 254
         state:
-            isClaimActive: true
+            isClaimActive: false
             myPower: 0
             enemyPower: 0
             battleStatus: ""
@@ -763,7 +778,7 @@ gamers:
             isNotify: false
             favorite: true
         help:
-            isNotify: true
+            isNotify: false
       buildings:
         furnace:
             level: 22
@@ -789,24 +804,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: InProgress
+                TextStatus: "05:10:55"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: 'a:'
+                TextStatus: Wg 03:15:01
         marksman:
             state:
                 isAvailable: false
-                TextStatus: I} Thess
+                TextStatus: "05:04:02"
       tech:
         state:
             is_available: false
             TextStatus: ""
-      screenState:
-        isMainMenu: true
-        isWelcome: false
       mail:
-        isHasMail: true
+        isHasMail: false
         state:
             isWars: false
             isAlliance: false
@@ -826,10 +838,10 @@ gamers:
       chief:
         contentment: 0
         state:
-            isNotify: false
+            isNotify: true
             isUrgentMobilization: false
             isComprehensiveCare: false
             isProductivityDay: false
             isRushJob: false
-            isDoubleTime: false
-            isFestivities: false
+            isDoubleTime: true
+            isFestivities: true

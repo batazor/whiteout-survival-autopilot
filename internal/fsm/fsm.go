@@ -12,12 +12,12 @@ import (
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 )
 
 func init() {
 	mergeTransitions(transitionPaths, tundraAdventureTransitionPaths)
 	mergeTransitions(transitionPaths, mainMenuTransitionPaths)
-	mergeTransitions(transitionPaths, troopsTransitionPaths)
 	mergeTransitions(transitionPaths, troopsTransitionPaths)
 }
 
@@ -34,77 +34,7 @@ func buildFSMGraph() map[string][]string {
 	return fsmGraph
 }
 
-type StateUpdateCallback interface {
-	UpdateStateFromScreenshot(screen string)
-}
-
-// --------------------------------------------------------------------
-// State Definitions: Each constant represents a game screen (state)
-// --------------------------------------------------------------------
-const (
-	InitialState         = "initial"
-	StateMainCity        = "main_city"
-	StateActivityTriumph = "activity_triumph"
-	StateEvents          = "events"
-	StateProfile         = "profile"
-	StateLeaderboard     = "leaderboard"
-	StateSettings        = "settings"
-	StateDawnMarket      = "dawn_market"
-
-	// Питомцы
-	StatePets = "pets"
-
-	// Исследование
-	StateExploration       = "exploration"
-	StateExplorationBattle = "exploration_battle"
-
-	// Смена аккаунта
-	StateChiefProfile                           = "chief_profile"
-	StateChiefCharacters                        = "chief_characters"
-	StateChiefProfileSetting                    = "chief_profile_setting"
-	StateChiefProfileAccount                    = "chief_profile_account"
-	StateChiefProfileAccountChangeAccount       = "chief_profile_account_change_account"
-	StateChiefProfileAccountChangeGoogle        = "chief_profile_account_change_account_google"
-	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
-
-	// Альянс
-	StateAllianceManage      = "alliance_manage"
-	StateAllianceTech        = "alliance_tech"
-	StateAllianceSettings    = "alliance_settings"
-	StateAllianceRanking     = "alliance_ranking"
-	StateAllianceWar         = "alliance_war"
-	StateAllianceWarAutoJoin = "alliance_war_auto_join"
-
-	// Альянс - сундуки
-	StateAllianceChests    = "alliance_chests"
-	StateAllianceChestLoot = "alliance_chest_loot"
-	StateAllianceChestGift = "alliance_chest_gift"
-
-	// Глобальная карта
-	StateWorld          = "world"
-	StateWorldSearch    = "world_search_resources"
-	StateWorldGlobalMap = "world_global_map"
-
-	// Сообщения
-	StateMail         = "mail"
-	StateMailWars     = "mail_wars"
-	StateMailAlliance = "mail_alliance"
-	StateMailSystem   = "mail_system"
-	StateMailReports  = "mail_reports"
-	StateMailStarred  = "mail_starred"
-
-	// VIP
-	StateVIP    = "vip"
-	StateVIPAdd = "vip_add"
-
-	// Губернатор
-	StateChiefOrders = "chief_orders"
-
-	// Ежедневные задания
-	StateDailyMissions = "daily_missions"
-	// Миссии роста
-	StateGrowthMissions = "growth_missions"
-)
+type StateUpdateCallback interface{}
 
 type TransitionStep struct {
 	Action  string
@@ -113,8 +43,8 @@ type TransitionStep struct {
 }
 
 var transitionPaths = map[string]map[string][]TransitionStep{
-	StateMainCity: {
-		StateExploration: {
+	state.StateMainCity: {
+		state.StateExploration: {
 			{Action: "to_exploration", Wait: 300 * time.Millisecond},
 		},
 		//StateEvents:         {{Action: "to_events", Wait: 300 * time.Millisecond}},
@@ -124,319 +54,327 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 		//StateVIP:            {{Action: "to_vip", Wait: 300 * time.Millisecond}},
 		//StateChiefOrders:    {{Action: "to_chief_orders", Wait: 300 * time.Millisecond}},
 		//StateDawnMarket:     {{Action: "to_dawn_market", Wait: 300 * time.Millisecond}},
-		StateAllianceManage: {
+		state.StateAllianceManage: {
 			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
 		},
 		//StateAllianceSettings: {
 		//	{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
 		//	{Action: "to_alliance_settings", Wait: 300 * time.Millisecond},
 		//},
-		StateChiefProfile: {
+		state.StateChiefProfile: {
 			{Action: "to_chief_profile", Wait: 300 * time.Millisecond},
 		},
-		StateMainMenuCity: {
+		state.StateMainMenuCity: {
 			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
-		StatePets: {
+		state.StatePets: {
 			{Action: "to_pets", Wait: 300 * time.Millisecond},
 		},
-		StateWorld: {
+		state.StateWorld: {
 			{Action: "to_world", Wait: 300 * time.Millisecond},
 		},
-		StateMail: {
+		state.StateMail: {
 			{Action: "to_mail", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventure: {
+		state.StateTundraAdventure: {
 			{
 				Action:  "events.tundraAdventure.state.isExist",
 				Wait:    300 * time.Millisecond,
 				Trigger: "events.tundraAdventure.state.isExist",
 			},
 		},
-		StateVIP: {
+		state.StateVIP: {
 			{Action: "to_vip", Wait: 300 * time.Millisecond},
 		},
-		StateChiefOrders: {
+		state.StateChiefOrders: {
 			{Action: "to_chief_orders", Wait: 300 * time.Millisecond},
 		},
-		StateDailyMissions: {
+		state.StateDailyMissions: {
 			{Action: "to_daily_missions", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMainMenuWilderness: {
-		StateMainMenuCity: {
+	state.StateMainMenuWilderness: {
+		state.StateMainMenuCity: {
 			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfile: {
-		StateChiefProfileSetting: {
+	state.StateChiefProfile: {
+		state.StateChiefProfileSetting: {
 			{Action: "to_chief_profile_setting", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "chief_profile_back", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileSetting: {
-		StateChiefProfileAccount: {
+	state.StateChiefProfileSetting: {
+		state.StateChiefProfileAccount: {
 			{Action: "to_chief_profile_account", Wait: 300 * time.Millisecond},
 		},
-		StateChiefCharacters: {
+		state.StateChiefCharacters: {
 			{Action: "to_chief_characters", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccount: {
-		StateChiefProfileAccountChangeAccount: {
+	state.StateChiefProfileAccount: {
+		state.StateChiefProfileAccountChangeAccount: {
 			{Action: "to_change_account", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccountChangeAccount: {
-		StateChiefProfileAccountChangeGoogle: {
+	state.StateChiefProfileAccountChangeAccount: {
+		state.StateChiefProfileAccountChangeGoogle: {
 			{Action: "to_google_account", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccountChangeGoogle: {
-		StateChiefProfileAccountChangeGoogleConfirm: {
+	state.StateChiefProfileAccountChangeGoogle: {
+		state.StateChiefProfileAccountChangeGoogleConfirm: {
 			{Action: "to_google_continue", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefProfileAccountChangeGoogleConfirm: {},
-	StateChiefCharacters:                        {},
+	state.StateChiefProfileAccountChangeGoogleConfirm: {},
+	state.StateChiefCharacters:                        {},
 	//StateEvents: {
-	//	StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
+	//	state.StateActivityTriumph: {{Action: "to_activity_triumph", Wait: 300 * time.Millisecond}},
 	//},
-	StateAllianceManage: {
-		StateAllianceTech: {
+	state.StateAllianceManage: {
+		state.StateAllianceTech: {
 			{Action: "to_alliance_tech", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceRanking:  {{Action: "to_alliance_power_rankings", Wait: 300 * time.Millisecond}},
-		StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
-		StateMainCity: {
+		state.StateAllianceRanking:  {{Action: "to_alliance_power_rankings", Wait: 300 * time.Millisecond}},
+		state.StateAllianceSettings: {{Action: "to_alliance_settings", Wait: 300 * time.Millisecond}},
+		state.StateMainCity: {
 			{Action: "to_alliance_back", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceWar: {
+		state.StateAllianceWar: {
 			{Action: "to_alliance_war", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceChests: {
+		state.StateAllianceChests: {
 			{Action: "to_alliance_chests", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateAllianceChests: {
-		StateAllianceChestLoot: {
+	state.StateAllianceChests: {
+		state.StateAllianceChestLoot: {
 			{Action: "to_alliance_chest_loot", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceChestGift: {
+		state.StateAllianceChestGift: {
 			{Action: "to_alliance_chest_gift", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceManage: {
+		state.StateAllianceManage: {
 			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateAllianceChestLoot: {
-		StateAllianceManage: {
+	state.StateAllianceChestLoot: {
+		state.StateAllianceManage: {
 			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceChestGift: {
+		state.StateAllianceChestGift: {
 			{Action: "to_alliance_chest_gift", Wait: 100 * time.Millisecond},
 		},
 	},
-	StateAllianceChestGift: {
-		StateAllianceManage: {
+	state.StateAllianceChestGift: {
+		state.StateAllianceManage: {
 			{Action: "to_alliance_manager_from_alliance_chest", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceChestLoot: {
+		state.StateAllianceChestLoot: {
 			{Action: "to_alliance_chest_loot", Wait: 100 * time.Millisecond},
 		},
 	},
-	StateAllianceTech: {
-		StateAllianceManage: {
+	state.StateAllianceTech: {
+		state.StateAllianceManage: {
 			{Action: "from_tech_to_alliance", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateExploration: {
-		StateExplorationBattle: {{Action: "to_exploration_battle", Wait: 300 * time.Millisecond}},
-		StateMainCity:          {{Action: "exploration_back", Wait: 300 * time.Millisecond}},
+	state.StateExploration: {
+		state.StateExplorationBattle: {{Action: "to_exploration_battle", Wait: 300 * time.Millisecond}},
+		state.StateMainCity:          {{Action: "exploration_back", Wait: 300 * time.Millisecond}},
 	},
-	StateExplorationBattle: {
-		StateExploration: {{Action: "to_exploration_battle_back", Wait: 300 * time.Millisecond}},
+	state.StateExplorationBattle: {
+		state.StateExploration: {{Action: "to_exploration_battle_back", Wait: 300 * time.Millisecond}},
 	},
-	StateAllianceWar: {
-		StateAllianceWarAutoJoin: {
+	state.StateAllianceWar: {
+		state.StateAllianceWarAutoJoin: {
 			{Action: "to_alliance_war_auto_join", Wait: 300 * time.Millisecond},
 		},
-		StateAllianceManage: {
+		state.StateAllianceManage: {
 			{Action: "from_war_to_alliance_manage", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateAllianceWarAutoJoin: {
-		StateAllianceWar: {
+	state.StateAllianceWarAutoJoin: {
+		state.StateAllianceWar: {
 			{Action: "alliance_war_auto_join_close", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateWorld: {
-		StateMainCity: {
+	state.StateWorld: {
+		state.StateMainCity: {
 			{Action: "to_main_city", Wait: 300 * time.Millisecond},
 		},
-		StateWorldSearch: {
+		state.StateWorldSearch: {
 			{Action: "to_search_resources", Wait: 300 * time.Millisecond},
 		},
-		StateWorldGlobalMap: {
+		state.StateWorldGlobalMap: {
 			{Action: "to_global_map", Wait: 300 * time.Millisecond},
 		},
-		StateMail: {
+		state.StateMail: {
 			{Action: "to_mail", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMail: {
-		StateMainCity: {
+	state.StateMail: {
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMailWars: {
-		StateMainCity: {
+	state.StateMailWars: {
+		state.StateMail: {},
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMailAlliance: {
-		StateMainCity: {
+	state.StateMailAlliance: {
+		state.StateMail: {},
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMailSystem: {
-		StateMainCity: {
+	state.StateMailSystem: {
+		state.StateMail: {},
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMailReports: {
-		StateMainCity: {
+	state.StateMailReports: {
+		state.StateMail: {},
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMailStarred: {
-		StateMainCity: {
+	state.StateMailStarred: {
+		state.StateMail: {},
+		state.StateMainCity: {
 			{Action: "mail_close", Wait: 300 * time.Millisecond},
 		},
-		StateMailWars: {
+		state.StateMailWars: {
 			{Action: "to_mail_wars", Wait: 300 * time.Millisecond},
 		},
-		StateMailAlliance: {
+		state.StateMailAlliance: {
 			{Action: "to_mail_alliance", Wait: 300 * time.Millisecond},
 		},
-		StateMailSystem: {
+		state.StateMailSystem: {
 			{Action: "to_mail_system", Wait: 300 * time.Millisecond},
 		},
-		StateMailReports: {
+		state.StateMailReports: {
 			{Action: "to_mail_reports", Wait: 300 * time.Millisecond},
 		},
-		StateMailStarred: {
+		state.StateMailStarred: {
 			{Action: "to_mail_starred", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateVIP: {
-		StateMainCity: {
+	state.StateVIP: {
+		state.StateMainCity: {
 			{Action: "from_vip_to_main_city", Wait: 300 * time.Millisecond},
 		},
-		StateVIPAdd: {
+		state.StateVIPAdd: {
 			{Action: "to_vip_add", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateVIPAdd: {
-		StateVIP: {
+	state.StateVIPAdd: {
+		state.StateVIP: {
 			{Action: "from_vip_add_to_vip", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateChiefOrders: {
-		StateMainCity: {
+	state.StateChiefOrders: {
+		state.StateMainCity: {
 			{Action: "from_chief_orders_to_main_city", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateDailyMissions: {
-		StateMainCity: {
-			{Action: "from_daily_missions_to_main_city", Wait: 300 * time.Millisecond},
+	state.StateDailyMissions: {
+		state.StateMainCity: {
+			{
+				Action: "from_daily_missions_to_main_city",
+				Wait:   300 * time.Millisecond,
+			},
 		},
-		StateGrowthMissions: {
+		state.StateGrowthMissions: {
 			{Action: "to_growth_missions", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateGrowthMissions: {
-		StateMainCity: {
+	state.StateGrowthMissions: {
+		state.StateMainCity: {
 			{Action: "from_growth_missions_to_main_city", Wait: 300 * time.Millisecond},
 		},
-		StateDailyMissions: {
+		state.StateDailyMissions: {
 			{Action: "from_growth_missions_to_daily_missions", Wait: 300 * time.Millisecond},
 		},
 	},
@@ -453,6 +391,7 @@ type GameFSM struct {
 	lookup           *config.AreaLookup
 	fsmGraph         map[string][]string
 	triggerEvaluator config.TriggerEvaluator
+	rulesCheckState  config.ScreenAnalyzeRules
 
 	// previousState хранит предыдущее состояние FSM
 	previousState string
@@ -465,6 +404,19 @@ func NewGame(
 	triggerEvaluator config.TriggerEvaluator,
 	gamerState *domain.Gamer,
 ) *GameFSM {
+	// ─── Инициализация правил проверки состояния ───────────────────────
+	rulesCheckState, err := config.LoadAnalyzeRules("references/fsmState.yaml")
+	if err != nil {
+		logger.Error("Failed to load analyze rules", slog.Any("error", err))
+
+		panic("Failed to load analyze rules")
+	}
+
+	// Начинаем с главного экрана
+	if gamerState != nil {
+		gamerState.ScreenState.CurrentState = state.StateMainCity
+	}
+
 	g := &GameFSM{
 		logger:           logger,
 		adb:              adb,
@@ -472,6 +424,7 @@ func NewGame(
 		fsmGraph:         buildFSMGraph(),
 		triggerEvaluator: triggerEvaluator,
 		gamerState:       gamerState,
+		rulesCheckState:  rulesCheckState,
 		analyzer:         analyzer.NewAnalyzer(lookup, logger),
 	}
 
@@ -493,7 +446,7 @@ func NewGame(
 
 	g.ValidateTransitionActions()
 
-	g.fsm = lpfsm.NewFSM(StateMainCity, transitions, callbacks)
+	g.fsm = lpfsm.NewFSM(state.StateMainCity, transitions, callbacks)
 	return g
 }
 

@@ -25,6 +25,7 @@ type DeviceController interface {
 	RestartApplication() error
 
 	Screenshot(path string) (image.Image, error)
+	Click(region image.Rectangle) error
 	ClickRegion(name string, area *config.AreaLookup) error
 	ClickOCRResult(result *domain.OCRResult) error
 	Swipe(x1 int, y1 int, x2 int, y2 int, durationMs time.Duration) error
@@ -144,6 +145,37 @@ func (a *Controller) ClickRegion(name string, area *config.AreaLookup) error {
 		strconv.Itoa(randX), strconv.Itoa(randY),
 	)
 	err = cmd.Run()
+	if err != nil {
+		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
+		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()
+
+		return fmt.Errorf("failed to perform tap: %w", err)
+	}
+
+	return nil
+}
+
+// Click performs a tap action in the center of the given region with slight random offset,
+// clamping the result to stay inside the bounding box.
+func (a *Controller) Click(region image.Rectangle) error {
+	x := region.Min.X
+	y := region.Min.Y
+	w := region.Dx()
+	h := region.Dy()
+
+	centerX := x + w/2
+	centerY := y + h/2
+
+	offsetX := int(float64(w) * 0.05)
+	offsetY := int(float64(h) * 0.05)
+
+	randX := clamp(centerX+randInt(-offsetX, offsetX), x, x+w-1)
+	randY := clamp(centerY+randInt(-offsetY, offsetY), y, y+h-1)
+
+	cmd := exec.Command("adb", "-s", a.deviceID, "shell", "input", "tap",
+		strconv.Itoa(randX), strconv.Itoa(randY),
+	)
+	err := cmd.Run()
 	if err != nil {
 		a.logger.Error("Failed to execute tap command", slog.Any("error", err))
 		metrics.ADBErrorTotal.WithLabelValues(a.deviceID, "click").Inc()

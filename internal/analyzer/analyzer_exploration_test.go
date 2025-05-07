@@ -60,7 +60,7 @@ func TestAnalyzeExplorationScreens(t *testing.T) {
 			oldState := &domain.Gamer{}
 
 			screen := "exploration"
-			newState, err := an.AnalyzeAndUpdateState(tt.screenshot, oldState, rules[screen])
+			newState, err := an.AnalyzeAndUpdateState(tt.screenshot, oldState, rules[screen], nil)
 			assert.NoError(t, err)
 
 			t.Logf("exploration.state.isClaimActive: %v", newState.Exploration.State.IsClaimActive)

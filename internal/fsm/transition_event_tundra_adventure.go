@@ -2,112 +2,103 @@ package fsm
 
 import (
 	"time"
-)
 
-const (
-	// Tundra Adventure
-	StateTundraAdventure               = "tundra_adventure"
-	StateTundraAdventureMain           = "tundra_adventure_main"
-	StateTundraAdventureDrill          = "tundra_adventure_drill"
-	StateTundraAdventurerDrill         = "tundra_adventurer_drill"
-	StateTundraAdventurerDailyMissions = "tundra_adventurer_daily_missions"
-	StateTundraAdventureOdessey        = "tundra_adventure_odessey"
-	StateTundraAdventureCaravan        = "tundra_adventure_caravan"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 )
 
 var tundraAdventureTransitionPaths = map[string]map[string][]TransitionStep{
-	StateTundraAdventure: {
-		StateTundraAdventureMain: {
+	state.StateTundraAdventure: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_main", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureDrill: {
+		state.StateTundraAdventureDrill: {
 			{Action: "to_tundra_adventure_drill", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureOdessey: {
+		state.StateTundraAdventureOdessey: {
 			{Action: "to_tundra_adventure_odessey", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureCaravan: {
+		state.StateTundraAdventureCaravan: {
 			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventureMain: {
-		StateTundraAdventureDrill: {
+	state.StateTundraAdventureMain: {
+		state.StateTundraAdventureDrill: {
 			{Action: "to_tundra_adventure_drill", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureOdessey: {
+		state.StateTundraAdventureOdessey: {
 			{Action: "to_tundra_adventure_odessey", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureCaravan: {
+		state.StateTundraAdventureCaravan: {
 			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventureDrill: {
-		StateTundraAdventurerDrill: {
+	state.StateTundraAdventureDrill: {
+		state.StateTundraAdventurerDrill: {
 			{Action: "to_tundra_adventurer_drill", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventurerDailyMissions: {
+		state.StateTundraAdventurerDailyMissions: {
 			{Action: "to_tundra_adventurer_daily_missions", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureMain: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventurerDrill: {
-		StateMainCity: {
+	state.StateTundraAdventurerDrill: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventurerDailyMissions: {
+		state.StateTundraAdventurerDailyMissions: {
 			{Action: "to_tundra_adventurer_daily_missions", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureMain: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureOdessey: {
+		state.StateTundraAdventureOdessey: {
 			{Action: "to_tundra_adventure_odessey", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureCaravan: {
+		state.StateTundraAdventureCaravan: {
 			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventurerDailyMissions: {
-		StateMainCity: {
+	state.StateTundraAdventurerDailyMissions: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventurerDrill: {
+		state.StateTundraAdventurerDrill: {
 			{Action: "to_tundra_adventurer_drill", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureMain: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureOdessey: {
+		state.StateTundraAdventureOdessey: {
 			{Action: "to_tundra_adventure_odessey", Wait: 300 * time.Millisecond},
 		},
-		StateTundraAdventureCaravan: {
+		state.StateTundraAdventureCaravan: {
 			{Action: "to_tundra_adventure_caravan", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventureOdessey: {
-		StateTundraAdventureMain: {
+	state.StateTundraAdventureOdessey: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateTundraAdventureCaravan: {
-		StateTundraAdventureMain: {
+	state.StateTundraAdventureCaravan: {
+		state.StateTundraAdventureMain: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
-		StateMainCity: {
+		state.StateMainCity: {
 			{Action: "to_tundra_adventure_back", Wait: 300 * time.Millisecond},
 		},
 	},

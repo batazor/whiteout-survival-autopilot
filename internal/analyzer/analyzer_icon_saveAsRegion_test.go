@@ -34,9 +34,9 @@ func TestAnalyzeAndSaveRegion(t *testing.T) {
 	// Минимальное старое состояние
 	oldState := &domain.Gamer{}
 
-	screenshotPath := "../../references/screenshots/alliance_tech.png"
+	screenshotPath := "../../references/screenshots/alliance/alliance_tech.png"
 
-	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules)
+	newState, err := an.AnalyzeAndUpdateState(screenshotPath, oldState, rules, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, newState)
 

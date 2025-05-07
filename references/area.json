@@ -956,19 +956,19 @@
     "id": 15,
     "bbox": [
       {
-        "x": 54.408390691576535,
-        "y": 66.96165191740414,
-        "width": 29.498525073746315,
-        "height": 3.834808259587021,
+        "x": 47.19764011799413,
+        "y": 65.63421828908554,
+        "width": 43.26450344149451,
+        "height": 7.669616519173965,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
       },
       {
-        "x": 18.026876433956083,
-        "y": 66.81415929203541,
-        "width": 26.87643395607998,
-        "height": 4.129793510324475,
+        "x": 22.615535889872167,
+        "y": 67.25663716814165,
+        "width": 16.715830875122883,
+        "height": 3.0973451327432686,
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
@@ -981,8 +981,8 @@
     "annotator": 1,
     "annotation_id": 18,
     "created_at": "2025-03-31T08:41:43.066824Z",
-    "updated_at": "2025-03-31T08:47:56.069581Z",
-    "lead_time": 23.314
+    "updated_at": "2025-05-07T17:41:41.626121Z",
+    "lead_time": 86.131
   },
   {
     "ocr": "\/data\/upload\/1\/d9999782-chief_profile_account_google.png",
@@ -1081,17 +1081,27 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 9.832841691248772,
+        "y": 3.9823008849557526,
+        "width": 42.60898066207801,
+        "height": 4.277286135693216,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
       "to_chief_profile_account",
-      "to_chief_characters"
+      "to_chief_characters",
+      "screenState.titleFact"
     ],
     "annotator": 1,
     "annotation_id": 15,
     "created_at": "2025-03-31T08:40:49.839173Z",
-    "updated_at": "2025-03-31T08:51:14.659585Z",
-    "lead_time": 53.461999999999996
+    "updated_at": "2025-05-07T16:46:35.890024Z",
+    "lead_time": 73.17899999999999
   },
   {
     "ocr": "\/data\/upload\/1\/ea8c2615-welcome_back.png",

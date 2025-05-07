@@ -8,14 +8,14 @@ type Gamers []Gamer
 
 // Gamer описывает игрового персонажа со всеми характеристиками.
 type Gamer struct {
-	CurrentScreen string `yaml:"-"` // FSM состояние — обновляется во время игры
-
 	ID       int    `yaml:"id"`       // Уникальный идентификатор персонажа (fid).
 	Nickname string `yaml:"nickname"` // Псевдоним персонажа.
 	State    int    `yaml:"state"`    // Государство персонажа.
 	Avatar   string `yaml:"avatar"`   // URL аватара персонажа.
 	Gems     int    `yaml:"gems"`     // Количество гемов (премиум-валюта).
 	Power    int    `yaml:"power"`    // Мощь персонажа.
+
+	ScreenState ScreenState `yaml:"screenState"` // Состояние экрана (например, "main", "battle", "exploration").
 
 	VIP            VIP            `yaml:"vip"`            // VIP-статус персонажа.
 	Resources      Resources      `yaml:"resources"`      // Ресурсы персонажа.
@@ -28,16 +28,11 @@ type Gamer struct {
 	Events         Events         `yaml:"events"`         // События персонажа.
 	Troops         Troops         `yaml:"troops"`         // Состояние войск.
 	Tech           Tech           `yaml:"tech"`           // Технологии персонажа.
-	ScreenState    ScreenState    `yaml:"screenState"`    // Состояние экрана (например, "main", "battle", "exploration").
 	Mail           Mail           `yaml:"mail"`           // Состояние почты персонажа.
 	Shop           Shop           `yaml:"shop"`           // Состояние магазина.
 	DailyMissions  DailyMissions  `yaml:"dailyMissions"`  // Состояние ежедневных миссий.
 	GrowthMissions GrowthMissions `yaml:"growthMissions"` // Состояние роста персонажа.
 	Chief          Chief          `yaml:"chief"`          // Данные о губернаторе
-}
-
-func (g *Gamer) UpdateStateFromScreenshot(screen string) {
-	g.CurrentScreen = screen
 }
 
 // Len returns the number of gamers.

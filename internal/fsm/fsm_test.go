@@ -9,6 +9,7 @@ import (
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
@@ -49,12 +50,12 @@ func TestForceTo(t *testing.T) {
 	}{
 		{
 			name:           "Switch to ChiefCharacters",
-			target:         fsm.StateChiefCharacters,
+			target:         state.StateChiefCharacters,
 			expectedClicks: []string{"to_chief_profile", "to_chief_profile_setting", "to_chief_characters"},
 		},
 		{
 			name:           "Switch to ChiefProfileAccountChangeGoogle",
-			target:         fsm.StateChiefProfileAccountChangeGoogle,
+			target:         state.StateChiefProfileAccountChangeGoogle,
 			expectedClicks: []string{"to_chief_profile", "to_chief_profile_setting", "to_chief_profile_account", "to_change_account", "to_google_account"},
 		},
 	}

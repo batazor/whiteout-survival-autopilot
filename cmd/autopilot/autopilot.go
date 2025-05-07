@@ -83,7 +83,7 @@ func main() {
 	go redis_queue.StartGlobalUsecaseRefiller(ctx, devicesCfg, usecaseLoader, rdb, appLogger)
 
 	// ─── Инициализация правил анализа экрана ───────────────────────────────────────
-	rules, err := config.LoadAnalyzeRules("references/analyze.yaml")
+	rulesUsecases, err := config.LoadAnalyzeRules("references/analyze.yaml")
 	if err != nil {
 		appLogger.Error("❌ Ошибка загрузки правил анализа экрана", slog.Any("err", err))
 		return
@@ -143,7 +143,7 @@ func main() {
 					}
 				}
 
-				b := bot.NewBot(dev, target, dc.Profiles[pIdx].Email, rdb, rules, devLog.With("gamer", target.Nickname), repo)
+				b := bot.NewBot(dev, target, dc.Profiles[pIdx].Email, rdb, rulesUsecases, devLog.With("gamer", target.Nickname), repo)
 				b.Play(ctx)
 
 				gIdx++

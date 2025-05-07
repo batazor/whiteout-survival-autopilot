@@ -2,30 +2,26 @@ package fsm
 
 import (
 	"time"
-)
 
-const (
-	StateInfantryCityView = "infantry_city_view"
-	StateLancerCityView   = "lancer_city_view"
-	StateMarksmanCityView = "marksman_city_view"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 )
 
 var troopsTransitionPaths = map[string]map[string][]TransitionStep{
-	StateInfantryCityView: {
-		StateMainCity: {},
-		StateMainMenuCity: {
+	state.StateInfantryCityView: {
+		state.StateMainCity: {},
+		state.StateMainMenuCity: {
 			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateLancerCityView: {
-		StateMainCity: {},
-		StateMainMenuCity: {
+	state.StateLancerCityView: {
+		state.StateMainCity: {},
+		state.StateMainMenuCity: {
 			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
 	},
-	StateMarksmanCityView: {
-		StateMainCity: {},
-		StateMainMenuCity: {
+	state.StateMarksmanCityView: {
+		state.StateMainCity: {},
+		state.StateMainMenuCity: {
 			{Action: "to_main_menu_city", Wait: 300 * time.Millisecond},
 		},
 	},

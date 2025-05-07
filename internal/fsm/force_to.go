@@ -76,32 +76,81 @@ func (g *GameFSM) ForceTo(target string, updateStateFromScreen func(ctx context.
 			g.logger.Info("Waiting after action", slog.String("action", step.Action), slog.Duration("wait", wait))
 			time.Sleep(wait)
 
-			if g.callback != nil && len(path) > 0 && i+1 < len(path) {
-				state := path[i+1]
-				g.fsm.SetState(state)
-				g.logger.Info("FSM intermediate state updated",
-					slog.String("state", state),
+			expected := target
+			if i+1 < len(path) {
+				expected = path[i+1]
+			}
+
+			actual, errCheckState := g.ExpectState(expected)
+			if errCheckState != nil {
+				g.logger.Error("❌ Ошибка при проверке состояния после действия",
+					slog.String("action", step.Action),
+					slog.String("expected", expected),
+					slog.String("actual", actual),
+					slog.Any("error", errCheckState),
+				)
+				return errCheckState
+			}
+
+			if actual != expected {
+				g.logger.Warn("⚠️ Обнаружено несоответствие состояния после действия",
+					slog.String("action", step.Action),
+					slog.String("expected", expected),
+					slog.String("actual", actual),
+				)
+
+				// фиксируем актуальный стейт сразу в FSM и в стейте игрока!
+				g.fsm.SetState(actual)
+				g.gamerState.ScreenState.CurrentState = actual
+
+				// пробуем построить путь к цели из текущего положения
+				return g.ForceTo(target, updateStateFromScreen)
+			}
+
+			// Успешный шаг: синхронизируем FSM и состояние игрока
+			g.fsm.SetState(actual)
+			g.gamerState.ScreenState.CurrentState = actual
+
+			// --- callback & скриншот -----------------------------------------------
+			if g.callback != nil {
+				if updateStateFromScreen != nil {
+					updateStateFromScreen(
+						context.Background(),
+						actual,
+						fmt.Sprintf(
+							"out/bot_%s_%s.png",
+							g.gamerState.Nickname,
+							target,
+						),
+					)
+				}
+
+				next := target
+				if i+1 < len(path) {
+					next = path[i+1]
+				}
+				g.logger.Info("FSM state confirmed, next planned",
+					slog.String("current", actual),
+					slog.String("next", next),
 					slog.String("step", step.Action),
 				)
-				g.callback.UpdateStateFromScreenshot(state)
-
-				if updateStateFromScreen != nil {
-					updateStateFromScreen(context.Background(), state, fmt.Sprintf("out/bot_%s_%s.png", g.gamerState.Nickname, target))
-				}
 			}
 		}
 	}
 
-	// Try using the FSM event system first if possible
+	// финальная синхронизация
 	eventName := fmt.Sprintf("%s_to_%s", prev, target)
 	if err := g.fsm.Event(context.Background(), eventName); err != nil {
-		// If the event isn't defined, fall back to direct state change
+		// Если эвент не определён, форсируем смену состояния везде!
 		g.fsm.SetState(target)
 		g.logger.Warn("FSM forcefully moved to new state",
 			slog.String("from", prev),
 			slog.String("to", target),
 		)
 	}
+
+	// В любом случае, после FSM-перехода (или ручного SetState) — синхронизируем gamerState:
+	g.gamerState.ScreenState.CurrentState = target
 
 	return nil
 }

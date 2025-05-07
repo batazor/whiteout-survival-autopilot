@@ -11,7 +11,7 @@ import (
 	"github.com/lithammer/fuzzysearch/fuzzy"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
-	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 	"github.com/batazor/whiteout-survival-autopilot/internal/vision"
 )
 
@@ -19,11 +19,11 @@ func (d *Device) DetectedGamer(ctx context.Context, imagePath string) (int, int,
 	d.Logger.Info("🚀 Определение текущего игрока")
 
 	// 0. Переходим на экран профиля
-	d.FSM.ForceTo(fsm.StateChiefProfile, nil)
+	d.FSM.ForceTo(state.StateChiefProfile, nil)
 
 	defer func() {
 		// 4. Возвращаемся на главный экран
-		d.FSM.ForceTo(fsm.StateMainCity, nil)
+		d.FSM.ForceTo(state.StateMainCity, nil)
 	}()
 
 	// 1. Делаем скриншот экрана профиля

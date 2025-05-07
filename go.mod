@@ -13,6 +13,7 @@ require (
 	github.com/otiai10/gosseract/v2 v2.4.2-0.20250324235626-52db940d5195
 	github.com/prometheus/client_golang v1.22.0
 	github.com/redis/go-redis/v9 v9.8.0
+	github.com/samber/lo v1.50.0
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel v1.35.0

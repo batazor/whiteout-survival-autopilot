@@ -9,6 +9,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/domain/state"
 	"github.com/batazor/whiteout-survival-autopilot/internal/fsm"
 )
 
@@ -42,7 +43,7 @@ func (d *Device) NextGamer(profileIdx, gamerIdx int) {
 	d.Logger.Info("➡️ Переход в экран выбора игрока",
 		slog.String("trace_id", traceID),
 	)
-	d.FSM.ForceTo(fsm.StateChiefCharacters, nil)
+	d.FSM.ForceTo(state.StateChiefCharacters, nil)
 
 	// Ждём nickname
 	gamerZones := d.findNicknameOCR(ctx, gamer.Nickname)

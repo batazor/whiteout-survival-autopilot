@@ -7,6 +7,7 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
+	"github.com/batazor/whiteout-survival-autopilot/internal/config"
 	"github.com/batazor/whiteout-survival-autopilot/internal/domain"
 )
 
@@ -109,7 +110,7 @@ func (q *Queue) PopBest(ctx context.Context, currentNode string) (*domain.UseCas
 		}
 
 		score := it.Score
-		if uc.Node == currentNode {
+		if config.SameScreenGroup(currentNode, uc.Node) {
 			score -= screenBoost
 		}
 
