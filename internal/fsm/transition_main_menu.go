@@ -53,5 +53,8 @@ var mainMenuTransitionPaths = map[string]map[string][]TransitionStep{
 		state.StateAllianceManage: {
 			{Action: "to_alliance_manage", Wait: 300 * time.Millisecond},
 		},
+		state.StateChiefProfile: {
+			{Action: "to_chief_profile", Wait: 300 * time.Millisecond},
+		},
 	},
 }

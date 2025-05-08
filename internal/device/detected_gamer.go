@@ -114,5 +114,8 @@ func (d *Device) DetectAndSetCurrentGamer(ctx context.Context) (*domain.Gamer, i
 
 	d.FSM.SetCallback(active)
 
+	// Сбрасываем старый стейт
+	active.ScreenState.Reset()
+
 	return active, pIdx, gIdx, nil
 }

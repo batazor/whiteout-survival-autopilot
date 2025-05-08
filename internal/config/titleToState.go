@@ -18,10 +18,25 @@ var (
 		"Heroes":        {state.StateHeroes},
 		"Events":        {state.StateEvents},
 		"Deals":         {state.StateDeals},
-		"War":           {state.StateAllianceWar, state.StateAllianceWarAutoJoin},
+		"War":           {state.StateAllianceWar, state.StateAllianceWarRally, state.StateAllianceWarRallyAutoJoin, state.StateAllianceWarSolo, state.StateAllianceWarEvents},
 		"VIP":           {state.StateVIP},
 		"Settings":      {state.StateChiefProfileSetting},
 		"Account":       {state.StateChiefProfileAccount},
+		"MainCity": {
+			state.StateMainCity,
+			state.StateMainMenuCity,
+			state.StateMainMenuWilderness,
+			state.StateMainMenuBuilding1,
+			state.StateMainMenuBuilding2,
+			state.StateMainMenuTechResearch,
+
+			state.StateInfantryCityView,
+			state.StateLancerCityView,
+			state.StateMarksmanCityView,
+		},
+		"World":          {state.StateWorld, state.StateWorldSearch, state.StateWorldGlobalMap},
+		"Squad Settings": {state.StateExplorationBattle},
+		"Top-up Center":  {state.StateTopUpCenter},
 	}
 )
 

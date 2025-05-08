@@ -8,6 +8,7 @@ gamers:
       screenState:
         isMainMenu: true
         isWelcome: false
+        isMainCity: ""
         currentState: main_menu_city
         titleFact: ""
       vip:
@@ -149,6 +150,7 @@ gamers:
       screenState:
         isMainMenu: true
         isWelcome: false
+        isMainCity: ""
         currentState: ""
         titleFact: ""
       vip:
@@ -290,6 +292,7 @@ gamers:
       screenState:
         isMainMenu: false
         isWelcome: false
+        isMainCity: ""
         currentState: main_city
         titleFact: ""
       vip:
@@ -429,9 +432,10 @@ gamers:
       gems: 0
       power: 0
       screenState:
-        isMainMenu: false
+        isMainMenu: true
         isWelcome: false
-        currentState: mail
+        isMainCity: ""
+        currentState: main_menu_city
         titleFact: ""
       vip:
         level: 74
@@ -453,7 +457,7 @@ gamers:
         level: 353
         state:
             isClaimActive: false
-            myPower: 4192962
+            myPower: 0
             enemyPower: 0
             battleStatus: ""
         isNotify: false
@@ -480,13 +484,13 @@ gamers:
             polarTerrorCount: 0
             isClaimButton: false
             isCanClaimAllChests: true
-            lootCountLimit: 345
+            lootCountLimit: 139
             isGiftClaimAllButton: false
-            isMainChest: false
+            isMainChest: true
         war:
             isNotify: false
         territory:
-            isNotify: true
+            isNotify: false
         shop: {}
         chests:
             isNotify: false
@@ -522,7 +526,7 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "03:39:22"
+                TextStatus: "05:14:58"
         lancer:
             state:
                 isAvailable: false
@@ -530,13 +534,13 @@ gamers:
         marksman:
             state:
                 isAvailable: false
-                TextStatus: 8 03:53:20
+                TextStatus: "05:08:51"
       tech:
         state:
             is_available: false
             TextStatus: ""
       mail:
-        isHasMail: true
+        isHasMail: false
         state:
             isWars: false
             isAlliance: false
@@ -557,9 +561,9 @@ gamers:
         contentment: 0
         state:
             isNotify: true
-            isUrgentMobilization: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
             isDoubleTime: false
             isFestivities: true
@@ -572,16 +576,17 @@ gamers:
       screenState:
         isMainMenu: true
         isWelcome: false
-        currentState: ""
+        isMainCity: ""
+        currentState: vip
         titleFact: ""
       vip:
         level: 0
         time: 0s
         state:
-            isNotify: false
+            isNotify: true
             isActive: false
             isAdd: false
-            isAward: false
+            isAward: true
             isClaim: false
             isVIPAddAvailable: false
             isVIPAddAvailableX: false
@@ -663,21 +668,21 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "04:40:06"
+                TextStatus: "04:59:15"
         lancer:
             state:
-                isAvailable: true
-                TextStatus: InProgress
+                isAvailable: false
+                TextStatus: "03:36:05"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "03:22:44"
+                TextStatus: "04:59:59"
       tech:
         state:
             is_available: true
             TextStatus: ""
       mail:
-        isHasMail: false
+        isHasMail: true
         state:
             isWars: false
             isAlliance: false
@@ -709,17 +714,18 @@ gamers:
       state: 2690
       avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
       gems: 0
-      power: 3143700
+      power: 0
       screenState:
         isMainMenu: true
         isWelcome: false
-        currentState: main_menu_city
+        isMainCity: ""
+        currentState: vip
         titleFact: ""
       vip:
         level: 0
-        time: 576h0m0s
+        time: 552h0m0s
         state:
-            isNotify: false
+            isNotify: true
             isActive: true
             isAdd: false
             isAward: true
@@ -804,18 +810,18 @@ gamers:
         infantry:
             state:
                 isAvailable: false
-                TextStatus: "05:10:55"
+                TextStatus: "05:12:31"
         lancer:
             state:
                 isAvailable: false
-                TextStatus: Wg 03:15:01
+                TextStatus: "07:10:13"
         marksman:
             state:
                 isAvailable: false
-                TextStatus: "05:04:02"
+                TextStatus: "05:13:07"
       tech:
         state:
-            is_available: false
+            is_available: true
             TextStatus: ""
       mail:
         isHasMail: false
@@ -839,9 +845,9 @@ gamers:
         contentment: 0
         state:
             isNotify: true
-            isUrgentMobilization: false
+            isUrgentMobilization: true
             isComprehensiveCare: false
-            isProductivityDay: false
+            isProductivityDay: true
             isRushJob: false
             isDoubleTime: true
             isFestivities: true

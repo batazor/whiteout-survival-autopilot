@@ -29,12 +29,16 @@ const (
 	StateChiefProfileAccountChangeGoogleConfirm = "chief_profile_account_change_account_google_continue"
 
 	// Альянс
-	StateAllianceManage      = "alliance_manage"
-	StateAllianceTech        = "alliance_tech"
-	StateAllianceSettings    = "alliance_settings"
-	StateAllianceRanking     = "alliance_ranking"
-	StateAllianceWar         = "alliance_war"
-	StateAllianceWarAutoJoin = "alliance_war_auto_join"
+	StateAllianceManage   = "alliance_manage"
+	StateAllianceTech     = "alliance_tech"
+	StateAllianceSettings = "alliance_settings"
+	StateAllianceRanking  = "alliance_ranking"
+
+	StateAllianceWar              = "alliance_war"
+	StateAllianceWarRally         = "alliance_war_rally"
+	StateAllianceWarRallyAutoJoin = "alliance_war_rally_auto_join"
+	StateAllianceWarSolo          = "alliance_war_solo"
+	StateAllianceWarEvents        = "alliance_war_events"
 
 	// Глобальная карта
 	StateWorld          = "world"
@@ -124,5 +128,6 @@ const (
 )
 
 const (
-	StateDeals = "deals"
+	StateDeals       = "deals"
+	StateTopUpCenter = "top_up_center"
 )

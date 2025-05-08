@@ -4,6 +4,6 @@ priority: 10
 
 node: mail
 
-ttl: 0
+ttl: 5m
 
 steps: []

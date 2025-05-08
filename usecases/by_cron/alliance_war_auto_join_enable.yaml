@@ -4,7 +4,7 @@
 
 name: Enable Auto-Join in Alliance War
 
-node: alliance_war_auto_join
+node: alliance_war_rally_auto_join
 
 priority: 50
 

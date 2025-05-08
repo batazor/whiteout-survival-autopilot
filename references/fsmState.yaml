@@ -3,3 +3,7 @@ default:
     action: text
     type: string
     threshold: 0.9
+  - name: screenState.isMainCity
+    action: text
+    type: string
+    threshold: 0.6

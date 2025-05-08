@@ -7,6 +7,7 @@ import (
 	"time"
 
 	lpfsm "github.com/looplab/fsm"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/whiteout-survival-autopilot/internal/adb"
 	"github.com/batazor/whiteout-survival-autopilot/internal/analyzer"
@@ -189,15 +190,41 @@ var transitionPaths = map[string]map[string][]TransitionStep{
 	state.StateExplorationBattle: {
 		state.StateExploration: {{Action: "to_exploration_battle_back", Wait: 300 * time.Millisecond}},
 	},
+	state.StateTopUpCenter: {
+		state.StateMainCity: {
+			{Action: "page_back", Wait: 300 * time.Millisecond},
+		},
+	},
 	state.StateAllianceWar: {
-		state.StateAllianceWarAutoJoin: {
-			{Action: "to_alliance_war_auto_join", Wait: 300 * time.Millisecond},
+		state.StateAllianceWarRally: {
+			{Action: "to_alliance_war_rally", Wait: 300 * time.Millisecond},
+		},
+		state.StateAllianceWarSolo: {
+			{Action: "to_alliance_war_solo", Wait: 300 * time.Millisecond},
+		},
+		state.StateAllianceWarEvents: {
+			{Action: "to_alliance_war_events", Wait: 300 * time.Millisecond},
 		},
 		state.StateAllianceManage: {
 			{Action: "from_war_to_alliance_manage", Wait: 300 * time.Millisecond},
 		},
 	},
-	state.StateAllianceWarAutoJoin: {
+	state.StateAllianceWarRally: {
+		state.StateAllianceWarRallyAutoJoin: {
+			{Action: "to_alliance_war_auto_join", Wait: 300 * time.Millisecond},
+		},
+		state.StateAllianceWar: {},
+		state.StateAllianceWarSolo: {
+			{Action: "to_alliance_war_solo", Wait: 300 * time.Millisecond},
+		},
+		state.StateAllianceWarEvents: {
+			{Action: "to_alliance_war_events", Wait: 300 * time.Millisecond},
+		},
+		state.StateAllianceManage: {
+			{Action: "from_war_to_alliance_manage", Wait: 300 * time.Millisecond},
+		},
+	},
+	state.StateAllianceWarRallyAutoJoin: {
 		state.StateAllianceWar: {
 			{Action: "alliance_war_auto_join_close", Wait: 300 * time.Millisecond},
 		},
@@ -477,8 +504,13 @@ func NewGame(
 	triggerEvaluator config.TriggerEvaluator,
 	gamerState *domain.Gamer,
 ) *GameFSM {
+	viper.AutomaticEnv()
+
+	viper.SetDefault("PATH_TO_FSM_STATE_RULES", "references/fsmState.yaml")
+	pathToFSMStateRules := viper.GetString("PATH_TO_FSM_STATE_RULES")
+
 	// ─── Инициализация правил проверки состояния ───────────────────────
-	rulesCheckState, err := config.LoadAnalyzeRules("references/fsmState.yaml")
+	rulesCheckState, err := config.LoadAnalyzeRules(pathToFSMStateRules)
 	if err != nil {
 		logger.Error("Failed to load analyze rules", slog.Any("error", err))
 

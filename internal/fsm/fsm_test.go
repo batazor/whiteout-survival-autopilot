@@ -19,7 +19,13 @@ type FakeADB struct {
 }
 
 func (f *FakeADB) Screenshot(path string) (image.Image, error) {
-	panic("not implemented")
+	file, err := os.Open("../../references/screenshots/main_city/alliance_need_support.png")
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	img, _, err := image.Decode(file)
+	return img, err
 }
 func (f *FakeADB) ClickOCRResult(result *domain.OCRResult) error {
 	panic("not implemented")

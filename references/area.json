@@ -1444,9 +1444,9 @@
       }
     ],
     "transcription": [
-      "alliance_war_rally",
-      "alliance_war_solo",
-      "alliance_war_events",
+      "to_alliance_war_rally",
+      "to_alliance_war_solo",
+      "to_alliance_war_events",
       "alliance_war_auto_join_ttl",
       "to_alliance_war_auto_join",
       "from_war_to_alliance_manage"
@@ -1454,8 +1454,8 @@
     "annotator": 2,
     "annotation_id": 25,
     "created_at": "2025-04-16T15:26:04.797182Z",
-    "updated_at": "2025-04-16T15:36:54.398412Z",
-    "lead_time": 388.77799999999996
+    "updated_at": "2025-05-08T06:24:23.885453Z",
+    "lead_time": 631.4689999999999
   },
   {
     "ocr": "\/data\/upload\/1\/9dc09327-main_menu.png",
@@ -1568,6 +1568,15 @@
         "rotation": 0,
         "original_width": 1080,
         "original_height": 2400
+      },
+      {
+        "x": 84.53703703703705,
+        "y": 97.625,
+        "width": 12.129629629629605,
+        "height": 1.8333333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
       }
     ],
     "transcription": [
@@ -1582,13 +1591,14 @@
       "to_pets",
       "mail.isHasMail",
       "to_vip",
-      "chief.state.isNotify"
+      "chief.state.isNotify",
+      "screenState.isMainCity"
     ],
     "annotator": 2,
     "annotation_id": 27,
     "created_at": "2025-04-17T17:44:08.191110Z",
-    "updated_at": "2025-05-04T15:33:12.604671Z",
-    "lead_time": 481.405
+    "updated_at": "2025-05-08T05:39:36.497414Z",
+    "lead_time": 542.891
   },
   {
     "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",

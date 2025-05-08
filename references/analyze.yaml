@@ -140,7 +140,7 @@ exploration_battle:
     type: integer
     threshold: 0.7
 
-alliance_war_auto_join:
+alliance_war_rally_auto_join:
   - name: alliance.state.polarTerrorCount
     action: text
     type: integer
