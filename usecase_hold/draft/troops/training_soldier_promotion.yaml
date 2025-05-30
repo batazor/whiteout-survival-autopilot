@@ -1,0 +1,21 @@
+name: "🎖️ Promote Soldiers"
+
+node: barracks
+
+ttl: 1h
+
+trigger: "barracks.state.canPromote == true"
+
+steps:
+  - click: barracks_button
+  - wait: 500ms
+
+  - click: promote_tab_button
+  - wait: 300ms
+
+  - click: promote_button
+  - wait: 300ms
+
+  - click: promote_confirm_button
+  - set: barracks.state.canPromote
+    to: false

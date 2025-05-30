@@ -1,0 +1,12 @@
+name: "📬 Remind Wrong Troops in Rally"
+
+node: rally_screen
+
+ttl: 5m
+
+trigger: "rally.state.troopType != 'infantry'"
+
+steps:
+  - action: send_message
+    to: rally.state.player
+    message: "⚠️ В составе ралли желательно использовать ближний бой. Пожалуйста, пересоберите войска."

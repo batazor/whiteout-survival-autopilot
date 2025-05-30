@@ -1,0 +1,23 @@
+name: Enter Tundra Adventure
+
+node: tundra_adventure_main
+
+priority: 15
+
+ttl: 4h
+
+trigger: events.tundraAdventure.state.count > 0
+
+steps:
+  - action: loop
+    trigger: events.tundraAdventure.state.count > 0
+    steps:
+      - click: events.tundraAdventure.state.isPlay
+      - wait: 5s
+
+      - action: screenshot
+        analyze:
+          - name: events.tundraAdventure.state.count
+            action: text
+            type: integer
+            threshold: 0.7

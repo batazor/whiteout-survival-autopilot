@@ -1,0 +1,13 @@
+devices:
+  - name: RF8RC00M8MF
+    profiles:
+      - email: user123@gmail.com
+        gamer:
+          - id: 42222222
+            nickname: bravo
+          - id: 420902955
+            nickname: bravo003
+      - email: user124@gmail.com
+        gamer:
+          - id: 423333700
+            nickname: apple

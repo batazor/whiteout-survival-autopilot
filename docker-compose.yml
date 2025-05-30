@@ -1,0 +1,66 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  label-studio:
+    image: heartexlabs/label-studio:latest
+    container_name: label-studio
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./mydata:/label-studio/data
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  ocr:
+    image: batazor/whiteout-survival-autopilot-ocr:latest
+    container_name: ocr
+    volumes:
+      - ./references:/references
+      - ./data/ocr-cache:/root/.paddleocr
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+#  alloy:
+#    image: grafana/alloy:latest
+#    container_name: grafana-alloy
+#    volumes:
+#      - ./ops/config.alloy:/etc/alloy/config.alloy
+#      - ./data/alloy-wal:/var/lib/alloy/data
+#    command:
+#      - run
+#      - --server.http.listen-addr=0.0.0.0:12345
+#      - --storage.path=/var/lib/alloy/data
+#      - /etc/alloy/config.alloy
+##    environment:
+##      GCLOUD_HOSTED_METRICS_ID: <secret code>
+##      GCLOUD_HOSTED_METRICS_URL: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push
+##      GCLOUD_HOSTED_LOGS_ID: <secret code>
+##      GCLOUD_HOSTED_LOGS_URL: https://logs-prod-012.grafana.net/loki/api/v1/push
+##      GCLOUD_FM_URL: https://fleet-management-prod-011.grafana.net
+##      GCLOUD_FM_POLL_FREQUENCY: 60s
+##      GCLOUD_FM_HOSTED_ID: <secret code>
+##      ARCH: amd64
+##      GCLOUD_RW_API_KEY: <secret code>
+##      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+##      OTEL_EXPORTER_OTLP_ENDPOINT: https://otlp-gateway-prod-eu-west-2.grafana.net/otlp
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    ports:
+#      - 4317:4317
+#    restart: unless-stopped
+##    network_mode: host

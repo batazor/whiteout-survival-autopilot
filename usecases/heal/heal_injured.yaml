@@ -1,0 +1,68 @@
+name: Heal Injured Troops
+
+node: heal_injured
+
+priority: 45
+
+trigger: healInjured.state.isAvailable
+
+steps:
+  - action: loop
+    trigger: compareText(healInjured.state.isNext, "Heal Injured")
+    steps:
+      - if: # если текуший статус -> "Лечить"
+          trigger: compareText(healInjured.state.statusHeal, "Heal")
+          then:
+            - click: heal_injured_help_button # Начинаем лечение
+            - wait: 200ms
+            - action: screenshot # проверяем наличие окна пополнения ресурсов
+              analyze:
+                - name: healInjured.state.isReplenishAll
+                  action: color_check
+                  expectedColorBg: blue
+                  threshold: 0.5
+
+            - if:
+                trigger: healInjured.state.isReplenishAll # Если не хватает ресурсов
+                then:
+                  - click: healInjured.state.isReplenishAll # Берем ресурсы из мешка
+                  - wait: 200ms
+                  - click: heal_injured_help_button # Начинаем лечение
+                  - wait: 100ms
+            - click: heal_injured_help_button # Просим помощь
+
+            - wait: 2s
+
+            - action: screenshot # проверяем наличие окна пополнения ресурсов
+              analyze:
+                - name: healInjured.state.isNext
+                  action: text
+                  type: string
+                  threshold: 0.7
+                - name: healInjured.state.statusHeal
+                  action: text
+                  type: string
+                  threshold: 0.7
+      - if: # если текуший статус -> "Лечить"
+          trigger: alliance.state.isNeedSupport
+          then:
+            - click: alliance.state.isNeedSupport
+            - action: screenshot               # 📸 Делаем скриншот текущего экрана
+              analyze:
+                - name: alliance.state.isNeedSupport
+                  action: exist
+                  threshold: 0.7
+      - action: screenshot # обновляем статус кнопки лечения
+        analyze:
+          - name: healInjured.state.statusHeal
+            action: text
+            type: string
+            threshold: 0.7
+          - name: screenState.titleFact
+            action: text
+            type: string
+            threshold: 0.9
+      - if: # fallback: на случай мисклика при клике на помощь
+          trigger: compareText(screenState.titleFact, "Chat")
+          then:
+            - action: loop_stop

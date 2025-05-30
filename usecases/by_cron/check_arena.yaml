@@ -1,0 +1,15 @@
+name: Check Arena
+
+cron: "0 */5 * * *" # every 5 hours
+
+priority: 10
+
+ttl: 2h
+
+node: arena_main
+
+steps:
+  - pushUsecase:
+      - trigger: true # Always trigger
+        list:
+          - name: Arena Set Defensive Squad Lineup

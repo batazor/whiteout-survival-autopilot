@@ -1,0 +1,10 @@
+name: Click to alliance help button
+
+node: main_city
+
+trigger: alliance.state.isNeedSupport
+
+priority: 40
+
+steps:
+  - click: alliance.state.isNeedSupport

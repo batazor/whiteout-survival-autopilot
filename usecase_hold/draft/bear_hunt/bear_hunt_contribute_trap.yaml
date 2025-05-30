@@ -1,0 +1,17 @@
+name: "💰 Contribute to Bear Trap"
+
+node: alliance_war
+
+ttl: 90m
+
+trigger: "trap.state.isActive == true && trap.state.hasContributed == false"
+
+steps:
+  - click: to_alliance_war
+  - wait: 300ms
+  - click: bear_trap_card
+  - wait: 500ms
+  - click: trap_contribute_button
+  - wait: 1s
+  - set: trap.state.hasContributed
+    to: true

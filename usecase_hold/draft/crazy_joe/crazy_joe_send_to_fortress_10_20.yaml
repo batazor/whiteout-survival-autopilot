@@ -1,0 +1,14 @@
+name: "🏰 Send Troops to Alliance Fortress (Wave 10/20)"
+
+node: alliance_screen
+
+ttl: 5m
+
+trigger: "crazy_joe.state.wave == 10 || crazy_joe.state.wave == 20"
+
+steps:
+  - click: alliance_fortress_button
+  - wait: 500ms
+  - click: send_to_own_fortress_button
+  - wait: 300ms
+  - click: reinforce_confirm_button

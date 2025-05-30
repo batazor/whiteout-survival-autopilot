@@ -1,0 +1,13 @@
+name: Main City Welcome
+
+node: main_city
+
+trigger: screenState.isWelcome
+
+priority: 50
+
+steps:
+  - click: screenState.isWelcome
+  - wait: 1s
+  - click: welcome_in
+  - wait: 1s

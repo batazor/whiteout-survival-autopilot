@@ -1,0 +1,32 @@
+#TODO: если строить больше N-часов (зависит от уровня или если больше 10часов) то сперва включить бафф губернатора (если доступен)
+#TODO: если можно строить два здания то подождать пока не будет доступно оба строительства что бы применить бафф губернатора для двух зданий
+
+name: Building Queue 1
+
+node: main_menu_city
+
+priority: 20
+
+ttl: 5m
+
+steps:
+  - click: buildings.queue1
+  - wait: 1s
+  - action: screenshot
+    analyze:
+      - name: buildings.state.text
+        action: text
+        type: string
+        threshold: 0.5
+  - if:
+      trigger: compareText(buildings.state.text, "Upgrade")
+      then:
+        - click: building_upgrade_start
+        - wait: 1s
+        - click: building.start
+        - wait: 1s
+        - click: building.help
+        - wait: 200ms
+  - action: reset
+    set: buildings.queue1
+    to: ""

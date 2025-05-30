@@ -11,8 +11,21 @@
 # Test binary, built with `go test -c`
 *.test
 
+# other
+mydata/*
+data/
+data/redis
+db/*.yaml
+!db/*.example.yaml
+screenshots
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+out/
+logs/
+screenshots/*.png
+screenshots/**/*.png
+*.log
 
 # Dependency directories (remove the comment below to include it)
 vendor/
@@ -26,3 +39,4 @@ go.work.sum
 
 # IDE
 .idea
+.DS_Store

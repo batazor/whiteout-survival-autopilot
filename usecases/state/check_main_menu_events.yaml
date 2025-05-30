@@ -1,0 +1,7 @@
+name: Check Main Menu Events
+
+priority: 10
+
+node: main_menu_city
+
+steps: []

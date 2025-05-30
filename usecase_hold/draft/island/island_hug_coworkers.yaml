@@ -1,0 +1,31 @@
+name: "🤗 Hug Coworkers"
+
+node: daybreak_island
+
+ttl: 4h
+
+trigger: "island.state.hugAvailable == true"
+
+steps:
+  - click: to_daybreak_island
+  - wait: 500ms
+
+  - action: screenshot
+    analyze:
+      - name: island.coworkers
+        action: findIcon
+        threshold: 0.85
+        multiple: true
+        saveAsRegion: true
+
+  - action: loop
+    trigger: "island.coworkers.length > 0"
+    steps:
+      - click: island.coworkers[0]
+      - wait: 300ms
+      - click: hug_button
+      - wait: 300ms
+      - remove: island.coworkers[0]
+
+  - set: island.state.hugAvailable
+    to: false

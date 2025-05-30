@@ -1,0 +1,35 @@
+name: Growth Missions Rewards
+
+node: growth_missions
+
+priority: 20
+
+
+steps:
+  - if: # Если доступна кнопка "Claim All", то просто нажимаем ее
+      trigger: growthMissions.state.isClaimAll
+      then:
+        - click: growthMissions.state.isClaimAll
+        - wait: 500ms
+        - click: from_growth_missions_to_daily_missions
+        - wait: 500ms
+        - click: from_growth_missions_to_daily_missions
+        - wait: 500ms
+        - action: reset
+          set: growthMissions.state.isClaimAll
+          to: false
+
+  - if: # Если кнопка "Claim All" недоступна, то ищем и нажимаем каждую кнопку "Claim"
+      trigger: "!growthMissions.state.isClaimAll && growthMissions.state.isClaimButton"
+      then:
+        - action: loop
+          trigger: growthMissions.state.isClaimButton
+          steps:
+            - click: growthMissions.state.isClaimButton
+            - wait: 400ms
+            - action: screenshot
+              analyze:
+                - name: growthMissions.state.isClaimButton
+                  action: findIcon
+                  threshold: 0.7
+                  saveAsRegion: true

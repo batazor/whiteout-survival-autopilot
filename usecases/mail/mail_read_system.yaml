@@ -1,0 +1,17 @@
+name: Mail Read System
+
+node: mail_system
+
+priority: 25
+
+steps:
+  - click: mail_read_and_claim_all
+  - wait: 1s
+  - click: mail_read_and_claim_all # второй клик, что бы скипнуть reward сообщение (если будет)
+  - wait: 1s
+  - action: screenshot # делаем скриншот, что бы проверить, что все письма прочитаны
+    analyze:
+      - name: mail.state.isSystem
+        action: text
+        type: integer
+        threshold: 0.9

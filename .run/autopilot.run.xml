@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="autopilot" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="whiteoutsurvivalautopilot" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="TWITTER_BEARER_TOKEN" value="secret code" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/batazor/whiteout-survival-autopilot/cmd/autopilot" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/autopilot/autopilot.go" />
+    <pty_enabled value="true" />
+    <method v="2" />
+  </configuration>
+</component>

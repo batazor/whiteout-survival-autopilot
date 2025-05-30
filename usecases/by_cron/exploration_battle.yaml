@@ -1,0 +1,54 @@
+# TODO:
+# 1. Проверять что x2 и auto активированы (кнопки желтого цвета), если нет - включить
+# 2. quick_deploy_button делать отдельным юзкейсом с более высоким приоритетом
+
+name: Exploration Battle
+
+node: exploration_battle
+
+trigger: "double(exploration.state.myPower) * 1.2 >= double(exploration.state.enemyPower)"
+
+ttl: 10h
+
+priority: 10
+
+cron: "0 */12 * * *" # каждые 12 часов
+
+steps:
+  - click: quick_deploy_button
+  - wait: 200ms
+  - click: exploration_fight_button
+  - wait: 10s
+
+  - action: loop
+    # Цикл продолжается, пока lowerAscii(battleStatus) не содержит ни "defeat", ни "victory"
+    trigger: '!(exploration.state.battleStatus.lowerAscii().contains("defeat") || exploration.state.battleStatus.lowerAscii().contains("victory"))'
+    steps:
+      - action: screenshot
+        analyze:
+          - name: exploration.state.battleStatus
+            action: text
+            type: string
+            threshold: 0.5
+
+      - if:
+          trigger: 'exploration.state.battleStatus.lowerAscii().contains("defeat")'
+          then:
+            - action: exploration_battle_back_area
+            - action: loop_stop
+
+      - if:
+          trigger: 'exploration.state.battleStatus.lowerAscii().contains("victory")'
+          then:
+            - click: exploration_battle_continue_button
+            - wait: 100ms
+            - click: exploration_fight_button
+            - action: reset
+              set: exploration.state.battleStatus
+              to: ""
+
+      - wait: 1s
+
+  - action: reset
+    set: exploration.state.battleStatus
+    to: ""

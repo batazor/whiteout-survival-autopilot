@@ -1,0 +1,16 @@
+name: Buy VIP Cart from Alliance Shop
+node: alliance_manage
+trigger: "gems >= 1000"
+steps:
+  - click: alliance_to_shop
+  - wait: 300ms
+  - action: screenshot
+    analyze:
+      - name: alliance_to_shop
+        action: exist
+        threshold: 0.9
+  - click: vip_cart
+  - wait: 300ms
+  - click: buy_button
+  - wait: 300ms
+  - click: alliance_back

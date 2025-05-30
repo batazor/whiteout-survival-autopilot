@@ -1,0 +1,38 @@
+# Начинать за пол часа до конца дня, что бы занять лучшее место, что бы другие игроки не могли сразиться с тобой и ухудшить твои позиции
+# выбирать более слабого противника. в идеале на 10% и более
+
+name: Arena Fight
+
+node: arena_challenge_list
+
+priority: 10
+
+steps:
+  - if:
+      trigger: isMin(arena.enemyPower1, arena.enemyPower2, arena.enemyPower3, arena.enemyPower4, arena.enemyPower5)
+      then:
+        - click: arena.enemyPower1FightButton
+  - if:
+      trigger: isMin(arena.enemyPower2, arena.enemyPower1, arena.enemyPower3, arena.enemyPower4, arena.enemyPower5)
+      then:
+        - click: arena.enemyPower2FightButton
+  - if:
+      trigger: isMin(arena.enemyPower3, arena.enemyPower1, arena.enemyPower2, arena.enemyPower4, arena.enemyPower5)
+      then:
+          - click: arena.enemyPower3FightButton
+  - if:
+      trigger: isMin(arena.enemyPower4, arena.enemyPower1, arena.enemyPower2, arena.enemyPower3, arena.enemyPower5)
+      then:
+          - click: arena.enemyPower4FightButton
+  - if:
+      trigger: isMin(arena.enemyPower5, arena.enemyPower1, arena.enemyPower2, arena.enemyPower3, arena.enemyPower4)
+      then:
+          - click: arena.enemyPower5FightButton
+
+  - click: quick_deploy_button
+  - wait: 200ms
+  - click: exploration_fight_button
+  - wait: 2s
+  - click: arena_fight_exit
+  - wait: 1s
+  - click: arena_tap_anywhere_to_exit

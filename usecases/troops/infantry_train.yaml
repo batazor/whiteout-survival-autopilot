@@ -1,0 +1,39 @@
+name: Train Infantry
+
+node: infantry_city_view
+
+priority: 10
+
+trigger: troops.infantry.state.isAvailable
+
+steps:
+  - if:
+      trigger: compareText(troops.infantry.state.TextStatus, "Completed")
+      then:
+        - click: troops_get_button
+        - wait: 500ms
+        - action: reset
+          set: troops.infantry.state.TextStatus
+          to: "Idle"
+        - pushUsecase:
+          - trigger: true # Always trigger
+            list:
+              - name: Train Infantry
+
+  - if:
+      trigger: compareText(troops.infantry.state.TextStatus, "Idle")
+      then:
+        - click: troops_get_button
+        - wait: 500ms
+        - click: troops.train
+        - wait: 500ms
+        - click: troops_train_start_button
+        - wait: 500ms
+          # TODO: check `replenish all`
+          # TODO: click - confirm
+          # TODO: click (again) - troops_train_start_button
+        - click: from_troops_to_main_city
+        - wait: 500ms
+        - action: reset
+          set: troops.infantry.state.TextStatus
+          to: "InProgress"

@@ -1,0 +1,37 @@
+name: Send Alliance Invites
+
+node: alliance_setting_invite
+
+trigger: "alliance.myLevel >= 4"
+
+ttl: 12h
+
+steps:
+  - action: screenshot
+    analyze:
+      - name: alliance.invites
+        action: findIcon
+        threshold: 0.86
+        saveAsRegion: true
+
+  - action: loop
+    trigger: "alliance.invite.count > 0"
+    steps:
+      - click: "regions.alliance.invite[0]"
+
+      - action: screenshot
+        analyze:
+          - name: alliance.invite_view.power
+            action: text
+            type: integer
+            threshold: 0.9
+
+      - if:
+          trigger: power > 2000000
+          steps:
+            - click: invite
+            - click: confirm
+            - click: back
+
+      - action: removeRegion
+        regionName: "regions.alliance.invite[0]"

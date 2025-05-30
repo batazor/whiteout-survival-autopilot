@@ -1,0 +1,33 @@
+codes:
+    - name: BestMom
+      expires: "2025-05-13T23:59:00Z"
+      userFor:
+        "111111111": SUCCESS
+        "222222222": SUCCESS
+    - name: Happyday505
+      userFor:
+        "111111111": SUCCESS
+        "222222222": ALREADY_RECEIVED
+    - name: HappyMay
+      expires: "2026-05-03T23:59:00Z"
+      userFor:
+        "111111111": ALREADY_RECEIVED
+        "222222222": ALREADY_RECEIVED
+    - name: GW2025JP
+      userFor:
+        "111111111": ALREADY_RECEIVED
+        "222222222": ALREADY_RECEIVED
+    - name: mK6DNry4w
+      userFor:
+        "111111111": CDK_EXPIRED
+        "222222222": CDK_EXPIRED
+    - name: woshjm25
+      expires: "0001-01-01T00:00:00Z"
+      userFor:
+        "111111111": ALREADY_RECEIVED
+        "222222222": ALREADY_RECEIVED
+    - name: pV17PzRwh
+      expires: "0001-01-01T00:00:00Z"
+      userFor:
+        "111111111": ALREADY_RECEIVED
+        "222222222": ALREADY_RECEIVED

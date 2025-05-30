@@ -1,0 +1,14 @@
+name: Arena Set Defensive Squad Lineup
+
+# Ставим 15, что бы сработало до начала первого боя
+priority: 15
+
+ttl: 20h
+
+node: arena_defensive_squad_lineup
+
+steps:
+  - click: arena_defensive_quick_deploy_button
+  - wait: 300ms
+  - click: arena_defensive_save_button
+  - wait: 200ms

@@ -1,0 +1,16 @@
+name: "🐻 Start Bear Hunt Rally"
+
+node: alliance_war
+
+ttl: 30m
+
+trigger: "trap.state.isReady == true && trap.state.distance <= 2 && (character.role == 'R4' || character.role == 'R5')"
+
+steps:
+  - click: to_alliance_war
+  - wait: 300ms
+  - click: bear_trap_card
+  - wait: 500ms
+  - click: rally_start_button
+  - wait: 200ms
+  - click: rally_confirm_button

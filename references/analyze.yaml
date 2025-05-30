@@ -1,0 +1,532 @@
+main_city:
+  - name: power
+    action: text
+    type: integer
+    threshold: 0.9
+
+  - name: gems
+    action: text
+    type: integer
+    threshold: 0.9
+
+  - name: vip.level
+    action: text
+    type: integer
+    threshold: 0.9
+
+  - name: alliance.state.isNeedSupport
+    action: exist
+    threshold: 0.7
+    pushUsecase:
+      - trigger: alliance.state.isNeedSupport
+        list:
+          - name: Click to alliance help button
+
+  - name: screenState.isMainMenu
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: screenState.isMainMenu
+        list:
+          - name: Check Main Menu Events
+
+  - name: mail.isHasMail
+    action: text
+    type: integer
+    threshold: 0.9
+    pushUsecase:
+      - trigger: mail.isHasMail > 0
+        list:
+          - name: Check Mail
+
+  - name: events.tundraAdventure.state.isExist
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+    pushUsecase:
+      - trigger: events.tundraAdventure.state.isExist
+        list:
+          - name: Enter Tundra Adventure
+          - name: Claim Tundra Drill Rewards
+          - name: Claim Tundra Daily Missions Rewards
+
+  - name: exploration.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: exploration.isNotify
+        list:
+          - name: Claim Exploration Rewards
+
+  - name: heroes.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: shop.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: dailyMissions.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: dailyMissions.isNotify
+        list:
+          - name: Daily Missions Rewards
+
+  - name: vip.state.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: vip.state.isNotify
+        list:
+          - name: VIP Awards
+      - trigger: vip.state.isAdd
+        list:
+          - name: VIP Add
+
+  - name: vip.state.isActive
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: chief.state.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: chief.state.isNotify
+        list:
+          - name: Check Chief
+
+  - name: screenState.isWelcome
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+    pushUsecase:
+      - trigger: screenState.isWelcome
+        list:
+          - name: Main City Welcome
+
+exploration:
+  - name: exploration.state.isClaimActive
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+    pushUsecase:
+      - trigger: exploration.state.isClaimActive
+        list:
+          - name: Claim Exploration Rewards
+
+  - name: exploration.level
+    action: text
+    type: integer
+    threshold: 0.5
+
+exploration_battle:
+  - name: exploration.state.myPower
+    action: text
+    type: integer
+    threshold: 0.5
+
+  - name: exploration.state.enemyPower
+    action: text
+    type: integer
+    threshold: 0.7
+
+alliance_war_rally_auto_join:
+  - name: alliance.state.polarTerrorCount
+    action: text
+    type: integer
+    threshold: 0.5
+
+alliance_chest_gift:
+  - name: alliance.state.isClaimButton
+    action: exist
+    threshold: 0.3
+
+  - name: alliance.state.isGiftClaimAllButton
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+alliance_chest_loot:
+  - name: alliance.state.isCanClaimAllChests
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+  - name: alliance.state.isMainChest
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: alliance.state.lootCountLimit
+    action: text
+    type: integer
+    threshold: 0.5
+
+tundra_adventure_main:
+  - name: events.tundraAdventure.state.count
+    action: text
+    type: integer
+    threshold: 0.7
+
+tundra_adventurer_drill:
+  - name: events.tundraAdventure.state.isAdventurerDrillClaim
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+
+  - name: events.tundraAdventure.state.isAdventurerDrillClaimIsExist
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+tundra_adventurer_daily_missions:
+  - name: events.tundraAdventure.state.isAdventureDailyClaim
+    action: findIcon
+    threshold: 0.93
+    saveAsRegion: true
+
+main_menu_city:
+  - name: buildings.queue1
+    action: text
+    type: string
+    threshold: 0.9
+    pushUsecase:
+      - trigger: compareText(buildings.queue1, "Idle")
+        list:
+          - name: Building Queue 1
+
+  - name: buildings.queue2
+    action: text
+    type: string
+    threshold: 0.9
+    pushUsecase:
+      - trigger: compareText(buildings.queue2, "Idle")
+        list:
+          - name: Building Queue 2
+
+  - name: troops.infantry.state.isAvailable
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.7
+    pushUsecase:
+      - trigger: troops.infantry.state.isAvailable
+        list:
+          - name: Train Infantry
+
+  - name: troops.infantry.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
+
+  - name: troops.lancer.state.isAvailable
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.7
+    pushUsecase:
+      - trigger: troops.lancer.state.isAvailable
+        list:
+          - name: Train Lancer
+
+  - name: troops.lancer.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
+
+  - name: troops.marksman.state.isAvailable
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.7
+    pushUsecase:
+      - trigger: troops.marksman.state.isAvailable
+        list:
+          - name: Train Marksman
+
+  - name: troops.marksman.state.TextStatus
+    action: text
+    type: string
+    threshold: 0.9
+
+  - name: tech.state.isAvailable
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.7
+
+mail:
+  - name: mail.state.isWars
+    action: text
+    type: integer
+    threshold: 0.9
+    pushUsecase:
+      - trigger: mail.state.isWars > 0
+        list:
+          - name: Mail Read Wars
+
+  - name: mail.state.isAlliance
+    action: text
+    type: integer
+    threshold: 0.9
+    pushUsecase:
+      - trigger: mail.state.isAlliance > 0
+        list:
+          - name: Mail Read Alliance
+
+  - name: mail.state.isSystem
+    action: text
+    type: integer
+    threshold: 0.9
+    pushUsecase:
+      - trigger: mail.state.isSystem > 0
+        list:
+          - name: Mail Read System
+
+  - name: mail.state.isReports
+    action: text
+    type: integer
+    threshold: 0.9
+    pushUsecase:
+      - trigger: mail.state.isReports > 0
+        list:
+          - name: Mail Read Reports
+
+alliance_manage:
+  - name: alliance.war.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: alliance.territory.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: alliance.chests.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.chests.isNotify
+        list:
+          - name: Alliance Chest Gifts
+          - name: Alliance Chest Loot
+
+  - name: alliance.tech.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.tech.isNotify
+        list:
+          - name: Upgrade Alliance Tech
+
+  - name: alliance.help.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: alliance.help.isNotify
+        list:
+          - name: Click to alliance help button
+
+vip:
+  - name: vip.state.isAdd
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: vip.state.isAdd
+        list:
+          - name: VIP Add
+
+  - name: vip.state.isAward
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: vip.state.isClaim
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+  - name: vip.time
+    action: text
+    type: time_duration
+    threshold: 0.9
+
+vip_add:
+  - name: vip.state.isVIPAddAvailable
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+  - name: vip.state.isVIPAddAvailableX
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+chief_orders:
+  - name: chief.contentment
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: chief.state.isUrgentMobilization
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: chief.state.isComprehensiveCare
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: chief.state.isProductivityDay
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: chief.state.isRushJob
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: chief.state.isRushJob
+        list:
+          - name: Chief Resource Claim
+
+  - name: chief.state.isDoubleTime
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+  - name: chief.state.isFestivities
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+
+daily_missions:
+  - name: dailyMissions.state.isClaimButton
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+
+  - name: dailyMissions.state.isClaimAll
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.7
+
+  - name: growthMissions.isNotify
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: growthMissions.isNotify
+        list:
+          - name: Growth Missions Rewards
+
+growth_missions:
+  - name: growthMissions.state.isClaimButton
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+
+  - name: growthMissions.state.isClaimAll
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.7
+
+arena_main:
+  - name: arena.rank
+    action: text
+    type: integer
+    threshold: 0.5
+
+  - name: arena.myPower
+    action: text
+    type: integer
+    threshold: 0.5
+
+  - name: arena.state.isAvailableFight
+    action: color_check
+    expectedColorBg: red
+    threshold: 0.5
+    pushUsecase:
+      - trigger: true
+        list:
+          - name: Arena Set Defensive Squad Lineup
+      - trigger: arena.state.isAvailableFight
+        list:
+          - name: Arena Fight
+
+arena_challenge_list:
+  - name: arena.state.countAvailableFight
+    action: text
+    type: integer
+    threshold: 0.9
+
+  - name: arena.state.isFreeRefresh
+    action: color_check
+    expectedColorBg: green
+    threshold: 0.5
+
+  - name: arena.state.enemyPower1
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: arena.state.enemyPower2
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: arena.state.enemyPower3
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: arena.state.enemyPower4
+    action: text
+    type: integer
+    threshold: 0.7
+
+  - name: arena.state.enemyPower5
+    action: text
+    type: integer
+    threshold: 0.7
+
+world:
+  - name: alliance.state.isNeedSupport
+    action: exist
+    threshold: 0.7
+    pushUsecase:
+      - trigger: alliance.state.isNeedSupport
+        list:
+          - name: Click to alliance help button
+
+  - name: healInjured.state.isAvailable
+    action: findIcon
+    threshold: 0.7
+    saveAsRegion: true
+    pushUsecase:
+      - trigger: healInjured.state.isAvailable
+        list:
+          - name: Heal Injured Troops
+
+heal_injured:
+  - name: alliance.state.isNeedSupport
+    action: exist
+    threshold: 0.7
+
+  - name: healInjured.state.statusHeal
+    action: text
+    type: string
+    threshold: 0.9

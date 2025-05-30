@@ -1,0 +1,19 @@
+name: "🐾 Start Rally to Beast"
+
+node: world_map
+
+ttl: 3h
+
+trigger: "rally.state.canStart == true && rally.state.target == 'Beast'"
+
+steps:
+  - click: to_world_map
+  - wait: 1s
+
+  - click: beast_target_icon      # Найти зверя
+  - wait: 500ms
+
+  - click: rally_start_button
+  - wait: 300ms
+
+  - click: rally_confirm_button

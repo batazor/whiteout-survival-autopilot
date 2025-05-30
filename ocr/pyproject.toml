@@ -1,0 +1,18 @@
+[project]
+name = "test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "adbnativeblitz>=0.11",
+    "adbutils>=2.8.9",
+    "fastapi>=0.115.12",
+    "opencv-python>=4.11.0.86",
+    "paddleocr>=2.10.0",
+    "paddlepaddle>=3.0.0",
+    "pillow>=11.2.1",
+    "pytesseract>=0.3.13",
+    "setuptools>=80.4.0",
+    "uvicorn>=0.34.2",
+]

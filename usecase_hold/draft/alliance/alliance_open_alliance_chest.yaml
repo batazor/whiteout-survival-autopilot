@@ -1,0 +1,12 @@
+name: Open Alliance Chest
+node: alliance_manage
+trigger: "alliance.state.isChests > 0"
+steps:
+  - click: alliance_chests
+  - wait: 300ms
+  - action: screenshot
+    analyze:
+      - name: alliance_chests
+        action: exist
+        threshold: 0.9
+  - click: alliance_back

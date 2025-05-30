@@ -1,0 +1,337 @@
+gamers:
+    - id: 222222222
+      nickname: horse
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      gems: 26595
+      power: 7377980
+      screenState:
+        isMainMenu: true
+        isWelcome: false
+        isMainCity: ""
+        currentState: exploration_battle
+        titleFact: ""
+      vip:
+        level: 0
+        time: 576h0m0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: false
+            isAward: true
+            isClaim: true
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      exploration:
+        level: 247
+        state:
+            isClaimActive: true
+            myPower: 0
+            enemyPower: 0
+            battleStatus: ""
+        isNotify: false
+      heroes:
+        isnotify: true
+        list: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+            polarTerrorCount: 0
+            isClaimButton: false
+            isCanClaimAllChests: true
+            lootCountLimit: 0
+            isGiftClaimAllButton: false
+            isMainChest: false
+        war:
+            isNotify: false
+        territory:
+            isNotify: false
+        shop: {}
+        chests:
+            isNotify: false
+        battle:
+            isNotify: false
+        tech:
+            isNotify: false
+            favorite: true
+        help:
+            isNotify: false
+      buildings:
+        queue1: "03:16:42"
+        queue2: Purchase Queue
+        state:
+            text: ""
+        furnace:
+            level: 22
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
+      events:
+        tundraAdventure:
+            state:
+                isExist: false
+                count: 0
+                isPlay: true
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
+                isAdventureDailyClaim: true
+        frostyFortune:
+            state:
+                isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                TextStatus: "02:51:30"
+        lancer:
+            state:
+                isAvailable: false
+                TextStatus: "02:51:49"
+        marksman:
+            state:
+                isAvailable: false
+                TextStatus: "02:52:16"
+      tech:
+        state:
+            is_available: true
+            TextStatus: ""
+      mail:
+        isHasMail: 0
+        state:
+            isWars: 0
+            isAlliance: 0
+            isSystem: 0
+            isReports: 0
+      shop:
+        isnotify: true
+      dailyMissions:
+        isNotify: false
+        state:
+            isClaimAll: false
+            isClaimButton: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
+        state:
+            isClaimAll: false
+            isClaimButton: false
+      chief:
+        contentment: 7700000
+        state:
+            isNotify: true
+            isUrgentMobilization: true
+            isComprehensiveCare: false
+            isProductivityDay: true
+            isRushJob: false
+            isDoubleTime: true
+            isFestivities: true
+      arena:
+        rank: 0
+        myPower: 0
+        state:
+            isFreeRefresh: false
+            isAvailableFight: false
+            countAvailableFight: 0
+            enemyPower1: 0
+            enemyPower2: 0
+            enemyPower3: 0
+            enemyPower4: 0
+            enemyPower5: 0
+      healInjured:
+        state:
+            isAvailable: false
+            isNext: Heal Injured
+            isReplenishAll: false
+            statusHeal: oe
+    - id: 222222211
+      nickname: apple
+      state: 2690
+      avatar: https://gof-formal-avatar.akamaized.net/avatar-dev/2023/07/17/1001.png
+      gems: 0
+      power: 0
+      screenState:
+        isMainMenu: false
+        isWelcome: false
+        isMainCity: ""
+        currentState: exploration
+        titleFact: ""
+      vip:
+        level: 0
+        time: 0s
+        state:
+            isNotify: false
+            isActive: false
+            isAdd: false
+            isAward: false
+            isClaim: false
+            isVIPAddAvailable: false
+            isVIPAddAvailableX: false
+      resources:
+        wood: 0
+        food: 0
+        iron: 0
+        meat: 0
+      exploration:
+        level: 0
+        state:
+            isClaimActive: false
+            myPower: 1
+            enemyPower: 1373
+            battleStatus: ""
+        isNotify: false
+      heroes:
+        isnotify: false
+        list: {}
+      messages:
+        state:
+            isNewMessage: false
+            isNewReports: false
+      alliance:
+        name: ""
+        myLevel: 0
+        power: 0
+        members:
+            count: 0
+            max: 0
+        state:
+            isNeedSupport: false
+            isWar: 0
+            isChests: 0
+            isAllianceContributeButton: false
+            isAllianceTechButton: false
+            polarTerrorCount: 0
+            isClaimButton: false
+            isCanClaimAllChests: true
+            lootCountLimit: 0
+            isGiftClaimAllButton: false
+            isMainChest: false
+        war:
+            isNotify: false
+        territory:
+            isNotify: false
+        shop: {}
+        chests:
+            isNotify: false
+        battle:
+            isNotify: false
+        tech:
+            isNotify: false
+            favorite: true
+        help:
+            isNotify: false
+      buildings:
+        queue1: "01:24:06"
+        queue2: Purchase Queue
+        state:
+            text: ""
+        furnace:
+            level: 21
+            power: 0
+      researches:
+        battle:
+            level: 0
+        economy:
+            level: 0
+      events:
+        tundraAdventure:
+            state:
+                isExist: false
+                count: 2
+                isPlay: false
+                isAdventurerDrillClaimIsExist: false
+                isAdventurerDrillClaim: false
+                isAdventureDailyClaim: false
+        frostyFortune:
+            state:
+                isExist: false
+      troops:
+        infantry:
+            state:
+                isAvailable: false
+                TextStatus: "02:28:08"
+        lancer:
+            state:
+                isAvailable: false
+                TextStatus: "01:05:48"
+        marksman:
+            state:
+                isAvailable: false
+                TextStatus: "01:50:34"
+      tech:
+        state:
+            is_available: true
+            TextStatus: ""
+      mail:
+        isHasMail: 0
+        state:
+            isWars: 0
+            isAlliance: 0
+            isSystem: 0
+            isReports: 0
+      shop:
+        isnotify: false
+      dailyMissions:
+        isNotify: false
+        state:
+            isClaimAll: false
+            isClaimButton: false
+        tasks:
+            isReseachOneTechnologies: false
+            isGatherMeat: false
+      growthMissions:
+        isNotify: false
+        state:
+            isClaimAll: false
+            isClaimButton: false
+      chief:
+        contentment: 13300000
+        state:
+            isNotify: false
+            isUrgentMobilization: false
+            isComprehensiveCare: false
+            isProductivityDay: false
+            isRushJob: false
+            isDoubleTime: true
+            isFestivities: true
+      arena:
+        rank: 999
+        myPower: 1500000
+        state:
+            isFreeRefresh: false
+            isAvailableFight: true
+            countAvailableFight: 0
+            enemyPower1: 0
+            enemyPower2: 0
+            enemyPower3: 0
+            enemyPower4: 0
+            enemyPower5: 0
+      healInjured:
+        state:
+            isAvailable: false
+            isNext: ""
+            isReplenishAll: false
+            statusHeal: ""

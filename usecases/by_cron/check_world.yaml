@@ -1,0 +1,9 @@
+name: Check World
+
+cron: "0 * * * *" # every 1 hour
+
+priority: 35
+
+node: world
+
+steps: []

@@ -1,0 +1,26 @@
+name: "🌱 Auto Collect Life Essence"
+
+node: daybreak_island
+
+ttl: 30m
+
+trigger: "island.state.hasEssenceToCollect == true"
+
+steps:
+  - click: to_daybreak_island
+  - wait: 500ms
+
+  - action: screenshot
+    analyze:
+      - name: island.essenceSpots
+        action: findIcon
+        threshold: 0.85
+        multiple: true
+        saveAsRegion: true
+
+  - action: loop
+    trigger: "island.essenceSpots.length > 0"
+    steps:
+      - click: island.essenceSpots[0]
+      - wait: 300ms
+      - remove: island.essenceSpots[0]

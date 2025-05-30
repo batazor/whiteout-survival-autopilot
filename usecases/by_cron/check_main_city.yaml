@@ -1,0 +1,19 @@
+name: Check Main City
+
+cron: "*/5 * * * *"
+
+priority: 10
+
+node: main_city
+
+steps:
+  - if:
+      trigger: healInjured.state.isAvailable # Если по какой-то причине не долечили
+      then:
+        - pushUsecase:
+            - trigger: healInjured.state.isAvailable
+              list:
+                - name: Heal Injured Troops
+        - action: reset
+          set: healInjured.state.isNext
+          to: "Heal Injured"

@@ -1,0 +1,33 @@
+name: "🗺️ Resolve Lighthouse Tasks by Priority"
+
+node: lighthouse
+
+ttl: 30m
+
+trigger: "lighthouse.state.hasPendingTasks == true"
+
+steps:
+  - action: screenshot
+    analyze:
+      - name: lighthouse.tasks
+        action: list_text
+        type: string
+        threshold: 0.9
+
+  - action: sort
+    input: lighthouse.tasks
+    by: priority
+
+  - action: loop
+    trigger: "lighthouse.tasks.length > 0"
+    steps:
+      - set: lighthouse.currentTask
+        to: lighthouse.tasks[0]
+
+      - click: lighthouse_task_button[lighthouse.currentTask]
+      - wait: 1s
+
+      - click: lighthouse_task_confirm_button
+      - wait: 500ms
+
+      - remove: lighthouse.tasks[0]

@@ -1,0 +1,20 @@
+name: Claim Exploration Rewards
+
+node: exploration
+
+trigger: exploration.state.isClaimActive
+
+priority: 20
+
+ttl: 1h
+
+steps:
+  - click: exploration.state.isClaimActive       # Click the claim button on the exploration screen.
+    log: "💰 Claiming exploration rewards"
+  - wait: 500ms
+  - click: exploration_claim_confirmation_button
+  - wait: 500ms
+  - click: tap_anywhere_to_exit
+  - action: reset
+    set: exploration.state.isClaimActive
+    to: false

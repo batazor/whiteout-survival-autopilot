@@ -1,0 +1,11 @@
+name: Check Exploration
+
+cron: "0 */5 * * *" # every 5 hours
+
+priority: 10
+
+ttl: 1h
+
+node: exploration
+
+steps: []

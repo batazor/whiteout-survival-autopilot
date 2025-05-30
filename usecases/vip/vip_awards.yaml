@@ -1,0 +1,20 @@
+name: VIP Awards
+
+node: vip
+
+priority: 10
+
+steps:
+  - if:
+      trigger: vip.state.isAward
+      then:
+        - click: vip_award_button
+        - wait: 1s
+        - click: tap_anywhere_to_exit
+
+  - if:
+      trigger: vip.state.isClaim
+      then:
+        - click: vip.state.isClaim
+        - wait: 1s
+        - click: tap_anywhere_to_exit

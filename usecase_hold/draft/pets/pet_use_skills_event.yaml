@@ -1,0 +1,30 @@
+name: "🧠 Use Pet Skills for Event"
+
+node: base_screen
+
+ttl: 2h
+
+trigger: "event.petSkills.remainingUses > 0 && pet.state.hasReadySkills == true"
+
+steps:
+  - click: beast_cage_button
+  - wait: 300ms
+
+  - action: screenshot
+    analyze:
+      - name: pet.state.readySkills
+        action: findIcon
+        threshold: 0.85
+        multiple: true
+        saveAsRegion: true
+
+  - action: loop
+    trigger: "pet.state.readySkills.length > 0 && event.petSkills.remainingUses > 0"
+    steps:
+      - click: pet.state.readySkills[0]
+      - wait: 300ms
+      - click: confirm_use_skill_button
+      - wait: 500ms
+
+      - remove: pet.state.readySkills[0]
+      - decrement: event.petSkills.remainingUses

@@ -1,0 +1,3967 @@
+[
+  {
+    "ocr": "\/data\/upload\/1\/ec986df7-city_main.png",
+    "id": 1,
+    "bbox": [
+      {
+        "x": 17.685185185185166,
+        "y": 6.74999999999998,
+        "width": 23.313667649950837,
+        "height": 2.4583333333333277,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 59.72222222222213,
+        "y": 6.708333333333314,
+        "width": 18.055555555555433,
+        "height": 2.4166666666666656,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80,
+        "y": 4.249999999999991,
+        "width": 15.18518518518519,
+        "height": 1.875,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.0185185185185186,
+        "y": 4.208333333333334,
+        "width": 11.203703703703704,
+        "height": 4.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.476259532377,
+        "y": 10.184669979401336,
+        "width": 28.48983515941829,
+        "height": 24.296774742810378,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 85.98483915544753,
+        "y": 34.946702110903836,
+        "width": 12.29198533087811,
+        "height": 5.272917071843955,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.6950141238487131,
+        "y": 93.9950779699471,
+        "width": 17.09734744667834,
+        "height": 5.504511860881806,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.04338699345474,
+        "y": 94.18273178338626,
+        "width": 14.178288126513749,
+        "height": 5.379409318589055,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.02871184197514,
+        "y": 94.0576292410935,
+        "width": 14.873302250362471,
+        "height": 5.441960589735416,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 51.153039515265284,
+        "y": 94.0576292410935,
+        "width": 14.595296600822984,
+        "height": 5.50451186088182,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.55537283809491,
+        "y": 94.0576292410935,
+        "width": 14.734299425592724,
+        "height": 5.441960589735416,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.37471463523377,
+        "y": 93.49466780077603,
+        "width": 13.483274002665041,
+        "height": 6.067473301199286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9730197733881985,
+        "y": 89.30373263396831,
+        "width": 97.71898581312907,
+        "height": 3.377768641904737,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.6680338972369115,
+        "y": 83.48646441735457,
+        "width": 9.452192084342498,
+        "height": 4.1909351668077335,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 10.842220332039926,
+        "y": 84.36218221340394,
+        "width": 73.67149712796359,
+        "height": 2.8148072015872856,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 87.15477113062863,
+        "y": 82.92350297703709,
+        "width": 10.703217507270182,
+        "height": 5.129204234003524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 87.15477113062863,
+        "y": 77.16878603156975,
+        "width": 10.703217507270182,
+        "height": 4.8789991494179645,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.13900282476974263,
+        "y": 42.70303562991208,
+        "width": 4.72609604217125,
+        "height": 7.193396181834174,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.81301212717143,
+        "y": 87.93252212389375,
+        "width": 12.935103244837705,
+        "height": 5.820796460176999,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "power",
+      "vip.level",
+      "gems",
+      "to_chief_profile",
+      "events_area",
+      "war_icon",
+      "to_exploration",
+      "to_heroes",
+      "to_backpack",
+      "to_shop",
+      "to_alliance_manage",
+      "to_world",
+      "chat_short",
+      "to_daily_missions",
+      "next_mission",
+      "to_mail",
+      "to_chief_orders",
+      "to_main_menu_city",
+      "alliance.state.isNeedSupport"
+    ],
+    "annotator": 1,
+    "annotation_id": 1,
+    "created_at": "2025-03-23T18:47:11.165017Z",
+    "updated_at": "2025-05-13T19:27:49.946015Z",
+    "lead_time": 6801.902999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/cb02ab01-exploration.png",
+    "id": 2,
+    "bbox": [
+      {
+        "x": 77.22222222222223,
+        "y": 76.33333333333334,
+        "width": 17.22222222222223,
+        "height": 2.5833333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.370370370370374,
+        "y": 84.58333333333333,
+        "width": 9.351851851851855,
+        "height": 2.0416666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 29.907407407407412,
+        "y": 91.25000000000001,
+        "width": 40.18518518518517,
+        "height": 4.791666666666657,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9832841691248771,
+        "y": 4.277286135693216,
+        "width": 10.160603080957065,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration.state.isClaimActive",
+      "exploration.level",
+      "to_exploration_battle",
+      "exploration_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 2,
+    "created_at": "2025-03-25T17:14:51.932986Z",
+    "updated_at": "2025-03-27T10:20:32.072199Z",
+    "lead_time": 1482.0149999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/376d15ad-to_exploration_buttle.png",
+    "id": 3,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 4.277286135693216,
+        "width": 9.505080301540481,
+        "height": 3.6873156342182893,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.47222222222222,
+        "y": 11.749999999999993,
+        "width": 20.555555555555557,
+        "height": 1.4583333333333321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.29629629629629,
+        "y": 11.708333333333327,
+        "width": 20.09259259259261,
+        "height": 1.5833333333333304,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.210750573582433,
+        "y": 93.36283185840709,
+        "width": 39.33136676499509,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.75286791215995,
+        "y": 93.36283185840709,
+        "width": 39.986889544411675,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_exploration_battle_back",
+      "exploration.state.myPower",
+      "exploration.state.enemyPower",
+      "quick_deploy_button",
+      "exploration_fight_button"
+    ],
+    "annotator": 1,
+    "annotation_id": 4,
+    "created_at": "2025-03-27T07:42:17.825841Z",
+    "updated_at": "2025-03-27T10:24:48.338224Z",
+    "lead_time": 224.02599999999998
+  },
+  {
+    "ocr": "\/data\/upload\/1\/94d8ee96-to_exploration_buttle_defeat.png",
+    "id": 4,
+    "bbox": [
+      {
+        "x": 8.521796132415602,
+        "y": 73.00884955752214,
+        "width": 36.38151425762046,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 55.71943625040971,
+        "y": 73.00884955752214,
+        "width": 36.05375286791217,
+        "height": 3.982300884955748,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.44837758112085,
+        "y": 32.71755162241894,
+        "width": 31.1873156342181,
+        "height": 8.28871681415926,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.177318911832186,
+        "y": 88.79056047197642,
+        "width": 80.30154047853163,
+        "height": 8.407079646017706,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_to_main_city",
+      "exploration_battle_retry",
+      "exploration.state.battleStatus",
+      "exploration_battle_back_area"
+    ],
+    "annotator": 1,
+    "annotation_id": 3,
+    "created_at": "2025-03-27T07:42:09.473279Z",
+    "updated_at": "2025-05-11T17:51:42.448210Z",
+    "lead_time": 620.883
+  },
+  {
+    "ocr": "\/data\/upload\/1\/eb562662-exploration_claim_confirmation.png",
+    "id": 5,
+    "bbox": [
+      {
+        "x": 31.79285480170436,
+        "y": 67.6991150442478,
+        "width": 36.38151425762045,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 13.76597836774828,
+        "y": 46.46017699115045,
+        "width": 72.10750573582433,
+        "height": 18.73156342182891,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_claim_confirmation_button",
+      "exploration_claim_rewards"
+    ],
+    "annotator": 1,
+    "annotation_id": 5,
+    "created_at": "2025-03-27T09:40:43.963432Z",
+    "updated_at": "2025-03-27T09:46:14.550588Z",
+    "lead_time": 173.915
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d55dac73-exploration_rewards.png",
+    "id": 6,
+    "bbox": [
+      {
+        "x": 13.76597836774828,
+        "y": 83.18584070796462,
+        "width": 70.79646017699116,
+        "height": 14.01179941002951,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 36.873156342182895,
+        "width": 92.10095050803017,
+        "height": 41.59292035398231,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "tap_anywhere_to_exit",
+      "exploration_rewards_total"
+    ],
+    "annotator": 1,
+    "annotation_id": 6,
+    "created_at": "2025-03-27T09:51:11.702566Z",
+    "updated_at": "2025-03-27T09:51:11.702593Z",
+    "lead_time": 78.277
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a0387172-exploration_battle_viktory.png",
+    "id": 7,
+    "bbox": [
+      {
+        "x": 55.71943625040971,
+        "y": 73.59882005899706,
+        "width": 36.38151425762046,
+        "height": 3.5398230088495666,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.07046869878729,
+        "y": 81.2684365781711,
+        "width": 38.3480825958702,
+        "height": 1.9174041297935105,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration_battle_continue_button",
+      "exploration_auto_challenge_mode"
+    ],
+    "annotator": 1,
+    "annotation_id": 7,
+    "created_at": "2025-03-27T11:44:01.959679Z",
+    "updated_at": "2025-03-27T11:44:01.959708Z",
+    "lead_time": 77.705
+  },
+  {
+    "ocr": "\/data\/upload\/1\/c7b1b3fc-alliance.png",
+    "id": 8,
+    "bbox": [
+      {
+        "x": 56.755565370370384,
+        "y": 17.859763833333332,
+        "width": 38.38382166666667,
+        "height": 1.550115875000003,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 72.0106739814815,
+        "y": 19.926585000000003,
+        "width": 23.292746481481487,
+        "height": 1.8453760416666647,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.5771364814814826,
+        "y": 42.735432875000015,
+        "width": 41.50045675925927,
+        "height": 5.388498041666672,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.413103055555557,
+        "y": 51.002717541666684,
+        "width": 41.50045675925927,
+        "height": 5.314683000000002,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.741169907407408,
+        "y": 59.63907741666669,
+        "width": 41.500456759259265,
+        "height": 4.945607791666667,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.413103055555557,
+        "y": 67.83254704166669,
+        "width": 42.484657314814825,
+        "height": 5.388498041666679,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 42.587802791666675,
+        "width": 41.17238990740743,
+        "height": 5.314683000000002,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 50.92890250000002,
+        "width": 41.66449018518521,
+        "height": 5.609943166666675,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.818763148148165,
+        "y": 59.63907741666669,
+        "width": 41.50045675925928,
+        "height": 5.462313083333335,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.654729722222235,
+        "y": 67.90636208333336,
+        "width": 41.336423333333336,
+        "height": 5.388498041666651,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 21.6322517207473,
+        "y": 93.06784660766964,
+        "width": 11.143887250081939,
+        "height": 4.86725663716814,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 44.90331039003606,
+        "y": 93.06784660766964,
+        "width": 10.488364470665353,
+        "height": 4.424778761061944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.19108489019993,
+        "y": 93.06784660766964,
+        "width": 10.81612586037366,
+        "height": 4.572271386430671,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9832841691248771,
+        "y": 4.277286135693216,
+        "width": 10.81612586037365,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 11.799410029498523,
+        "y": 3.9823008849557575,
+        "width": 46.869878728285826,
+        "height": 4.277286135693213,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_power",
+      "allieace_member_count",
+      "to_alliance_war",
+      "to_alliance_to_territory",
+      "to_alliance_to_shop",
+      "to_alliance_power_rankings",
+      "to_alliance_chests",
+      "to_alliance_battle",
+      "to_alliance_tech",
+      "to_alliance_help",
+      "to_alliance_members",
+      "to_alliance_trumph",
+      "to_alliance_settings",
+      "to_alliance_back",
+      "screenState.titleFact"
+    ],
+    "annotator": 1,
+    "annotation_id": 8,
+    "created_at": "2025-03-28T12:22:39.512498Z",
+    "updated_at": "2025-05-11T17:30:46.681010Z",
+    "lead_time": 29407.703999999998
+  },
+  {
+    "ocr": "\/data\/upload\/1\/3635e25c-allience_manage.png",
+    "id": 9,
+    "bbox": [
+      {
+        "x": 8.19403474270731,
+        "y": 12.389380530973455,
+        "width": 37.037037037037045,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.866273352999017,
+        "y": 20.206489675516227,
+        "width": 37.69255981645363,
+        "height": 4.424778761061948,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 8.19403474270731,
+        "y": 28.023598820059004,
+        "width": 37.36479842674534,
+        "height": 4.867256637168136,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 54.08062930186824,
+        "y": 12.389380530973455,
+        "width": 36.70927564732875,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.42510652245166,
+        "y": 20.058997050147497,
+        "width": 38.348082595870224,
+        "height": 5.014749262536874,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 54.08062930186824,
+        "y": 27.87610619469027,
+        "width": 37.69255981645364,
+        "height": 5.162241887905605,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.424778761061948,
+        "width": 10.160603080957065,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_log",
+      "alliance_list",
+      "alliance_vote",
+      "alliance_message",
+      "alliance_ranking",
+      "leave_alliance",
+      "settings_to_alliance_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 9,
+    "created_at": "2025-03-28T12:25:32.701966Z",
+    "updated_at": "2025-03-28T12:25:32.701993Z",
+    "lead_time": 101.006
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d6a28d8a-allience_tech.png",
+    "id": 10,
+    "bbox": [
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 9.832841691248772,
+        "height": 3.6873156342182902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 19.46902654867257,
+        "width": 27.85971812520485,
+        "height": 3.6873156342182902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.38151425762046,
+        "y": 18.879056047197643,
+        "width": 26.87643395607997,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.51884627990823,
+        "y": 19.6165191740413,
+        "width": 27.531956735496564,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "from_tech_to_alliance",
+      "alliance_tech_growth",
+      "alliance_tech_territory",
+      "alliance_tech_battle"
+    ],
+    "annotator": 1,
+    "annotation_id": 10,
+    "created_at": "2025-03-28T12:28:04.238823Z",
+    "updated_at": "2025-04-06T06:22:17.791471Z",
+    "lead_time": 139.266
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d364edb8-allience_territory_bonus_overview.png",
+    "id": 11,
+    "bbox": [
+      {
+        "x": 1.3110455588331695,
+        "y": 4.277286135693216,
+        "width": 9.50508030154048,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 3.9331366764995086,
+        "y": 8.702064896755164,
+        "width": 24.582104228121928,
+        "height": 4.572271386430678,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 31.79285480170436,
+        "y": 9.292035398230091,
+        "width": 22.943297279580467,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 58.669288757784344,
+        "y": 9.439528023598822,
+        "width": 24.58210422812192,
+        "height": 2.949852507374633,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.75286791215995,
+        "y": 92.62536873156344,
+        "width": 37.364798426745345,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_territory_to_alliance_back",
+      "alliance_bonus_overview",
+      "alliance_territory_buildings",
+      "alliance_special_buildings",
+      "alliance_resource_exchange"
+    ],
+    "annotator": 1,
+    "annotation_id": 11,
+    "created_at": "2025-03-28T12:29:42.605832Z",
+    "updated_at": "2025-03-28T12:29:42.605859Z",
+    "lead_time": 95.726
+  },
+  {
+    "ocr": "\/data\/upload\/1\/afaa0668-events.png",
+    "id": 12,
+    "bbox": [
+      {
+        "x": 0.9832841691248771,
+        "y": 3.9823008849557526,
+        "width": 10.488364470665358,
+        "height": 3.9823008849557526,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 6.555227794165848,
+        "y": 10.176991150442479,
+        "width": 23.926581448705345,
+        "height": 4.719764011799411,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 18.026876433956083,
+        "y": 17.994100294985255,
+        "width": 64.2412323828253,
+        "height": 3.539823008849556,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events_back",
+      "events",
+      "events_time"
+    ],
+    "annotator": 1,
+    "annotation_id": 12,
+    "created_at": "2025-03-28T12:30:45.192835Z",
+    "updated_at": "2025-03-28T12:30:45.192882Z",
+    "lead_time": 60.502
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9ef6186c-alliance_tech_contribute.png",
+    "id": 13,
+    "bbox": [
+      {
+        "x": 53.75286791215995,
+        "y": 73.89380530973453,
+        "width": 33.43166175024583,
+        "height": 4.572271386430671,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 74.40183546378238,
+        "y": 70.79646017699116,
+        "width": 2.9498525073746293,
+        "height": 1.9174041297935105,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.50508030154048,
+        "y": 84.070796460177,
+        "width": 82.92363159619798,
+        "height": 8.702064896755175,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.state.isAllianceContributeButton",
+      "alliance.tech.isAllianceContributeCount",
+      "alliance_tech_contribute_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 13,
+    "created_at": "2025-03-28T14:21:22.252771Z",
+    "updated_at": "2025-04-06T06:17:23.331821Z",
+    "lead_time": 352.8
+  },
+  {
+    "ocr": "\/data\/upload\/1\/b0675001-chief_profile_account_change_account.png",
+    "id": 14,
+    "bbox": [
+      {
+        "x": 14.093739757456571,
+        "y": 36.72566371681417,
+        "width": 72.43526712553262,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 15.07702392658145,
+        "y": 43.21533923303836,
+        "width": 70.46869878728286,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 14.093739757456571,
+        "y": 48.52507374631269,
+        "width": 71.77974434611603,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_guest_account",
+      "to_facebook_account",
+      "to_google_account"
+    ],
+    "annotator": 1,
+    "annotation_id": 17,
+    "created_at": "2025-03-31T08:41:27.147094Z",
+    "updated_at": "2025-03-31T08:41:27.147123Z",
+    "lead_time": 49.38099999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f460246d-chief_profile_account_google_continue.png",
+    "id": 15,
+    "bbox": [
+      {
+        "x": 47.19764011799413,
+        "y": 65.63421828908554,
+        "width": 43.26450344149451,
+        "height": 7.669616519173965,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 22.615535889872167,
+        "y": 67.25663716814165,
+        "width": 16.715830875122883,
+        "height": 3.0973451327432686,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_google_continue",
+      "to_google_continue_cancel"
+    ],
+    "annotator": 1,
+    "annotation_id": 18,
+    "created_at": "2025-03-31T08:41:43.066824Z",
+    "updated_at": "2025-05-07T17:41:41.626121Z",
+    "lead_time": 86.131
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d9999782-chief_profile_account_google.png",
+    "id": 16,
+    "bbox": [
+      {
+        "x": 8.849557522123895,
+        "y": 37.90560471976402,
+        "width": 81.9403474270731,
+        "height": 25.958702064896755,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 15.404785316289743,
+        "y": 83.62831858407081,
+        "width": 23.926581448705345,
+        "height": 3.0973451327433565,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "google_profile",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 20,
+    "created_at": "2025-03-31T08:49:57.435669Z",
+    "updated_at": "2025-05-18T21:24:18.333461Z",
+    "lead_time": 506.186
+  },
+  {
+    "ocr": "\/data\/upload\/1\/58c00902-chief_profile_account.png",
+    "id": 17,
+    "bbox": [
+      {
+        "x": 32.448377581120944,
+        "y": 93.51032448377583,
+        "width": 36.38151425762046,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 10.81612586037365,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_change_account",
+      "page_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 16,
+    "created_at": "2025-03-31T08:41:05.349027Z",
+    "updated_at": "2025-05-07T18:19:17.640010Z",
+    "lead_time": 77.398
+  },
+  {
+    "ocr": "\/data\/upload\/1\/24d0b8e9-chief_profile_setting.png",
+    "id": 18,
+    "bbox": [
+      {
+        "x": 54.73615208128483,
+        "y": 14.306784660766963,
+        "width": 35.39823008849558,
+        "height": 5.014749262536876,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 8.521796132415602,
+        "y": 22.27138643067847,
+        "width": 35.72599147820387,
+        "height": 4.867256637168143,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.832841691248772,
+        "y": 3.9823008849557526,
+        "width": 42.60898066207801,
+        "height": 4.277286135693216,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_chief_profile_account",
+      "to_chief_characters",
+      "screenState.titleFact"
+    ],
+    "annotator": 1,
+    "annotation_id": 15,
+    "created_at": "2025-03-31T08:40:49.839173Z",
+    "updated_at": "2025-05-07T16:46:35.890024Z",
+    "lead_time": 73.17899999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ea8c2615-welcome_back.png",
+    "id": 19,
+    "bbox": [
+      {
+        "x": 32.77613897082924,
+        "y": 74.18879056047199,
+        "width": 34.742707309078995,
+        "height": 3.834808259587035,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.77613897082924,
+        "y": 36.578171091445434,
+        "width": 47.19764011799411,
+        "height": 2.064896755162245,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "welcome_back_continue_button",
+      "welocme_back_time_offline"
+    ],
+    "annotator": 1,
+    "annotation_id": 19,
+    "created_at": "2025-03-31T08:42:07.624853Z",
+    "updated_at": "2025-03-31T08:45:06.345994Z",
+    "lead_time": 61.31099999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9ee4ca3b-chief_profile.png",
+    "id": 20,
+    "bbox": [
+      {
+        "x": 77.67944936086529,
+        "y": 94.24778761061948,
+        "width": 19.337921992789262,
+        "height": 4.719764011799413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.11406096361849,
+        "y": 94.10029498525076,
+        "width": 21.6322517207473,
+        "height": 4.719764011799413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 39.65912815470338,
+        "y": 75.22123893805312,
+        "width": 42.281219272369725,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.277286135693216,
+        "width": 10.488364470665356,
+        "height": 3.5398230088495586,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_chief_profile_setting",
+      "to_leaderboard",
+      "chief_profile_nickname",
+      "chief_profile_back"
+    ],
+    "annotator": 1,
+    "annotation_id": 14,
+    "created_at": "2025-03-31T08:40:33.292596Z",
+    "updated_at": "2025-04-05T02:55:36.777838Z",
+    "lead_time": 601.242
+  },
+  {
+    "ocr": "\/data\/upload\/1\/bb5fab70-characters_change.png",
+    "id": 21,
+    "bbox": [
+      {
+        "x": 55.06391347099312,
+        "y": 60.47197640117995,
+        "width": 33.10390036053753,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 12.454932808915112,
+        "y": 60.47197640117995,
+        "width": 33.759423139954116,
+        "height": 3.5398230088495595,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "character_change_confirm",
+      "character_change_cancel"
+    ],
+    "annotator": 1,
+    "annotation_id": 21,
+    "created_at": "2025-04-03T12:33:44.773067Z",
+    "updated_at": "2025-04-03T12:34:46.196788Z",
+    "lead_time": 36.963
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9410a58c-characters_select.png",
+    "id": 22,
+    "bbox": [
+      {
+        "x": 9.832841691248772,
+        "y": 88.79056047197642,
+        "width": 82.26810881678139,
+        "height": 6.047197640117986,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 77.0239265814487,
+        "y": 42.77286135693216,
+        "width": 6.882989183874145,
+        "height": 3.5398230088495595,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "chief_characters_back",
+      "current_characters_icon"
+    ],
+    "annotator": 1,
+    "annotation_id": 22,
+    "created_at": "2025-04-03T14:59:56.764622Z",
+    "updated_at": "2025-04-03T14:59:56.764653Z",
+    "lead_time": 55.423
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4c1d398b-ad_natalia.png",
+    "id": 23,
+    "bbox": [
+      {
+        "x": 6.88298918387414,
+        "y": 90.26548672566373,
+        "width": 86.2012454932809,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.23467715503115,
+        "y": 14.74926253687316,
+        "width": 8.194034742707302,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "ad_banner_close",
+      "ad_banner_natalia_close"
+    ],
+    "annotator": 1,
+    "annotation_id": 23,
+    "created_at": "2025-04-05T03:08:17.277851Z",
+    "updated_at": "2025-04-05T03:08:17.277882Z",
+    "lead_time": 142.994
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a6551e38-exploration_battle_defeat.png",
+    "id": 24,
+    "bbox": [
+      {
+        "x": 32.448377581120866,
+        "y": 30.973451327433633,
+        "width": 35.07046869878722,
+        "height": 10.029498525073773,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120866,
+        "y": 30.973451327433633,
+        "width": 35.07046869878722,
+        "height": 9.734513274336312,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration.state.battleStatusWithAds",
+      "exploration.state.returnToCityWithAds"
+    ],
+    "annotator": 1,
+    "annotation_id": 24,
+    "created_at": "2025-04-06T17:31:08.884934Z",
+    "updated_at": "2025-04-06T19:53:33.699328Z",
+    "lead_time": 194.22099999999998
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f467c9d4-alliance_war_auto_join.png",
+    "id": 25,
+    "bbox": [
+      {
+        "x": 49.491969845952156,
+        "y": 78.4660766961652,
+        "width": 40.97017371353655,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 9.832841691248772,
+        "y": 78.4660766961652,
+        "width": 31.792854801704358,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 11.143887250081942,
+        "y": 58.25958702064897,
+        "width": 4.260898066207801,
+        "height": 2.212389380530979,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.268518518518526,
+        "y": 59.54166666666667,
+        "width": 4.537037037037038,
+        "height": 1.4166666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 20.943952802359885,
+        "width": 4.260898066207787,
+        "height": 1.4749262536873147,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance_war_auto_join_enable",
+      "alliance_war_auto_join_stop",
+      "alliance_war_auto_join_enable_polar_terror",
+      "alliance.state.polarTerrorCount",
+      "alliance_war_auto_join_close"
+    ],
+    "annotator": 2,
+    "annotation_id": 26,
+    "created_at": "2025-04-16T15:29:04.466764Z",
+    "updated_at": "2025-04-16T15:44:26.601502Z",
+    "lead_time": 370.76300000000003
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a6347259-alliance_war.png",
+    "id": 26,
+    "bbox": [
+      {
+        "x": 4.260898066207801,
+        "y": 9.292035398230091,
+        "width": 28.515240904621436,
+        "height": 4.129793510324484,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.38151425762046,
+        "y": 10.176991150442479,
+        "width": 27.531956735496557,
+        "height": 3.5398230088495577,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 68.17436905932482,
+        "y": 10.32448377581121,
+        "width": 27.85971812520485,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 42.936742051786304,
+        "y": 91.74041297935105,
+        "width": 16.060308095706333,
+        "height": 1.6224188790560419,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.77613897082924,
+        "y": 94.69026548672568,
+        "width": 34.742707309078995,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.572271386430679,
+        "width": 9.832841691248772,
+        "height": 2.949852507374631,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_alliance_war_rally",
+      "to_alliance_war_solo",
+      "to_alliance_war_events",
+      "alliance_war_auto_join_ttl",
+      "to_alliance_war_auto_join",
+      "from_war_to_alliance_manage"
+    ],
+    "annotator": 2,
+    "annotation_id": 25,
+    "created_at": "2025-04-16T15:26:04.797182Z",
+    "updated_at": "2025-05-08T06:24:23.885453Z",
+    "lead_time": 631.4689999999999
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9dc09327-main_menu.png",
+    "id": 27,
+    "bbox": [
+      {
+        "x": 1.9665683382497543,
+        "y": 27.433628318584073,
+        "width": 28.843002294329732,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 33.10390036053753,
+        "y": 28.023598820059004,
+        "width": 27.20419534578827,
+        "height": 1.7699115044247762,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.2943297279580466,
+        "y": 33.48082595870207,
+        "width": 57.68600458865947,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.622091117666339,
+        "y": 38.34808259587022,
+        "width": 57.35824319895118,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 45.57522123893806,
+        "width": 58.01376597836776,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.9665683382497543,
+        "y": 49.85250737463128,
+        "width": 56.702720419534586,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 54.277286135693224,
+        "width": 58.01376597836776,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 61.50442477876107,
+        "width": 58.66928875778434,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 88.16781383153065,
+        "y": 72.41887905604722,
+        "width": 9.177318911832188,
+        "height": 3.244837758112098,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 94.77544955278712,
+        "y": 83.03600024215935,
+        "width": 2.809856413093904,
+        "height": 1.153870771784679,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.231481481481495,
+        "y": 6.833333333333334,
+        "width": 15.277777777777757,
+        "height": 2.166666666666668,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 95.64814814814817,
+        "y": 77.58333333333334,
+        "width": 1.1111111111111,
+        "height": 0.3750000000000142,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.53703703703705,
+        "y": 97.625,
+        "width": 12.129629629629605,
+        "height": 1.8333333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_main_menu_city",
+      "to_main_menu_wilderness",
+      "to_main_menu_building_1",
+      "to_main_menu_building_2",
+      "to_main_menu_infantry",
+      "to_main_menu_lancer",
+      "to_main_menu_marksman",
+      "to_main_menu_tech_research",
+      "to_pets",
+      "mail.isHasMail",
+      "to_vip",
+      "chief.state.isNotify",
+      "screenState.isMainCity"
+    ],
+    "annotator": 2,
+    "annotation_id": 27,
+    "created_at": "2025-04-17T17:44:08.191110Z",
+    "updated_at": "2025-05-18T17:54:15.593897Z",
+    "lead_time": 594.049
+  },
+  {
+    "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
+    "id": 28,
+    "bbox": [
+      {
+        "x": 3.3920701907861237,
+        "y": 43.367274445155054,
+        "width": 1.264839732157537,
+        "height": 0.41394754870609773,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.5925925925925926,
+        "y": 73.54166666666666,
+        "width": 7.592592592592593,
+        "height": 2.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "screenState.isMainMenu",
+      "world_search_resource_button"
+    ],
+    "annotator": 2,
+    "annotation_id": 47,
+    "created_at": "2025-05-01T10:27:01.984723Z",
+    "updated_at": "2025-05-01T11:08:52.329192Z",
+    "lead_time": 327.236
+  },
+  {
+    "ocr": "\/data\/upload\/1\/66c2d6bd-main_world.png",
+    "id": 28,
+    "bbox": [
+      {
+        "x": 27.592592592592585,
+        "y": 16.416666666666654,
+        "width": 2.592592592592588,
+        "height": 1.375,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 31.1111111111111,
+        "y": 16.416666666666654,
+        "width": 2.592592592592588,
+        "height": 1.375,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 84.94963061851857,
+        "y": 93.56923357,
+        "width": 12.107307167592595,
+        "height": 5.9841854279166995,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.1908826722222228,
+        "y": 72.6692426725,
+        "width": 9.92402226851852,
+        "height": 4.197861419583333,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.389363117592593,
+        "y": 78.38547949916668,
+        "width": 9.72554182314815,
+        "height": 4.108545219166672,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marching_used",
+      "marching_have",
+      "to_main_city",
+      "to_search_resources",
+      "to_global_map"
+    ],
+    "annotator": 2,
+    "annotation_id": 28,
+    "created_at": "2025-04-18T03:32:02.473781Z",
+    "updated_at": "2025-04-18T03:32:02.473807Z",
+    "lead_time": 187.198
+  },
+  {
+    "ocr": "\/data\/upload\/1\/331ebf97-mail.png",
+    "id": 29,
+    "bbox": [
+      {
+        "x": 90.46214355948871,
+        "y": 4.719764011799411,
+        "width": 8.194034742707302,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.260898066207801,
+        "y": 9.587020648967554,
+        "width": 15.404785316289743,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 23.598820058997052,
+        "y": 9.734513274336285,
+        "width": 15.732546705998036,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 42.60898066207801,
+        "y": 9.587020648967554,
+        "width": 15.077023926581454,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.29137987545068,
+        "y": 9.882005899705018,
+        "width": 15.732546705998026,
+        "height": 2.654867256637168,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 79.97377908882335,
+        "y": 9.734513274336285,
+        "width": 15.732546705998033,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 3.277613897082924,
+        "y": 96.01769911504427,
+        "width": 45.231071779744354,
+        "height": 3.244837758112098,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 56.70272041953458,
+        "y": 96.31268436578173,
+        "width": 38.02032120616192,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "mail_close",
+      "to_mail_wars",
+      "to_mail_alliance",
+      "to_mail_system",
+      "to_mail_reports",
+      "to_mail_starred",
+      "mail_delete_all_read",
+      "mail_read_and_claim_all"
+    ],
+    "annotator": 2,
+    "annotation_id": 29,
+    "created_at": "2025-04-18T03:42:43.493161Z",
+    "updated_at": "2025-04-18T03:42:43.493328Z",
+    "lead_time": 142.822
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4dd3946f-reconnect.png",
+    "id": 30,
+    "bbox": [
+      {
+        "x": 53.75286791215995,
+        "y": 60.029498525073755,
+        "width": 38.34808259587022,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.866273352999017,
+        "y": 44.54277286135694,
+        "width": 83.90691576532286,
+        "height": 11.356932153392329,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "reconnect_button",
+      "reconnect_error_message"
+    ],
+    "annotator": 2,
+    "annotation_id": 30,
+    "created_at": "2025-04-18T04:05:22.990080Z",
+    "updated_at": "2025-04-18T04:05:22.990109Z",
+    "lead_time": 50.224
+  },
+  {
+    "ocr": "\/data\/upload\/1\/09f7ff21-alliance_chests.png",
+    "id": 31,
+    "bbox": [
+      {
+        "x": 5.571943625040971,
+        "y": 26.84365781710915,
+        "width": 42.28121927236972,
+        "height": 3.6873156342182867,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.11406096361849,
+        "y": 26.991150442477878,
+        "width": 42.608980662078004,
+        "height": 3.3923303834808323,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120944,
+        "y": 93.65781710914456,
+        "width": 35.39823008849559,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.73582431989513,
+        "y": 90.47713864306786,
+        "width": 6.320058997050134,
+        "height": 1.622418879056056,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0.9832841691248771,
+        "y": 4.277286135693216,
+        "width": 10.488364470665358,
+        "height": 3.6873156342182893,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.79646017699116,
+        "y": 38.49557522123889,
+        "width": 26.220911176663414,
+        "height": 51.327433628318644,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_alliance_chest_loot",
+      "to_alliance_chest_gift",
+      "alliance.state.isCanClaimAllChests",
+      "alliance.state.lootCountLimit",
+      "to_alliance_manager_from_alliance_chest",
+      "alliance.state.isClaimButton"
+    ],
+    "annotator": 2,
+    "annotation_id": 31,
+    "created_at": "2025-04-18T05:58:06.695063Z",
+    "updated_at": "2025-04-19T13:32:58.951396Z",
+    "lead_time": 577.756
+  },
+  {
+    "ocr": "\/data\/upload\/1\/0c38971e-alliance_chest_gift.png",
+    "id": 32,
+    "bbox": [
+      {
+        "x": 74.40183546378238,
+        "y": 92.9203539823009,
+        "width": 18.354637823664376,
+        "height": 2.9498525073746436,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.972222222222214,
+        "y": 13.208333333333325,
+        "width": 1.1111111111111214,
+        "height": 0.7083333333333321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.state.isGiftClaimAllButton",
+      "alliance.state.isMainChest"
+    ],
+    "annotator": 2,
+    "annotation_id": 32,
+    "created_at": "2025-04-18T10:58:18.346896Z",
+    "updated_at": "2025-04-18T16:00:03.634496Z",
+    "lead_time": 231.856
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8c7e8070-tundra_adventure_caravan.png",
+    "id": 33,
+    "annotator": 2,
+    "annotation_id": 35,
+    "created_at": "2025-04-19T11:20:31.872567Z",
+    "updated_at": "2025-04-19T11:20:31.872596Z",
+    "lead_time": 101.466
+  },
+  {
+    "ocr": "\/data\/upload\/1\/9a266866-tundra_adventure_drill.png",
+    "id": 34,
+    "bbox": [
+      {
+        "x": 11.143887250081942,
+        "y": 35.98820058997051,
+        "width": 36.70927564732875,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 50.80301540478532,
+        "y": 35.840707964601776,
+        "width": 39.0036053752868,
+        "height": 3.0973451327433636,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 66.20780072107506,
+        "y": 50.14749262536874,
+        "width": 23.92658144870535,
+        "height": 48.5250737463127,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_tundra_adventurer_drill",
+      "to_tundra_adventurer_daily_missions",
+      "events.tundraAdventure.state.isAdventureDailyClaim"
+    ],
+    "annotator": 2,
+    "annotation_id": 34,
+    "created_at": "2025-04-19T11:18:20.275640Z",
+    "updated_at": "2025-04-19T17:53:02.667014Z",
+    "lead_time": 15875.096000000001
+  },
+  {
+    "ocr": "\/data\/upload\/1\/fa3bf7a0-tundra_adventure_main.png",
+    "id": 35,
+    "bbox": [
+      {
+        "x": 10.488364470665356,
+        "y": 92.18289085545725,
+        "width": 36.053752867912166,
+        "height": 3.0973451327433565,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 4.588659455916093,
+        "y": 30.38348082595871,
+        "width": 11.799410029498524,
+        "height": 6.342182890855458,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.210750573582439,
+        "y": 10.324483775811185,
+        "width": 21.304490331039002,
+        "height": 4.277286135693215,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.07046869878729,
+        "y": 10.914454277286136,
+        "width": 23.271058669288763,
+        "height": 3.9823008849557535,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.946902654867266,
+        "y": 10.766961651917406,
+        "width": 25.5653883972468,
+        "height": 4.277286135693215,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 79.53703703703702,
+        "y": 21.16666666666666,
+        "width": 10.555555555555571,
+        "height": 1.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isPlay",
+      "to_tundra_adventure_caravan",
+      "to_tundra_adventure_main",
+      "to_tundra_adventure_drill",
+      "to_tundra_adventure_odessey",
+      "events.tundraAdventure.state.count"
+    ],
+    "annotator": 2,
+    "annotation_id": 33,
+    "created_at": "2025-04-19T06:54:01.148955Z",
+    "updated_at": "2025-04-19T15:55:05.774126Z",
+    "lead_time": 2641.135
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ce54e916-tundra_adventure_odyssey.png",
+    "id": 36,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 4.572271386430679,
+        "width": 9.177318911832188,
+        "height": 3.2448377581120953,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 13.110455588331696,
+        "y": 20.353982300884958,
+        "width": 16.388069485414622,
+        "height": 2.2123893805309756,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_tundra_adventure_back",
+      "tundra_adventure_odessey_timer"
+    ],
+    "annotator": 2,
+    "annotation_id": 36,
+    "created_at": "2025-04-19T11:30:06.888227Z",
+    "updated_at": "2025-04-19T11:30:06.888254Z",
+    "lead_time": 90.015
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8d9f43a3-main_city.png",
+    "id": 37,
+    "bbox": [
+      {
+        "x": 68.1047197640116,
+        "y": 9.796828908554565,
+        "width": 31.89528023598837,
+        "height": 24.941371681415944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 68.50213044903312,
+        "y": 37.168141592920364,
+        "width": 31.497869550966882,
+        "height": 3.0973451327433565,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isExist",
+      "second"
+    ],
+    "annotator": 2,
+    "annotation_id": 37,
+    "created_at": "2025-04-19T11:53:34.226101Z",
+    "updated_at": "2025-04-19T12:03:56.347535Z",
+    "lead_time": 708.488
+  },
+  {
+    "ocr": "\/data\/upload\/1\/59e55648-tundra_adventurer_drill.png",
+    "id": 38,
+    "bbox": [
+      {
+        "x": 70.46869878728288,
+        "y": 42.62536873156343,
+        "width": 20.976728941330705,
+        "height": 56.34218289085547,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.101851851851855,
+        "y": 35.916666666666664,
+        "width": 1.2037037037036953,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "events.tundraAdventure.state.isAdventurerDrillClaim",
+      "events.tundraAdventure.state.isAdventurerDrillClaimIsExist"
+    ],
+    "annotator": 2,
+    "annotation_id": 38,
+    "created_at": "2025-04-19T16:16:25.413045Z",
+    "updated_at": "2025-04-19T16:16:25.413076Z",
+    "lead_time": 95.524
+  },
+  {
+    "ocr": "\/data\/upload\/1\/46441552-marvelous_fantasia_main.png",
+    "id": 39,
+    "bbox": [
+      {
+        "x": 11.143887250081942,
+        "y": 10.029498525073748,
+        "width": 15.404785316289743,
+        "height": 5.162241887905607,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 33.759423139954116,
+        "y": 92.62536873156344,
+        "width": 33.10390036053753,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 60.972222222222214,
+        "y": 45.87500000000001,
+        "width": 8.240740740740748,
+        "height": 3.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80.60185185185185,
+        "y": 52.79166666666667,
+        "width": 8.333333333333343,
+        "height": 3.5416666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 51.43518518518518,
+        "y": 41.458333333333336,
+        "width": 7.592592592592595,
+        "height": 3.4583333333333357,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 21.527777777777782,
+        "y": 48.541666666666664,
+        "width": 8.425925925925924,
+        "height": 3.833333333333343,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.064814814814795,
+        "y": 61.95833333333353,
+        "width": 8.425925925925922,
+        "height": 2.2499999999998157,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.49074074074073,
+        "y": 66.62500000000028,
+        "width": 4.999999999999913,
+        "height": 3.4999999999999996,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.60185185185184,
+        "y": 50.041666666666664,
+        "width": 8.796296296296287,
+        "height": 2.20833333333341,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 55.601851851851805,
+        "y": 50.12500000000001,
+        "width": 8.703703703703702,
+        "height": 2.208333333333467,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.69444444444444,
+        "y": 50.12500000000001,
+        "width": 9.074074074074064,
+        "height": 2.2500000000001505,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 16.06481481481482,
+        "y": 48.708333333333506,
+        "width": 5.092592592592586,
+        "height": 3.583333333333333,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.58333333333333,
+        "y": 44.250000000000234,
+        "width": 4.537037037036995,
+        "height": 3.750000000000005,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_logo",
+      "marvelous_fantasia_play",
+      "marvelous_fantasia_icon_francia_level_1",
+      "marvelous_fantasia_icon_time_level_1",
+      "marvelous_fantasia_icon_pan_level_1",
+      "marvelous_fantasia_icon_icestar_level_1",
+      "marvelous_fantasia_icon_setting_level_2_top",
+      "marvelous_fantasia_icon_bear_level_2_right",
+      "marvelous_fantasia_icon_setting_level_2_down",
+      "marvelous_fantasia_icon_francia_level_2_down",
+      "marvelous_fantasia_icon_beer_level_2_down",
+      "marvelous_fantasia_icon_love_level_2_left",
+      "marvelous_fantasia_icon_sapog_level_2_right"
+    ],
+    "annotator": 2,
+    "annotation_id": 39,
+    "created_at": "2025-04-20T10:49:18.821862Z",
+    "updated_at": "2025-04-20T13:55:05.206478Z",
+    "lead_time": 1230.11
+  },
+  {
+    "ocr": "\/data\/upload\/1\/7f0a99ba-marvelous_fantasia_level_1.png",
+    "id": 40,
+    "bbox": [
+      {
+        "x": 22.63888888888889,
+        "y": 44.75,
+        "width": 8.888888888888893,
+        "height": 4.125,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.25,
+        "y": 44.625,
+        "width": 8.981481481481481,
+        "height": 4.166666666666664,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.195099967223875,
+        "y": 52.78613569321558,
+        "width": 9.537037037037036,
+        "height": 2.7083333333331017,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.13888888888893,
+        "y": 41.91666666666678,
+        "width": 9.351851851851846,
+        "height": 2.7916666666665573,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.972222222222214,
+        "y": 31.500000000000007,
+        "width": 9.722222222222205,
+        "height": 2.4999999999999907,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.157407407407405,
+        "y": 34.291666666666664,
+        "width": 9.44444444444445,
+        "height": 3.749999999999993,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_icon_star_level_1",
+      "marvelous_fantasia_icon_wrench_level_1",
+      "marvelous_fantasia_icon_bear_level_2_top",
+      "marvelous_fantasia_icon_wrench_level_2_top",
+      "marvelous_fantasia_icon_star_level_2_top",
+      "marvelous_fantasia_icon_bear_level_1"
+    ],
+    "annotator": 2,
+    "annotation_id": 40,
+    "created_at": "2025-04-20T12:09:09.730659Z",
+    "updated_at": "2025-04-20T13:57:23.504573Z",
+    "lead_time": 367.67999999999995
+  },
+  {
+    "ocr": "\/data\/upload\/1\/12bae43a-marvelous_fantasia_level_2.png",
+    "id": 41,
+    "bbox": [
+      {
+        "x": 1.638806948541462,
+        "y": 13.864306784660767,
+        "width": 97.34513274336284,
+        "height": 62.97935103244839,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 53.47222222222222,
+        "y": 5.291666666666668,
+        "width": 6.481481481481488,
+        "height": 2.124999999999999,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "marvelous_fantasia_game_area",
+      "marvelous_fantasia_level"
+    ],
+    "annotator": 2,
+    "annotation_id": 41,
+    "created_at": "2025-04-20T12:35:40.323825Z",
+    "updated_at": "2025-04-20T12:35:40.323857Z",
+    "lead_time": 56.325
+  },
+  {
+    "ocr": "\/data\/upload\/1\/525455f2-troops_train.png",
+    "id": 42,
+    "bbox": [
+      {
+        "x": 29.82628646345461,
+        "y": 45.280235988200594,
+        "width": 7.866273352999013,
+        "height": 3.0973451327433708,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 62.60242543428384,
+        "y": 64.30678466076694,
+        "width": 9.83284169124872,
+        "height": 4.424778761061977,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 46.54211733857752,
+        "y": 66.51917404129794,
+        "width": 7.866273352999016,
+        "height": 3.9823008849557624,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 28.515240904621436,
+        "y": 64.74926253687316,
+        "width": 8.521796132415602,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_level",
+      "troops.train",
+      "troops.upgrade",
+      "troops.details"
+    ],
+    "annotator": 1,
+    "annotation_id": 42,
+    "created_at": "2025-04-24T11:41:20.154699Z",
+    "updated_at": "2025-04-25T09:19:42.866844Z",
+    "lead_time": 706.301
+  },
+  {
+    "ocr": "\/data\/upload\/1\/60a12d43-main_menu_done.png",
+    "id": 43,
+    "bbox": [
+      {
+        "x": 57.45370370370371,
+        "y": 45.5,
+        "width": 1.2037037037037024,
+        "height": 0.5,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.45370370370371,
+        "y": 50.12500000000001,
+        "width": 1.1111111111111072,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.45370370370371,
+        "y": 54.666666666666664,
+        "width": 1.0185185185185262,
+        "height": 0.4166666666666643,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 64.2412323828253,
+        "y": 43.657817109144545,
+        "width": 1.9665683382497576,
+        "height": 5.752212389380539,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops.infantry.state.isAvailable",
+      "troops.lancer.state.isAvailable",
+      "troops.marksman.state.isAvailable",
+      "from_main_menu_city_to_main_city"
+    ],
+    "annotator": 1,
+    "annotation_id": 43,
+    "created_at": "2025-04-24T11:56:03.303725Z",
+    "updated_at": "2025-05-05T11:58:50.118390Z",
+    "lead_time": 11860.742
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f06b4022-main_menu_done_en.png",
+    "id": 44,
+    "bbox": [
+      {
+        "x": 22.175925925925927,
+        "y": 46.833333333334,
+        "width": 19.166666666666654,
+        "height": 1.9166666666666703,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 22.175925925925956,
+        "y": 51.4166666666673,
+        "width": 19.16666666666661,
+        "height": 1.8333333333333228,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 22.175925925925938,
+        "y": 56.166666666666984,
+        "width": 19.44444444444439,
+        "height": 1.5833333333333321,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 22.037037037037063,
+        "y": 62.95833333333404,
+        "width": 19.629629629629562,
+        "height": 1.8333333333333381,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 57.407407407407405,
+        "y": 61.66666666666666,
+        "width": 1.2037037037037095,
+        "height": 0.5416666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.93187066143623,
+        "y": 39.76455925019146,
+        "width": 22.187510291941248,
+        "height": 1.9166666666666716,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.93187066143623,
+        "y": 35.181225916858125,
+        "width": 22.187510291941248,
+        "height": 1.9166666666666716,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops.infantry.state.TextStatus",
+      "troops.lancer.state.TextStatus",
+      "troops.marksman.state.TextStatus",
+      "tech.state.TextStatus",
+      "tech.state.isAvailable",
+      "buildings.queue2",
+      "buildings.queue1"
+    ],
+    "annotator": 1,
+    "annotation_id": 44,
+    "created_at": "2025-04-24T15:21:47.940099Z",
+    "updated_at": "2025-05-22T04:30:33.075115Z",
+    "lead_time": 732.398
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8f3267aa-troops_get.png",
+    "id": 45,
+    "bbox": [
+      {
+        "x": 40.64241232382826,
+        "y": 44.69026548672567,
+        "width": 18.354637823664376,
+        "height": 6.342182890855462,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.39823008849558,
+        "y": 65.19174041297936,
+        "width": 4.588659455916094,
+        "height": 2.212389380530979,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_get_button",
+      "troops_level"
+    ],
+    "annotator": 1,
+    "annotation_id": 45,
+    "created_at": "2025-04-24T16:36:42.954441Z",
+    "updated_at": "2025-04-24T16:36:49.450169Z",
+    "lead_time": 51.98
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f7283097-troops_start_train.png",
+    "id": 46,
+    "bbox": [
+      {
+        "x": 53.09734513274337,
+        "y": 93.36283185840709,
+        "width": 41.29793510324484,
+        "height": 4.12979351032449,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.899705014749263,
+        "y": 93.21533923303836,
+        "width": 41.29793510324484,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 5.257292690920991,
+        "y": 62.95353982300919,
+        "width": 1.6625696492953308,
+        "height": 0.8982300884953168,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.638806948541462,
+        "y": 3.9823008849557526,
+        "width": 9.177318911832188,
+        "height": 3.9823008849557526,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "troops_train_start_button",
+      "troops_train_finished_button",
+      "troops_update_button",
+      "from_troops_to_main_city"
+    ],
+    "annotator": 1,
+    "annotation_id": 46,
+    "created_at": "2025-04-24T16:53:40.860701Z",
+    "updated_at": "2025-04-25T07:08:54.544104Z",
+    "lead_time": 878.7370000000001
+  },
+  {
+    "ocr": "\/data\/upload\/1\/183fb6d2-mail_notify.png",
+    "id": 47,
+    "bbox": [
+      {
+        "x": 17.89869625710139,
+        "y": 9.087678339284503,
+        "width": 2.90673897657225,
+        "height": 1.17540247968051,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.47171628513556,
+        "y": 9.082658002123594,
+        "width": 3.3837579361327927,
+        "height": 1.1804228168414457,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 55.10430245373645,
+        "y": 9.040991335456912,
+        "width": 3.7793406079028693,
+        "height": 1.1930732137793376,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 74.26561706472881,
+        "y": 9.094870117022836,
+        "width": 3.3412726891320443,
+        "height": 1.1548464762863961,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "mail.state.isWars",
+      "mail.state.isAlliance",
+      "mail.state.isSystem",
+      "mail.state.isReports"
+    ],
+    "annotator": 2,
+    "annotation_id": 48,
+    "created_at": "2025-05-01T10:52:56.682661Z",
+    "updated_at": "2025-05-18T18:45:36.471103Z",
+    "lead_time": 332.61699999999996
+  },
+  {
+    "ocr": "\/data\/upload\/1\/c39c01e7-alliance.png",
+    "id": 48,
+    "bbox": [
+      {
+        "x": 48.56670712309299,
+        "y": 42.50760874208612,
+        "width": 0.3141463839796188,
+        "height": 0.17670734098853558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.44890222910063,
+        "y": 50.90120743904154,
+        "width": 0.35341468197707826,
+        "height": 0.19437807508738558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 92.65682827447642,
+        "y": 42.52527947618497,
+        "width": 0.3141463839796188,
+        "height": 0.15903660688968557,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 92.61755997647897,
+        "y": 59.25946466779926,
+        "width": 0.3141463839796046,
+        "height": 0.14136587279082846,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 93.52073083042036,
+        "y": 67.65306336475469,
+        "width": 0.35341468197707115,
+        "height": 0.19437807508738558,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "alliance.war.isNotify",
+      "alliance.territory.isNotify",
+      "alliance.chests.isNotify",
+      "alliance.tech.isNotify",
+      "alliance.help.isNotify"
+    ],
+    "annotator": 1,
+    "annotation_id": 49,
+    "created_at": "2025-05-02T18:13:30.613482Z",
+    "updated_at": "2025-05-02T18:13:30.613512Z",
+    "lead_time": 127.967
+  },
+  {
+    "ocr": "\/data\/upload\/1\/bcdc68a0-main_city.png",
+    "id": 49,
+    "bbox": [
+      {
+        "x": 13.06652615865225,
+        "y": 94.12006322860648,
+        "width": 1.045322092692178,
+        "height": 0.3998357004547728,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 29.530349118554085,
+        "y": 94.12006322860648,
+        "width": 1.149854301961394,
+        "height": 0.3998357004547728,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 61.62173736420401,
+        "y": 94.14358297569206,
+        "width": 1.097588197326786,
+        "height": 0.376315953369172,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "exploration.isNotify",
+      "heroes.isNotify",
+      "shop.isNotify"
+    ],
+    "annotator": 1,
+    "annotation_id": 50,
+    "created_at": "2025-05-02T18:27:13.393872Z",
+    "updated_at": "2025-05-02T18:27:13.393901Z",
+    "lead_time": 125.78
+  },
+  {
+    "ocr": "\/data\/upload\/1\/ee512ea8-main_city_vip.png",
+    "id": 50,
+    "bbox": [
+      {
+        "x": 78.09190388735844,
+        "y": 6.9183571249686935,
+        "width": 1.1130589642986308,
+        "height": 0.4695717505634853,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 7.887430335768267,
+        "y": 84.18132163077956,
+        "width": 0.28508784346150406,
+        "height": 0.27796064737496806,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 62.13929932938197,
+        "y": 7.231404958677685,
+        "width": 0.4173971116119972,
+        "height": 0.21913348359629303,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isNotify",
+      "dailyMissions.isNotify",
+      "vip.state.isActive"
+    ],
+    "annotator": 1,
+    "annotation_id": 51,
+    "created_at": "2025-05-04T10:48:07.446278Z",
+    "updated_at": "2025-05-04T11:02:50.024058Z",
+    "lead_time": 390.152
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a639eacb-vip_page.png",
+    "id": 51,
+    "bbox": [
+      {
+        "x": 76.01851851851852,
+        "y": 19.749999999999996,
+        "width": 0.9259259259259238,
+        "height": 0.4583333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.55555555555556,
+        "y": 19.374999999999993,
+        "width": 0.925925925925938,
+        "height": 0.37500000000000355,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 71.11111111111111,
+        "y": 71,
+        "width": 2.4074074074074048,
+        "height": 1.0833333333333286,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 32.448377581120944,
+        "y": 93.21533923303836,
+        "width": 35.07046869878729,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.424778761061948,
+        "width": 9.50508030154048,
+        "height": 3.2448377581120953,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 81.9403474270731,
+        "y": 19.6165191740413,
+        "width": 9.177318911832188,
+        "height": 3.3923303834808287,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.46869878728288,
+        "y": 20.206489675516227,
+        "width": 6.2274664044575445,
+        "height": 2.507374631268437,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isAdd",
+      "vip.state.isAward",
+      "vip.state.isClaim",
+      "vip.time",
+      "from_vip_to_main_city",
+      "vip_award_button",
+      "to_vip_add"
+    ],
+    "annotator": 1,
+    "annotation_id": 52,
+    "created_at": "2025-05-04T10:53:39.549379Z",
+    "updated_at": "2025-05-04T11:54:21.389453Z",
+    "lead_time": 315.635
+  },
+  {
+    "ocr": "\/data\/upload\/1\/8ff690a7-vip_add_with_use.png",
+    "id": 52,
+    "bbox": [
+      {
+        "x": 70.46869878728288,
+        "y": 36.13569321533924,
+        "width": 5.571943625040959,
+        "height": 1.032448377581126,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 19.6165191740413,
+        "width": 4.260898066207787,
+        "height": 1.6224188790560454,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isVIPAddAvailable",
+      "from_vip_add_to_vip"
+    ],
+    "annotator": 1,
+    "annotation_id": 53,
+    "created_at": "2025-05-04T11:51:33.821191Z",
+    "updated_at": "2025-05-04T11:54:53.368812Z",
+    "lead_time": 62.661
+  },
+  {
+    "ocr": "\/data\/upload\/1\/02ff892a-vip_add_with_use_x.png",
+    "id": 53,
+    "bbox": [
+      {
+        "x": 43.59226483120289,
+        "y": 34.80825958702066,
+        "width": 5.571943625040966,
+        "height": 1.622418879056049,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 18.879056047197643,
+        "width": 3.933136676499501,
+        "height": 2.507374631268437,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 16.71583087512291,
+        "y": 84.80825958702066,
+        "width": 72.10750573582433,
+        "height": 1.3274336283185875,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "vip.state.isVIPAddAvailableX",
+      "from_vip_add_to_vip",
+      "vip_add_any_click"
+    ],
+    "annotator": 1,
+    "annotation_id": 54,
+    "created_at": "2025-05-04T12:03:43.993267Z",
+    "updated_at": "2025-05-04T12:31:46.242576Z",
+    "lead_time": 304.272
+  },
+  {
+    "ocr": "\/data\/upload\/1\/d6f5fd06-chief_order_notify.png",
+    "id": 54,
+    "bbox": [
+      {
+        "x": 40.54943373125191,
+        "y": 26.37741046831956,
+        "width": 0.994796449341905,
+        "height": 0.378787878787886,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.96388123660849,
+        "y": 26.411845730027554,
+        "width": 1.071319253137446,
+        "height": 0.3787878787878789,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 40.47291092745638,
+        "y": 46.5564738292011,
+        "width": 1.2243648607284996,
+        "height": 0.30991735537190124,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.9638812366085,
+        "y": 46.590909090909086,
+        "width": 1.1478420569329586,
+        "height": 0.37878787878788245,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 40.549433731251916,
+        "y": 66.76997245179062,
+        "width": 1.0713192531374318,
+        "height": 0.37878787878788955,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 78.9638812366085,
+        "y": 66.73553719008265,
+        "width": 1.0713192531374318,
+        "height": 0.30991735537189413,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 80.18518518518519,
+        "y": 5.291666666666676,
+        "width": 13.981481481481502,
+        "height": 1.5833333333333317,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 2.2943297279580466,
+        "y": 4.129793510324484,
+        "width": 9.177318911832188,
+        "height": 3.0973451327433628,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "chief.state.isUrgentMobilization",
+      "chief.state.isRushJob",
+      "chief.state.isComprehensiveCare",
+      "chief.state.isDoubleTime",
+      "chief.state.isProductivityDay",
+      "chief.state.isFestivities",
+      "chief.contentment",
+      "from_chief_orders_to_main_city"
+    ],
+    "annotator": 1,
+    "annotation_id": 55,
+    "created_at": "2025-05-04T15:27:31.939792Z",
+    "updated_at": "2025-05-04T15:35:30.469632Z",
+    "lead_time": 203.851
+  },
+  {
+    "ocr": "\/data\/upload\/1\/af2672c0-chief_order_enact.png",
+    "id": 55,
+    "bbox": [
+      {
+        "x": 33.10390036053753,
+        "y": 67.99410029498526,
+        "width": 34.0871845296624,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 1.3110455588331695,
+        "y": 4.129793510324484,
+        "width": 10.488364470665356,
+        "height": 3.392330383480826,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "chief_orders_enact",
+      "from_chief_orders_enact_to_chief_orders"
+    ],
+    "annotator": 1,
+    "annotation_id": 56,
+    "created_at": "2025-05-04T15:48:32.707890Z",
+    "updated_at": "2025-05-04T15:48:32.708004Z",
+    "lead_time": 78.107
+  },
+  {
+    "ocr": "\/data\/upload\/1\/b0c91f8f-daily_missions.png",
+    "id": 56,
+    "bbox": [
+      {
+        "x": 35.07046869878729,
+        "y": 75.07374631268438,
+        "width": 5.899705014749266,
+        "height": 2.3598820058997063,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 93.41199606686334,
+        "y": 18.731563421828913,
+        "width": 4.588659455916087,
+        "height": 1.917404129793507,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 48.1644180377268,
+        "y": 83.95373138905934,
+        "width": 0.20906441853842495,
+        "height": 0.3292764591980273,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 19.665683382497544,
+        "y": 81.2684365781711,
+        "width": 26.220911176663396,
+        "height": 2.9498525073746293,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 70.79646017699116,
+        "y": 42.18289085545723,
+        "width": 25.565388397246807,
+        "height": 29.941002949852518,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "dailyMissions.state.isClaimAll",
+      "from_daily_missions_to_main_city",
+      "growthMissions.isNotify",
+      "to_growth_missions",
+      "dailyMissions.state.isClaimButton"
+    ],
+    "annotator": 1,
+    "annotation_id": 57,
+    "created_at": "2025-05-05T10:36:28.011993Z",
+    "updated_at": "2025-05-05T10:45:03.167457Z",
+    "lead_time": 231.153
+  },
+  {
+    "ocr": "\/data\/upload\/1\/91c71cf9-growth_missions.png",
+    "id": 57,
+    "bbox": [
+      {
+        "x": 93.08423467715504,
+        "y": 18.731563421828913,
+        "width": 4.916420845624387,
+        "height": 1.917404129793507,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 52.76958374303508,
+        "y": 81.12094395280238,
+        "width": 23.271058669288756,
+        "height": 2.949852507374615,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 69.81317600786626,
+        "y": 27.138643067846584,
+        "width": 26.876433956079943,
+        "height": 51.917404129793546,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "from_growth_missions_to_main_city",
+      "from_growth_missions_to_daily_missions",
+      "growthMissions.state.isClaimButton"
+    ],
+    "annotator": 1,
+    "annotation_id": 58,
+    "created_at": "2025-05-05T10:37:56.280259Z",
+    "updated_at": "2025-05-05T10:47:58.415193Z",
+    "lead_time": 106.37300000000002
+  },
+  {
+    "ocr": "\/data\/upload\/1\/bf330805-welcome.png",
+    "id": 58,
+    "bbox": [
+      {
+        "x": 0,
+        "y": 16.814159292035402,
+        "width": 23.271058669288767,
+        "height": 9.439528023598813,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 0,
+        "y": 28.76106194690266,
+        "width": 22.287774500163884,
+        "height": 3.3923303834808216,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "screenState.isWelcome",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 59,
+    "created_at": "2025-05-05T12:24:54.403281Z",
+    "updated_at": "2025-05-05T12:30:44.443187Z",
+    "lead_time": 33.813
+  },
+  {
+    "ocr": "\/data\/upload\/1\/1bbf797d-welcome_in.png",
+    "id": 59,
+    "bbox": [
+      {
+        "x": 34.08718452966241,
+        "y": 77.43362831858408,
+        "width": 32.44837758112095,
+        "height": 3.392330383480825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 62.27466404457556,
+        "y": 86.43067846607671,
+        "width": 37.72533595542444,
+        "height": 7.817109144542769,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "welcome_in",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 60,
+    "created_at": "2025-05-05T12:27:25.095050Z",
+    "updated_at": "2025-05-05T12:27:25.095083Z",
+    "lead_time": 20.768
+  },
+  {
+    "ocr": "\/data\/upload\/1\/6119666f-arena_challenge_list.png",
+    "id": 60,
+    "bbox": [
+      {
+        "x": 32.59095378564403,
+        "y": 75.93620943952801,
+        "width": 3.3349721402818817,
+        "height": 2.4756637168140236,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 25.185185185185183,
+        "y": 33.58333333333333,
+        "width": 10.648148148148158,
+        "height": 1.7083333333333288,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 25.185185185185176,
+        "y": 41.630372827504466,
+        "width": 10.648148148148156,
+        "height": 1.6612938391621757,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 25.139132370537325,
+        "y": 49.64073471080023,
+        "width": 10.648148148148156,
+        "height": 1.6612938391621705,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 25.249390906496423,
+        "y": 57.62499999999997,
+        "width": 10.648148148148158,
+        "height": 1.7083333333333288,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 25.15157170344035,
+        "y": 65.69253838846075,
+        "width": 10.648148148148158,
+        "height": 1.7083333333333288,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 82.59587020648968,
+        "y": 32.74336283185841,
+        "width": 7.8662733529990305,
+        "height": 2.802359882005902,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 82.26810881678138,
+        "y": 40.85545722713864,
+        "width": 7.86627335299903,
+        "height": 2.8023598820059026,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 82.92363159619796,
+        "y": 49.11504424778761,
+        "width": 7.86627335299903,
+        "height": 2.8023598820059026,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 82.92363159619796,
+        "y": 56.63716814159292,
+        "width": 7.86627335299903,
+        "height": 2.8023598820059026,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 82.92363159619796,
+        "y": 64.74926253687315,
+        "width": 7.86627335299903,
+        "height": 2.8023598820059026,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 56.62037037037035,
+        "y": 71.54166666666669,
+        "width": 3.5185185185185106,
+        "height": 1.708333333333393,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 62.91666666666668,
+        "y": 71.45833333333333,
+        "width": 4.166666666666664,
+        "height": 1.6666666666666714,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 90.46214355948871,
+        "y": 22.861356932153395,
+        "width": 4.588659455916087,
+        "height": 2.064896755162245,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "arena.state.isFreeRefresh",
+      "arena.state.enemyPower1",
+      "arena.state.enemyPower2",
+      "arena.state.enemyPower3",
+      "arena.state.enemyPower4",
+      "arena.state.enemyPower5",
+      "arena.enemyPower1FightButton",
+      "arena.enemyPower2FightButton",
+      "arena.enemyPower3FightButton",
+      "arena.enemyPower4FightButton",
+      "arena.enemyPower5FightButton",
+      "arena.state.countAvailableFight",
+      "to_arena_challenge_add",
+      "from_challange_list_to_arena_main"
+    ],
+    "annotator": 1,
+    "annotation_id": 66,
+    "created_at": "2025-05-09T17:29:57.819835Z",
+    "updated_at": "2025-05-09T20:58:55.527878Z",
+    "lead_time": 2385.197
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4b6b9026-arena_city_view.png",
+    "id": 61,
+    "bbox": [
+      {
+        "x": 27.53195673549656,
+        "y": 46.90265486725664,
+        "width": 38.34808259587021,
+        "height": 14.4542772861357,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 77.351687971157,
+        "y": 72.71386430678467,
+        "width": 7.21075057358243,
+        "height": 3.5398230088495666,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_arena_main",
+      "to_fishing_main"
+    ],
+    "annotator": 1,
+    "annotation_id": 61,
+    "created_at": "2025-05-09T17:14:22.009416Z",
+    "updated_at": "2025-05-09T17:14:22.009445Z",
+    "lead_time": 149.923
+  },
+  {
+    "ocr": "\/data\/upload\/1\/a0213121-arena_defensive_squad_lineup.png",
+    "id": 62,
+    "bbox": [
+      {
+        "x": 9.50508030154048,
+        "y": 93.21533923303836,
+        "width": 34.4149459193707,
+        "height": 3.834808259587021,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 56.04719764011799,
+        "y": 93.51032448377583,
+        "width": 35.0704686987873,
+        "height": 3.5398230088495524,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "arena_defensive_quick_deploy_button",
+      "arena_defensive_save_button"
+    ],
+    "annotator": 1,
+    "annotation_id": 64,
+    "created_at": "2025-05-09T17:21:26.543231Z",
+    "updated_at": "2025-05-09T17:21:26.543257Z",
+    "lead_time": 57.411
+  },
+  {
+    "ocr": "\/data\/upload\/1\/5e637332-arena_fight.png",
+    "id": 63,
+    "bbox": [
+      {
+        "x": 5.244182235332678,
+        "y": 78.76106194690267,
+        "width": 6.555227794165848,
+        "height": 2.6548672566371607,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 89.47885939036382,
+        "y": 78.61356932153394,
+        "width": 1.6388069485414718,
+        "height": 0.8849557522123774,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "arena_fight_exit",
+      "arena.state.isX2"
+    ],
+    "annotator": 1,
+    "annotation_id": 65,
+    "created_at": "2025-05-09T17:22:12.920539Z",
+    "updated_at": "2025-05-09T17:22:12.920570Z",
+    "lead_time": 42.967
+  },
+  {
+    "ocr": "\/data\/upload\/1\/4b0d51c8-arena_main.png",
+    "id": 64,
+    "bbox": [
+      {
+        "x": 81.28482464765652,
+        "y": 93.65781710914456,
+        "width": 9.505080301540474,
+        "height": 4.277286135693217,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 30.481809242871194,
+        "y": 93.80530973451329,
+        "width": 35.725991478203866,
+        "height": 4.424778761061958,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 3.6053752867912165,
+        "y": 85.39823008849558,
+        "width": 16.388069485414622,
+        "height": 3.834808259587035,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 38.34808259587021,
+        "y": 88.20058997050148,
+        "width": 10.160603080957067,
+        "height": 1.7699115044247833,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 68.66594655643054,
+        "y": 93.59587674073937,
+        "width": 0.4628026416324707,
+        "height": 0.4408707269862337,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_arena_defensive_squad_lineup",
+      "to_arena_challenge_list",
+      "arena.rank",
+      "arena.myPower",
+      "arena.state.isAvailableFight"
+    ],
+    "annotator": 1,
+    "annotation_id": 62,
+    "created_at": "2025-05-09T17:18:47.797943Z",
+    "updated_at": "2025-05-09T19:49:02.083010Z",
+    "lead_time": 2348.491
+  },
+  {
+    "ocr": "\/data\/upload\/1\/85b0f61e-arena_victory.png",
+    "id": 66,
+    "bbox": [
+      {
+        "x": 30.809570632579486,
+        "y": 94.98525073746315,
+        "width": 38.6758439855785,
+        "height": 3.687315634218294,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 45.55883316945263,
+        "y": 74.92625368731566,
+        "width": 44.90331039003606,
+        "height": 2.8023598820058995,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "arena_tap_anywhere_to_exit",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 63,
+    "created_at": "2025-05-09T17:20:23.868715Z",
+    "updated_at": "2025-05-09T17:24:27.313977Z",
+    "lead_time": 162.469
+  },
+  {
+    "ocr": "\/data\/upload\/1\/c57ef4af-heal_injured_main.png",
+    "id": 67,
+    "bbox": [
+      {
+        "x": 80.95706325794822,
+        "y": 31.71091445427729,
+        "width": 3.9331366764995153,
+        "height": 1.6224188790560454,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 59.980334316617515,
+        "y": 78.31858407079648,
+        "width": 23.27105866928875,
+        "height": 2.6548672566371607,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 66.20780072107507,
+        "y": 76.46533923303836,
+        "width": 12.127171419206832,
+        "height": 1.8532448377581063,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 33.10390036053753,
+        "y": 30.530973451327437,
+        "width": 29.498525073746315,
+        "height": 3.2448377581120944,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "from_heal_injured_to_world",
+      "heal_injured_help_button",
+      "healInjured.state.statusHeal",
+      "healInjured.state.isNext"
+    ],
+    "annotator": 1,
+    "annotation_id": 67,
+    "created_at": "2025-05-10T16:58:32.711202Z",
+    "updated_at": "2025-05-10T17:44:17.599344Z",
+    "lead_time": 142.57999999999998
+  },
+  {
+    "ocr": "\/data\/upload\/1\/43bc854c-heal_injured_obtain.png",
+    "id": 68,
+    "bbox": [
+      {
+        "x": 31.13733202228778,
+        "y": 80.82595870206491,
+        "width": 5.24418223533268,
+        "height": 3.6873156342182796,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 47.85316289741069,
+        "y": 88.79056047197642,
+        "width": 29.498525073746322,
+        "height": 8.554572271386434,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "healInjured.state.isReplenishAll",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 68,
+    "created_at": "2025-05-10T16:59:21.616618Z",
+    "updated_at": "2025-05-10T16:59:21.616707Z",
+    "lead_time": 46.705
+  },
+  {
+    "ocr": "\/data\/upload\/1\/799b0c2c-heal_injured.png",
+    "id": 69,
+    "bbox": [
+      {
+        "x": 66.86332350049165,
+        "y": 71.38643067846608,
+        "width": 19.337921992789248,
+        "height": 16.8141592920354,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 22.615535889872177,
+        "y": 76.84365781710916,
+        "width": 14.749262536873154,
+        "height": 2.0648967551622377,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "healInjured.state.isAvailable",
+      "second"
+    ],
+    "annotator": 1,
+    "annotation_id": 69,
+    "created_at": "2025-05-10T17:05:24.938307Z",
+    "updated_at": "2025-05-10T17:05:24.938340Z",
+    "lead_time": 26.302
+  },
+  {
+    "ocr": "\/data\/upload\/1\/0f9786ab-chat_world.png",
+    "id": 70,
+    "bbox": [
+      {
+        "x": 4.916420845624386,
+        "y": 8.997050147492628,
+        "width": 27.204195345788264,
+        "height": 3.9823008849557517,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 36.053752867912166,
+        "y": 9.439528023598822,
+        "width": 27.531956735496557,
+        "height": 3.392330383480827,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 67.51884627990823,
+        "y": 9.734513274336285,
+        "width": 27.85971812520485,
+        "height": 2.949852507374631,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "to_chat_world",
+      "to_chat_alliance",
+      "to_chat_personal"
+    ],
+    "annotator": 1,
+    "annotation_id": 70,
+    "created_at": "2025-05-11T13:47:36.410814Z",
+    "updated_at": "2025-05-11T13:55:56.375894Z",
+    "lead_time": 98.32600000000001
+  },
+  {
+    "ocr": "\/data\/upload\/1\/efc332f8-building_main.png",
+    "id": 71,
+    "bbox": [
+      {
+        "x": 54.73615208128483,
+        "y": 75.07374631268438,
+        "width": 37.03703703703705,
+        "height": 1.7699115044247833,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 88.82333661094725,
+        "y": 23.00884955752213,
+        "width": 6.55522779416583,
+        "height": 2.654867256637168,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "building.start",
+      "building.close"
+    ],
+    "annotator": 2,
+    "annotation_id": 72,
+    "created_at": "2025-05-22T04:42:30.403850Z",
+    "updated_at": "2025-05-22T04:42:30.403882Z",
+    "lead_time": 63.567
+  },
+  {
+    "ocr": "\/data\/upload\/1\/fdc43d55-queue1.png",
+    "id": 72,
+    "bbox": [
+      {
+        "x": 46.54211733857752,
+        "y": 66.51917404129794,
+        "width": 7.21075057358243,
+        "height": 4.12979351032449,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 35.26302851524091,
+        "y": 45.97603244837757,
+        "width": 5.24418223533268,
+        "height": 1.7699115044247764,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 43.37962962962963,
+        "y": 45.87500000000001,
+        "width": 21.48148148148148,
+        "height": 2.291666666666657,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 43.42592592592594,
+        "y": 71.25000000000001,
+        "width": 13.240740740740609,
+        "height": 2.041666666666644,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "building_upgrade_start",
+      "building.level",
+      "building.name",
+      "buildings.state.text"
+    ],
+    "annotator": 2,
+    "annotation_id": 71,
+    "created_at": "2025-05-22T04:40:33.381446Z",
+    "updated_at": "2025-05-23T13:52:58.344860Z",
+    "lead_time": 260.468
+  },
+  {
+    "ocr": "\/data\/upload\/1\/f244a04c-building_help.png",
+    "id": 73,
+    "bbox": [
+      {
+        "x": 44.247787610619476,
+        "y": 44.69026548672567,
+        "width": 11.143887250081939,
+        "height": 4.1297935103244825,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      },
+      {
+        "x": 39.003605375286796,
+        "y": 53.244837758112105,
+        "width": 25.237627007538507,
+        "height": 1.769911504424769,
+        "rotation": 0,
+        "original_width": 1080,
+        "original_height": 2400
+      }
+    ],
+    "transcription": [
+      "building.help",
+      "building.time"
+    ],
+    "annotator": 2,
+    "annotation_id": 73,
+    "created_at": "2025-05-22T04:48:25.394280Z",
+    "updated_at": "2025-05-22T04:48:25.394309Z",
+    "lead_time": 33.029
+  }
+]

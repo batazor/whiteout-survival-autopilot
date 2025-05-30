@@ -1,0 +1,51 @@
+# TODO: добавить кейс нехватки ресурсов - obtain more
+
+name: Upgrade Alliance Tech # Название usecase — улучшение технологии альянса
+
+node: alliance_tech         # Стартовый экран — "технологии альянса"
+
+priority: 20
+
+ttl: 90m                    # Таймаут: повторное выполнение возможно через 90 минут
+
+steps:
+  - action: screenshot               # 📸 Ищем иконку технологии с зелёным пальцем вверх (избранная технология)
+    analyze:
+      - name: alliance.tech.favorite
+        action: findIcon
+        threshold: 0.8
+        saveAsRegion: true          # 💾 Сохраняем зону найденной иконки под именем alliance.tech.favorite
+
+  - click: alliance.tech.favorite   # 👉 Кликаем по найденной технологии, чтобы открыть экран с кнопкой "Contribute"
+
+  - wait: 200ms # Ждем отрисовки анимации
+
+  - action: screenshot               # 📸 Делаем скриншот текущего экрана
+    analyze:
+      - name: alliance.state.isAllianceContributeButton
+        action: color_check          # 🎨 Проверяем цвет кнопки "Contribute"
+        expectedColorBg: blue
+        threshold: 0.5
+
+  - if:
+      trigger: "alliance.state.isAllianceContributeButton == false"
+      then:
+        - click: alliance_tech_contribute_back
+
+  - action: loop                     # 🔁 Запускаем цикл, пока кнопка "Contribute" остаётся синей
+    trigger: alliance.state.isAllianceContributeButton
+    steps:
+      - longtap: alliance.state.isAllianceContributeButton
+        wait: 3s                     # 🧷 Удерживаем кнопку (longtap) 3 секунды — это усиливает вклад
+
+      - action: screenshot           # 📸 После нажатия снова делаем скриншот
+        analyze:
+          - name: alliance.state.isAllianceContributeButton
+            action: color_check
+            expectedColorBg: blue
+            threshold: 0.5
+
+      - if:
+          trigger: "!alliance.state.isAllianceContributeButton"
+          then:
+            - click: alliance_tech_contribute_back

@@ -1,0 +1,28 @@
+name: "🤝 Auto Join Bear Hunt Rally"
+
+node: alliance_war
+
+ttl: 10m
+
+trigger: "rally.state.isOpen == true && rally.state.hasJoined == false"
+
+steps:
+  - click: rally_list_button
+  - wait: 500ms
+  - click: rally_entry_bear_hunt
+  - wait: 500ms
+
+  - action: screenshot
+    analyze:
+      - name: rally.state.troopSelection
+        action: exist
+        threshold: 0.85
+
+  - if:
+      trigger: "rally.state.troopSelection == true"
+      then:
+        - click: rally_troop_preset_button
+        - wait: 200ms
+        - click: rally_join_button
+        - set: rally.state.hasJoined
+          to: true
